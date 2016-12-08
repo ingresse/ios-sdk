@@ -76,10 +76,10 @@ public class IngresseService {
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
             DispatchQueue.main.async {
                 do {
-//                    try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (responseData:[String : Any]) in
-//                        handler(responseData as [String : AnyObject], true)
-//                    })
-                } catch IngresseAPIError.errorWithCode(let code) {
+                    try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (responseData:[String : Any]) in
+                        handler(responseData as [String : AnyObject], true)
+                    })
+                } catch IngresseAPIError.errorWithCode( _) {
 //                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
                     handler([:], false)
                 } catch {
@@ -115,7 +115,7 @@ public class IngresseService {
                     try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (response:[String:Any]) in
                         handler(true, response)
                     })
-                } catch IngresseAPIError.errorWithCode(let code) {
+                } catch IngresseAPIError.errorWithCode( _) {
 //                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
                     handler(false, [:])
                 } catch {
