@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
     spec.homepage = "https://github.com/ingresse/ios-sdk"
     spec.license = { type: 'MIT', file: 'LICENSE' }
     spec.authors = { "Ingresse" => 'mobile@ingresse.com' }
-    spec.social_media_url = "http://twitter.com/thoughtbot"
+    spec.social_media_url = "http://twitter.com/ingresse"
 
     spec.platform = :ios, "7.0"
     spec.requires_arc = true
