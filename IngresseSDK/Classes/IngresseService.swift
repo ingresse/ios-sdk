@@ -20,8 +20,8 @@ public class IngresseService {
     
     var publicKey: String
     var privateKey: String
-    var host: APIHost?
     var urlHost: String
+    var host: APIHost?
     
     public init () {
         self.publicKey = ""
@@ -70,22 +70,19 @@ public class IngresseService {
         return URL
     }
     
-    public func restGET(_ url: String, handler: @escaping (_ response: [String:AnyObject], _ success: Bool)->()) {
+    public func restGET(_ url: String, handler: @escaping ( _ success: Bool, _ response: [String:Any])->()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
             DispatchQueue.main.async {
                 do {
                     try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (responseData:[String : Any]) in
-                        handler(responseData as [String : AnyObject], true)
+                        handler(true, responseData)
                     })
-                } catch IngresseAPIError.errorWithCode( _) {
-//                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
-                    handler([:], false)
+                } catch IngresseAPIError.errorWithCode(let code) {
+                    handler(false, ["errorCode": code])
                 } catch {
-//                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: {
-//                        handler([:], false)
-//                    })
+                    handler(false, [:])
                 }
             }
         }
@@ -115,13 +112,10 @@ public class IngresseService {
                     try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (response:[String:Any]) in
                         handler(true, response)
                     })
-                } catch IngresseAPIError.errorWithCode( _) {
-//                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
-                    handler(false, [:])
+                } catch IngresseAPIError.errorWithCode(let code) {
+                    handler(false, ["errorCode":code])
                 } catch {
-//                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: { () in
-//                        handler(false, [:])
-//                    })
+                    handler(false, [:])
                 }
             }
         }

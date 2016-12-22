@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		629A68D81DF9C0DF00773A25 /* IngresseSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */; };
+		629A68DD1DF9D68B00773A25 /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629A68DC1DF9D68B00773A25 /* EventAttributes.swift */; };
+		629A68DF1DF9D6C400773A25 /* IngresseService_Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629A68DE1DF9D6C400773A25 /* IngresseService_Events.swift */; };
+		629A68E21DF9F63C00773A25 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629A68E11DF9F63C00773A25 /* URLBuilder.swift */; };
 		62D33D831DF9A32C00BE216F /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D33D791DF9A32C00BE216F /* IngresseSDK.framework */; };
 		62D33D881DF9A32C00BE216F /* IngresseSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D33D871DF9A32C00BE216F /* IngresseSDKTests.swift */; };
 		62D33D8A1DF9A32C00BE216F /* IngresseSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,6 +30,9 @@
 
 /* Begin PBXFileReference section */
 		629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IngresseSDK.podspec; sourceTree = "<group>"; };
+		629A68DC1DF9D68B00773A25 /* EventAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventAttributes.swift; path = Classes/EventAttributes.swift; sourceTree = "<group>"; };
+		629A68DE1DF9D6C400773A25 /* IngresseService_Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService_Events.swift; path = Classes/IngresseService_Events.swift; sourceTree = "<group>"; };
+		629A68E11DF9F63C00773A25 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		62D33D791DF9A32C00BE216F /* IngresseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IngresseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IngresseSDK.h; sourceTree = "<group>"; };
 		62D33D7D1DF9A32C00BE216F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +62,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		629A68DB1DF9D5F400773A25 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				629A68DC1DF9D68B00773A25 /* EventAttributes.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		629A68E01DF9F60800773A25 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				629A68E11DF9F63C00773A25 /* URLBuilder.swift */,
+			);
+			name = Crypto;
+			sourceTree = "<group>";
+		};
 		62D33D6F1DF9A32C00BE216F = {
 			isa = PBXGroup;
 			children = (
@@ -78,10 +100,13 @@
 		62D33D7B1DF9A32C00BE216F /* IngresseSDK */ = {
 			isa = PBXGroup;
 			children = (
+				629A68E01DF9F60800773A25 /* Crypto */,
+				629A68DB1DF9D5F400773A25 /* Model */,
 				62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */,
 				62D33D7D1DF9A32C00BE216F /* Info.plist */,
 				62D33D971DF9A4C600BE216F /* IngresseService.swift */,
 				62D33D991DF9A6B000BE216F /* IngresseAPIBuilder.swift */,
+				629A68DE1DF9D6C400773A25 /* IngresseService_Events.swift */,
 			);
 			path = IngresseSDK;
 			sourceTree = "<group>";
@@ -209,7 +234,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629A68E21DF9F63C00773A25 /* URLBuilder.swift in Sources */,
+				629A68DF1DF9D6C400773A25 /* IngresseService_Events.swift in Sources */,
 				62D33D9A1DF9A6B000BE216F /* IngresseAPIBuilder.swift in Sources */,
+				629A68DD1DF9D68B00773A25 /* EventAttributes.swift in Sources */,
 				62D33D981DF9A4C600BE216F /* IngresseService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
