@@ -24,7 +24,7 @@ extension IngresseService {
         
         let url = makeURL(path, parameters: [:], userToken: nil)
         
-        restGET(url) { (response: [String:AnyObject], success: Bool) in
+        restGET(url) { (success: Bool, response: [String:Any]) in
             
             var attributes: EventAttributes? = nil
             

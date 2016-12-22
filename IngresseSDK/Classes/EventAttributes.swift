@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EventAttributes: NSObject {
+public class EventAttributes: NSObject {
     var acceptedApps : [String] = []
     var ticketTransferRequired : Bool = false
     var ticketTransferEnabled : Bool = true
@@ -17,7 +17,7 @@ class EventAttributes: NSObject {
         case invalidFormat
     }
     
-    func inputData(_ responseData: [String:Any]) throws {
+    public func inputData(_ responseData: [String:Any]) throws {
         
         try self.validateArray(responseData["accepted_apps"] as AnyObject);
         try self.validateBool(responseData["ticket_transfer_enabled"] as AnyObject)
