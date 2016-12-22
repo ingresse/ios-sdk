@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name = "IngresseSDK"
-    spec.version = "0.0.1"
+    spec.version = "0.0.2"
     spec.summary = "Ingresse API usage SDK."
     spec.homepage = "https://github.com/ingresse/ios-sdk"
     spec.license = { type: 'MIT', file: 'LICENSE' }
@@ -9,6 +9,6 @@ Pod::Spec.new do |spec|
 
     spec.platform = :ios, "8.0"
     spec.requires_arc = true
-    spec.source = { git: "https://github.com/ingresse/ios-sdk.git", tag: "v#{spec.version}", submodules: true }
+    spec.source = { git: "https://github.com/ingresse/ios-sdk.git", tag: "#{spec.version}", submodules: true }
     spec.source_files = "IngresseSDK/**/*.{h,swift}"
 end
