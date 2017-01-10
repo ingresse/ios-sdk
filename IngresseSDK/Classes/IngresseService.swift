@@ -70,7 +70,7 @@ open class IngresseService {
         return URL
     }
     
-    open func restGET(_ url: String, handler: @escaping ( _ success: Bool, _ response: [String:Any])->()) {
+    open func GET(_ url: String, handler: @escaping ( _ success: Bool, _ response: [String:Any])->()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
@@ -91,7 +91,7 @@ open class IngresseService {
         }
     }
     
-    open func restPOST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
+    open func POST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
         request.httpMethod = "POST"
         

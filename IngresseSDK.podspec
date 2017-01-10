@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name = "IngresseSDK"
-    spec.version = "0.0.1"
+    spec.version = "0.0.2"
     spec.summary = "Ingresse API usage SDK."
     spec.homepage = "https://github.com/ingresse/ios-sdk"
     spec.license = { type: 'MIT', file: 'LICENSE' }
