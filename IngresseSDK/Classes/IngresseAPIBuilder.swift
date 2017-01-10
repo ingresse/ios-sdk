@@ -28,7 +28,7 @@ class IngresseAPIBuilder: NSObject {
      - parameter data:     Data bytes
      - parameter completionHandler: Callback block in case of success
      */
-    static func build(response:URLResponse?, data:Data?, error:Error?, completionHandler:(_ responseData:[String:Any])->()) throws {
+    static func build(_ response:URLResponse?, data:Data?, error:Error?, completionHandler:(_ responseData:[String:Any])->()) throws {
         if (data == nil || response == nil) {
             throw IngresseAPIError.requestError
         }
@@ -48,7 +48,7 @@ class IngresseAPIBuilder: NSObject {
                 // Show alert with error code
                 let code = responseError["code"] as! Int
                 
-                crashlyticsLog(error: .errorWithCode(code: code), userInfo: responseError)
+                crashlyticsLog(.errorWithCode(code: code), userInfo: responseError)
                 throw IngresseAPIError.errorWithCode(code: code)
             }
         }
@@ -67,7 +67,7 @@ class IngresseAPIBuilder: NSObject {
         completionHandler(responseData)
     }
     
-    static func crashlyticsLog(error: IngresseAPIError, userInfo: [String:Any]?) {
+    static func crashlyticsLog(_ error: IngresseAPIError, userInfo: [String:Any]?) {
 //        crash.recordError(error, withAdditionalUserInfo: userInfo)
     }
 }

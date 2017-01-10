@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import IngresseSDK
 
 class IngresseSDKTests: XCTestCase {
     

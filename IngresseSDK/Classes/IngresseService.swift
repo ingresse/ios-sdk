@@ -12,7 +12,7 @@ public enum APIHost: Int {
     case prod, homolog, mock
 }
 
-public class IngresseService {
+open class IngresseService {
     
     let apiProdURL = "https://api.ingresse.com/"
     let apiHMLURL = "https://apihml.ingresse.com/"
@@ -54,7 +54,7 @@ public class IngresseService {
         self.urlHost = url
     }
     
-    public func makeURL(_ path: String, parameters: [String:String],  userToken: String?) -> String {
+    open func makeURL(_ path: String, parameters: [String:String],  userToken: String?) -> String {
         var URL = urlHost
         URL += path
         URL += generateAuthString()
@@ -70,18 +70,18 @@ public class IngresseService {
         return URL
     }
     
-    public func restGET(_ url: String, handler: @escaping (_ response: [String:AnyObject], _ success: Bool)->()) {
+    open func restGET(_ url: String, handler: @escaping ( _ success: Bool, _ response: [String:Any])->()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
             DispatchQueue.main.async {
                 do {
-                    try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (responseData:[String : Any]) in
-                        handler(responseData as [String : AnyObject], true)
+                    try IngresseAPIBuilder.build(response, data: data, error: error, completionHandler: { (responseData:[String : Any]) in
+                        handler(true, responseData)
                     })
-                } catch IngresseAPIError.errorWithCode( _) {
+                } catch IngresseAPIError.errorWithCode(let code) {
 //                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
-                    handler([:], false)
+                    handler(false, ["errorCode":code])
                 } catch {
 //                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: {
 //                        handler([:], false)
@@ -91,7 +91,7 @@ public class IngresseService {
         }
     }
     
-    public func restPOST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
+    open func restPOST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
         request.httpMethod = "POST"
         
@@ -112,12 +112,12 @@ public class IngresseService {
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
             DispatchQueue.main.async {
                 do {
-                    try IngresseAPIBuilder.build(response: response, data: data, error: error, completionHandler: { (response:[String:Any]) in
+                    try IngresseAPIBuilder.build(response, data: data, error: error, completionHandler: { (response:[String:Any]) in
                         handler(true, response)
                     })
-                } catch IngresseAPIError.errorWithCode( _) {
+                } catch IngresseAPIError.errorWithCode(let code) {
 //                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
-                    handler(false, [:])
+                    handler(false, ["errorCode":code])
                 } catch {
 //                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: { () in
 //                        handler(false, [:])

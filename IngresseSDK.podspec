@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
     spec.authors = { "Ingresse" => 'mobile@ingresse.com' }
     spec.social_media_url = "http://twitter.com/ingresse"
 
-    spec.platform = :ios, "8.0"
+    spec.ios.deployment_target = '8.0'
     spec.requires_arc = true
     spec.source = { git: "https://github.com/ingresse/ios-sdk.git", tag: "v#{spec.version}", submodules: true }
     spec.source_files = "IngresseSDK/**/*.{h,swift}"

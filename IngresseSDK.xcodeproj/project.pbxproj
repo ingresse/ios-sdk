@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		622124F81E2573A30080C55C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 622124F71E2573A30080C55C /* LICENSE */; };
+		622124FA1E2574210080C55C /* IngresseService_Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124F91E2574210080C55C /* IngresseService_Events.swift */; };
+		622124FC1E2574270080C55C /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124FB1E2574270080C55C /* EventAttributes.swift */; };
 		629A68D81DF9C0DF00773A25 /* IngresseSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */; };
 		62D33D831DF9A32C00BE216F /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D33D791DF9A32C00BE216F /* IngresseSDK.framework */; };
 		62D33D881DF9A32C00BE216F /* IngresseSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D33D871DF9A32C00BE216F /* IngresseSDKTests.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		622124F71E2573A30080C55C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		622124F91E2574210080C55C /* IngresseService_Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService_Events.swift; path = Classes/IngresseService_Events.swift; sourceTree = "<group>"; };
+		622124FB1E2574270080C55C /* EventAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventAttributes.swift; path = Classes/EventAttributes.swift; sourceTree = "<group>"; };
 		629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IngresseSDK.podspec; sourceTree = "<group>"; };
 		62D33D791DF9A32C00BE216F /* IngresseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IngresseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IngresseSDK.h; sourceTree = "<group>"; };
@@ -56,10 +62,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		622124FD1E25742C0080C55C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				622124FB1E2574270080C55C /* EventAttributes.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		62D33D6F1DF9A32C00BE216F = {
 			isa = PBXGroup;
 			children = (
 				629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */,
+				622124F71E2573A30080C55C /* LICENSE */,
 				62D33D7B1DF9A32C00BE216F /* IngresseSDK */,
 				62D33D861DF9A32C00BE216F /* IngresseSDKTests */,
 				62D33D7A1DF9A32C00BE216F /* Products */,
@@ -78,10 +93,12 @@
 		62D33D7B1DF9A32C00BE216F /* IngresseSDK */ = {
 			isa = PBXGroup;
 			children = (
+				622124FD1E25742C0080C55C /* Model */,
+				62D33D971DF9A4C600BE216F /* IngresseService.swift */,
+				622124F91E2574210080C55C /* IngresseService_Events.swift */,
+				62D33D991DF9A6B000BE216F /* IngresseAPIBuilder.swift */,
 				62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */,
 				62D33D7D1DF9A32C00BE216F /* Info.plist */,
-				62D33D971DF9A4C600BE216F /* IngresseService.swift */,
-				62D33D991DF9A6B000BE216F /* IngresseAPIBuilder.swift */,
 			);
 			path = IngresseSDK;
 			sourceTree = "<group>";
@@ -152,18 +169,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Gondek;
 				TargetAttributes = {
 					62D33D781DF9A32C00BE216F = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = KA3BZ23AM2;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					62D33D811DF9A32C00BE216F = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 7YCYVAN8PU;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -191,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				622124F81E2573A30080C55C /* LICENSE in Resources */,
 				629A68D81DF9C0DF00773A25 /* IngresseSDK.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +229,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				62D33D9A1DF9A6B000BE216F /* IngresseAPIBuilder.swift in Sources */,
+				622124FC1E2574270080C55C /* EventAttributes.swift in Sources */,
+				622124FA1E2574210080C55C /* IngresseService_Events.swift in Sources */,
 				62D33D981DF9A4C600BE216F /* IngresseService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +272,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -304,6 +326,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -344,6 +367,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = IngresseSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.Gondek.IngresseSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -365,6 +389,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = IngresseSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.Gondek.IngresseSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
