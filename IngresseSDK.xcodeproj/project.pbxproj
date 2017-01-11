@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61D4BF792880D78C0508086D /* Pods_IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 007533EFC77FDEF3BDDFEE75 /* Pods_IngresseSDK.framework */; };
 		622124F81E2573A30080C55C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 622124F71E2573A30080C55C /* LICENSE */; };
 		622124FA1E2574210080C55C /* IngresseService_Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124F91E2574210080C55C /* IngresseService_Events.swift */; };
 		622124FC1E2574270080C55C /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124FB1E2574270080C55C /* EventAttributes.swift */; };
+		624394A71E25839C00840E7E /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624394A61E25839C00840E7E /* URLBuilder.swift */; };
 		629A68D81DF9C0DF00773A25 /* IngresseSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */; };
 		62D33D831DF9A32C00BE216F /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D33D791DF9A32C00BE216F /* IngresseSDK.framework */; };
 		62D33D881DF9A32C00BE216F /* IngresseSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D33D871DF9A32C00BE216F /* IngresseSDKTests.swift */; };
@@ -29,9 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		007533EFC77FDEF3BDDFEE75 /* Pods_IngresseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IngresseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DDEE46C44A8AF56BCCFCB54 /* Pods-IngresseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngresseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IngresseSDK/Pods-IngresseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		622124F71E2573A30080C55C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		622124F91E2574210080C55C /* IngresseService_Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService_Events.swift; path = Classes/IngresseService_Events.swift; sourceTree = "<group>"; };
 		622124FB1E2574270080C55C /* EventAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventAttributes.swift; path = Classes/EventAttributes.swift; sourceTree = "<group>"; };
+		624394A61E25839C00840E7E /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IngresseSDK.podspec; sourceTree = "<group>"; };
 		62D33D791DF9A32C00BE216F /* IngresseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IngresseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IngresseSDK.h; sourceTree = "<group>"; };
@@ -41,6 +46,7 @@
 		62D33D891DF9A32C00BE216F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62D33D971DF9A4C600BE216F /* IngresseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService.swift; path = Classes/IngresseService.swift; sourceTree = "<group>"; };
 		62D33D991DF9A6B000BE216F /* IngresseAPIBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseAPIBuilder.swift; path = Classes/IngresseAPIBuilder.swift; sourceTree = "<group>"; };
+		7243E4D8A6D7E8E34603B4D5 /* Pods-IngresseSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngresseSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-IngresseSDK/Pods-IngresseSDK.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61D4BF792880D78C0508086D /* Pods_IngresseSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +77,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		624394A51E25838800840E7E /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				624394A61E25839C00840E7E /* URLBuilder.swift */,
+			);
+			name = Crypto;
+			sourceTree = "<group>";
+		};
 		62D33D6F1DF9A32C00BE216F = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +93,8 @@
 				62D33D7B1DF9A32C00BE216F /* IngresseSDK */,
 				62D33D861DF9A32C00BE216F /* IngresseSDKTests */,
 				62D33D7A1DF9A32C00BE216F /* Products */,
+				E38F52D0C962840FC79F6492 /* Pods */,
+				AAF119D9F68E290C36B2B11A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +110,7 @@
 		62D33D7B1DF9A32C00BE216F /* IngresseSDK */ = {
 			isa = PBXGroup;
 			children = (
+				624394A51E25838800840E7E /* Crypto */,
 				622124FD1E25742C0080C55C /* Model */,
 				62D33D971DF9A4C600BE216F /* IngresseService.swift */,
 				622124F91E2574210080C55C /* IngresseService_Events.swift */,
@@ -110,6 +128,23 @@
 				62D33D891DF9A32C00BE216F /* Info.plist */,
 			);
 			path = IngresseSDKTests;
+			sourceTree = "<group>";
+		};
+		AAF119D9F68E290C36B2B11A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				007533EFC77FDEF3BDDFEE75 /* Pods_IngresseSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E38F52D0C962840FC79F6492 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2DDEE46C44A8AF56BCCFCB54 /* Pods-IngresseSDK.debug.xcconfig */,
+				7243E4D8A6D7E8E34603B4D5 /* Pods-IngresseSDK.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,10 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 62D33D8D1DF9A32C00BE216F /* Build configuration list for PBXNativeTarget "IngresseSDK" */;
 			buildPhases = (
+				37BB7DDDB8183EC1798305F0 /* [CP] Check Pods Manifest.lock */,
 				62D33D741DF9A32C00BE216F /* Sources */,
 				62D33D751DF9A32C00BE216F /* Frameworks */,
 				62D33D761DF9A32C00BE216F /* Headers */,
 				62D33D771DF9A32C00BE216F /* Resources */,
+				D4CCAF219C6356AD3A7473DA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -223,11 +260,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37BB7DDDB8183EC1798305F0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D4CCAF219C6356AD3A7473DA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IngresseSDK/Pods-IngresseSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		62D33D741DF9A32C00BE216F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				624394A71E25839C00840E7E /* URLBuilder.swift in Sources */,
 				62D33D9A1DF9A6B000BE216F /* IngresseAPIBuilder.swift in Sources */,
 				622124FC1E2574270080C55C /* EventAttributes.swift in Sources */,
 				622124FA1E2574210080C55C /* IngresseService_Events.swift in Sources */,
@@ -357,6 +428,7 @@
 		};
 		62D33D8E1DF9A32C00BE216F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DDEE46C44A8AF56BCCFCB54 /* Pods-IngresseSDK.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -379,6 +451,7 @@
 		};
 		62D33D8F1DF9A32C00BE216F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7243E4D8A6D7E8E34603B4D5 /* Pods-IngresseSDK.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
