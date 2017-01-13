@@ -11,10 +11,6 @@
 		622124FA1E2574210080C55C /* IngresseService_Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124F91E2574210080C55C /* IngresseService_Events.swift */; };
 		622124FC1E2574270080C55C /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124FB1E2574270080C55C /* EventAttributes.swift */; };
 		624394A71E25839C00840E7E /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624394A61E25839C00840E7E /* URLBuilder.swift */; };
-		629299B21E29406900AAD3AF /* HMACSHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = 629299B01E29406900AAD3AF /* HMACSHA1.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		629299B31E29406900AAD3AF /* HMACSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = 629299B11E29406900AAD3AF /* HMACSHA1.m */; };
-		629299B61E29407C00AAD3AF /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 629299B41E29407C00AAD3AF /* Base64Transcoder.c */; };
-		629299B71E29407C00AAD3AF /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 629299B51E29407C00AAD3AF /* Base64Transcoder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		629299BD1E29428600AAD3AF /* IngresseSDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 629299BC1E29428600AAD3AF /* IngresseSDK.xcconfig */; };
 		629A68D81DF9C0DF00773A25 /* IngresseSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */; };
 		62D33D831DF9A32C00BE216F /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D33D791DF9A32C00BE216F /* IngresseSDK.framework */; };
@@ -22,7 +18,10 @@
 		62D33D8A1DF9A32C00BE216F /* IngresseSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62D33D981DF9A4C600BE216F /* IngresseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D33D971DF9A4C600BE216F /* IngresseService.swift */; };
 		62D33D9A1DF9A6B000BE216F /* IngresseAPIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D33D991DF9A6B000BE216F /* IngresseAPIBuilder.swift */; };
-		62DFAB901E29679E000EE763 /* Crypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62DFAB8F1E29679E000EE763 /* Crypto.framework */; };
+		62DFAB961E296BFF000EE763 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 62DFAB911E296BFF000EE763 /* Base64Transcoder.c */; };
+		62DFAB971E296BFF000EE763 /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DFAB921E296BFF000EE763 /* Base64Transcoder.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		62DFAB981E296BFF000EE763 /* HMACSHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DFAB941E296BFF000EE763 /* HMACSHA1.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		62DFAB991E296BFF000EE763 /* HMACSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DFAB951E296BFF000EE763 /* HMACSHA1.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,10 +39,6 @@
 		622124F91E2574210080C55C /* IngresseService_Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService_Events.swift; path = Classes/IngresseService_Events.swift; sourceTree = "<group>"; };
 		622124FB1E2574270080C55C /* EventAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventAttributes.swift; path = Classes/EventAttributes.swift; sourceTree = "<group>"; };
 		624394A61E25839C00840E7E /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
-		629299B01E29406900AAD3AF /* HMACSHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMACSHA1.h; sourceTree = "<group>"; };
-		629299B11E29406900AAD3AF /* HMACSHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMACSHA1.m; sourceTree = "<group>"; };
-		629299B41E29407C00AAD3AF /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
-		629299B51E29407C00AAD3AF /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 		629299BA1E2940E900AAD3AF /* IngresseSDK.private.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = IngresseSDK.private.modulemap; sourceTree = "<group>"; };
 		629299BB1E29411500AAD3AF /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		629299BC1E29428600AAD3AF /* IngresseSDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = IngresseSDK.xcconfig; sourceTree = "<group>"; };
@@ -56,7 +51,10 @@
 		62D33D891DF9A32C00BE216F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62D33D971DF9A4C600BE216F /* IngresseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService.swift; path = Classes/IngresseService.swift; sourceTree = "<group>"; };
 		62D33D991DF9A6B000BE216F /* IngresseAPIBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseAPIBuilder.swift; path = Classes/IngresseAPIBuilder.swift; sourceTree = "<group>"; };
-		62DFAB8F1E29679E000EE763 /* Crypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crypto.framework; sourceTree = "<group>"; };
+		62DFAB911E296BFF000EE763 /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
+		62DFAB921E296BFF000EE763 /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
+		62DFAB941E296BFF000EE763 /* HMACSHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMACSHA1.h; path = ../../Crypto/Crypto/HMACSHA1.h; sourceTree = "<group>"; };
+		62DFAB951E296BFF000EE763 /* HMACSHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMACSHA1.m; path = ../../Crypto/Crypto/HMACSHA1.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62DFAB901E29679E000EE763 /* Crypto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,21 +87,12 @@
 		624394A51E25838800840E7E /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
-				629299B81E29408000AAD3AF /* Base64Transcoder */,
-				629299B01E29406900AAD3AF /* HMACSHA1.h */,
-				629299B11E29406900AAD3AF /* HMACSHA1.m */,
+				62DFAB931E296BFF000EE763 /* Base64Transcoder */,
+				62DFAB941E296BFF000EE763 /* HMACSHA1.h */,
+				62DFAB951E296BFF000EE763 /* HMACSHA1.m */,
 				624394A61E25839C00840E7E /* URLBuilder.swift */,
 			);
 			name = Crypto;
-			sourceTree = "<group>";
-		};
-		629299B81E29408000AAD3AF /* Base64Transcoder */ = {
-			isa = PBXGroup;
-			children = (
-				629299B41E29407C00AAD3AF /* Base64Transcoder.c */,
-				629299B51E29407C00AAD3AF /* Base64Transcoder.h */,
-			);
-			name = Base64Transcoder;
 			sourceTree = "<group>";
 		};
 		629299B91E2940CB00AAD3AF /* IngresseSDKPrivate */ = {
@@ -124,7 +112,6 @@
 				62D33D7B1DF9A32C00BE216F /* IngresseSDK */,
 				62D33D861DF9A32C00BE216F /* IngresseSDKTests */,
 				62D33D7A1DF9A32C00BE216F /* Products */,
-				AAF119D9F68E290C36B2B11A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,12 +149,14 @@
 			path = IngresseSDKTests;
 			sourceTree = "<group>";
 		};
-		AAF119D9F68E290C36B2B11A /* Frameworks */ = {
+		62DFAB931E296BFF000EE763 /* Base64Transcoder */ = {
 			isa = PBXGroup;
 			children = (
-				62DFAB8F1E29679E000EE763 /* Crypto.framework */,
+				62DFAB911E296BFF000EE763 /* Base64Transcoder.c */,
+				62DFAB921E296BFF000EE763 /* Base64Transcoder.h */,
 			);
-			name = Frameworks;
+			name = Base64Transcoder;
+			path = ../../Crypto/Crypto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,9 +166,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				629299B21E29406900AAD3AF /* HMACSHA1.h in Headers */,
-				629299B71E29407C00AAD3AF /* Base64Transcoder.h in Headers */,
+				62DFAB981E296BFF000EE763 /* HMACSHA1.h in Headers */,
 				62D33D8A1DF9A32C00BE216F /* IngresseSDK.h in Headers */,
+				62DFAB971E296BFF000EE763 /* Base64Transcoder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,13 +278,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				629299B61E29407C00AAD3AF /* Base64Transcoder.c in Sources */,
 				624394A71E25839C00840E7E /* URLBuilder.swift in Sources */,
+				62DFAB961E296BFF000EE763 /* Base64Transcoder.c in Sources */,
 				62D33D9A1DF9A6B000BE216F /* IngresseAPIBuilder.swift in Sources */,
 				622124FC1E2574270080C55C /* EventAttributes.swift in Sources */,
+				62DFAB991E296BFF000EE763 /* HMACSHA1.m in Sources */,
 				622124FA1E2574210080C55C /* IngresseService_Events.swift in Sources */,
 				62D33D981DF9A4C600BE216F /* IngresseService.swift in Sources */,
-				629299B31E29406900AAD3AF /* HMACSHA1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
