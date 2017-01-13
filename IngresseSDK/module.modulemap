@@ -1,0 +1,4 @@
+module IngresseSDKPrivate {
+    header "../HMACSHA1.h"
+    export *
+}

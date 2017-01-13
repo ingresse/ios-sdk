@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <IngresseSDK/HMACSHA1.h>
 
 //! Project version number for IngresseSDK.
 FOUNDATION_EXPORT double IngresseSDKVersionNumber;
 
 //! Project version string for IngresseSDK.
 FOUNDATION_EXPORT const unsigned char IngresseSDKVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <IngresseSDK/PublicHeader.h>

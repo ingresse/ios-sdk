@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Crypto
 
 class URLBuilder {
     
@@ -33,9 +34,8 @@ class URLBuilder {
         let timestamp = getTimestamp()
         
         let data = service.publicKey.appending(timestamp)
-        let signature = data
         
-        return signature.removingPercentEncoding!
+        return HMACSHA1.hash(data, key: service.privateKey)
     }
 }
 

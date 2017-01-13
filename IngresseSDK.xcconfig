@@ -1,0 +1,2 @@
+SWIFT_INCLUDE_PATHS = $(SRCROOT)/IngresseSDK
+MODULEMAP_PRIVATE_FILE = $(SRCROOT)/IngresseSDK/IngresseSDK.private.modulemap

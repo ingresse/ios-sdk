@@ -12,7 +12,7 @@ public enum APIHost: Int {
     case prod, homolog, mock
 }
 
-open class IngresseService {
+public class IngresseService {
     
     let apiProdURL = "https://api.ingresse.com/"
     let apiHMLURL = "https://apihml.ingresse.com/"
@@ -54,7 +54,7 @@ open class IngresseService {
         self.urlHost = url
     }
     
-    open func makeURL(_ path: String, parameters: [String:String],  userToken: String?) -> String {
+    func makeURL(_ path: String, parameters: [String:String],  userToken: String?) -> String {
         var URL = urlHost
         URL += path
         URL += generateAuthString()
@@ -70,7 +70,7 @@ open class IngresseService {
         return URL
     }
     
-    open func GET(_ url: String, handler: @escaping ( _ success: Bool, _ response: [String:Any])->()) {
+    func GET(_ url: String, handler: @escaping ( _ success: Bool, _ response: [String:Any])->()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
@@ -91,7 +91,7 @@ open class IngresseService {
         }
     }
     
-    open func POST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
+    func POST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
         request.httpMethod = "POST"
         
@@ -127,7 +127,7 @@ open class IngresseService {
         }
     }
     
-    func generateAuthString() -> String {
-        return ""
+    public func generateAuthString() -> String {
+        return URLBuilder(self).generateAuthString()
     }
 }
