@@ -8,19 +8,19 @@
 
 import Foundation
 
-class URLBuilder {
+public class URLBuilder {
     
     var service: IngresseService!
     
-    init (_ service: IngresseService) {
+    public init (_ service: IngresseService) {
         self.service = service
     }
     
-    func generateAuthString() -> String {
+    public func generateAuthString() -> String {
         return "?publickey=\(service.publicKey)&signature=\(getSignature())&timestamp=\(getTimestamp())"
     }
     
-    func getTimestamp() -> String {
+    public func getTimestamp() -> String {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         df.timeZone = TimeZone(abbreviation: "GMT")
@@ -29,7 +29,7 @@ class URLBuilder {
         return df.string(from: Date()).removingPercentEncoding!
     }
     
-    func getSignature() -> String {
+    public func getSignature() -> String {
         let timestamp = getTimestamp()
         
         let data = service.publicKey.appending(timestamp)
