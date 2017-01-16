@@ -80,18 +80,18 @@ public class IngresseService {
                         handler(true, responseData)
                     })
                 } catch IngresseAPIError.errorWithCode(let code) {
-//                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
+                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
                     handler(false, ["errorCode":code])
                 } catch {
-//                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: {
-//                        handler([:], false)
-//                    })
+                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: {
+                        handler(false, [:])
+                    })
                 }
             }
         }
     }
     
-    func POST(_ url: String, parameters: [String : AnyObject], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
+    func POST(_ url: String, parameters: [String : Any], handler: @escaping (_ success: Bool, _ response: [String:Any]) -> ()) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
         request.httpMethod = "POST"
         
@@ -116,12 +116,12 @@ public class IngresseService {
                         handler(true, response)
                     })
                 } catch IngresseAPIError.errorWithCode(let code) {
-//                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
+                    IngresseAlerts.errorAlert(errorCode: code, vc: nil)
                     handler(false, ["errorCode":code])
                 } catch {
-//                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: { () in
-//                        handler(false, [:])
-//                    })
+                    IngresseAlerts.showRequestErrorAlert(onViewController: nil, completion: { () in
+                        handler(false, [:])
+                    })
                 }
             }
         }

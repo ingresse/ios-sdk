@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import Crashlytics
 
 public enum IngresseAPIError : Error {
     case errorWithCode(code: Int)
@@ -16,8 +15,7 @@ public enum IngresseAPIError : Error {
     case jsonParserError
 }
 
-class IngresseAPIBuilder: NSObject {
-//    static let crash = Crashlytics()
+public class IngresseAPIBuilder: NSObject {
     
     /**
      API Response parser
@@ -28,46 +26,47 @@ class IngresseAPIBuilder: NSObject {
      - parameter data:     Data bytes
      - parameter completionHandler: Callback block in case of success
      */
-    static func build(_ response:URLResponse?, data:Data?, error:Error?, completionHandler:(_ responseData:[String:Any])->()) throws {
+    public static func build(_ response:URLResponse?, data:Data?, error:Error?, completionHandler:(_ responseData:[String:Any])->()) throws {
         if (data == nil || response == nil) {
             throw IngresseAPIError.requestError
         }
         
-        guard let obj = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] else {
-            throw IngresseAPIError.jsonParserError
-        }
-        
-        if let responseString = obj["responseData"] as? String {
-            if responseString.contains("[Ingresse Exception Error]") {
-                // API Error
-                guard let responseError = obj["responseError"] as? [String:Any] else {
-                    // Could not get response error
-                    throw IngresseAPIError.jsonParserError
-                }
-                
-                // Show alert with error code
-                let code = responseError["code"] as! Int
-                
-                crashlyticsLog(.errorWithCode(code: code), userInfo: responseError)
-                throw IngresseAPIError.errorWithCode(code: code)
-            }
-        }
-        
-        guard let responseData = obj["responseData"] as? [String:Any] else {
-            // Could not get response data
+        do {
+            let objData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
             
-            guard let responseArray = obj["responseData"] as? [[String:Any]] else {
+            guard let obj = objData as? [String:Any] else {
                 throw IngresseAPIError.jsonParserError
             }
             
-            completionHandler(["data":responseArray])
-            return
+            if let responseString = obj["responseData"] as? String {
+                if responseString.contains("[Ingresse Exception Error]") {
+                    // API Error
+                    guard let responseError = obj["responseError"] as? [String:Any] else {
+                        // Could not get response error
+                        throw IngresseAPIError.jsonParserError
+                    }
+                    
+                    // Show alert with error code
+                    let code = responseError["code"] as! Int
+                    
+                    throw IngresseAPIError.errorWithCode(code: code)
+                }
+            }
+            
+            guard let responseData = obj["responseData"] as? [String:Any] else {
+                // Could not get response data
+                
+                guard let responseArray = obj["responseData"] as? [[String:Any]] else {
+                    throw IngresseAPIError.jsonParserError
+                }
+                
+                completionHandler(["data":responseArray])
+                return
+            }
+            
+            completionHandler(responseData)
+        } catch {
+            throw IngresseAPIError.jsonParserError
         }
-        
-        completionHandler(responseData)
-    }
-    
-    static func crashlyticsLog(_ error: IngresseAPIError, userInfo: [String:Any]?) {
-//        crash.recordError(error, withAdditionalUserInfo: userInfo)
     }
 }

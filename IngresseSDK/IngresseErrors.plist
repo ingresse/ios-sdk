@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>6001</key>
+	<string>A venda deste evento não está ativada. Entre em contato com o organizador do evento.</string>
+	<key>6002</key>
+	<string>Todas as sessões para esse evento estão esgotadas. Talvez alguns ingressos estarão disponíveis dependendo dos pagamentos pendentes. Entre em contato com o organizador do evento.</string>
+	<key>6003</key>
+	<string>Não há mais ingressos disponíveis para venda. Talvez alguns ingressos estarão disponíveis dependendo dos pagamentos pendentes. Entre em contato com o organizador do evento.</string>
+	<key>6004</key>
+	<string>Não há mais ingressos disponíveis para um dos tipos de ingressos selecionados. Entre em contato com o organizador do evento.</string>
+	<key>6005</key>
+	<string>A transação que está tentando pagar não está mais disponível. Por favor, tente novamente.</string>
+	<key>6006</key>
+	<string>A quantidade de ingressos disponíveis é menor que a de solicitados.</string>
+	<key>6007</key>
+	<string>Eventos blogger não possuem venda de ingressos.</string>
+	<key>6008</key>
+	<string>Ingresso não encontrado na sessão.</string>
+	<key>6009</key>
+	<string>O método de pagamento e/ou parcelamento não são aceitos para este evento.</string>
+	<key>6010</key>
+	<string>Boleto não é aceito neste evento.</string>
+	<key>6011</key>
+	<string>Boleto não pago.</string>
+	<key>6012</key>
+	<string>Por favor, visite o site da Ingresse (ingresse.com) para comprar ingressos para esse evento.</string>
+	<key>6034</key>
+	<string>Ticket não está pendente. Verifique se a transferência foi cancelada.</string>
+	<key>6038</key>
+	<string>Este ingresso já foi transferido. Atualize a sua carteira e verá para quem foi enviado o ingresso.</string>
+	<key>6039</key>
+	<string>Este ingresso foi reembolsado. Atualize a sua carteira para ver somente os ingressos disponíveis.</string>
+	<key>6040</key>
+	<string>Você já transferiu esse ingresso para um amigo.</string>
+	<key>6041</key>
+	<string>A transferência de ingressos não está disponível para este evento.</string>
+	<key>6044</key>
+	<string>Você excedeu o limite de ingressos disponíveis por conta. Para mais informações, verifique a descrição do evento.</string>
+	<key>6045</key>
+	<string>Este ingresso já pertence a você e está na sua carteira.</string>
+	<key>default</key>
+	<string>Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)</string>
+	<key>default_no_code</key>
+	<string>Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.</string>
+</dict>
+</plist>
