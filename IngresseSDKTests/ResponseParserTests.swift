@@ -9,7 +9,7 @@
 import XCTest
 import IngresseSDK
 
-class IngresseAPIBuilderTests: XCTestCase {
+class ResponseParserTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -25,8 +25,8 @@ class IngresseAPIBuilderTests: XCTestCase {
         var requestError = false
         
         do {
-            try IngresseAPIBuilder.build(URLResponse(), data: nil, error: nil) { (response:[String : Any]) in }
-        } catch IngresseAPIError.requestError {
+            try ResponseParser.build(URLResponse(), data: nil) { (response:[String : Any]) in }
+        } catch IngresseException.requestError {
             requestError = true
             builderExpectation.fulfill()
         } catch {
@@ -44,8 +44,8 @@ class IngresseAPIBuilderTests: XCTestCase {
         var requestError = false
         
         do {
-            try IngresseAPIBuilder.build(nil, data: Data(), error: nil) { (response:[String : Any]) in }
-        } catch IngresseAPIError.requestError {
+            try ResponseParser.build(nil, data: Data()) { (response:[String : Any]) in }
+        } catch IngresseException.requestError {
             requestError = true
             builderExpectation.fulfill()
         } catch {
@@ -63,8 +63,8 @@ class IngresseAPIBuilderTests: XCTestCase {
         var requestError = false
         
         do {
-            try IngresseAPIBuilder.build(URLResponse(), data: Data(), error: nil) { (response:[String : Any]) in }
-        } catch IngresseAPIError.jsonParserError {
+            try ResponseParser.build(URLResponse(), data: Data()) { (response:[String : Any]) in }
+        } catch IngresseException.jsonParserError {
             requestError = true
             builderExpectation.fulfill()
         } catch {

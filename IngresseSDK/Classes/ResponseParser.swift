@@ -8,34 +8,33 @@
 
 import UIKit
 
-public enum IngresseAPIError : Error {
+public enum IngresseException : Error {
     case errorWithCode(code: Int)
     case genericError
     case requestError
     case jsonParserError
 }
 
-public class IngresseAPIBuilder: NSObject {
+public class ResponseParser: NSObject {
     
     /**
      API Response parser
-     - throws: IngresseAPIError
+     - throws: IngresseException
      
      - parameter response: Response of request
-     - parameter error:    Error from response
      - parameter data:     Data bytes
-     - parameter completionHandler: Callback block in case of success
+     - parameter completion: Callback block in case of success
      */
-    public static func build(_ response:URLResponse?, data:Data?, error:Error?, completionHandler:(_ responseData:[String:Any])->()) throws {
+    public static func build(_ response:URLResponse?, data:Data?, completion:(_ responseData:[String:Any])->()) throws {
         if (data == nil || response == nil) {
-            throw IngresseAPIError.requestError
+            throw IngresseException.requestError
         }
         
         do {
             let objData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
             
             guard let obj = objData as? [String:Any] else {
-                throw IngresseAPIError.jsonParserError
+                throw IngresseException.jsonParserError
             }
             
             if let responseString = obj["responseData"] as? String {
@@ -43,13 +42,13 @@ public class IngresseAPIBuilder: NSObject {
                     // API Error
                     guard let responseError = obj["responseError"] as? [String:Any] else {
                         // Could not get response error
-                        throw IngresseAPIError.jsonParserError
+                        throw IngresseException.jsonParserError
                     }
                     
                     // Show alert with error code
                     let code = responseError["code"] as! Int
                     
-                    throw IngresseAPIError.errorWithCode(code: code)
+                    throw IngresseException.errorWithCode(code: code)
                 }
             }
             
@@ -57,16 +56,16 @@ public class IngresseAPIBuilder: NSObject {
                 // Could not get response data
                 
                 guard let responseArray = obj["responseData"] as? [[String:Any]] else {
-                    throw IngresseAPIError.jsonParserError
+                    throw IngresseException.jsonParserError
                 }
                 
-                completionHandler(["data":responseArray])
+                completion(["data":responseArray])
                 return
             }
             
-            completionHandler(responseData)
+            completion(responseData)
         } catch {
-            throw IngresseAPIError.jsonParserError
+            throw IngresseException.jsonParserError
         }
     }
 }

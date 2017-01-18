@@ -9,20 +9,20 @@
 import UIKit
 
 public class IngresseUser: NSObject {
+    var userId    : Int?
     var name      : String?
     var email     : String?
-    var userId    : String?
     var userToken : String?
     var userType  : String?
     var fbToken   : String?
     var facebook  : Bool?
     
-    static var user : IngresseUser?
+    public static var user : IngresseUser?
     
     static func login(userData: [String:Any]) -> IngresseUser {
         user = IngresseUser()
         
-        user!.userId = userData["userId"] as? String
+        user!.userId = userData["userId"] as? Int
         user!.userToken = userData["token"] as? String
         
         return user!
