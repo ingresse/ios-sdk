@@ -1,3 +1,4 @@
+
 //
 //  IngresseClient.swift
 //  IngresseSDK
@@ -27,6 +28,13 @@ public class IngresseClient {
         self.privateKey = privateKey
         self.client = RestClient()
         self.host = urlHost
+    }
+    
+    public init(publicKey: String, privateKey: String) {
+        self.publicKey = publicKey
+        self.privateKey = privateKey
+        self.client = RestClient()
+        self.host = "https://api.ingresse.com/"
     }
     
     func makeURL(path: String, parameters: [String : String]) -> String {
@@ -91,22 +99,25 @@ public class IngresseClient {
      
      - parameter completion: Callback block
      */
-    public func getUserData(_ user:IngresseUser,_ fields:String, completion: @escaping (_ success: Bool, _ response:[String:Any]?)->()) {
+    public func getUserData(_ user:IngresseUser,_ fields:String?, completion: @escaping (_ success: Bool, _ response:[String:Any]?)->()) {
         
         let path = "user/\(user.userId!)"
         
-        let params = ["usertoken": user.userToken!,
-                      "fields"   : fields]
+        var params = ["usertoken": user.userToken!]
+        
+        params["fields"] = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
         
         let url = makeURL(path: path, parameters: params)
         
         client.GET(url: url) { (success: Bool, response: [String:Any]?) in
             if !success {
-                completion(false, nil)
+                completion(false, response)
                 return
             }
             
-            completion(true, response)
+            let user = IngresseUser.fillData(userData: response!)
+            
+            completion(true, ["user":user])
         }
     }
     
