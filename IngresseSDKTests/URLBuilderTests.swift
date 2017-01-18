@@ -11,15 +11,8 @@ import IngresseSDK
 
 class URLBuilderTests: XCTestCase {
     
-    var service : IngresseService!
-    var builder : URLBuilder!
-    
     override func setUp() {
         super.setUp()
-        
-        // Init service
-        service = IngresseService(publicKey: "1234", privateKey: "2345", host: .homolog);
-        builder = URLBuilder(service)
     }
     
     override func tearDown() {
@@ -34,27 +27,27 @@ class URLBuilderTests: XCTestCase {
         
         let expected = df.string(from: Date()).removingPercentEncoding!
         
-        let generated = builder.getTimestamp()
+        let generated = URLBuilder.getTimestamp()
         
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetSignature() {
-        let timestamp = builder.getTimestamp()
+        let timestamp = URLBuilder.getTimestamp()
         let data = "1234".appending(timestamp)
         
         let expected = HMACSHA1.hash(data, key: "2345")
-        let generated = builder.getSignature()
+        let generated = URLBuilder.getSignature("1234", "2345")
         
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetAuthString() {
-        let timestamp = builder.getTimestamp()
-        let signature = builder.getSignature()
+        let timestamp = URLBuilder.getTimestamp()
+        let signature = URLBuilder.getSignature("1234", "2345")
         
         let expected = "?publickey=1234&signature=\(signature)&timestamp=\(timestamp)"
-        let generated = builder.generateAuthString()
+        let generated = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
         
         XCTAssertEqual(expected, generated)
     }

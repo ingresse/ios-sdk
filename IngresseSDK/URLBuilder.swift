@@ -10,17 +10,14 @@ import Foundation
 
 public class URLBuilder {
     
-    var service: IngresseService!
-    
-    public init (_ service: IngresseService) {
-        self.service = service
+    public static func generateAuthString(publicKey: String, privateKey: String) -> String {
+        let signature = getSignature(publicKey, privateKey)
+        let timestamp = getTimestamp()
+        
+        return "?publickey=\(publicKey)&signature=\(signature)&timestamp=\(timestamp)"
     }
     
-    public func generateAuthString() -> String {
-        return "?publickey=\(service.publicKey)&signature=\(getSignature())&timestamp=\(getTimestamp())"
-    }
-    
-    public func getTimestamp() -> String {
+    public static func getTimestamp() -> String {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         df.timeZone = TimeZone(abbreviation: "GMT")
@@ -29,13 +26,11 @@ public class URLBuilder {
         return df.string(from: Date()).removingPercentEncoding!
     }
     
-    public func getSignature() -> String {
+    public static func getSignature(_ publicKey:String,_ privateKey:String) -> String {
         let timestamp = getTimestamp()
         
-        let data = service.publicKey.appending(timestamp)
+        let data = publicKey.appending(timestamp)
         
-        return HMACSHA1.hash(data, key: service.privateKey)
+        return HMACSHA1.hash(data, key: privateKey)
     }
 }
-
-
