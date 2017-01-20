@@ -9,29 +9,29 @@
 import UIKit
 
 public class IngresseUser: NSObject {
-    public var userId    : Int?
-    public var name      : String?
-    public var lastname  : String?
-    public var email     : String?
-    public var userToken : String?
-    public var state     : String?
-    public var city      : String?
-    public var district  : String?
-    public var street    : String?
-    public var zip       : String?
-    public var complement: String?
-    public var phone     : String?
-    public var number    : String?
-    public var fbUserId  : String?
-    public var verified  : Bool?
+    public var userId    : Int = 0
+    public var name      : String = ""
+    public var lastname  : String = ""
+    public var email     : String = ""
+    public var userToken : String = ""
+    public var state     : String = ""
+    public var city      : String = ""
+    public var district  : String = ""
+    public var street    : String = ""
+    public var zip       : String = ""
+    public var complement: String = ""
+    public var phone     : String = ""
+    public var number    : String = ""
+    public var fbUserId  : String = ""
+    public var verified  : Bool = false
     
     public static var user : IngresseUser?
     
     static func login(userData: [String:Any]) -> IngresseUser {
         user = IngresseUser()
         
-        user!.userId = userData["userId"] as? Int
-        user!.userToken = userData["token"] as? String
+        user!.userId = userData["userId"] as! Int
+        user!.userToken = userData["token"] as! String
         
         return user!
     }
@@ -41,20 +41,19 @@ public class IngresseUser: NSObject {
             return nil
         }
         
-        user!.userId     = userData["id"] as? Int
-        user!.name       = userData["name"] as? String
-        user!.lastname   = userData["lastname"] as? String
-        user!.email      = userData["email"] as? String
-        user!.state      = userData["state"] as? String
-        user!.city       = userData["city"] as? String
-        user!.district   = userData["district"] as? String
-        user!.street     = userData["street"] as? String
-        user!.number     = userData["number"] as? String
-        user!.zip        = userData["zip"] as? String
-        user!.complement = userData["complement"] as? String
-        user!.phone      = userData["phone"] as? String
-        user!.fbUserId   = userData["fbUserId"] as? String
-        user!.verified   = userData["verified"] as? Bool
+        user!.name       = (userData["name"] as? String) ?? ""
+        user!.lastname   = (userData["lastname"] as? String) ?? ""
+        user!.email      = (userData["email"] as? String) ?? ""
+        user!.state      = (userData["state"] as? String) ?? ""
+        user!.city       = (userData["city"] as? String) ?? ""
+        user!.district   = (userData["district"] as? String) ?? ""
+        user!.street     = (userData["street"] as? String) ?? ""
+        user!.number     = (userData["number"] as? String) ?? ""
+        user!.zip        = (userData["zip"] as? String) ?? ""
+        user!.complement = (userData["complement"] as? String) ?? ""
+        user!.phone      = (userData["phone"] as? String) ?? ""
+        user!.fbUserId   = (userData["fbUserId"] as? String) ?? ""
+        user!.verified   = (userData["verified"] as? Bool) ?? false
         
         return user!
     }

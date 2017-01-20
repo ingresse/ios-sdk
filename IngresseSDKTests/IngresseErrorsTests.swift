@@ -19,7 +19,7 @@ class IngresseErrorsTests: XCTestCase {
         
         errors = IngresseErrorsSwift()
         
-        let bundle = Bundle(identifier: "com.ingresse.IngresseSDK")!
+        let bundle = Bundle(identifier: "com.ingresse.sdk")!
         guard let path = bundle.path(forResource: "IngresseErrors", ofType: "plist") else {
             return
         }

@@ -10,6 +10,16 @@ import Foundation
 
 public class URLBuilder {
     
+    public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String]) -> String {
+        var url = host
+        url += path
+        url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
+        url += "&"
+        url += parameters.stringFromHttpParameters()
+        
+        return url
+    }
+    
     public static func generateAuthString(publicKey: String, privateKey: String) -> String {
         let signature = getSignature(publicKey, privateKey)
         let timestamp = getTimestamp()

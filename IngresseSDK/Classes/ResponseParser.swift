@@ -44,8 +44,8 @@ public class ResponseParser: NSObject {
                         // Could not get response error
                         throw IngresseException.jsonParserError
                     }
-                    
-                    // Show alert with error code
+                
+                    // Get error code
                     let code = responseError["code"] as! Int
                     
                     throw IngresseException.errorWithCode(code: code)

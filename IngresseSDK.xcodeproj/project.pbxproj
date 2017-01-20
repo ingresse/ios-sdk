@@ -16,13 +16,22 @@
 		621003481E2EA78E00B4904C /* IngresseErrorsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621003461E2EA78E00B4904C /* IngresseErrorsSwift.swift */; };
 		621003491E2EA78E00B4904C /* IngresseErrors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 621003471E2EA78E00B4904C /* IngresseErrors.plist */; };
 		622124F81E2573A30080C55C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 622124F71E2573A30080C55C /* LICENSE */; };
-		622124FC1E2574270080C55C /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622124FB1E2574270080C55C /* EventAttributes.swift */; };
 		624394A71E25839C00840E7E /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624394A61E25839C00840E7E /* URLBuilder.swift */; };
 		625ABBBD1E2CF165006EA09D /* HMACSHA1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 625ABBBC1E2CF165006EA09D /* HMACSHA1Tests.m */; };
 		625ABBC21E2D075C006EA09D /* IngresseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625ABBC11E2D075C006EA09D /* IngresseUser.swift */; };
-		625ABBCB1E2D21AE006EA09D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 625ABBCA1E2D21AE006EA09D /* Localizable.strings */; };
 		629299BD1E29428600AAD3AF /* IngresseSDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 629299BC1E29428600AAD3AF /* IngresseSDK.xcconfig */; };
 		629A68D81DF9C0DF00773A25 /* IngresseSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */; };
+		62B082941E3133FC00B81331 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082931E3133FC00B81331 /* Session.swift */; };
+		62B082961E3138E100B81331 /* SessionSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082951E3138E100B81331 /* SessionSyncDelegate.swift */; };
+		62B0829B1E323C2F00B81331 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B0829A1E323C2F00B81331 /* Event.swift */; };
+		62B0829D1E323D6800B81331 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B0829C1E323D6800B81331 /* DateHelper.swift */; };
+		62B0829F1E32434F00B81331 /* MyTicketsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B0829E1E32434F00B81331 /* MyTicketsService.swift */; };
+		62B082A11E32648200B81331 /* TicketSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082A01E32648200B81331 /* TicketSyncDelegate.swift */; };
+		62B082A31E326D3800B81331 /* UserTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082A21E326D3800B81331 /* UserTicket.swift */; };
+		62B082A51E326D6D00B81331 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082A41E326D6D00B81331 /* Transfer.swift */; };
+		62B082A71E3273CB00B81331 /* IngresseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082A61E3273CB00B81331 /* IngresseService.swift */; };
+		62B082AC1E32779C00B81331 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082AB1E32779C00B81331 /* AuthService.swift */; };
+		62B082AE1E32806600B81331 /* HttpEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B082AD1E32806600B81331 /* HttpEncoding.swift */; };
 		62D33D831DF9A32C00BE216F /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D33D791DF9A32C00BE216F /* IngresseSDK.framework */; };
 		62D33D8A1DF9A32C00BE216F /* IngresseSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62D33D9A1DF9A6B000BE216F /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D33D991DF9A6B000BE216F /* ResponseParser.swift */; };
@@ -53,15 +62,24 @@
 		621003461E2EA78E00B4904C /* IngresseErrorsSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseErrorsSwift.swift; sourceTree = "<group>"; };
 		621003471E2EA78E00B4904C /* IngresseErrors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IngresseErrors.plist; sourceTree = "<group>"; };
 		622124F71E2573A30080C55C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		622124FB1E2574270080C55C /* EventAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventAttributes.swift; path = Classes/EventAttributes.swift; sourceTree = "<group>"; };
 		624394A61E25839C00840E7E /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		625ABBBC1E2CF165006EA09D /* HMACSHA1Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMACSHA1Tests.m; sourceTree = "<group>"; };
 		625ABBC11E2D075C006EA09D /* IngresseUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseUser.swift; path = Classes/IngresseUser.swift; sourceTree = "<group>"; };
-		625ABBCA1E2D21AE006EA09D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		629299BA1E2940E900AAD3AF /* IngresseSDK.private.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = IngresseSDK.private.modulemap; sourceTree = "<group>"; };
 		629299BB1E29411500AAD3AF /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		629299BC1E29428600AAD3AF /* IngresseSDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = IngresseSDK.xcconfig; sourceTree = "<group>"; };
 		629A68D71DF9C0DF00773A25 /* IngresseSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IngresseSDK.podspec; sourceTree = "<group>"; };
+		62B082931E3133FC00B81331 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		62B082951E3138E100B81331 /* SessionSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSyncDelegate.swift; sourceTree = "<group>"; };
+		62B0829A1E323C2F00B81331 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		62B0829C1E323D6800B81331 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		62B0829E1E32434F00B81331 /* MyTicketsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyTicketsService.swift; path = Classes/MyTicketsService.swift; sourceTree = "<group>"; };
+		62B082A01E32648200B81331 /* TicketSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TicketSyncDelegate.swift; path = Classes/TicketSyncDelegate.swift; sourceTree = "<group>"; };
+		62B082A21E326D3800B81331 /* UserTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTicket.swift; sourceTree = "<group>"; };
+		62B082A41E326D6D00B81331 /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
+		62B082A61E3273CB00B81331 /* IngresseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IngresseService.swift; path = Classes/IngresseService.swift; sourceTree = "<group>"; };
+		62B082AB1E32779C00B81331 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = Classes/AuthService.swift; sourceTree = "<group>"; };
+		62B082AD1E32806600B81331 /* HttpEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpEncoding.swift; sourceTree = "<group>"; };
 		62D33D791DF9A32C00BE216F /* IngresseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IngresseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IngresseSDK.h; sourceTree = "<group>"; };
 		62D33D7D1DF9A32C00BE216F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,8 +115,11 @@
 		622124FD1E25742C0080C55C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				622124FB1E2574270080C55C /* EventAttributes.swift */,
+				62B082A21E326D3800B81331 /* UserTicket.swift */,
+				62B082A41E326D6D00B81331 /* Transfer.swift */,
+				62B082931E3133FC00B81331 /* Session.swift */,
 				625ABBC11E2D075C006EA09D /* IngresseUser.swift */,
+				62B0829A1E323C2F00B81331 /* Event.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -119,6 +140,37 @@
 				629299BB1E29411500AAD3AF /* module.modulemap */,
 			);
 			name = IngresseSDKPrivate;
+			sourceTree = "<group>";
+		};
+		62B082A81E32766100B81331 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				62B082A61E3273CB00B81331 /* IngresseService.swift */,
+				62B0829E1E32434F00B81331 /* MyTicketsService.swift */,
+				62B082A01E32648200B81331 /* TicketSyncDelegate.swift */,
+				62B082951E3138E100B81331 /* SessionSyncDelegate.swift */,
+				62B082AB1E32779C00B81331 /* AuthService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		62B082A91E32767C00B81331 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				624394A61E25839C00840E7E /* URLBuilder.swift */,
+				62D33D991DF9A6B000BE216F /* ResponseParser.swift */,
+				62B082AD1E32806600B81331 /* HttpEncoding.swift */,
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
+		62B082AA1E32769D00B81331 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				621003461E2EA78E00B4904C /* IngresseErrorsSwift.swift */,
+				621003471E2EA78E00B4904C /* IngresseErrors.plist */,
+			);
+			name = Errors;
 			sourceTree = "<group>";
 		};
 		62D33D6F1DF9A32C00BE216F = {
@@ -145,20 +197,19 @@
 		62D33D7B1DF9A32C00BE216F /* IngresseSDK */ = {
 			isa = PBXGroup;
 			children = (
-				621003461E2EA78E00B4904C /* IngresseErrorsSwift.swift */,
-				621003471E2EA78E00B4904C /* IngresseErrors.plist */,
 				629299B91E2940CB00AAD3AF /* IngresseSDKPrivate */,
 				624394A51E25838800840E7E /* Crypto */,
+				62B082AA1E32769D00B81331 /* Errors */,
 				622124FD1E25742C0080C55C /* Model */,
-				62D33D991DF9A6B000BE216F /* ResponseParser.swift */,
-				624394A61E25839C00840E7E /* URLBuilder.swift */,
+				62B082A91E32767C00B81331 /* Parser */,
+				62B082A81E32766100B81331 /* Services */,
 				62D33D7C1DF9A32C00BE216F /* IngresseSDK.h */,
-				625ABBCA1E2D21AE006EA09D /* Localizable.strings */,
 				62D33D7D1DF9A32C00BE216F /* Info.plist */,
 				629299BA1E2940E900AAD3AF /* IngresseSDK.private.modulemap */,
 				621003401E2E470400B4904C /* RestClientInterface.swift */,
 				621003441E2E7F8600B4904C /* RestClient.swift */,
 				621003421E2E499500B4904C /* IngresseClient.swift */,
+				62B0829C1E323D6800B81331 /* DateHelper.swift */,
 			);
 			path = IngresseSDK;
 			sourceTree = "<group>";
@@ -285,7 +336,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				625ABBCB1E2D21AE006EA09D /* Localizable.strings in Resources */,
 				621003491E2EA78E00B4904C /* IngresseErrors.plist in Resources */,
 				622124F81E2573A30080C55C /* LICENSE in Resources */,
 				629299BD1E29428600AAD3AF /* IngresseSDK.xcconfig in Resources */,
@@ -307,16 +357,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62B0829D1E323D6800B81331 /* DateHelper.swift in Sources */,
 				624394A71E25839C00840E7E /* URLBuilder.swift in Sources */,
 				62DFAB961E296BFF000EE763 /* Base64Transcoder.c in Sources */,
 				62D33D9A1DF9A6B000BE216F /* ResponseParser.swift in Sources */,
-				622124FC1E2574270080C55C /* EventAttributes.swift in Sources */,
+				62B082961E3138E100B81331 /* SessionSyncDelegate.swift in Sources */,
+				62B082A71E3273CB00B81331 /* IngresseService.swift in Sources */,
+				62B082AC1E32779C00B81331 /* AuthService.swift in Sources */,
 				621003481E2EA78E00B4904C /* IngresseErrorsSwift.swift in Sources */,
 				621003451E2E7F8600B4904C /* RestClient.swift in Sources */,
 				625ABBC21E2D075C006EA09D /* IngresseUser.swift in Sources */,
+				62B082941E3133FC00B81331 /* Session.swift in Sources */,
 				62DFAB991E296BFF000EE763 /* HMACSHA1.m in Sources */,
+				62B082A31E326D3800B81331 /* UserTicket.swift in Sources */,
 				621003431E2E499500B4904C /* IngresseClient.swift in Sources */,
+				62B0829F1E32434F00B81331 /* MyTicketsService.swift in Sources */,
 				621003411E2E470400B4904C /* RestClientInterface.swift in Sources */,
+				62B082AE1E32806600B81331 /* HttpEncoding.swift in Sources */,
+				62B0829B1E323C2F00B81331 /* Event.swift in Sources */,
+				62B082A51E326D6D00B81331 /* Transfer.swift in Sources */,
+				62B082A11E32648200B81331 /* TicketSyncDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,7 +523,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -490,7 +550,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;

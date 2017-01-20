@@ -17,7 +17,7 @@ public class RestClient: RestClientInterface {
      
      - parameter completion: Callback block in case of success
      */
-    public func GET(url: String, completion:@escaping (_ success:Bool,_ responseData:[String:Any]?) -> ()) {
+    public func GET(url: String, completion:@escaping (_ success:Bool,_ responseData:[String:Any]) -> ()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
@@ -32,9 +32,11 @@ public class RestClient: RestClientInterface {
                         completion(true, responseData)
                     })
                 } catch IngresseException.errorWithCode(let code) {
-                    completion(false, ["errorCode":code])
-                } catch {
-                    completion(false, nil)
+                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: code)
+                    completion(false, ["errorCode":code, "errorMessage":message])
+                } catch let error {
+                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: 0)
+                    completion(false, ["errorCode":0, "errorMessage":message, "error":error])
                 }
             }
         }
@@ -48,22 +50,12 @@ public class RestClient: RestClientInterface {
      
      - parameter completion: Callback block in case of success
      */
-    public func POST(url: String, parameters: [String:String], completion:@escaping (_ success:Bool,_ responseData:[String:Any]?) -> ()) {
+    public func POST(url: String, parameters: [String:String], completion:@escaping (_ success:Bool,_ responseData:[String:Any]) -> ()) {
         
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
         request.httpMethod = "POST"
         
-        let count = parameters.count
-        var i = 1
-        
-        var body = ""
-        for key in parameters.keys {
-            body += "\(key)=\(parameters[key]!)"
-            if i != count {
-                body += "&"
-            }
-            i += 1
-        }
+        let body = parameters.stringFromHttpParameters()
         
         request.httpBody = body.data(using: .utf8)
         
@@ -79,9 +71,11 @@ public class RestClient: RestClientInterface {
                         completion(true, responseData)
                     })
                 } catch IngresseException.errorWithCode(let code) {
-                    completion(false, ["errorCode":code])
-                } catch {
-                    completion(false, nil)
+                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: code)
+                    completion(false, ["errorCode":code, "errorMessage":message])
+                } catch let error {
+                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: 0)
+                    completion(false, ["errorCode":0, "errorMessage":message, "error":error])
                 }
             }
         }
