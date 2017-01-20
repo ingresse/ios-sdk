@@ -2,7 +2,7 @@
 //  IngresseAPIBuilder.swift
 //  IngresseSDK
 //
-//  Created by Rubens Gondek on 12/8/16.
+//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 

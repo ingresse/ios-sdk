@@ -1,8 +1,9 @@
 //
 //  Session.swift
-//  Ticketbooth
+//  IngresseSDK
 //
-//  Created on 4/29/16.
+//  Created by Rubens Gondek on 1/20/17.
+//  Copyright © 2016 Ingresse. All rights reserved.
 //
 
 import Foundation

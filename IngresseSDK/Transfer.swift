@@ -1,8 +1,8 @@
 //
 //  Transfer.swift
-//  TicketBooth
+//  IngresseSDK
 //
-//  Created by Rubens Gondek on 8/5/16.
+//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 

@@ -1,8 +1,8 @@
 //
 //  Ticket.swift
-//  TicketsShare-Prototype
+//  IngresseSDK
 //
-//  Created by Rubens Gondek on 4/22/16.
+//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 

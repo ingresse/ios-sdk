@@ -1,4 +1,3 @@
-
 //
 //  IngresseClient.swift
 //  IngresseSDK

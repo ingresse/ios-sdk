@@ -30,6 +30,24 @@ class URLBuilderTests: XCTestCase {
         XCTAssertEqual(expected, generated)
     }
     
+    public func testMakeURLNoParameters() {
+        let authString = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
+        let expected = "https://api.ingresse.com/test/\(authString)"
+        
+        let generated = URLBuilder.makeURL(host: "https://api.ingresse.com/", path: "test/", publicKey: "1234", privateKey: "2345", parameters: [:])
+        
+        XCTAssertEqual(expected, generated)
+    }
+    
+    public func testMakeURLNilParameters() {
+        let authString = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
+        let expected = "https://api.ingresse.com/test/\(authString)"
+        
+        let generated = URLBuilder.makeURL(host: "https://api.ingresse.com/", path: "test/", publicKey: "1234", privateKey: "2345", parameters: nil)
+        
+        XCTAssertEqual(expected, generated)
+    }
+    
     public func testGetTimeStamp() {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"

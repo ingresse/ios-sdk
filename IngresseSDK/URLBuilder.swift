@@ -10,12 +10,15 @@ import Foundation
 
 public class URLBuilder {
     
-    public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String]) -> String {
+    public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String]?) -> String {
         var url = host
         url += path
         url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
-        url += "&"
-        url += parameters.stringFromHttpParameters()
+        
+        if parameters != nil && !parameters!.isEmpty {
+            url += "&"
+            url += parameters!.stringFromHttpParameters()
+        }
         
         return url
     }

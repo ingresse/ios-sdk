@@ -1,6 +1,6 @@
 //
 //  IngresseErrors.swift
-//  EventManager
+//  IngresseSDK
 //
 //  Created by Rubens Gondek on 10/31/16.
 //  Copyright © 2016 Ingresse. All rights reserved.
