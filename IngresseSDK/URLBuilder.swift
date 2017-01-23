@@ -13,12 +13,14 @@ public class URLBuilder {
     public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String]?) -> String {
         var url = host
         url += path
-        url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
+        url += "?"
         
         if parameters != nil && !parameters!.isEmpty {
-            url += "&"
             url += parameters!.stringFromHttpParameters()
+            url += "&"
         }
+        
+        url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
         
         return url
     }
@@ -27,7 +29,7 @@ public class URLBuilder {
         let signature = getSignature(publicKey, privateKey)
         let timestamp = getTimestamp()
         
-        return "?publickey=\(publicKey)&signature=\(signature)&timestamp=\(timestamp)"
+        return "publickey=\(publicKey)&signature=\(signature)&timestamp=\(timestamp)"
     }
     
     public static func getTimestamp() -> String {
