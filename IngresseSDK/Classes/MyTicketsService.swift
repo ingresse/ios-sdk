@@ -38,7 +38,9 @@ public class MyTicketsService {
         parameters["pageSize"] = "50"
         parameters["usertoken"] = user.userToken
         
-        let date = Date(timeIntervalSinceNow:-(2*24*60*60))
+        let day = 24*60*60
+        let dayInterval = TimeInterval(-day)
+        let date = Date(timeIntervalSinceNow: dayInterval)
         
         switch type {
         case .future: parameters["from"] = "\(date)"
