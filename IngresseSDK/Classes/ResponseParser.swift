@@ -30,42 +30,45 @@ public class ResponseParser: NSObject {
             throw IngresseException.requestError
         }
         
+        var objData: Any
+        
         do {
-            let objData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-            
-            guard let obj = objData as? [String:Any] else {
-                throw IngresseException.jsonParserError
-            }
-            
-            if let responseString = obj["responseData"] as? String {
-                if responseString.contains("[Ingresse Exception Error]") {
-                    // API Error
-                    guard let responseError = obj["responseError"] as? [String:Any] else {
-                        // Could not get response error
-                        throw IngresseException.jsonParserError
-                    }
-                
-                    // Get error code
-                    let code = responseError["code"] as! Int
-                    
-                    throw IngresseException.errorWithCode(code: code)
-                }
-            }
-            
-            guard let responseData = obj["responseData"] as? [String:Any] else {
-                // Could not get response data
-                
-                guard let responseArray = obj["responseData"] as? [[String:Any]] else {
-                    throw IngresseException.jsonParserError
-                }
-                
-                completion(["data":responseArray])
-                return
-            }
-            
-            completion(responseData)
+            objData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
         } catch {
             throw IngresseException.jsonParserError
         }
+        
+        guard let obj = objData as? [String:Any] else {
+            throw IngresseException.jsonParserError
+        }
+        
+        if let responseString = obj["responseData"] as? String {
+            if responseString.contains("[Ingresse Exception Error]") {
+                // API Error
+                guard let responseError = obj["responseError"] as? [String:Any] else {
+                    // Could not get response error
+                    throw IngresseException.jsonParserError
+                }
+                
+                // Get error code
+                let code = responseError["code"] as! Int
+                
+                throw IngresseException.errorWithCode(code: code)
+            }
+        }
+        
+        guard let responseData = obj["responseData"] as? [String:Any] else {
+            // Could not get response data
+            
+            guard let responseArray = obj["responseData"] as? [[String:Any]] else {
+                throw IngresseException.jsonParserError
+            }
+            
+            completion(["data":responseArray])
+            return
+        }
+        
+        completion(responseData)
+        
     }
 }
