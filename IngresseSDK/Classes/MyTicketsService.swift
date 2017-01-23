@@ -36,6 +36,7 @@ public class MyTicketsService {
         let path = "user/\(user.userId)/sessions"
         var parameters = ["page":"\(page)"]
         parameters["pageSize"] = "50"
+        parameters["usertoken"] = user.userToken
         
         let date = Date(timeIntervalSinceNow:-(2*24*60*60))
         
@@ -49,7 +50,7 @@ public class MyTicketsService {
         
         client.restClient.GET(url: url) { (success: Bool, response: [String:Any]) in
             if !success {
-                delegate.didFailSync(errorData: response)
+                delegate.didFailSyncSessions(errorData: response)
                 return
             }
             
@@ -98,6 +99,7 @@ public class MyTicketsService {
         client.restClient.GET(url: url) { (success:Bool, response:[String : Any]) in
             if !success {
                 delegate.didFailSyncTickets(errorData: response)
+                return
             }
             
             var tickets = [UserTicket]()

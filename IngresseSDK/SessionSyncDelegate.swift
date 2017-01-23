@@ -10,5 +10,5 @@ import Foundation
 
 public protocol SessionSyncDelegate {
     func didSyncSessionsPage(_ sessions: [Session], finished: Bool)
-    func didFailSync(errorData: [String:Any])
+    func didFailSyncSessions(errorData: [String:Any])
 }
