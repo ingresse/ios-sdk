@@ -9,21 +9,21 @@
 import Foundation
 
 public class UserTicket {
-    var checked       : Bool
-    var guestTypeId   : String
-    var ticketTypeId  : String
-    var saleTicketId  : String
-    var sequence      : String
-    var sessionId     : String
-    var code          : String?
-    var title         : String
-    var type          : String
-    var desc          : String
-    var transactionId : String
-    var seatLocator   : String?
-    var guestName     : String?
-    var receivedFrom  : Transfer?
-    var transferedTo  : Transfer?
+    public var checked       : Bool
+    public var guestTypeId   : String
+    public var ticketTypeId  : String
+    public var saleTicketId  : String
+    public var sequence      : String
+    public var sessionId     : String
+    public var code          : String?
+    public var title         : String
+    public var type          : String
+    public var desc          : String
+    public var transactionId : String
+    public var seatLocator   : String?
+    public var guestName     : String?
+    public var receivedFrom  : Transfer?
+    public var transferedTo  : Transfer?
     
     init(withJSON json: [String:Any]) {
         let id = String(json["id"] as! Int)

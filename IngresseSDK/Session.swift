@@ -9,12 +9,12 @@
 import Foundation
 
 public class Session {
-    var id         : String
-    var date       : String
-    var tickets    : Int
-    var transfered : Int
-    var dateTime   : Date
-    var event      : Event
+    public var id         : String
+    public var date       : String
+    public var tickets    : Int
+    public var transfered : Int
+    public var dateTime   : Date
+    public var event      : Event
     
     init(withJSON json:[String:Any]) {
         

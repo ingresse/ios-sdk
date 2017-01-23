@@ -9,15 +9,15 @@
 import Foundation
 
 public class Transfer {
-    var id         : String
-    var status     : String
-    var userId     : String
-    var userEmail  : String
-    var userName   : String
-    var picture    : String
-    var created    : String?
-    var accepted   : String?
-    var socialId   : [String: String]
+    public var id         : String
+    public var status     : String
+    public var userId     : String
+    public var userEmail  : String
+    public var userName   : String
+    public var picture    : String
+    public var created    : String?
+    public var accepted   : String?
+    public var socialId   : [String: String]
     
     init(withJSON json: [String:Any]) {
         let id = String(json["transferId"] as! Int)
