@@ -9,12 +9,12 @@
 import UIKit
 
 public class IngresseService {
-    
+
     var client: IngresseClient!
-    
+
     public var auth: AuthService!
     public var myTickets: MyTicketsService!
-    
+
     public init(client: IngresseClient) {
         self.client = client
         self.auth = AuthService(client)

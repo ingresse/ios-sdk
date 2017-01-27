@@ -9,13 +9,13 @@
 import Foundation
 
 public class AuthService {
-    
+
     var client: IngresseClient
-    
+
     init(_ client: IngresseClient) {
         self.client = client
     }
-    
+
     /**
      Login into Ingresse and get token and userID
      
@@ -24,37 +24,40 @@ public class AuthService {
      
      - parameter completion: Callback block
      */
-    public func loginWithEmail(_ email:String, andPassword pass:String, completion: @escaping (_ success: Bool, _ response:[String:Any]?)->()) {
+    public func loginWithEmail(_ email: String, andPassword pass: String, completion: @escaping (_ success: Bool, _ response: [String:Any])->()) {
         let path = "login/"
-        let params = ["email"    : email,
-                      "password" : pass]
-        
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: [:])
-        
-        client.restClient.POST(url: url, parameters: params) { (success: Bool, response: [String:Any]?) in
+        let params = ["email": email,
+                      "password": pass]
+
+        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey)
+
+        client.restClient.POST(url: url, parameters: params) { (success: Bool, response: [String:Any]) in
             if !success {
+                var responseWithURL = response
+                responseWithURL["url"] = url
+                responseWithURL["privateKey"] = self.client.privateKey
+                completion(false, responseWithURL)
+                return
+            }
+
+            guard let logged = response["status"] as? Bool else {
                 completion(false, response)
                 return
             }
-            
-            guard let logged = response!["status"] as? Bool else {
-                completion(false, nil)
-                return
-            }
-            
+
             if !logged {
-                completion(false, ["error":"loginFail"])
+                completion(false, ["error": "loginFail"])
                 return
             }
-            
-            guard let data = response!["data"] as? [String:Any] else {
-                completion(false, ["error":""])
+
+            guard let data = response["data"] as? [String:Any] else {
+                completion(false, ["error": ""])
                 return
             }
             
             let user = IngresseUser.login(userData: data)
-            
-            completion(true, ["user":user])
+
+            completion(true, ["user": user])
         }
     }
     

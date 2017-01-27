@@ -10,13 +10,13 @@ import Foundation
 
 public class URLBuilder {
     
-    public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String]?) -> String {
+    public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String] = [:]) -> String {
         var url = host
         url += path
         url += "?"
         
-        if parameters != nil && !parameters!.isEmpty {
-            url += parameters!.stringFromHttpParameters()
+        if !parameters.isEmpty {
+            url += parameters.stringFromHttpParameters()
             url += "&"
         }
         
@@ -26,8 +26,8 @@ public class URLBuilder {
     }
     
     public static func generateAuthString(publicKey: String, privateKey: String) -> String {
-        let signature = getSignature(publicKey, privateKey)
         let timestamp = getTimestamp()
+        let signature = getSignature(publicKey, privateKey, timestamp)
         
         return "publickey=\(publicKey)&signature=\(signature)&timestamp=\(timestamp)"
     }
@@ -38,14 +38,16 @@ public class URLBuilder {
         df.timeZone = TimeZone(abbreviation: "GMT")
         df.locale = Locale(identifier: "en_US_POSIX")
         
-        return df.string(from: Date()).removingPercentEncoding!
+        let date = Date()
+        
+        return df.string(from: date)
     }
     
-    public static func getSignature(_ publicKey:String,_ privateKey:String) -> String {
-        let timestamp = getTimestamp()
-        
+    public static func getSignature(_ publicKey:String,_ privateKey:String,_ timestamp:String) -> String {
         let data = publicKey.appending(timestamp)
         
-        return HMACSHA1.hash(data, key: privateKey)
+        let signature = HMACSHA1.hash(data, key: privateKey)!
+        
+        return signature.stringWithPercentEncoding()!
     }
 }

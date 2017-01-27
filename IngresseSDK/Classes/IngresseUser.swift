@@ -9,7 +9,7 @@
 import UIKit
 
 public class IngresseUser: NSObject {
-    public var userId    : Int = 0
+    public var userId    : Int    = 0
     public var name      : String = ""
     public var lastname  : String = ""
     public var email     : String = ""
@@ -23,24 +23,24 @@ public class IngresseUser: NSObject {
     public var phone     : String = ""
     public var number    : String = ""
     public var fbUserId  : String = ""
-    public var verified  : Bool = false
-    
+    public var verified  : Bool   = false
+
     public static var user : IngresseUser?
-    
+
     static func login(userData: [String:Any]) -> IngresseUser {
         user = IngresseUser()
-        
-        user!.userId = userData["userId"] as! Int
-        user!.userToken = userData["token"] as! String
-        
+
+        user!.userId = userData["userId"] as? Int ?? 0
+        user!.userToken = userData["token"] as? String ?? ""
+
         return user!
     }
-    
+
     static func fillData(userData: [String:Any]) -> IngresseUser? {
         guard user != nil else {
             return nil
         }
-        
+
         user!.name       = (userData["name"] as? String) ?? ""
         user!.lastname   = (userData["lastname"] as? String) ?? ""
         user!.email      = (userData["email"] as? String) ?? ""
@@ -54,10 +54,10 @@ public class IngresseUser: NSObject {
         user!.phone      = (userData["phone"] as? String) ?? ""
         user!.fbUserId   = (userData["fbUserId"] as? String) ?? ""
         user!.verified   = (userData["verified"] as? Bool) ?? false
-        
+
         return user!
     }
-    
+
     public static func logout() {
         user = nil
     }

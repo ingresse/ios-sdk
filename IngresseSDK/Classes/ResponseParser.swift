@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum IngresseException : Error {
+public enum IngresseException: Error {
     case errorWithCode(code: Int)
     case genericError
     case requestError
@@ -16,7 +16,7 @@ public enum IngresseException : Error {
 }
 
 public class ResponseParser: NSObject {
-    
+
     /**
      API Response parser
      - throws: IngresseException
@@ -25,13 +25,13 @@ public class ResponseParser: NSObject {
      - parameter data:     Data bytes
      - parameter completion: Callback block in case of success
      */
-    public static func build(_ response:URLResponse?, data:Data?, completion:(_ responseData:[String:Any])->()) throws {
-        if (data == nil || response == nil) {
+    public static func build(_ response: URLResponse?, data: Data?, completion: (_ responseData: [String: Any])->Void) throws {
+        if data == nil || response == nil {
             throw IngresseException.requestError
         }
-        
+
         var objData: Any
-        
+
         do {
             objData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
         } catch {
@@ -51,24 +51,26 @@ public class ResponseParser: NSObject {
                 }
                 
                 // Get error code
-                let code = responseError["code"] as! Int
-                
+                guard let code = responseError["code"] as? Int else {
+                    throw IngresseException.genericError
+                }
+
                 throw IngresseException.errorWithCode(code: code)
             }
         }
-        
+
         guard let responseData = obj["responseData"] as? [String:Any] else {
             // Could not get response data
-            
+
             guard let responseArray = obj["responseData"] as? [[String:Any]] else {
                 throw IngresseException.jsonParserError
             }
-            
-            completion(["data":responseArray])
+
+            completion(["data": responseArray])
             return
         }
-        
+
         completion(responseData)
-        
+
     }
 }

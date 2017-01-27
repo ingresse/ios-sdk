@@ -32,7 +32,7 @@ class IngresseAuthTests: XCTestCase {
         super.setUp()
         
         restClient = MockClient()
-        client = IngresseClient(publicKey: "", privateKey: "", urlHost: "", restClient: restClient)
+        client = IngresseClient(publicKey: "1234", privateKey: "2345", restClient: restClient)
         service = IngresseService(client: client)
     }
     
@@ -54,14 +54,16 @@ class IngresseAuthTests: XCTestCase {
         restClient.response = loginSuccessResponse
         
         var logged = false
+        var responseError = [String:Any]()
         
-        service.auth.loginWithEmail("email@test.com", andPassword: "password") { (success:Bool, response:[String:Any]?) in
+        service.auth.loginWithEmail("rubens.gondek@gmail.com", andPassword: "password") { (success:Bool, response:[String:Any]) in
+            responseError = response
             logged = success
             loginExpectation.fulfill()
         }
         
-        waitForExpectations(timeout: 5) { (error:Error?) in
-            XCTAssertTrue(logged)
+        waitForExpectations(timeout: 15) { (error:Error?) in
+            XCTAssertTrue(logged, "\(responseError)")
         }
     }
     

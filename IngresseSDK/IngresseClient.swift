@@ -15,24 +15,17 @@ public class IngresseClient {
     var publicKey: String
     var restClient: RestClientInterface
     
-    public init(publicKey: String, privateKey: String, urlHost: String, restClient: RestClientInterface) {
+    public init(publicKey: String, privateKey: String, urlHost: String = "https://api.ingresse.com/", restClient: RestClientInterface) {
         self.publicKey = publicKey
         self.privateKey = privateKey
         self.restClient = restClient
         self.host = urlHost
     }
     
-    public init(publicKey: String, privateKey: String, urlHost: String) {
+    public init(publicKey: String, privateKey: String, urlHost: String = "https://api.ingresse.com/") {
         self.publicKey = publicKey
         self.privateKey = privateKey
         self.restClient = RestClient()
         self.host = urlHost
-    }
-    
-    public init(publicKey: String, privateKey: String) {
-        self.publicKey = publicKey
-        self.privateKey = privateKey
-        self.restClient = RestClient()
-        self.host = "https://api.ingresse.com/"
     }
 }

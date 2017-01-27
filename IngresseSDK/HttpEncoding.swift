@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    func stringByAddingPercentEncodingForURLQueryValue() -> String? {
+    public func stringWithPercentEncoding() -> String? {
         let allowedCharacters = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~")
         
         return self.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
@@ -19,8 +19,8 @@ extension String {
 extension Dictionary {
     func stringFromHttpParameters() -> String {
         let parameterArray = self.map { (key, value) -> String in
-            let percentEscapedKey = (key as! String).stringByAddingPercentEncodingForURLQueryValue()!
-            let percentEscapedValue = (value as! String).stringByAddingPercentEncodingForURLQueryValue()!
+            let percentEscapedKey = (key as! String).stringWithPercentEncoding()!
+            let percentEscapedValue = (value as! String).stringWithPercentEncoding()!
             return "\(percentEscapedKey)=\(percentEscapedValue)"
         }
         
