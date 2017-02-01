@@ -1,6 +1,6 @@
 //
 //  IngresseErrors.swift
-//  EventManager
+//  IngresseSDK
 //
 //  Created by Rubens Gondek on 10/31/16.
 //  Copyright © 2016 Ingresse. All rights reserved.
@@ -14,7 +14,7 @@ public class IngresseErrorsSwift: NSObject {
     var errors: [String:String]!
     
     public override init() {
-        let bundle = Bundle(identifier: "com.ingresse.IngresseSDK")
+        let bundle = Bundle(identifier: "com.ingresse.sdk")
         guard let path = bundle?.path(forResource: "IngresseErrors", ofType: "plist") else {
             print("Path error")
             return

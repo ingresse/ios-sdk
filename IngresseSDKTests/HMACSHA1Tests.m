@@ -15,7 +15,7 @@
 
 @implementation HMACSHA1Tests
 
-- (void)testExample {
+- (void)testEncrypt {
     NSString *expected = @"qXQHLSif+/sAeXThuwvQPgWmwuI=";
     NSString *generated = [HMACSHA1 hash:@"TextToEncrypt" key:@"key"];
     
