@@ -18,7 +18,7 @@ public class RestClient: RestClientInterface {
      - parameter completion: Callback block in case of success
      */
     public func GET(url: String, completion:@escaping (_ success:Bool,_ responseData:[String:Any]) -> ()) {
-        let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15)
+        let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
             DispatchQueue.main.async {
@@ -52,7 +52,7 @@ public class RestClient: RestClientInterface {
      */
     public func POST(url: String, parameters: [String:String], completion:@escaping (_ success:Bool,_ responseData:[String:Any]) -> ()) {
         
-        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
+        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
         
         let body = parameters.stringFromHttpParameters()
