@@ -1,0 +1,587 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		624526011EC23217007B6584 /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 624525F71EC23217007B6584 /* IngresseSDK.framework */; };
+		624526061EC23217007B6584 /* IngresseSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526051EC23217007B6584 /* IngresseSDKTests.swift */; };
+		624526081EC23217007B6584 /* IngresseSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 624525FA1EC23217007B6584 /* IngresseSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		624526141EC2322C007B6584 /* IngresseErrors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 624526121EC2322C007B6584 /* IngresseErrors.plist */; };
+		624526151EC2322C007B6584 /* IngresseErrorsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526131EC2322C007B6584 /* IngresseErrorsSwift.swift */; };
+		624526191EC23238007B6584 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526171EC23238007B6584 /* DateHelper.swift */; };
+		6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526181EC23238007B6584 /* HttpEncoding.swift */; };
+		6245261F1EC2323E007B6584 /* IngresseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245261C1EC2323E007B6584 /* IngresseClient.swift */; };
+		624526201EC2323E007B6584 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245261D1EC2323E007B6584 /* RestClient.swift */; };
+		624526211EC2323E007B6584 /* RestClientInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245261E1EC2323E007B6584 /* RestClientInterface.swift */; };
+		624526281EC2324F007B6584 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526231EC2324F007B6584 /* Event.swift */; };
+		624526291EC2324F007B6584 /* IngresseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526241EC2324F007B6584 /* IngresseUser.swift */; };
+		6245262A1EC2324F007B6584 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526251EC2324F007B6584 /* Session.swift */; };
+		6245262B1EC2324F007B6584 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526261EC2324F007B6584 /* Transfer.swift */; };
+		6245262C1EC2324F007B6584 /* UserTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526271EC2324F007B6584 /* UserTicket.swift */; };
+		624526331EC23255007B6584 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245262E1EC23255007B6584 /* AuthService.swift */; };
+		624526341EC23255007B6584 /* IngresseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245262F1EC23255007B6584 /* IngresseService.swift */; };
+		624526351EC23255007B6584 /* MyTicketsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526301EC23255007B6584 /* MyTicketsService.swift */; };
+		624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526311EC23255007B6584 /* SessionSyncDelegate.swift */; };
+		624526371EC23255007B6584 /* TicketSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526321EC23255007B6584 /* TicketSyncDelegate.swift */; };
+		6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526391EC2325D007B6584 /* ResponseParser.swift */; };
+		6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245263A1EC2325D007B6584 /* URLBuilder.swift */; };
+		624526451EC2327A007B6584 /* HMACSHA1.h in Headers */ = {isa = PBXBuildFile; fileRef = 624526411EC2327A007B6584 /* HMACSHA1.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		624526461EC2327A007B6584 /* HMACSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = 624526421EC2327A007B6584 /* HMACSHA1.m */; };
+		6245264C1EC253FD007B6584 /* HMACSHA1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 624526471EC253FD007B6584 /* HMACSHA1Tests.m */; };
+		6245264D1EC253FD007B6584 /* IngresseAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526481EC253FD007B6584 /* IngresseAuthTests.swift */; };
+		6245264E1EC253FD007B6584 /* IngresseErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526491EC253FD007B6584 /* IngresseErrorsTests.swift */; };
+		6245264F1EC253FD007B6584 /* ResponseParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245264A1EC253FD007B6584 /* ResponseParserTests.swift */; };
+		624526501EC253FD007B6584 /* URLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245264B1EC253FD007B6584 /* URLBuilderTests.swift */; };
+		624526521EC25770007B6584 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 624526511EC25770007B6584 /* LICENSE */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		624526021EC23217007B6584 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 624525EE1EC23217007B6584 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 624525F61EC23217007B6584;
+			remoteInfo = IngresseSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		624525F71EC23217007B6584 /* IngresseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IngresseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		624525FA1EC23217007B6584 /* IngresseSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IngresseSDK.h; sourceTree = "<group>"; };
+		624525FB1EC23217007B6584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		624526001EC23217007B6584 /* IngresseSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IngresseSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		624526051EC23217007B6584 /* IngresseSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngresseSDKTests.swift; sourceTree = "<group>"; };
+		624526071EC23217007B6584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		624526121EC2322C007B6584 /* IngresseErrors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IngresseErrors.plist; sourceTree = "<group>"; };
+		624526131EC2322C007B6584 /* IngresseErrorsSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseErrorsSwift.swift; sourceTree = "<group>"; };
+		624526171EC23238007B6584 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		624526181EC23238007B6584 /* HttpEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpEncoding.swift; sourceTree = "<group>"; };
+		6245261C1EC2323E007B6584 /* IngresseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseClient.swift; sourceTree = "<group>"; };
+		6245261D1EC2323E007B6584 /* RestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
+		6245261E1EC2323E007B6584 /* RestClientInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClientInterface.swift; sourceTree = "<group>"; };
+		624526231EC2324F007B6584 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		624526241EC2324F007B6584 /* IngresseUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseUser.swift; sourceTree = "<group>"; };
+		624526251EC2324F007B6584 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		624526261EC2324F007B6584 /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
+		624526271EC2324F007B6584 /* UserTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTicket.swift; sourceTree = "<group>"; };
+		6245262E1EC23255007B6584 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		6245262F1EC23255007B6584 /* IngresseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseService.swift; sourceTree = "<group>"; };
+		624526301EC23255007B6584 /* MyTicketsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTicketsService.swift; sourceTree = "<group>"; };
+		624526311EC23255007B6584 /* SessionSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSyncDelegate.swift; sourceTree = "<group>"; };
+		624526321EC23255007B6584 /* TicketSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSyncDelegate.swift; sourceTree = "<group>"; };
+		624526391EC2325D007B6584 /* ResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParser.swift; sourceTree = "<group>"; };
+		6245263A1EC2325D007B6584 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		624526411EC2327A007B6584 /* HMACSHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMACSHA1.h; sourceTree = "<group>"; };
+		624526421EC2327A007B6584 /* HMACSHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMACSHA1.m; sourceTree = "<group>"; };
+		624526471EC253FD007B6584 /* HMACSHA1Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMACSHA1Tests.m; sourceTree = "<group>"; };
+		624526481EC253FD007B6584 /* IngresseAuthTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseAuthTests.swift; sourceTree = "<group>"; };
+		624526491EC253FD007B6584 /* IngresseErrorsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseErrorsTests.swift; sourceTree = "<group>"; };
+		6245264A1EC253FD007B6584 /* ResponseParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParserTests.swift; sourceTree = "<group>"; };
+		6245264B1EC253FD007B6584 /* URLBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilderTests.swift; sourceTree = "<group>"; };
+		624526511EC25770007B6584 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		624525F31EC23217007B6584 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		624525FD1EC23217007B6584 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				624526011EC23217007B6584 /* IngresseSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		624525ED1EC23217007B6584 = {
+			isa = PBXGroup;
+			children = (
+				624526511EC25770007B6584 /* LICENSE */,
+				624525F91EC23217007B6584 /* IngresseSDK */,
+				624526041EC23217007B6584 /* IngresseSDKTests */,
+				624525F81EC23217007B6584 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		624525F81EC23217007B6584 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				624525F71EC23217007B6584 /* IngresseSDK.framework */,
+				624526001EC23217007B6584 /* IngresseSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		624525F91EC23217007B6584 /* IngresseSDK */ = {
+			isa = PBXGroup;
+			children = (
+				6245263D1EC2327A007B6584 /* Crypto */,
+				624526111EC2322C007B6584 /* Errors */,
+				624526161EC23238007B6584 /* Helpers */,
+				624526221EC2324F007B6584 /* Model */,
+				624526381EC2325D007B6584 /* Parser */,
+				6245261B1EC2323E007B6584 /* HTTPClient */,
+				6245262D1EC23255007B6584 /* Services */,
+				624525FA1EC23217007B6584 /* IngresseSDK.h */,
+				624525FB1EC23217007B6584 /* Info.plist */,
+			);
+			path = IngresseSDK;
+			sourceTree = "<group>";
+		};
+		624526041EC23217007B6584 /* IngresseSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				624526471EC253FD007B6584 /* HMACSHA1Tests.m */,
+				624526481EC253FD007B6584 /* IngresseAuthTests.swift */,
+				624526491EC253FD007B6584 /* IngresseErrorsTests.swift */,
+				6245264A1EC253FD007B6584 /* ResponseParserTests.swift */,
+				6245264B1EC253FD007B6584 /* URLBuilderTests.swift */,
+				624526051EC23217007B6584 /* IngresseSDKTests.swift */,
+				624526071EC23217007B6584 /* Info.plist */,
+			);
+			path = IngresseSDKTests;
+			sourceTree = "<group>";
+		};
+		624526111EC2322C007B6584 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				624526121EC2322C007B6584 /* IngresseErrors.plist */,
+				624526131EC2322C007B6584 /* IngresseErrorsSwift.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		624526161EC23238007B6584 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				624526171EC23238007B6584 /* DateHelper.swift */,
+				624526181EC23238007B6584 /* HttpEncoding.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		6245261B1EC2323E007B6584 /* HTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				6245261C1EC2323E007B6584 /* IngresseClient.swift */,
+				6245261D1EC2323E007B6584 /* RestClient.swift */,
+				6245261E1EC2323E007B6584 /* RestClientInterface.swift */,
+			);
+			path = HTTPClient;
+			sourceTree = "<group>";
+		};
+		624526221EC2324F007B6584 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				624526231EC2324F007B6584 /* Event.swift */,
+				624526241EC2324F007B6584 /* IngresseUser.swift */,
+				624526251EC2324F007B6584 /* Session.swift */,
+				624526261EC2324F007B6584 /* Transfer.swift */,
+				624526271EC2324F007B6584 /* UserTicket.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6245262D1EC23255007B6584 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6245262E1EC23255007B6584 /* AuthService.swift */,
+				6245262F1EC23255007B6584 /* IngresseService.swift */,
+				624526301EC23255007B6584 /* MyTicketsService.swift */,
+				624526311EC23255007B6584 /* SessionSyncDelegate.swift */,
+				624526321EC23255007B6584 /* TicketSyncDelegate.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		624526381EC2325D007B6584 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				624526391EC2325D007B6584 /* ResponseParser.swift */,
+				6245263A1EC2325D007B6584 /* URLBuilder.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		6245263D1EC2327A007B6584 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				624526411EC2327A007B6584 /* HMACSHA1.h */,
+				624526421EC2327A007B6584 /* HMACSHA1.m */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		624525F41EC23217007B6584 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				624526451EC2327A007B6584 /* HMACSHA1.h in Headers */,
+				624526081EC23217007B6584 /* IngresseSDK.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		624525F61EC23217007B6584 /* IngresseSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6245260B1EC23217007B6584 /* Build configuration list for PBXNativeTarget "IngresseSDK" */;
+			buildPhases = (
+				624525F21EC23217007B6584 /* Sources */,
+				624525F31EC23217007B6584 /* Frameworks */,
+				624525F41EC23217007B6584 /* Headers */,
+				624525F51EC23217007B6584 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IngresseSDK;
+			productName = IngresseSDK;
+			productReference = 624525F71EC23217007B6584 /* IngresseSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		624525FF1EC23217007B6584 /* IngresseSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6245260E1EC23217007B6584 /* Build configuration list for PBXNativeTarget "IngresseSDKTests" */;
+			buildPhases = (
+				624525FC1EC23217007B6584 /* Sources */,
+				624525FD1EC23217007B6584 /* Frameworks */,
+				624525FE1EC23217007B6584 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				624526031EC23217007B6584 /* PBXTargetDependency */,
+			);
+			name = IngresseSDKTests;
+			productName = IngresseSDKTests;
+			productReference = 624526001EC23217007B6584 /* IngresseSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		624525EE1EC23217007B6584 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Ingresse;
+				TargetAttributes = {
+					624525F61EC23217007B6584 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = KA3BZ23AM2;
+						ProvisioningStyle = Automatic;
+					};
+					624525FF1EC23217007B6584 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = KA3BZ23AM2;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 624525F11EC23217007B6584 /* Build configuration list for PBXProject "IngresseSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 624525ED1EC23217007B6584;
+			productRefGroup = 624525F81EC23217007B6584 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				624525F61EC23217007B6584 /* IngresseSDK */,
+				624525FF1EC23217007B6584 /* IngresseSDKTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		624525F51EC23217007B6584 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				624526141EC2322C007B6584 /* IngresseErrors.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		624525FE1EC23217007B6584 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				624526521EC25770007B6584 /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		624525F21EC23217007B6584 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6245262C1EC2324F007B6584 /* UserTicket.swift in Sources */,
+				624526351EC23255007B6584 /* MyTicketsService.swift in Sources */,
+				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
+				624526341EC23255007B6584 /* IngresseService.swift in Sources */,
+				624526151EC2322C007B6584 /* IngresseErrorsSwift.swift in Sources */,
+				624526331EC23255007B6584 /* AuthService.swift in Sources */,
+				6245261F1EC2323E007B6584 /* IngresseClient.swift in Sources */,
+				624526201EC2323E007B6584 /* RestClient.swift in Sources */,
+				624526291EC2324F007B6584 /* IngresseUser.swift in Sources */,
+				624526211EC2323E007B6584 /* RestClientInterface.swift in Sources */,
+				624526461EC2327A007B6584 /* HMACSHA1.m in Sources */,
+				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
+				6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */,
+				624526281EC2324F007B6584 /* Event.swift in Sources */,
+				6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */,
+				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
+				624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */,
+				6245262A1EC2324F007B6584 /* Session.swift in Sources */,
+				624526371EC23255007B6584 /* TicketSyncDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		624525FC1EC23217007B6584 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6245264E1EC253FD007B6584 /* IngresseErrorsTests.swift in Sources */,
+				624526061EC23217007B6584 /* IngresseSDKTests.swift in Sources */,
+				6245264D1EC253FD007B6584 /* IngresseAuthTests.swift in Sources */,
+				6245264C1EC253FD007B6584 /* HMACSHA1Tests.m in Sources */,
+				6245264F1EC253FD007B6584 /* ResponseParserTests.swift in Sources */,
+				624526501EC253FD007B6584 /* URLBuilderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		624526031EC23217007B6584 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 624525F61EC23217007B6584 /* IngresseSDK */;
+			targetProxy = 624526021EC23217007B6584 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		624526091EC23217007B6584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6245260A1EC23217007B6584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6245260C1EC23217007B6584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = KA3BZ23AM2;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = IngresseSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6245260D1EC23217007B6584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = KA3BZ23AM2;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = IngresseSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		6245260F1EC23217007B6584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = KA3BZ23AM2;
+				INFOPLIST_FILE = IngresseSDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		624526101EC23217007B6584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = KA3BZ23AM2;
+				INFOPLIST_FILE = IngresseSDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		624525F11EC23217007B6584 /* Build configuration list for PBXProject "IngresseSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				624526091EC23217007B6584 /* Debug */,
+				6245260A1EC23217007B6584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6245260B1EC23217007B6584 /* Build configuration list for PBXNativeTarget "IngresseSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6245260C1EC23217007B6584 /* Debug */,
+				6245260D1EC23217007B6584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6245260E1EC23217007B6584 /* Build configuration list for PBXNativeTarget "IngresseSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6245260F1EC23217007B6584 /* Debug */,
+				624526101EC23217007B6584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 624525EE1EC23217007B6584 /* Project object */;
+}
