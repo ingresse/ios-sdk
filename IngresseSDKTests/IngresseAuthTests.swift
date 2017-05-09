@@ -48,15 +48,15 @@ class IngresseAuthTests: XCTestCase {
         
         var loginSuccessResponse = [String:Any]()
         loginSuccessResponse["status"] = true
-        loginSuccessResponse["data"] = ["userId":14771,
-                                        "token" :"14771-aoindipahj23hrwe8no3qheq12or"]
+        loginSuccessResponse["data"] = ["userId":12345,
+                                        "token" :"12345-abcdefghijklmnopqrstuvxyz"]
         
         restClient.response = loginSuccessResponse
         
         var logged = false
         var responseError = [String:Any]()
         
-        service.auth.loginWithEmail("rubens.gondek@gmail.com", andPassword: "password") { (success:Bool, response:[String:Any]) in
+        service.auth.loginWithEmail("email@test.com", andPassword: "password") { (success:Bool, response:[String:Any]) in
             responseError = response
             logged = success
             loginExpectation.fulfill()
