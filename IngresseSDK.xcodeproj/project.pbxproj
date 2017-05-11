@@ -572,6 +572,7 @@
 				6245260D1EC23217007B6584 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6245260E1EC23217007B6584 /* Build configuration list for PBXNativeTarget "IngresseSDKTests" */ = {
 			isa = XCConfigurationList;
@@ -580,6 +581,7 @@
 				624526101EC23217007B6584 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
