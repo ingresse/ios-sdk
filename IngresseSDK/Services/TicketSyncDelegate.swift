@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol TicketSyncDelegate {
+@objc public protocol TicketSyncDelegate {
     func didSyncTicketsPage(tickets: [UserTicket], finished: Bool)
     func didFailSyncTickets(errorData: [String:Any])
 }

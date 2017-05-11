@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Session {
+public class Session: NSObject {
     public var id         : String
     public var date       : String
     public var tickets    : Int

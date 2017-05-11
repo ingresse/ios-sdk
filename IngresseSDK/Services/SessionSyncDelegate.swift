@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol SessionSyncDelegate {
+@objc public protocol SessionSyncDelegate {
     func didSyncSessionsPage(_ sessions: [Session], finished: Bool)
     func didFailSyncSessions(errorData: [String:Any])
 }

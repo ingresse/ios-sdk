@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class URLBuilder {
+public class URLBuilder: NSObject {
     
     public static func makeURL(host: String, path: String, publicKey:String, privateKey:String, parameters: [String : String] = [:]) -> String {
         var url = host

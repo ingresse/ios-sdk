@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class UserTicket {
+public class UserTicket: NSObject {
     public var checked       : Bool
     public var guestTypeId   : String
     public var ticketTypeId  : String

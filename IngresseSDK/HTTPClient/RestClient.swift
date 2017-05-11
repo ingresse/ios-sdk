@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class RestClient: RestClientInterface {
+public class RestClient: NSObject, RestClientInterface {
     
     /**
      REST GET Method using NSURLConnection

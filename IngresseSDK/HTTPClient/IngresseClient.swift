@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class IngresseClient {
+public class IngresseClient: NSObject {
     
     var host: String
     var privateKey: String

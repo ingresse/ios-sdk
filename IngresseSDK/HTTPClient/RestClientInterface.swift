@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol RestClientInterface {
+@objc public protocol RestClientInterface {
     
     func POST(url: String, parameters: [String:String], completion:@escaping (_ success:Bool, _ responseData:[String:Any]) -> ())
     func GET(url: String, completion:@escaping (_ success:Bool, _ responseData:[String:Any]) -> ())

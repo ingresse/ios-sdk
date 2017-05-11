@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class AuthService {
+public class AuthService: NSObject {
 
     var client: IngresseClient
 

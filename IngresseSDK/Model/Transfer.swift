@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Transfer {
+public class Transfer: NSObject {
     public var id         : String
     public var status     : String
     public var userId     : String

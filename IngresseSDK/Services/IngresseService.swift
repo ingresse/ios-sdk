@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class IngresseService {
+public class IngresseService: NSObject {
 
     var client: IngresseClient!
 

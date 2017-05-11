@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DateHelper {
+class DateHelper: NSObject  {
     
     static let df = DateFormatter()
 

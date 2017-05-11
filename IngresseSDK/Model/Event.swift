@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Event {
+public class Event: NSObject {
     public var id               : String
     public var name             : String
     public var link             : String
@@ -55,7 +55,7 @@ public class Event {
         self.longitude = venue["longitude"] as! Double
     }
     
-    init() {
+    override init() {
         self.id = ""
         self.name = ""
         self.link = ""

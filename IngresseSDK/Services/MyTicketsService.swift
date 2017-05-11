@@ -8,13 +8,13 @@
 
 import Foundation
 
-public enum EventSessionType {
-    case future
-    case past
-    case all
+@objc public enum EventSessionType : Int {
+    case future = 2
+    case past = 1
+    case all = 0
 }
 
-public class MyTicketsService {
+public class MyTicketsService: NSObject {
     
     var client: IngresseClient
     
