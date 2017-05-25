@@ -104,7 +104,8 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
+  s.resources = "IngresseSDK/Errors/*.plist"
+  s.ios.resource_bundle = { 'IngresseSDK' => ['IngresseSDK/Localization/*.lproj'] }
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 

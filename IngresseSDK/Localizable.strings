@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  IngresseSDK
+
+  Created by Rubens Gondek on 5/12/17.
+  Copyright © 2017 Ingresse. All rights reserved.
+*/
+
+"ERROR_FOUND" = "Encontramos um erro";
+"OPS" = "Ops!";
+"SOMETHING_WENT_WRONG" = "Algo deu errado";
+"DEFAULT_ERROR" = "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.";

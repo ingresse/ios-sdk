@@ -8,14 +8,18 @@
 
 import UIKit
 
+public func LOCALIZED_STRING(_ key: String) -> String {
+    return Bundle(for: IngresseErrorsSwift.self).localizedString(forKey: key, value: "", table: nil)
+}
+
 public class IngresseErrorsSwift: NSObject {
     static let shared = IngresseErrorsSwift()
     
     var errors: [String:String]!
     
     public override init() {
-        let bundle = Bundle(identifier: "com.ingresse.sdk")
-        guard let path = bundle?.path(forResource: "IngresseErrors", ofType: "plist") else {
+        let bundle = Bundle(for: IngresseErrorsSwift.self)
+        guard let path = bundle.path(forResource: "IngresseErrors", ofType: "plist") else {
             print("Path error")
             return
         }
@@ -29,6 +33,10 @@ public class IngresseErrorsSwift: NSObject {
     }
     
     public func getErrorMessage(code:Int) -> String {
+        if errors == nil {
+            return LOCALIZED_STRING("DEFAULT_ERROR")
+        }
+        
         if code == 0 {
             return errors["default_no_code"]!
         }

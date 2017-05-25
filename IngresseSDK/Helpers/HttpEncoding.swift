@@ -14,6 +14,10 @@ extension String {
         
         return self.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
     }
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
 
 extension Dictionary {

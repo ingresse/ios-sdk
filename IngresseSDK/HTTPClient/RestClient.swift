@@ -32,11 +32,17 @@ public class RestClient: NSObject, RestClientInterface {
                         completion(true, responseData)
                     })
                 } catch IngresseException.errorWithCode(let code) {
-                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: code)
-                    completion(false, ["errorCode":code, "errorMessage":message])
-                } catch let error {
-                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: 0)
-                    completion(false, ["errorCode":0, "errorMessage":message, "error":error])
+                    let error = APIError.Builder()
+                        .setCode(code)
+                        .build()
+                    
+                    completion(false, ["error":error])
+                } catch {
+                    let error = APIError.Builder()
+                        .setCode(0)
+                        .build()
+                    
+                    completion(false, ["error":error])
                 }
             }
         }
@@ -71,11 +77,17 @@ public class RestClient: NSObject, RestClientInterface {
                         completion(true, responseData)
                     })
                 } catch IngresseException.errorWithCode(let code) {
-                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: code)
-                    completion(false, ["errorCode":code, "errorMessage":message])
-                } catch let error {
-                    let message = IngresseErrorsSwift.shared.getErrorMessage(code: 0)
-                    completion(false, ["errorCode":0, "errorMessage":message, "error":error])
+                    let error = APIError.Builder()
+                        .setCode(code)
+                        .build()
+                    
+                    completion(false, ["error":error])
+                } catch {
+                    let error = APIError.Builder()
+                        .setCode(0)
+                        .build()
+                    
+                    completion(false, ["error":error])
                 }
             }
         }
