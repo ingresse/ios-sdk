@@ -6,8 +6,10 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
+import Foundation
+
 @objc public protocol CheckinSyncDelegate {
     
-    func didCheckinTickets(_ tickets: [CheckinTicketData])
+    func didCheckinTickets(_ tickets: [CheckinTicket])
     func didFailCheckin(errorData: APIError)
 }

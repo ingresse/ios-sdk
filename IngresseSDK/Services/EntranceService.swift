@@ -28,7 +28,7 @@ public class EntranceService: NSObject {
     ///   - page:       result page
     ///
     ///   - delegate:   callback listener
-    public func getGuestListOfEvent(_ eventId: String, sessionId: String, userToken: String, page: Int, delegate: GuestListSyncDelegate) {
+    public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, delegate: GuestListSyncDelegate) {
         
         let path = "event/\(eventId)/guestlist"
         
@@ -36,6 +36,7 @@ public class EntranceService: NSObject {
         params["usertoken"] = userToken
         params["pageSize"] = "3000"
         params["page"] = "\(page)"
+        if from != 0 { params["from"] = "\(from)" }
         
         let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: params)
         
@@ -79,12 +80,21 @@ public class EntranceService: NSObject {
             delegate.didSyncGuestsPage(pagination, guests, finished: finished)
             
             if !finished {
-                self.getGuestListOfEvent(eventId, sessionId: sessionId, userToken: userToken, page: pagination.currentPage + 1, delegate: delegate)
+                self.getGuestListOfEvent(eventId, sessionId: sessionId, from: from, userToken: userToken, page: pagination.currentPage + 1, delegate: delegate)
             }
 
         }
     }
     
+    /// Make checkin of tickets
+    ///
+    /// - Parameters:
+    ///   - ticketCodes: array with ticketCodes
+    ///   - ticketStatus: array with ticketStatus
+    ///   - ticketTimestamps: array with timestamps of last update
+    ///   - eventId: id of the event
+    ///   - userToken: token of logged user
+    ///   - delegate: delegate to receive callbacks
     public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, userToken: String, delegate: CheckinSyncDelegate) {
         let path = "event/\(eventId)/guestlist"
         
@@ -116,9 +126,9 @@ public class EntranceService: NSObject {
                 return
             }
             
-            var tickets = [CheckinTicketData]()
+            var tickets = [CheckinTicket]()
             for obj in data {
-                let ticket = CheckinTicketData()
+                let ticket = CheckinTicket()
                 ticket.applyJSON(obj)
                 
                 tickets.append(ticket)

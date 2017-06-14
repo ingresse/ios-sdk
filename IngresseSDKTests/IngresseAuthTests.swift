@@ -15,19 +15,6 @@ class IngresseAuthTests: XCTestCase {
     var client : IngresseClient!
     var service : IngresseService!
     
-    class MockClient : RestClientInterface {
-        
-        var response : [String:Any]!
-        
-        func GET(url: String, completion: @escaping (Bool, [String : Any]) -> ()) {
-            completion(true, response)
-        }
-        
-        func POST(url: String, parameters: [String : String], completion: @escaping (Bool, [String : Any]) -> ()) {
-            completion(true, response)
-        }
-    }
-    
     override func setUp() {
         super.setUp()
         

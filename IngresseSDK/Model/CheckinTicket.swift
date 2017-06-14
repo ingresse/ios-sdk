@@ -1,16 +1,16 @@
 //
-//  CheckinTicketData.swift
+//  CheckinTicket.swift
 //  IngresseSDK
 //
 //  Created by Rubens Gondek on 5/25/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class CheckinTicketData: JSONConvertible {
+public class CheckinTicket: JSONConvertible {
     public var code: String
     public var status: Int
     public var checked: Int
-    public var lastUpdate: String
+    public var lastUpdate: Int
     public var lastCheckinTimestamp: Int
     
     public var owner: SimpleUser?
@@ -19,9 +19,9 @@ public class CheckinTicketData: JSONConvertible {
     
     override init() {
         self.code = ""
-        self.status = 0
-        self.checked = 0
-        self.lastUpdate = ""
+        self.status = -1
+        self.checked = -1
+        self.lastUpdate = 0
         self.lastCheckinTimestamp = 0
         
         self.owner = nil
