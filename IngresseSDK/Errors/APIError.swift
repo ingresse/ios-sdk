@@ -43,7 +43,7 @@ public class APIError: NSObject {
         func setCode(_ code: Int) -> Builder {
             error.code = code
             error.title = NSLocalizedString("OPS", comment: "")
-            error.message = IngresseErrorsSwift().getErrorMessage(code: code)
+            error.message = SDKErrors().getErrorMessage(code: code)
             
             return self
         }

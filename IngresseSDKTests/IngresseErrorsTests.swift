@@ -11,24 +11,15 @@ import IngresseSDK
 
 class IngresseErrorsTests: XCTestCase {
     
-    var errors: IngresseErrorsSwift?
+    var errors: IngresseErrors?
     var errorsDict: [String:String]!
     
     override func setUp() {
         super.setUp()
         
-        errors = IngresseErrorsSwift()
+        errors = IngresseErrors()
         
-        let bundle = Bundle(identifier: "com.ingresse.sdk")!
-        guard let path = bundle.path(forResource: "IngresseErrors", ofType: "plist") else {
-            return
-        }
-        
-        guard let dict = NSDictionary(contentsOfFile: path) else {
-            return
-        }
-        
-        self.errorsDict = dict as! [String:String]
+        errorsDict = IngresseErrors.getErrorDict()
     }
     
     override func tearDown() {
