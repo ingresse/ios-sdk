@@ -29,7 +29,7 @@ public class CheckinTicket: JSONConvertible {
         self.operatorUser = nil
     }
     
-    override func applyJSON(_ json: [String : Any]) {
+    override public func applyJSON(_ json: [String : Any]) {
         for key:String in json.keys {
             
             if key == "lastCheckin" {

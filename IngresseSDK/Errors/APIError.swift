@@ -25,7 +25,7 @@ public class APIError: NSObject {
         self.response = [[:]]
     }
     
-    static func getDefaultError() -> APIError {
+    static public func getDefaultError() -> APIError {
         let error = APIError.Builder()
             .setCode(0)
             .build()

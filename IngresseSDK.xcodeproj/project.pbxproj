@@ -17,7 +17,7 @@
 		624526011EC23217007B6584 /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 624525F71EC23217007B6584 /* IngresseSDK.framework */; };
 		624526061EC23217007B6584 /* IngresseSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526051EC23217007B6584 /* IngresseSDKTests.swift */; };
 		624526081EC23217007B6584 /* IngresseSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 624525FA1EC23217007B6584 /* IngresseSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		624526151EC2322C007B6584 /* IngresseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526131EC2322C007B6584 /* IngresseErrors.swift */; };
+		624526151EC2322C007B6584 /* SDKErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526131EC2322C007B6584 /* SDKErrors.swift */; };
 		624526191EC23238007B6584 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526171EC23238007B6584 /* DateHelper.swift */; };
 		6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526181EC23238007B6584 /* HttpEncoding.swift */; };
 		6245261F1EC2323E007B6584 /* IngresseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245261C1EC2323E007B6584 /* IngresseClient.swift */; };
@@ -43,6 +43,13 @@
 		6245264F1EC253FD007B6584 /* ResponseParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245264A1EC253FD007B6584 /* ResponseParserTests.swift */; };
 		624526501EC253FD007B6584 /* URLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245264B1EC253FD007B6584 /* URLBuilderTests.swift */; };
 		624526521EC25770007B6584 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 624526511EC25770007B6584 /* LICENSE */; };
+		627485581F054776009AE812 /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627485571F054776009AE812 /* TransactionService.swift */; };
+		627485631F054A6C009AE812 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627485621F054A6C009AE812 /* Transaction.swift */; };
+		627485651F054ACF009AE812 /* Refund.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627485641F054ACF009AE812 /* Refund.swift */; };
+		627485671F054AF1009AE812 /* TransactionTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627485661F054AF1009AE812 /* TransactionTicket.swift */; };
+		627485691F056CD1009AE812 /* TransactionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627485681F056CD1009AE812 /* TransactionEvent.swift */; };
+		6274856B1F056ED6009AE812 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6274856A1F056ED6009AE812 /* Customer.swift */; };
+		6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6274856C1F05704F009AE812 /* TransactionSession.swift */; };
 		627F837E1EE997A100E14299 /* EntranceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F837D1EE997A100E14299 /* EntranceServiceTests.swift */; };
 		627F83801EE99BDF00E14299 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F837F1EE99BDF00E14299 /* MockClient.swift */; };
 		627F83831EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F83821EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift */; };
@@ -75,7 +82,7 @@
 		624526001EC23217007B6584 /* IngresseSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IngresseSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		624526051EC23217007B6584 /* IngresseSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngresseSDKTests.swift; sourceTree = "<group>"; };
 		624526071EC23217007B6584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		624526131EC2322C007B6584 /* IngresseErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseErrors.swift; sourceTree = "<group>"; };
+		624526131EC2322C007B6584 /* SDKErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKErrors.swift; sourceTree = "<group>"; };
 		624526171EC23238007B6584 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		624526181EC23238007B6584 /* HttpEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpEncoding.swift; sourceTree = "<group>"; };
 		6245261C1EC2323E007B6584 /* IngresseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseClient.swift; sourceTree = "<group>"; };
@@ -101,6 +108,13 @@
 		6245264A1EC253FD007B6584 /* ResponseParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParserTests.swift; sourceTree = "<group>"; };
 		6245264B1EC253FD007B6584 /* URLBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilderTests.swift; sourceTree = "<group>"; };
 		624526511EC25770007B6584 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		627485571F054776009AE812 /* TransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionService.swift; sourceTree = "<group>"; };
+		627485621F054A6C009AE812 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		627485641F054ACF009AE812 /* Refund.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refund.swift; sourceTree = "<group>"; };
+		627485661F054AF1009AE812 /* TransactionTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTicket.swift; sourceTree = "<group>"; };
+		627485681F056CD1009AE812 /* TransactionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEvent.swift; sourceTree = "<group>"; };
+		6274856A1F056ED6009AE812 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		6274856C1F05704F009AE812 /* TransactionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSession.swift; sourceTree = "<group>"; };
 		627F837D1EE997A100E14299 /* EntranceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceServiceTests.swift; sourceTree = "<group>"; };
 		627F837F1EE99BDF00E14299 /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClient.swift; sourceTree = "<group>"; };
 		627F83821EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyGuestListSyncDelegate.swift; sourceTree = "<group>"; };
@@ -183,7 +197,7 @@
 		624526111EC2322C007B6584 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				624526131EC2322C007B6584 /* IngresseErrors.swift */,
+				624526131EC2322C007B6584 /* SDKErrors.swift */,
 				6239BA0D1EC5F76B00C7BD16 /* APIError.swift */,
 			);
 			path = Errors;
@@ -220,6 +234,12 @@
 				6239BA111EC5FBA000C7BD16 /* Guest.swift */,
 				6239BA131EC6075A00C7BD16 /* PaginationInfo.swift */,
 				6284F8631ED7653900E5FECF /* SimpleUser.swift */,
+				627485621F054A6C009AE812 /* Transaction.swift */,
+				627485641F054ACF009AE812 /* Refund.swift */,
+				627485661F054AF1009AE812 /* TransactionTicket.swift */,
+				627485681F056CD1009AE812 /* TransactionEvent.swift */,
+				6274856A1F056ED6009AE812 /* Customer.swift */,
+				6274856C1F05704F009AE812 /* TransactionSession.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -235,6 +255,7 @@
 				6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */,
 				6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */,
 				6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */,
+				627485571F054776009AE812 /* TransactionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -397,13 +418,16 @@
 				624526351EC23255007B6584 /* MyTicketsService.swift in Sources */,
 				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
 				624526341EC23255007B6584 /* IngresseService.swift in Sources */,
-				624526151EC2322C007B6584 /* IngresseErrors.swift in Sources */,
+				624526151EC2322C007B6584 /* SDKErrors.swift in Sources */,
 				6239BA161EC6080F00C7BD16 /* JSONConvertible.swift in Sources */,
 				6284F8641ED7653900E5FECF /* SimpleUser.swift in Sources */,
 				624526331EC23255007B6584 /* AuthService.swift in Sources */,
 				6245261F1EC2323E007B6584 /* IngresseClient.swift in Sources */,
+				6274856B1F056ED6009AE812 /* Customer.swift in Sources */,
+				627485581F054776009AE812 /* TransactionService.swift in Sources */,
 				624526201EC2323E007B6584 /* RestClient.swift in Sources */,
 				624526291EC2324F007B6584 /* IngresseUser.swift in Sources */,
+				627485631F054A6C009AE812 /* Transaction.swift in Sources */,
 				624526211EC2323E007B6584 /* RestClientInterface.swift in Sources */,
 				624526461EC2327A007B6584 /* HMACSHA1.m in Sources */,
 				6239BA121EC5FBA000C7BD16 /* Guest.swift in Sources */,
@@ -416,6 +440,10 @@
 				6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */,
 				624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */,
 				6245262A1EC2324F007B6584 /* Session.swift in Sources */,
+				6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */,
+				627485651F054ACF009AE812 /* Refund.swift in Sources */,
+				627485691F056CD1009AE812 /* TransactionEvent.swift in Sources */,
+				627485671F054AF1009AE812 /* TransactionTicket.swift in Sources */,
 				6284F8601ED7601E00E5FECF /* CheckinSyncDelegate.swift in Sources */,
 				624526371EC23255007B6584 /* TicketSyncDelegate.swift in Sources */,
 				6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */,

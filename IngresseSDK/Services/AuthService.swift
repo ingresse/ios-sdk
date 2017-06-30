@@ -6,8 +6,6 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import Foundation
-
 public class AuthService: NSObject {
 
     var client: IngresseClient

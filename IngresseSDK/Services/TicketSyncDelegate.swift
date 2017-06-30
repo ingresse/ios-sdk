@@ -6,8 +6,6 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import Foundation
-
 @objc public protocol TicketSyncDelegate {
     func didSyncTicketsPage(tickets: [UserTicket], finished: Bool)
     func didFailSyncTickets(errorData: [String:Any])

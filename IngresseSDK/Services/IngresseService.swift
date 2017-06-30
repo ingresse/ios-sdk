@@ -6,8 +6,6 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import UIKit
-
 public class IngresseService: NSObject {
 
     var client: IngresseClient!
@@ -15,11 +13,13 @@ public class IngresseService: NSObject {
     public var auth: AuthService!
     public var entrance: EntranceService!
     public var myTickets: MyTicketsService!
+    public var transaction: TransactionService!
 
     public init(client: IngresseClient) {
         self.client = client
         self.auth = AuthService(client)
         self.entrance = EntranceService(client)
         self.myTickets = MyTicketsService(client)
+        self.transaction = TransactionService(client)
     }
 }

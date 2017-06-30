@@ -6,8 +6,6 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-import Foundation
-
 @objc public protocol GuestListSyncDelegate {
     
     

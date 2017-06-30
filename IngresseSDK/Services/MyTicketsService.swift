@@ -6,8 +6,6 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import Foundation
-
 @objc public enum EventSessionType : Int {
     case future = 2
     case past = 1

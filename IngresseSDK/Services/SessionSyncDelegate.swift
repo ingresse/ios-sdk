@@ -6,8 +6,6 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import Foundation
-
 @objc public protocol SessionSyncDelegate {
     func didSyncSessionsPage(_ sessions: [Session], finished: Bool)
     func didFailSyncSessions(errorData: [String:Any])
