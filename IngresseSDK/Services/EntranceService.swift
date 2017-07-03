@@ -135,5 +135,49 @@ public class EntranceService: NSObject {
             delegate.didCheckinTickets(tickets)
         }
     }
+    
+    /// Get validation info of ticket
+    ///
+    /// - Parameters:
+    ///   - code: ticket code
+    ///   - eventId: event id
+    ///   - userToken: token required
+    ///   - completion: callback with error or ticket response
+    public func getValidationInfoOfTicket(code: String, eventId: String, userToken: String, completion: @escaping (_ error: APIError?, _ ticket: CheckinTicket?)->()) {
+        let path = "event/\(eventId)/guestlist"
+        
+        var urlParams = ["method": "updatestatus"]
+        urlParams["usertoken"] = userToken
+        
+        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: urlParams)
+        
+        var postParams = [String:String]()
+        postParams["tickets[0][ticketCode]"] = code
+        postParams["tickets[0][ticketStatus]"] = "1"
+        postParams["tickets[0][ticketTimestamp]"] = "\(Int(Date().timeIntervalSince1970)*1000)"
+        
+        client.restClient.POST(url: url, parameters: postParams) { (success: Bool, response: [String:Any]) in
+            if !success {
+                guard let error = response["error"] as? APIError else {
+                    completion(APIError.getDefaultError(), nil)
+                    return
+                }
+                
+                completion(error, nil)
+                return
+            }
+            
+            guard let data = response["data"] as? [[String:Any]],
+                let ticketData = data.first else {
+                completion(APIError.getDefaultError(), nil)
+                return
+            }
+            
+            let ticket = CheckinTicket()
+            ticket.applyJSON(ticketData)
+            
+            completion(nil, ticket)
+        }
+    }
 
 }
