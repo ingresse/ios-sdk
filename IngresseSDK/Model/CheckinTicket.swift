@@ -7,27 +7,15 @@
 //
 
 public class CheckinTicket: JSONConvertible {
-    public var code: String
-    public var status: Int
-    public var checked: Int
-    public var lastUpdate: Int
-    public var lastCheckinTimestamp: Int
+    public var code: String = ""
+    public var status: Int = -1
+    public var checked: Int = -1
+    public var lastUpdate: Int = 0
+    public var lastCheckinTimestamp: Int = 0
     
-    public var owner: SimpleUser?
-    public var holder: SimpleUser?
-    public var operatorUser: SimpleUser?
-    
-    override init() {
-        self.code = ""
-        self.status = -1
-        self.checked = -1
-        self.lastUpdate = 0
-        self.lastCheckinTimestamp = 0
-        
-        self.owner = nil
-        self.holder = nil
-        self.operatorUser = nil
-    }
+    public var owner: SimpleUser? = nil
+    public var holder: SimpleUser? = nil
+    public var operatorUser: SimpleUser? = nil
     
     override public func applyJSON(_ json: [String : Any]) {
         for key:String in json.keys {

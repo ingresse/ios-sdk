@@ -8,9 +8,9 @@
 
 public class TransactionSession: JSONConvertible {
 
-    public var id: String        = ""
-    public var date: String      = ""
-    public var time: String      = ""
+    public var id: String = ""
+    public var date: String = ""
+    public var time: String = ""
     public var timestamp: String = ""
 
     override public func applyJSON(_ json: [String : Any]) {

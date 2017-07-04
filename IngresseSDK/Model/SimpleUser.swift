@@ -7,19 +7,11 @@
 //
 
 public class SimpleUser: JSONConvertible {
-    public var id: Int
-    public var name: String
-    public var email: String
-    public var username: String
-    public var phone: String
-    public var cellphone: String
     
-    override init() {
-        self.id = 0
-        self.name = ""
-        self.email = ""
-        self.username = ""
-        self.phone = ""
-        self.cellphone = ""
-    }
+    public var id: Int = 0
+    public var name: String = ""
+    public var email: String = ""
+    public var username: String = ""
+    public var phone: String = ""
+    public var cellphone: String = ""
 }

@@ -8,10 +8,10 @@
 
 public class Customer: JSONConvertible {
 
-    public var id: Int          = 0
-    public var email: String    = ""
-    public var name: String     = ""
-    public var phone: Int       = 0
-    public var picture: String  = ""
+    public var id: Int = 0
+    public var email: String = ""
+    public var name: String = ""
+    public var phone: Int = 0
+    public var picture: String = ""
     public var username: String = ""
 }
