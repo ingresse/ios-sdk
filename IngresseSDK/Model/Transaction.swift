@@ -6,8 +6,17 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Transaction: JSONConvertible {
+public class PaymentType: NSObject {
+    public static let bankBillet = "bankBillet"
+    public static let creditCard = "creditCard"
+    public static let debitCard = "debitCard"
+    public static let money = "money"
+    public static let other = "other"
+    public static let free = "free"
+}
 
+public class Transaction: JSONConvertible {
+    
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
@@ -67,7 +76,11 @@ public class Transaction: JSONConvertible {
             }
             
             if key == "basket" {
-                guard let tickets = json[key] as? [[String:Any]] else {
+                guard let basket = json[key] as? [String:Any] else {
+                    continue
+                }
+                
+                guard let tickets = basket["tickets"] as? [[String:Any]] else {
                     continue
                 }
                 

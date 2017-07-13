@@ -14,4 +14,5 @@ public class SimpleUser: JSONConvertible {
     public var username: String = ""
     public var phone: String = ""
     public var cellphone: String = ""
+    public var picture: String = ""
 }

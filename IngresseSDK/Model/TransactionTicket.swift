@@ -21,9 +21,7 @@ public class TransactionTicket: JSONConvertible {
     public var type: String = ""
     public var ticketId: Int = 0
     public var typeId: Int = 0
-
-    public var seatLocator: String = ""
-
+    
     public var price: String = ""
     public var tax: String = ""
     public var percentTax: Int = 0
@@ -31,13 +29,17 @@ public class TransactionTicket: JSONConvertible {
     override public func applyJSON(_ json: [String : Any]) {
         for key:String in json.keys {
 
-            if ["transferred", "checked"].contains(key) {
-                guard let boolValue = json[key] as? Int else {
+            if key == "checked" {
+                guard let boolValue = json[key] as? String else {
                     continue
                 }
 
-                self.setValue(boolValue == 1, forKey: key)
+                self.setValue(boolValue == "1", forKey: key)
                 continue
+            }
+            
+            if key == "transferred" {
+                self.transferred = json[key] as? Bool ?? false
             }
 
             if !self.responds(to: NSSelectorFromString(key)) {

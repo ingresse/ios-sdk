@@ -179,5 +179,47 @@ public class EntranceService: NSObject {
             completion(nil, ticket)
         }
     }
+    
+    /// Get transfer history of ticket
+    ///
+    /// - Parameters:
+    ///   - ticketId: id of ticket
+    ///   - userToken: token of logged user
+    ///   - onError: fail callback
+    ///   - onSuccess: success callback
+    public func getTransferHistory(ticketId: String, userToken: String, onError: @escaping (_ error: APIError)->(), onSuccess: @escaping (_ history: [TransferHistoryItem])->()) {
+        let path = "ticket/\(ticketId)/transfer"
+        
+        let urlParams = ["usertoken": userToken]
+        
+        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: urlParams)
+        
+        client.restClient.GET(url: url) { (success: Bool, response: [String:Any]) in
+            if !success {
+                guard let error = response["error"] as? APIError else {
+                    onError(APIError.getDefaultError())
+                    return
+                }
+                
+                onError(error)
+                return
+            }
+            
+            guard let data = response["data"] as? [[String:Any]] else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            
+            var history = [TransferHistoryItem]()
+            for obj in data {
+                let item = TransferHistoryItem()
+                item.applyJSON(obj)
+                
+                history.append(item)
+            }
+            
+            onSuccess(history)
+        }
+    }
 
 }
