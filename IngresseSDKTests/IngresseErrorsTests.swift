@@ -11,15 +11,15 @@ import IngresseSDK
 
 class IngresseErrorsTests: XCTestCase {
     
-    var errors: IngresseErrors?
+    var errors: SDKErrors?
     var errorsDict: [String:String]!
     
     override func setUp() {
         super.setUp()
         
-        errors = IngresseErrors()
+        errors = SDKErrors()
         
-        errorsDict = IngresseErrors.getErrorDict()
+        errorsDict = SDKErrors.getErrorDict()
     }
     
     override func tearDown() {

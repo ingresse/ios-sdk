@@ -41,16 +41,19 @@ class IngresseAuthTests: XCTestCase {
         restClient.response = loginSuccessResponse
         
         var logged = false
-        var responseError = [String:Any]()
+        var responseError: APIError?
         
-        service.auth.loginWithEmail("email@test.com", andPassword: "password") { (success:Bool, response:[String:Any]) in
-            responseError = response
-            logged = success
+        service.auth.loginWithEmail("email@test.com", andPassword: "password", onSuccess: { (user) in
+            logged = true
+            loginExpectation.fulfill()
+        }) { (error) in
+            responseError = error
+            logged = false
             loginExpectation.fulfill()
         }
         
         waitForExpectations(timeout: 15) { (error:Error?) in
-            XCTAssertTrue(logged, "\(responseError)")
+            XCTAssertTrue(logged, "\(responseError!.message)")
         }
     }
     
@@ -63,14 +66,19 @@ class IngresseAuthTests: XCTestCase {
         restClient.response = loginFailResponse
         
         var logged = true
+        var responseError: APIError?
         
-        service.auth.loginWithEmail("email@test.com", andPassword: "password") { (success:Bool, response:[String:Any]?) in
-            logged = success
+        service.auth.loginWithEmail("email@test.com", andPassword: "password", onSuccess: { (user) in
+            logged = true
+            loginExpectation.fulfill()
+        }) { (error) in
+            responseError = error
+            logged = false
             loginExpectation.fulfill()
         }
         
         waitForExpectations(timeout: 5) { (error:Error?) in
-            XCTAssertFalse(logged)
+            XCTAssertFalse(logged, "\(responseError!.message)")
         }
     }
 }

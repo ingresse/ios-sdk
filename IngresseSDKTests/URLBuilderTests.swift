@@ -11,8 +11,11 @@ import IngresseSDK
 
 class URLBuilderTests: XCTestCase {
     
+    var builder: URLBuilder!
+    
     override func setUp() {
         super.setUp()
+        builder = URLBuilder()
     }
     
     override func tearDown() {
@@ -20,30 +23,29 @@ class URLBuilderTests: XCTestCase {
     }
     
     public func testMakeURL() {
-        let authString = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
+        let authString = builder.generateAuthString(publicKey: "1234", privateKey: "2345")
         let expected = "https://api.ingresse.com/test/?param1=value1&param2=value2&\(authString)"
         
-        let params = ["param1":"value1","param2":"value2"]
-        
-        let generated = URLBuilder.makeURL(host: "https://api.ingresse.com/", path: "test/", publicKey: "1234", privateKey: "2345", parameters: params)
+        let generated = builder
+            .setHost("https://api.ingresse.com/")
+            .setPath("test/")
+            .setKeys(publicKey: "1234", privateKey: "2345")
+            .addParameter(key: "param1", value: "value1")
+            .addParameter(key: "param2", value: "value2")
+            .build()
         
         XCTAssertEqual(expected, generated)
     }
     
     public func testMakeURLNoParameters() {
-        let authString = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
+        let authString = builder.generateAuthString(publicKey: "1234", privateKey: "2345")
         let expected = "https://api.ingresse.com/test/?\(authString)"
         
-        let generated = URLBuilder.makeURL(host: "https://api.ingresse.com/", path: "test/", publicKey: "1234", privateKey: "2345", parameters: [:])
-        
-        XCTAssertEqual(expected, generated)
-    }
-    
-    public func testMakeURLNilParameters() {
-        let authString = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
-        let expected = "https://api.ingresse.com/test/?\(authString)"
-        
-        let generated = URLBuilder.makeURL(host: "https://api.ingresse.com/", path: "test/", publicKey: "1234", privateKey: "2345")
+        let generated = builder
+            .setHost("https://api.ingresse.com/")
+            .setPath("test/")
+            .setKeys(publicKey: "1234", privateKey: "2345")
+            .build()
         
         XCTAssertEqual(expected, generated)
     }
@@ -56,27 +58,27 @@ class URLBuilderTests: XCTestCase {
         
         let expected = df.string(from: Date()).removingPercentEncoding!
         
-        let generated = URLBuilder.getTimestamp()
+        let generated = builder.getTimestamp()
         
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetSignature() {
-        let timestamp = URLBuilder.getTimestamp()
+        let timestamp = builder.getTimestamp()
         let data = "1234".appending(timestamp)
         
         let expected = HMACSHA1.hash(data, key: "2345").stringWithPercentEncoding()
-        let generated = URLBuilder.getSignature("1234", "2345", timestamp)
+        let generated = builder.getSignature("1234", "2345", timestamp)
         
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetAuthString() {
-        let timestamp = URLBuilder.getTimestamp()
-        let signature = URLBuilder.getSignature("1234", "2345", timestamp)
+        let timestamp = builder.getTimestamp()
+        let signature = builder.getSignature("1234", "2345", timestamp)
         
         let expected = "publickey=1234&signature=\(signature)&timestamp=\(timestamp)"
-        let generated = URLBuilder.generateAuthString(publicKey: "1234", privateKey: "2345")
+        let generated = builder.generateAuthString(publicKey: "1234", privateKey: "2345")
         
         XCTAssertEqual(expected, generated)
     }

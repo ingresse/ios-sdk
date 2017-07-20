@@ -12,11 +12,11 @@ class MockClient : RestClientInterface {
     
     var response : [String:Any]!
     
-    func GET(url: String, completion: @escaping (Bool, [String : Any]) -> ()) {
-        completion(true, response)
+    func POST(url: String, parameters: [String : String], onSuccess: @escaping ([String : Any]) -> (), onError: @escaping (APIError) -> ()) {
+        onSuccess(response)
     }
     
-    func POST(url: String, parameters: [String : String], completion: @escaping (Bool, [String : Any]) -> ()) {
-        completion(true, response)
+    func GET(url: String, onSuccess: @escaping ([String : Any]) -> (), onError: @escaping (APIError) -> ()) {
+        onSuccess(response)
     }
 }

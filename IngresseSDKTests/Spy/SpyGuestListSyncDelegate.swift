@@ -15,7 +15,7 @@ class SpyGuestListSyncDelegate: GuestListSyncDelegate {
     var calledDidFail: Bool = false
     var asyncExpectation: XCTestExpectation?
     
-    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [Guest], finished: Bool) {
+    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [Guest]) {
         guard let expectation = asyncExpectation else {
             XCTFail("Missing expectation!")
             return
