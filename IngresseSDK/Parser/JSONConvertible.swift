@@ -6,24 +6,23 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-import UIKit
-
 public class JSONConvertible: NSObject {
     
     public func applyJSON(_ json: [String:Any]) {
         for key:String in json.keys {
-            
-            if !self.responds(to: NSSelectorFromString(key)) {
-                continue
-            }
-            
-            let value = (json[key] is String ? (json[key] as? String)?.trim() : json[key])
-            
-            if (value is NSNull || value == nil) {
-                continue
-            }
-            
-            self.setValue(value, forKey: key)
+            applyKey(key, json: json)
         }
+    }
+    
+    public func applyKey(_ key: String, json: [String:Any]) {
+        guard
+            self.responds(to: NSSelectorFromString(key)),
+            var value = json[key],
+            !(value is NSNull)
+            else { return }
+        
+        if let str = value as? String { value = str.trim() }
+        
+        self.setValue(value, forKey: key)
     }
 }

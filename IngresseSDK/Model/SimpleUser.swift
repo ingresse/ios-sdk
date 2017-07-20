@@ -7,7 +7,6 @@
 //
 
 public class SimpleUser: JSONConvertible {
-    
     public var id: Int = 0
     public var name: String = ""
     public var email: String = ""

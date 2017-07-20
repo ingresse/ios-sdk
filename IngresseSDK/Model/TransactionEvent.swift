@@ -7,7 +7,6 @@
 //
 
 public class TransactionEvent: JSONConvertible {
-
     public var id: String = ""
 
     public var title: String = ""
@@ -25,34 +24,20 @@ public class TransactionEvent: JSONConvertible {
         for key:String in json.keys {
 
             if key == "venue" {
-                guard let venue = json[key] as? [String:Any] else {
-                    continue
-                }
+                guard let venue = json[key] as? [String:Any] else { continue }
 
                 self.venueName = venue["name"] as? String ?? ""
                 continue
             }
 
             if key == "saleEnabled" {
-                guard let enabled = json[key] as? Int else {
-                    continue
-                }
+                guard let enabled = json[key] as? Int else { continue }
 
                 self.saleEnabled = enabled == 1
                 continue
             }
 
-            if !self.responds(to: NSSelectorFromString(key)) {
-                continue
-            }
-
-            let value = (json[key] is String ? (json[key] as? String)?.trim() : json[key])
-
-            if (value is NSNull || value == nil) {
-                continue
-            }
-
-            self.setValue(value, forKey: key)
+            applyKey(key, json: json)
         }
     }
 }

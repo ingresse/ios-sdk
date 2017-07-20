@@ -8,45 +8,59 @@
 
 import Foundation
 
-public class Transfer: NSObject {
-    public var id         : String
-    public var status     : String
-    public var userId     : String
-    public var userEmail  : String
-    public var userName   : String
-    public var picture    : String
-    public var created    : String?
-    public var accepted   : String?
-    public var socialId   : [String: String]
+public class Transfer: JSONConvertible {
+    public var transferId: Int = 0
+    public var userId: Int = 0
+    public var status: String = ""
+    public var email: String = ""
+    public var name: String = ""
+    public var picture: String = ""
+    public var created: String = ""
+    public var accepted: String = ""
+    public var socialId: [String: String] = [:]
     
-    init(withJSON json: [String:Any]) {
-        let id = String(json["transferId"] as! Int)
-        
-        self.id = id
-        self.status = json["status"] as! String
-        self.picture = json["picture"] as! String
-        self.userId = String(json["userId"] as! Int)
-        self.userEmail = json["email"] as! String
-        self.userName = json["name"] as! String
-        
-        var socialId = [String:String]()
-        let arrSocial = json["socialId"] as! [[String:String]]
-        for social in arrSocial {
-            let network = social["network"]!
-            socialId[network] = social["id"]!
-        }
-        self.socialId = socialId
-        
-        let history = json["history"] as! [[String:String]]
-        for statusChange in history {
-            let status = statusChange["status"]!
-            switch status {
-            case "pending":
-                self.created = statusChange["creationDate"]!
-            case "accepted":
-                self.accepted = statusChange["creationDate"]!
-            default: break
+    public override func applyJSON(_ json: [String : Any]) {
+        for key:String in json.keys {
+            
+            if key == "socialId" {
+                guard let arrSocial = json["socialId"] as? [[String:String]] else { continue }
+                
+                for social in arrSocial {
+                    guard let network = social["network"],
+                        let id = social["id"]
+                        else {
+                            continue
+                    }
+                    
+                    self.socialId[network] = id
+                }
+                
+                continue
             }
+            
+            if key == "history" {
+                guard let history = json["history"] as? [[String:String]] else { continue }
+                
+                for statusChange in history {
+                    guard let status = statusChange["status"],
+                        let date = statusChange["creationDate"]
+                        else {
+                            continue
+                    }
+                    
+                    switch status {
+                    case "pending":
+                        self.created = date
+                    case "accepted":
+                        self.accepted = date
+                    default: break
+                    }
+                }
+                
+                continue
+            }
+            
+            applyKey(key, json: json)
         }
     }
 }

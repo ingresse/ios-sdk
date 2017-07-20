@@ -7,7 +7,6 @@
 //
 
 public class TransactionSession: JSONConvertible {
-
     public var id: String = ""
     public var date: String = ""
     public var time: String = ""
@@ -17,9 +16,7 @@ public class TransactionSession: JSONConvertible {
         for key:String in json.keys {
 
             if key == "dateTime" {
-                guard let datetime = json[key] as? [String:Any] else {
-                    continue
-                }
+                guard let datetime = json[key] as? [String:Any] else { continue }
 
                 self.date = datetime["date"] as? String ?? ""
                 self.time = datetime["time"] as? String ?? ""
@@ -27,17 +24,7 @@ public class TransactionSession: JSONConvertible {
                 continue
             }
 
-            if !self.responds(to: NSSelectorFromString(key)) {
-                continue
-            }
-
-            let value = (json[key] is String ? (json[key] as? String)?.trim() : json[key])
-
-            if (value is NSNull || value == nil) {
-                continue
-            }
-
-            self.setValue(value, forKey: key)
+            applyKey(key, json: json)
         }
     }
 }

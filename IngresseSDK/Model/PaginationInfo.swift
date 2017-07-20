@@ -9,12 +9,11 @@
 import UIKit
 
 public class PaginationInfo: JSONConvertible {
-    
     public var currentPage: Int = 0
     public var lastPage: Int = 0
     public var totalResults: Int = 0
     public var pageSize: String = ""
-
+    
     public var isLastPage: Bool {
         get {
             return lastPage <= currentPage

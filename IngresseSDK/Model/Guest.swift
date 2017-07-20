@@ -9,7 +9,6 @@
 import UIKit
 
 public class Guest: JSONConvertible {
-    
     public var id: String = ""
     public var transactionId: String = ""
     public var code: String = ""

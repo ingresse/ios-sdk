@@ -7,7 +7,6 @@
 //
 
 public class Customer: JSONConvertible {
-
     public var id: Int = 0
     public var email: String = ""
     public var name: String = ""

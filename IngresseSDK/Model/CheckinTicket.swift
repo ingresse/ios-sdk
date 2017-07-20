@@ -21,45 +21,25 @@ public class CheckinTicket: JSONConvertible {
         for key:String in json.keys {
             
             if key == "lastCheckin" {
-                guard let lastCheckin = json["lastCheckin"] as? [String:Any] else {
-                    continue
+                guard let lastCheckin = json["lastCheckin"] as? [String:Any] else { continue }
+                
+                self.lastCheckinTimestamp = lastCheckin["timestamp"] as? Int ?? 0
+                
+                if let holderObj = lastCheckin["holder"] as? [String:Any] {
+                    self.holder = SimpleUser()
+                    self.holder?.applyJSON(holderObj)
                 }
                 
-                for lcKey:String in lastCheckin.keys {
-                    if lcKey == "timestamp" {
-                        self.lastCheckinTimestamp = lastCheckin[lcKey] as? Int ?? 0
-                        
-                        continue
-                    }
-                    
-                    if lcKey == "holder" {
-                        guard let holderObj = lastCheckin[lcKey] as? [String:Any] else {
-                            continue
-                        }
-                        
-                        self.holder = SimpleUser()
-                        self.holder?.applyJSON(holderObj)
-                        
-                        continue
-                    }
-                    
-                    if lcKey == "operator" {
-                        guard let operatorObj = lastCheckin[lcKey] as? [String:Any] else {
-                            continue
-                        }
-                        
-                        self.operatorUser = SimpleUser()
-                        self.operatorUser?.applyJSON(operatorObj)
-                        
-                        continue
-                    }
+                if let operatorObj = lastCheckin["operator"] as? [String:Any] {
+                    self.operatorUser = SimpleUser()
+                    self.operatorUser?.applyJSON(operatorObj)
                 }
+                
+                continue
             }
             
             if key == "owner" {
-                guard let ownerObj = json[key] as? [String:Any] else {
-                    continue
-                }
+                guard let ownerObj = json[key] as? [String:Any] else { continue }
                 
                 self.owner = SimpleUser()
                 self.owner?.applyJSON(ownerObj)
@@ -67,17 +47,7 @@ public class CheckinTicket: JSONConvertible {
                 continue
             }
             
-            if !self.responds(to: NSSelectorFromString(key)) {
-                continue
-            }
-            
-            let value = (json[key] is String ? (json[key] as? String)?.trim() : json[key])
-            
-            if (value is NSNull || value == nil) {
-                continue
-            }
-            
-            self.setValue(value, forKey: key)
+            applyKey(key, json: json)
         }
     }
 }
