@@ -7,6 +7,6 @@
 //
 
 @objc public protocol SessionSyncDelegate {
-    func didSyncSessionsPage(_ sessions: [Session], finished: Bool)
-    func didFailSyncSessions(errorData: [String:Any])
+    func didSyncSessionsPage(_ sessions: [Session], pagination: PaginationInfo)
+    func didFailSyncSessions(errorData: APIError)
 }

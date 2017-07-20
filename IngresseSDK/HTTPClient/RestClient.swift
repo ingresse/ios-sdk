@@ -6,57 +6,47 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import UIKit
-
 public class RestClient: NSObject, RestClientInterface {
     
-    /**
-     REST GET Method using NSURLConnection
-     
-     - parameter url: Request path
-     
-     - parameter completion: Callback block in case of success
-     */
-    public func GET(url: String, completion:@escaping (_ success:Bool,_ responseData:[String:Any]) -> ()) {
+    /// REST GET Method using NSURLConnection
+    ///
+    /// - Parameters:
+    ///   - url: request path
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
-            DispatchQueue.main.async {
-                if error != nil {
-                    completion(false, ["requestError":error!])
-                    return
-                }
+            guard error == nil else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            
+            do {
+                try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
+                    onSuccess(responseData)
+                })
+            } catch IngresseException.errorWithCode(let code) {
+                let error = APIError.Builder()
+                    .setCode(code)
+                    .build()
                 
-                do {
-                    try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
-                        completion(true, responseData)
-                    })
-                } catch IngresseException.errorWithCode(let code) {
-                    let error = APIError.Builder()
-                        .setCode(code)
-                        .build()
-                    
-                    completion(false, ["error":error])
-                } catch {
-                    let error = APIError.Builder()
-                        .setCode(0)
-                        .build()
-                    
-                    completion(false, ["error":error])
-                }
+                onError(error)
+            } catch {
+                onError(APIError.getDefaultError())
             }
         }
     }
     
-    /**
-     REST POST Method using NSURLConnection
-     
-     - parameter url:        Request path
-     - parameter parameters: Post body parameters
-     
-     - parameter completion: Callback block in case of success
-     */
-    public func POST(url: String, parameters: [String:String], completion:@escaping (_ success:Bool,_ responseData:[String:Any]) -> ()) {
+    /// REST POST Method using NSURLConnection
+    ///
+    /// - Parameters:
+    ///   - url: request path
+    ///   - parameters: post body parameters
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func POST(url: String, parameters: [String:String], onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ()) {
         
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
@@ -66,29 +56,23 @@ public class RestClient: NSObject, RestClientInterface {
         request.httpBody = body.data(using: .utf8)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
-            DispatchQueue.main.async {
-                if error != nil {
-                    completion(false, ["requestError":error!])
-                    return
-                }
+            guard error == nil else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            
+            do {
+                try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
+                    onSuccess(responseData)
+                })
+            } catch IngresseException.errorWithCode(let code) {
+                let error = APIError.Builder()
+                    .setCode(code)
+                    .build()
                 
-                do {
-                    try ResponseParser.build(response, data: data, completion: { (responseData:[String:Any]) in
-                        completion(true, responseData)
-                    })
-                } catch IngresseException.errorWithCode(let code) {
-                    let error = APIError.Builder()
-                        .setCode(code)
-                        .build()
-                    
-                    completion(false, ["error":error])
-                } catch {
-                    let error = APIError.Builder()
-                        .setCode(0)
-                        .build()
-                    
-                    completion(false, ["error":error])
-                }
+                onError(error)
+            } catch {
+                onError(APIError.getDefaultError())
             }
         }
     }

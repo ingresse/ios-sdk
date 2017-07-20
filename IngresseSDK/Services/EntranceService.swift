@@ -9,7 +9,6 @@
 public class EntranceService: NSObject {
     
     var client: IngresseClient
-    var delegate: GuestListSyncDelegate!
     
     init(_ client: IngresseClient) {
         self.client = client
@@ -28,34 +27,30 @@ public class EntranceService: NSObject {
     ///   - delegate:   callback listener
     public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, delegate: GuestListSyncDelegate) {
         
-        let path = "event/\(eventId)/guestlist"
+        var builder = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("event/\(eventId)/guestlist")
+            .addParameter(key: "page", value: "\(page)")
+            .addParameter(key: "pageSize", value: "3000")
+            .addParameter(key: "sessionid", value: sessionId)
+            .addParameter(key: "usertoken", value: userToken)
         
-        var params = ["sessionid": sessionId]
-        params["usertoken"] = userToken
-        params["pageSize"] = "3000"
-        params["page"] = "\(page)"
-        if from != 0 { params["from"] = "\(from)" }
+        if from != 0 {
+            builder = builder.addParameter(key: "from", value: "\(from)")
+        }
         
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: params)
+        let url = builder.build()
         
-        client.restClient.GET(url: url) { (success: Bool, response: [String:Any]) in
-            // Request status
-            if !success {
-                guard let error = response["error"] as? APIError else {
-                    delegate.didFailSyncGuestList(errorData: APIError.getDefaultError())
-                    return
-                }
-                
-                delegate.didFailSyncGuestList(errorData: error)
-                return
-            }
-            
+        client.restClient.GET(url: url, onSuccess: { (response) in
             var guests = [Guest]()
             
-            // Get array
-            guard let data = response["data"] as? [[String:Any]] else {
-                delegate.didFailSyncGuestList(errorData: APIError.getDefaultError())
-                return
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let paginationData = response["paginationInfo"] as? [String:Any]
+                else {
+                    delegate.didFailSyncGuestList(errorData: APIError.getDefaultError())
+                    return
             }
             
             for obj in data {
@@ -65,22 +60,12 @@ public class EntranceService: NSObject {
                 guests.append(guest)
             }
             
-            guard let paginationData = response["paginationInfo"] as? [String:AnyObject] else {
-                delegate.didFailSyncGuestList(errorData: APIError.getDefaultError())
-                return
-            }
-            
             let pagination = PaginationInfo()
             pagination.applyJSON(paginationData)
             
-            let finished = pagination.isLastPage
-            
-            delegate.didSyncGuestsPage(pagination, guests, finished: finished)
-            
-            if !finished {
-                self.getGuestListOfEvent(eventId, sessionId: sessionId, from: from, userToken: userToken, page: pagination.currentPage + 1, delegate: delegate)
-            }
-
+            delegate.didSyncGuestsPage(pagination, guests)
+        }) { (error) in
+            delegate.didFailSyncGuestList(errorData: error)
         }
     }
     
@@ -94,12 +79,14 @@ public class EntranceService: NSObject {
     ///   - userToken: token of logged user
     ///   - delegate: delegate to receive callbacks
     public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, userToken: String, delegate: CheckinSyncDelegate) {
-        let path = "event/\(eventId)/guestlist"
         
-        var urlParams = ["method": "updatestatus"]
-        urlParams["usertoken"] = userToken
-        
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: urlParams)
+        let url = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("event/\(eventId)/guestlist")
+            .addParameter(key: "method", value: "updatestatus")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
         
         var postParams = [String:String]()
         for i in 0..<ticketCodes.count {
@@ -108,17 +95,7 @@ public class EntranceService: NSObject {
             postParams["tickets[\(i)][ticketTimestamp]"] = ticketTimestamps[i]
         }
         
-        client.restClient.POST(url: url, parameters: postParams) { (success: Bool, response: [String:Any]) in
-            if !success {
-                guard let error = response["error"] as? APIError else {
-                    delegate.didFailCheckin(errorData: APIError.getDefaultError())
-                    return
-                }
-                
-                delegate.didFailCheckin(errorData: error)
-                return
-            }
-            
+        client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
             guard let data = response["data"] as? [[String:Any]] else {
                 delegate.didFailCheckin(errorData: APIError.getDefaultError())
                 return
@@ -133,6 +110,8 @@ public class EntranceService: NSObject {
             }
             
             delegate.didCheckinTickets(tickets)
+        }) { (error) in
+            delegate.didFailCheckin(errorData: error)
         }
     }
     
@@ -142,41 +121,38 @@ public class EntranceService: NSObject {
     ///   - code: ticket code
     ///   - eventId: event id
     ///   - userToken: token required
-    ///   - completion: callback with error or ticket response
-    public func getValidationInfoOfTicket(code: String, eventId: String, userToken: String, completion: @escaping (_ error: APIError?, _ ticket: CheckinTicket?)->()) {
-        let path = "event/\(eventId)/guestlist"
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func getValidationInfoOfTicket(code: String, eventId: String, userToken: String, onSuccess: @escaping (_ ticket: CheckinTicket)->(), onError: @escaping (_ error: APIError)->()) {
         
-        var urlParams = ["method": "updatestatus"]
-        urlParams["usertoken"] = userToken
-        
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: urlParams)
+        let url = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("event/\(eventId)/guestlist")
+            .addParameter(key: "method", value: "updatestatus")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
         
         var postParams = [String:String]()
         postParams["tickets[0][ticketCode]"] = code
         postParams["tickets[0][ticketStatus]"] = "1"
         postParams["tickets[0][ticketTimestamp]"] = "\(Int(Date().timeIntervalSince1970)*1000)"
         
-        client.restClient.POST(url: url, parameters: postParams) { (success: Bool, response: [String:Any]) in
-            if !success {
-                guard let error = response["error"] as? APIError else {
-                    completion(APIError.getDefaultError(), nil)
+        client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let ticketData = data.first
+                else {
+                    onError(APIError.getDefaultError())
                     return
-                }
-                
-                completion(error, nil)
-                return
-            }
-            
-            guard let data = response["data"] as? [[String:Any]],
-                let ticketData = data.first else {
-                completion(APIError.getDefaultError(), nil)
-                return
             }
             
             let ticket = CheckinTicket()
             ticket.applyJSON(ticketData)
             
-            completion(nil, ticket)
+            onSuccess(ticket)
+        }) { (error) in
+            onError(error)
         }
     }
     
@@ -185,26 +161,18 @@ public class EntranceService: NSObject {
     /// - Parameters:
     ///   - ticketId: id of ticket
     ///   - userToken: token of logged user
-    ///   - onError: fail callback
     ///   - onSuccess: success callback
-    public func getTransferHistory(ticketId: String, userToken: String, onError: @escaping (_ error: APIError)->(), onSuccess: @escaping (_ history: [TransferHistoryItem])->()) {
-        let path = "ticket/\(ticketId)/transfer"
+    ///   - onError: fail callback
+    public func getTransferHistory(ticketId: String, userToken: String, onSuccess: @escaping (_ history: [TransferHistoryItem])->(), onError: @escaping (_ error: APIError)->()) {
         
-        let urlParams = ["usertoken": userToken]
+        let url = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("ticket/\(ticketId)/transfer")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
         
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: urlParams)
-        
-        client.restClient.GET(url: url) { (success: Bool, response: [String:Any]) in
-            if !success {
-                guard let error = response["error"] as? APIError else {
-                    onError(APIError.getDefaultError())
-                    return
-                }
-                
-                onError(error)
-                return
-            }
-            
+        client.restClient.GET(url: url, onSuccess: { (response) in
             guard let data = response["data"] as? [[String:Any]] else {
                 onError(APIError.getDefaultError())
                 return
@@ -219,7 +187,8 @@ public class EntranceService: NSObject {
             }
             
             onSuccess(history)
+        }) { (error) in
+            onError(error)
         }
     }
-
 }

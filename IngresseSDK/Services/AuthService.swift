@@ -14,78 +14,68 @@ public class AuthService: NSObject {
         self.client = client
     }
 
-    /**
-     Login into Ingresse and get token and userID
-     
-     - parameter email: User email
-     - parameter pass:  User password
-     
-     - parameter completion: Callback block
-     */
-    public func loginWithEmail(_ email: String, andPassword pass: String, completion: @escaping (_ success: Bool, _ response: [String:Any])->()) {
-        let path = "login/"
+    /// Login with email and password
+    ///
+    /// - Parameters:
+    ///   - email: user's email
+    ///   - pass: password
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
+        
+        let url = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("login/")
+            .build()
+        
         let params = ["email": email,
                       "password": pass]
 
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey)
-
-        client.restClient.POST(url: url, parameters: params) { (success: Bool, response: [String:Any]) in
-            if !success {
-                var responseWithURL = response
-                responseWithURL["url"] = url
-                responseWithURL["privateKey"] = self.client.privateKey
-                completion(false, responseWithURL)
-                return
-            }
-
-            guard let logged = response["status"] as? Bool else {
-                completion(false, response)
-                return
-            }
-
-            if !logged {
-                completion(false, ["error": "loginFail"])
-                return
-            }
-
-            guard let data = response["data"] as? [String:Any] else {
-                completion(false, ["error": ""])
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
+            
+            guard let logged = response["status"] as? Bool,
+                logged,
+                let data = response["data"] as? [String:Any]
+                else {
+                onError(APIError.getDefaultError())
                 return
             }
             
-            let user = IngresseUser.login(userData: data)
-
-            completion(true, ["user": user])
+            let user = IngresseUser.login(loginData: data)
+            
+            onSuccess(user)
+        }) { (error: APIError) in
+            onError(error)
         }
     }
     
-    /**
-     Get user information
-     
-     - parameter user: User data
-     - parameter fields: Desired info from user
-     
-     - parameter completion: Callback block
-     */
-    public func getUserData(_ user:IngresseUser,_ fields:String?, completion: @escaping (_ success: Bool, _ response:[String:Any]?)->()) {
+    /// Complete user data
+    ///
+    /// - Parameters:
+    ///   - userId: Logged user's id
+    ///   - userToken: Logged user's token
+    ///   - fields: User attributes to get from API
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func getUserData(_ userId:String,_ userToken: String,_ fields:String?, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
         
-        let path = "user/\(user.userId)"
+        let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
         
-        var params = ["usertoken": user.userToken]
+        let url = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("user/\(userId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .addParameter(key: "fields", value: fieldsValue)
+            .build()
         
-        params["fields"] = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
-        
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: params)
-        
-        client.restClient.GET(url: url) { (success: Bool, response: [String:Any]?) in
-            if !success {
-                completion(false, response)
-                return
-            }
+        client.restClient.GET(url: url, onSuccess: { (response: [String:Any]) in
+            IngresseUser.fillData(userData: response)
             
-            let user = IngresseUser.fillData(userData: response!)
-            
-            completion(true, ["user":user as Any])
+            onSuccess(IngresseUser.user!)
+        }) { (error: APIError) in
+            onError(error)
         }
     }
 }

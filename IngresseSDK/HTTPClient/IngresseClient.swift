@@ -6,26 +6,16 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import UIKit
-
 public class IngresseClient: NSObject {
-    
     var host: String
     var privateKey: String
     var publicKey: String
     var restClient: RestClientInterface
     
-    public init(publicKey: String, privateKey: String, urlHost: String = "https://api.ingresse.com/", restClient: RestClientInterface) {
+    public init(publicKey: String, privateKey: String, urlHost: String = "https://api.ingresse.com/", restClient: RestClientInterface? = nil) {
         self.publicKey = publicKey
         self.privateKey = privateKey
-        self.restClient = restClient
-        self.host = urlHost
-    }
-    
-    public init(publicKey: String, privateKey: String, urlHost: String = "https://api.ingresse.com/") {
-        self.publicKey = publicKey
-        self.privateKey = privateKey
-        self.restClient = RestClient()
+        self.restClient = restClient ?? RestClient()
         self.host = urlHost
     }
 }

@@ -6,50 +6,37 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-@objc public protocol TransactionDownloadDelegate {
-    func didDownloadTransaction(_ transactionInfo: Transaction)
-    func transactionDownloadDidFail(errorData: APIError)
-}
-
 public class TransactionService: NSObject {
     
     var client: IngresseClient
-    var delegate: TransactionDownloadDelegate!
     
     init(_ client: IngresseClient) {
         self.client = client
     }
     
-    /// Download transaction data
+    /// Get transaction details
     ///
     /// - Parameters:
-    ///   - transactionId: id of the transaction
-    ///   - userToken: user token required to make request
-    ///
-    ///   - delegate: callback listener
-    public func getTransactionDetails(_ transactionId: String, userToken: String, delegate: TransactionDownloadDelegate) {
-        let path = "sale/\(transactionId)"
+    ///   - transactionId: transaction id
+    ///   - userToken: user Token
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: Transaction)->(), onError: @escaping (_ error: APIError) -> ()) {
         
-        let params = ["usertoken": userToken]
+        let url = URLBuilder()
+            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
+            .setHost(client.host)
+            .setPath("sale/\(transactionId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
         
-        let url = URLBuilder.makeURL(host: client.host, path: path, publicKey: client.publicKey, privateKey: client.privateKey, parameters: params)
-        
-        client.restClient.GET(url: url) { (success: Bool, response: [String:Any]) in
-            
-            if !success {
-                guard let error = response["error"] as? APIError else {
-                    delegate.transactionDownloadDidFail(errorData: APIError.getDefaultError())
-                    return
-                }
-                
-                delegate.transactionDownloadDidFail(errorData: error)
-                return
-            }
-            
+        client.restClient.GET(url: url, onSuccess: { (response) in
             let transaction = Transaction()
             transaction.applyJSON(response)
             
-            delegate.didDownloadTransaction(transaction)
+            onSuccess(transaction)
+        }) { (error) in
+            onError(error)
         }
     }
 }

@@ -7,6 +7,6 @@
 //
 
 @objc public protocol TicketSyncDelegate {
-    func didSyncTicketsPage(tickets: [UserTicket], finished: Bool)
-    func didFailSyncTickets(errorData: [String:Any])
+    func didSyncTicketsPage(tickets: [UserTicket], pagination: PaginationInfo)
+    func didFailSyncTickets(errorData: APIError)
 }

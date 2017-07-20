@@ -8,49 +8,32 @@
 
 import Foundation
 
-class DateHelper: NSObject  {
-    
-    static let df = DateFormatter()
+enum DateFormat: String {
+    case timestamp = "yyyy-MM-dd'T'HH:mm:ssZ"
+    case gmtTimestamp = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    case dateHourSpace = "dd/MM/yyyy HH:mm"
+    case dateHourAt = "dd/MM/yyyy 'às' HH:mm"
+}
 
-    // Convert String
-    static func dateFromString(_ str: String) -> Date {
-        df.dateFormat = "dd/MM/yyyy HH:mm"
-        return df.date(from: str) ?? Date()
+extension Date {
+    
+    /// Transform into string based on format
+    ///
+    /// - Parameter format: String format of desired output (default is "dd/MM/yyyy HH:mm")
+    /// - Returns: Date converted to string
+    func toString(format: DateFormat = .dateHourSpace) -> String {
+        let df = DateFormatter()
+        df.dateFormat = format.rawValue
+        df.timeZone = TimeZone(abbreviation: "GMT")
+        df.locale = Locale(identifier: "en_US_POSIX")
+        
+        return df.string(from: self)
     }
     
-    static func stringFromTimeStamp(_ str: String) -> String {
-        return stringFromDate(dateFromTimeStamp(str))
-    }
-    
-    static func dateFromTimeStamp(_ str: String) -> Date {
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let posix = Locale(identifier: "en_US_POSIX")
-        df.locale = posix
-        return df.date(from: str)!
-    }
-    
-    static func timeStampFromDate(_ date: Date) -> String {
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let posix = Locale(identifier: "en_US_POSIX")
-        df.locale = posix
-        return df.string(from: date)
-    }
-    
-    // Convert Date to format
-    static func stringFromDate(_ date: Date) -> String {
-        df.dateFormat = "dd/MM/yyyy 'às' HH:mm"
-        return df.string(from: date)
-    }
-    
-    static func stringFromTimestamp(_ timestamp: String) -> String {
-        let date = dateFromString(timestamp)
-        return stringFromDate(date)
-    }
-    
-    // Get Week day with 3 characters
-    static func getWeekDay(_ date: Date) -> String {
+    /// Get week day string with 3 characters
+    func weekDay() -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-        let comp = (calendar as NSCalendar).components(.weekday, from: date)
+        let comp = (calendar as NSCalendar).components(.weekday, from: self)
         let day = comp.weekday
         switch day! {
         case 0:
@@ -70,5 +53,21 @@ class DateHelper: NSObject  {
         default:
             return "---"
         }
+    }
+}
+
+extension String {
+    
+    /// Convert string to Date
+    ///
+    /// - Parameter format: Current string format (default is "yyyy-MM-dd'T'HH:mm:ssZ")
+    /// - Returns: Date converted from string (Current date returned in case of error)
+    func toDate(format: DateFormat = .timestamp) -> Date {
+        let df = DateFormatter()
+        df.dateFormat = format.rawValue
+        let posix = Locale(identifier: "en_US_POSIX")
+        df.locale = posix
+        
+        return df.date(from: self) ?? Date()
     }
 }

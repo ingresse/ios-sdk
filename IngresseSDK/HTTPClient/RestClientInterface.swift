@@ -6,10 +6,8 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-import UIKit
-
 @objc public protocol RestClientInterface {
     
-    func POST(url: String, parameters: [String:String], completion:@escaping (_ success:Bool, _ responseData:[String:Any]) -> ())
-    func GET(url: String, completion:@escaping (_ success:Bool, _ responseData:[String:Any]) -> ())
+    func POST(url: String, parameters: [String:String], onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ())
+    func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ())
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
 		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
 		6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0D1EC5F76B00C7BD16 /* APIError.swift */; };
 		6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */; };
@@ -15,7 +16,6 @@
 		6239BA161EC6080F00C7BD16 /* JSONConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA151EC6080F00C7BD16 /* JSONConvertible.swift */; };
 		6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */; };
 		624526011EC23217007B6584 /* IngresseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 624525F71EC23217007B6584 /* IngresseSDK.framework */; };
-		624526061EC23217007B6584 /* IngresseSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526051EC23217007B6584 /* IngresseSDKTests.swift */; };
 		624526081EC23217007B6584 /* IngresseSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 624525FA1EC23217007B6584 /* IngresseSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		624526151EC2322C007B6584 /* SDKErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526131EC2322C007B6584 /* SDKErrors.swift */; };
 		624526191EC23238007B6584 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526171EC23238007B6584 /* DateHelper.swift */; };
@@ -57,6 +57,9 @@
 		6284F8641ED7653900E5FECF /* SimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6284F8631ED7653900E5FECF /* SimpleUser.swift */; };
 		629BCF931EDF2F230043CBDE /* CheckinTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BCF921EDF2F230043CBDE /* CheckinTicket.swift */; };
 		62D18ACE1F1673DF00DC2270 /* TransferHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D18ACD1F1673DF00DC2270 /* TransferHistoryItem.swift */; };
+		62E134E11F20FBA70007B590 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E134E01F20FBA70007B590 /* PaymentType.swift */; };
+		62E6EDE21F1FE02300F0B1E8 /* WalletItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */; };
+		62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E6EDE31F1FE23400F0B1E8 /* Venue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		622815921F20F4E800FD0D35 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntranceService.swift; sourceTree = "<group>"; };
 		6239BA0D1EC5F76B00C7BD16 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -81,7 +85,6 @@
 		624525FA1EC23217007B6584 /* IngresseSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IngresseSDK.h; sourceTree = "<group>"; };
 		624525FB1EC23217007B6584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		624526001EC23217007B6584 /* IngresseSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IngresseSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		624526051EC23217007B6584 /* IngresseSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngresseSDKTests.swift; sourceTree = "<group>"; };
 		624526071EC23217007B6584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		624526131EC2322C007B6584 /* SDKErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKErrors.swift; sourceTree = "<group>"; };
 		624526171EC23238007B6584 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -123,6 +126,9 @@
 		6284F8631ED7653900E5FECF /* SimpleUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleUser.swift; sourceTree = "<group>"; };
 		629BCF921EDF2F230043CBDE /* CheckinTicket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinTicket.swift; sourceTree = "<group>"; };
 		62D18ACD1F1673DF00DC2270 /* TransferHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferHistoryItem.swift; sourceTree = "<group>"; };
+		62E134E01F20FBA70007B590 /* PaymentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
+		62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletItem.swift; sourceTree = "<group>"; };
+		62E6EDE31F1FE23400F0B1E8 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,16 +188,15 @@
 		624526041EC23217007B6584 /* IngresseSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				627F83811EE9A9F400E14299 /* Spy */,
+				627F837D1EE997A100E14299 /* EntranceServiceTests.swift */,
 				624526471EC253FD007B6584 /* HMACSHA1Tests.m */,
+				624526071EC23217007B6584 /* Info.plist */,
 				624526481EC253FD007B6584 /* IngresseAuthTests.swift */,
 				624526491EC253FD007B6584 /* IngresseErrorsTests.swift */,
-				6245264A1EC253FD007B6584 /* ResponseParserTests.swift */,
-				6245264B1EC253FD007B6584 /* URLBuilderTests.swift */,
-				624526051EC23217007B6584 /* IngresseSDKTests.swift */,
-				624526071EC23217007B6584 /* Info.plist */,
-				627F837D1EE997A100E14299 /* EntranceServiceTests.swift */,
 				627F837F1EE99BDF00E14299 /* MockClient.swift */,
+				6245264A1EC253FD007B6584 /* ResponseParserTests.swift */,
+				627F83811EE9A9F400E14299 /* Spy */,
+				6245264B1EC253FD007B6584 /* URLBuilderTests.swift */,
 			);
 			path = IngresseSDKTests;
 			sourceTree = "<group>";
@@ -199,8 +204,8 @@
 		624526111EC2322C007B6584 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				624526131EC2322C007B6584 /* SDKErrors.swift */,
 				6239BA0D1EC5F76B00C7BD16 /* APIError.swift */,
+				624526131EC2322C007B6584 /* SDKErrors.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -228,21 +233,25 @@
 			isa = PBXGroup;
 			children = (
 				629BCF921EDF2F230043CBDE /* CheckinTicket.swift */,
+				6274856A1F056ED6009AE812 /* Customer.swift */,
 				624526231EC2324F007B6584 /* Event.swift */,
-				624526241EC2324F007B6584 /* IngresseUser.swift */,
-				624526251EC2324F007B6584 /* Session.swift */,
-				624526261EC2324F007B6584 /* Transfer.swift */,
-				624526271EC2324F007B6584 /* UserTicket.swift */,
 				6239BA111EC5FBA000C7BD16 /* Guest.swift */,
+				624526241EC2324F007B6584 /* IngresseUser.swift */,
 				6239BA131EC6075A00C7BD16 /* PaginationInfo.swift */,
+				62E134E01F20FBA70007B590 /* PaymentType.swift */,
+				627485641F054ACF009AE812 /* Refund.swift */,
+				624526251EC2324F007B6584 /* Session.swift */,
 				6284F8631ED7653900E5FECF /* SimpleUser.swift */,
 				627485621F054A6C009AE812 /* Transaction.swift */,
-				627485641F054ACF009AE812 /* Refund.swift */,
-				627485661F054AF1009AE812 /* TransactionTicket.swift */,
 				627485681F056CD1009AE812 /* TransactionEvent.swift */,
-				6274856A1F056ED6009AE812 /* Customer.swift */,
 				6274856C1F05704F009AE812 /* TransactionSession.swift */,
+				627485661F054AF1009AE812 /* TransactionTicket.swift */,
+				624526261EC2324F007B6584 /* Transfer.swift */,
 				62D18ACD1F1673DF00DC2270 /* TransferHistoryItem.swift */,
+				622815921F20F4E800FD0D35 /* UserData.swift */,
+				624526271EC2324F007B6584 /* UserTicket.swift */,
+				62E6EDE31F1FE23400F0B1E8 /* Venue.swift */,
+				62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,14 +259,14 @@
 		6245262D1EC23255007B6584 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6245262F1EC23255007B6584 /* IngresseService.swift */,
 				6245262E1EC23255007B6584 /* AuthService.swift */,
+				6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */,
+				6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */,
+				6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */,
+				6245262F1EC23255007B6584 /* IngresseService.swift */,
 				624526301EC23255007B6584 /* MyTicketsService.swift */,
 				624526311EC23255007B6584 /* SessionSyncDelegate.swift */,
 				624526321EC23255007B6584 /* TicketSyncDelegate.swift */,
-				6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */,
-				6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */,
-				6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */,
 				627485571F054776009AE812 /* TransactionService.swift */,
 			);
 			path = Services;
@@ -266,9 +275,9 @@
 		624526381EC2325D007B6584 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				6239BA151EC6080F00C7BD16 /* JSONConvertible.swift */,
 				624526391EC2325D007B6584 /* ResponseParser.swift */,
 				6245263A1EC2325D007B6584 /* URLBuilder.swift */,
-				6239BA151EC6080F00C7BD16 /* JSONConvertible.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -415,16 +424,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				622815931F20F4E800FD0D35 /* UserData.swift in Sources */,
 				6245262C1EC2324F007B6584 /* UserTicket.swift in Sources */,
 				6239BA141EC6075A00C7BD16 /* PaginationInfo.swift in Sources */,
 				6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */,
 				624526351EC23255007B6584 /* MyTicketsService.swift in Sources */,
+				62E6EDE21F1FE02300F0B1E8 /* WalletItem.swift in Sources */,
 				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
 				624526341EC23255007B6584 /* IngresseService.swift in Sources */,
 				624526151EC2322C007B6584 /* SDKErrors.swift in Sources */,
 				6239BA161EC6080F00C7BD16 /* JSONConvertible.swift in Sources */,
 				6284F8641ED7653900E5FECF /* SimpleUser.swift in Sources */,
 				624526331EC23255007B6584 /* AuthService.swift in Sources */,
+				62E134E11F20FBA70007B590 /* PaymentType.swift in Sources */,
 				6245261F1EC2323E007B6584 /* IngresseClient.swift in Sources */,
 				6274856B1F056ED6009AE812 /* Customer.swift in Sources */,
 				627485581F054776009AE812 /* TransactionService.swift in Sources */,
@@ -437,6 +449,7 @@
 				629BCF931EDF2F230043CBDE /* CheckinTicket.swift in Sources */,
 				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
 				6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */,
+				62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */,
 				624526281EC2324F007B6584 /* Event.swift in Sources */,
 				6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */,
 				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
@@ -461,7 +474,6 @@
 				6245264E1EC253FD007B6584 /* IngresseErrorsTests.swift in Sources */,
 				627F837E1EE997A100E14299 /* EntranceServiceTests.swift in Sources */,
 				627F83831EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift in Sources */,
-				624526061EC23217007B6584 /* IngresseSDKTests.swift in Sources */,
 				6245264D1EC253FD007B6584 /* IngresseAuthTests.swift in Sources */,
 				627F83801EE99BDF00E14299 /* MockClient.swift in Sources */,
 				6245264C1EC253FD007B6584 /* HMACSHA1Tests.m in Sources */,

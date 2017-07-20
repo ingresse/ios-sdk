@@ -8,15 +8,12 @@
 
 @objc public protocol GuestListSyncDelegate {
     
-    
     /// Callback method for listening to guest list download
     ///
     /// - Parameters:
     ///   - page: pagination info of current request
     ///   - guests: downloaded page of guests
-    ///   - finished: returns true if it is the last page
-    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [Guest], finished: Bool)
-    
+    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [Guest])
     
     /// Callback for download errors
     ///
