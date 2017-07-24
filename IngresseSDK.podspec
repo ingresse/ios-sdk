@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IngresseSDK"
-  s.version      = "0.0.2"
+  s.version      = "0.1.0"
   s.summary      = "Ingresse's SDK."
 
   # This description is used to generate tags and improve search results.
@@ -26,9 +26,9 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = "Swift framework to handle Ingresse API requests"
 
-  s.homepage     = "https://ingresse.com/IngresseSDK"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.homepage     = "https://github.com/ingresse/ios-sdk"
 
+  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -51,7 +51,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Rubens Gondek" => "rubens.gondek@gmail.com" }
+  s.author             = { "Rubens Gondek" => "rubens.gondek@ingresse.com" }
   # Or just: s.author    = "Rubens Gondek"
   # s.authors            = { "Rubens Gondek" => "rubens.gondek@gmail.com" }
   # s.social_media_url   = "http://twitter.com/Rubens Gondek"
@@ -80,7 +80,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/ingresse/ios-sdk.git", :tag => "#{s.version}" }
 
-
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  CocoaPods is smart about how it includes source code. For source files
@@ -94,7 +93,6 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = "Classes/**/*.h"
 
-
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  A list of resources included with the Pod. These are copied into the
@@ -104,11 +102,8 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  s.resources = "IngresseSDK/Errors/*.plist"
-  s.ios.resource_bundle = { 'IngresseSDK' => ['IngresseSDK/Localization/*.lproj'] }
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
