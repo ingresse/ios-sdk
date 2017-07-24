@@ -64,6 +64,13 @@ public class EntranceService: NSObject {
             pagination.applyJSON(paginationData)
             
             delegate.didSyncGuestsPage(pagination, guests)
+
+            if pagination.isLastPage {
+                return
+            }
+
+            self.getGuestListOfEvent(eventId, sessionId: sessionId, from: from, userToken: userToken, page: pagination.currentPage+1, delegate: delegate)
+
         }) { (error) in
             delegate.didFailSyncGuestList(errorData: error)
         }
