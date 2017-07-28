@@ -14,6 +14,7 @@ public class IngresseService: NSObject {
     public var entrance: EntranceService!
     public var myTickets: MyTicketsService!
     public var transaction: TransactionService!
+    public var user: UserService!
 
     public init(client: IngresseClient) {
         self.client = client
@@ -21,5 +22,6 @@ public class IngresseService: NSObject {
         self.entrance = EntranceService(client)
         self.myTickets = MyTicketsService(client)
         self.transaction = TransactionService(client)
+        self.user = UserService(client)
     }
 }

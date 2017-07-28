@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
 		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
 		6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0D1EC5F76B00C7BD16 /* APIError.swift */; };
 		6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */; };
@@ -70,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E9831B31F217135001211C6 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntranceService.swift; sourceTree = "<group>"; };
 		6239BA0D1EC5F76B00C7BD16 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */,
 				6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */,
 				627485571F054776009AE812 /* TransactionService.swift */,
+				0E9831B31F217135001211C6 /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				6274856B1F056ED6009AE812 /* Customer.swift in Sources */,
 				627485581F054776009AE812 /* TransactionService.swift in Sources */,
 				624526201EC2323E007B6584 /* RestClient.swift in Sources */,
+				0E9831B41F217135001211C6 /* UserService.swift in Sources */,
 				624526291EC2324F007B6584 /* IngresseUser.swift in Sources */,
 				627485631F054A6C009AE812 /* Transaction.swift in Sources */,
 				624526211EC2323E007B6584 /* RestClientInterface.swift in Sources */,
