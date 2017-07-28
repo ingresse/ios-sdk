@@ -20,6 +20,11 @@ public class IngresseService: NSObject {
         return AuthService(self.client)
         }()
     
+    public lazy var user: UserService = {
+        [unowned self] in
+        return UserService(self.client)
+        }()
+
     public lazy var entrance: EntranceService = {
         [unowned self] in
         return EntranceService(self.client)
