@@ -25,6 +25,7 @@ public class UserService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
+            
             guard let data = response["data"] as? [[String:Any]] else {
                 delegate.didFailDownloadEvents(errorData: APIError.getDefaultError())
                 return
@@ -35,5 +36,4 @@ public class UserService: BaseService {
             delegate.didFailDownloadEvents(errorData: error)
         }
     }
-    
 }
