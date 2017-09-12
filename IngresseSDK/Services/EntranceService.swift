@@ -98,7 +98,7 @@ public class EntranceService: NSObject {
     ///   - eventId: id of the event
     ///   - userToken: token of logged user
     ///   - delegate: delegate to receive callbacks
-    public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, userToken: String, delegate: CheckinSyncDelegate) {
+    public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, sessionId: String, userToken: String, delegate: CheckinSyncDelegate) {
         
         let url = URLBuilder()
             .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
@@ -106,6 +106,7 @@ public class EntranceService: NSObject {
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
+            .addParameter(key: "sessionId", value: sessionId)
             .build()
         
         var postParams = [String:String]()
@@ -143,7 +144,7 @@ public class EntranceService: NSObject {
     ///   - userToken: token required
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getValidationInfoOfTicket(code: String, eventId: String, userToken: String, onSuccess: @escaping (_ ticket: CheckinTicket)->(), onError: @escaping (_ error: APIError)->()) {
+    public func getValidationInfoOfTicket(code: String, eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ ticket: CheckinTicket)->(), onError: @escaping (_ error: APIError)->()) {
         
         let url = URLBuilder()
             .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
@@ -151,6 +152,7 @@ public class EntranceService: NSObject {
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
+            .addParameter(key: "sessionId", value: sessionId)
             .build()
         
         var postParams = [String:String]()
