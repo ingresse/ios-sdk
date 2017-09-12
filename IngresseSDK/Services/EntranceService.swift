@@ -9,11 +9,20 @@
 public class EntranceService: NSObject {
     
     var client: IngresseClient
+    var shouldStop = false
     
     init(_ client: IngresseClient) {
         self.client = client
     }
     
+    public func stopDownload() {
+        shouldStop = true
+    }
+
+    public func allowDownload() {
+        shouldStop = false
+    }
+
     /// Get list of tickets for entrance (Guest List)
     ///
     /// - Requires: User token (logged user)
@@ -27,6 +36,10 @@ public class EntranceService: NSObject {
     ///   - delegate:   callback listener
     public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, delegate: GuestListSyncDelegate) {
         
+        if shouldStop {
+            return
+        }
+
         var builder = URLBuilder()
             .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
             .setHost(client.host)
