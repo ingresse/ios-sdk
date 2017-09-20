@@ -49,7 +49,7 @@ public class EntranceService: BaseService {
         let url = builder.build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            var guests = [Guest]()
+            var guests = [GuestTicket]()
             
             guard
                 let data = response["data"] as? [[String:Any]],
@@ -60,7 +60,7 @@ public class EntranceService: BaseService {
             }
             
             for obj in data {
-                let guest = Guest()
+                let guest = GuestTicket()
                 guest.applyJSON(obj)
                 
                 guests.append(guest)
