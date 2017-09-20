@@ -6,8 +6,6 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-import UIKit
-
 public class PaginationInfo: JSONConvertible {
     public var currentPage: Int = 0
     public var lastPage: Int = 0

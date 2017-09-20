@@ -12,14 +12,13 @@ public class Refund: JSONConvertible {
     public var date: String = ""
     
     public override func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if key == "operator" {
-                self.operatorId = json[key] as? String ?? ""
+                self.operatorId = value as? String ?? ""
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

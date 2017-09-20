@@ -21,23 +21,22 @@ public class TransactionEvent: JSONConvertible {
     public var taxToCostumer: Int = 0
 
     override public func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-
+        for (key,value) in json {
             if key == "venue" {
-                guard let venue = json[key] as? [String:Any] else { continue }
+                guard let venue = value as? [String:Any] else { continue }
 
                 self.venueName = venue["name"] as? String ?? ""
                 continue
             }
 
             if key == "saleEnabled" {
-                guard let enabled = json[key] as? Int else { continue }
+                guard let enabled = value as? Int else { continue }
 
                 self.saleEnabled = enabled == 1
                 continue
             }
 
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

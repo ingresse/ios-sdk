@@ -6,8 +6,6 @@
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 
-import Foundation
-
 public class UserTicket: JSONConvertible {
     public var id: Int = 0
     public var guestTypeId: Int = 0
@@ -29,32 +27,28 @@ public class UserTicket: JSONConvertible {
     public var transferedTo: Transfer?
     
     public override func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if ["receivedFrom", "transferedTo"].contains(key) {
-                guard let transferObj = json[key] as? [String:Any] else { continue }
+                guard let transferObj = value as? [String:Any] else { continue }
                 
                 let transfer = Transfer()
                 transfer.applyJSON(transferObj)
                 
                 switch key {
-                case "receivedFrom":
-                    self.receivedFrom = transfer
-                case "transferedTo":
-                    self.transferedTo = transfer
-                default:
-                    continue
+                case "receivedFrom": self.receivedFrom = transfer
+                case "transferedTo": self.transferedTo = transfer
+                default: break
                 }
                 
                 continue
             }
             
             if key == "description" {
-                self.desc = json[key] as? String ?? ""
+                self.desc = value as? String ?? ""
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

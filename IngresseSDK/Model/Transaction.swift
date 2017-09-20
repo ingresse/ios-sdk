@@ -31,7 +31,7 @@ public class Transaction: JSONConvertible {
     public var creationdate: String = ""
     public var modificationdate: String = ""
     
-    public var customer: Customer = Customer()
+    public var customer: User = User()
     public var event: TransactionEvent = TransactionEvent()
     public var session: TransactionSession = TransactionSession()
     
@@ -45,10 +45,9 @@ public class Transaction: JSONConvertible {
     public var hasRefund: Bool = false
     
     override public func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if ["event", "session", "customer", "refund"].contains(key) {
-                guard let obj = json[key] as? [String:Any] else { continue }
+                guard let obj = value as? [String:Any] else { continue }
                 
                 switch key {
                 case "event": self.event.applyJSON(obj)
@@ -57,7 +56,7 @@ public class Transaction: JSONConvertible {
                 case "refund":
                     self.hasRefund = true
                     self.refund.applyJSON(obj)
-                default: continue
+                default: break
                 }
                 
                 continue
@@ -65,7 +64,7 @@ public class Transaction: JSONConvertible {
             
             if key == "basket" {
                 guard
-                    let basket = json[key] as? [String:Any],
+                    let basket = value as? [String:Any],
                     let tickets = basket["tickets"] as? [[String:Any]]
                     else {
                         continue
@@ -81,7 +80,7 @@ public class Transaction: JSONConvertible {
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

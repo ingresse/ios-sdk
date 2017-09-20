@@ -10,20 +10,19 @@ public class TransferHistoryItem: JSONConvertible {
     public var id: Int = 0
     public var status: String = ""
     public var datetime: String = ""
-    public var user: SimpleUser?
+    public var user: User?
     
     public override func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if key == "user" {
-                guard let userObj = json[key] as? [String:Any] else { continue }
+                guard let userObj = value as? [String:Any] else { continue }
                 
-                self.user = SimpleUser()
+                self.user = User()
                 self.user?.applyJSON(userObj)
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

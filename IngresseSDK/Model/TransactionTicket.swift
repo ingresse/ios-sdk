@@ -26,16 +26,15 @@ public class TransactionTicket: JSONConvertible {
     public var percentTax: Int = 0
     
     override public func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if key == "checked" {
-                guard let boolValue = json[key] as? String else { continue }
+                guard let boolValue = value as? String else { continue }
                 
                 self.checked = boolValue == "1"
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }
