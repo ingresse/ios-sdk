@@ -13,7 +13,7 @@
     /// - Parameters:
     ///   - page: pagination info of current request
     ///   - guests: downloaded page of guests
-    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [Guest])
+    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [GuestTicket])
     
     /// Callback for download errors
     ///

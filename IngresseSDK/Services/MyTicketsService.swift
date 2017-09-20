@@ -12,13 +12,7 @@
     case all = 0
 }
 
-public class MyTicketsService: NSObject {
-    
-    var client: IngresseClient
-    
-    init(_ client: IngresseClient) {
-        self.client = client
-    }
+public class MyTicketsService: BaseService {
 
     /// Get sessions user has tickets to
     ///
@@ -29,9 +23,7 @@ public class MyTicketsService: NSObject {
     public func getUserSessions(_ type: EventSessionType, page: Int, delegate: SessionSyncDelegate) {
         let user = IngresseUser.user!
         
-        var builder = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        var builder = URLBuilder(client: client)
             .setPath("user/\(user.userId)/sessions")
             .addParameter(key: "page", value: "\(page)")
             .addParameter(key: "pageSize", value: "50")
@@ -84,9 +76,7 @@ public class MyTicketsService: NSObject {
     public func getTicketsForSession(_ sessionID: String, page: Int, delegate: TicketSyncDelegate) {
         let user = IngresseUser.user!
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("user/\(user.userId)/sessions/\(sessionID)/tickets")
             .addParameter(key: "page", value: "\(page)")
             .addParameter(key: "pageSize", value: "100")

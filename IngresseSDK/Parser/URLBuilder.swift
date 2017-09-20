@@ -15,6 +15,12 @@ public class URLBuilder: NSObject {
     private var privateKey: String = ""
     private var parameters: [String:String] = [:]
     
+    public init(client: IngresseClient) {
+        self.host = client.host
+        self.publicKey = client.publicKey
+        self.privateKey = client.privateKey
+    }
+    
     public func setHost(_ hostUrl: String) -> URLBuilder {
         self.host = hostUrl
         
