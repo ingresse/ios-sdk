@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="IngresseSDK" customModuleProvider="target">
+            <connections>
+                <outlet property="txtEmail" destination="s9M-7E-baE" id="gsP-EA-xhH"/>
+                <outlet property="txtPassword" destination="yxZ-3D-ur7" id="DQs-5y-0FC"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="C4N-06-iv1">
+                    <rect key="frame" x="175" y="200" width="65" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="TVd-3C-lSj"/>
+                        <constraint firstAttribute="width" constant="65" id="it7-32-mLI"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-MAIL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s9M-7E-baE" customClass="AphTextField" customModule="IngresseSDK" customModuleProvider="target">
+                    <rect key="frame" x="50" y="315" width="314" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="YAs-xQ-EL5"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="SENHA" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yxZ-3D-ur7" customClass="AphTextField" customModule="IngresseSDK" customModuleProvider="target">
+                    <rect key="frame" x="50" y="395" width="314" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="4bx-LU-XDO"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGR-lO-Vfw" customClass="AphButton" customModule="IngresseSDK" customModuleProvider="target">
+                    <rect key="frame" x="50" y="475" width="314" height="50"/>
+                    <color key="backgroundColor" red="0.9882352941176471" green="0.63921568627450975" blue="0.066666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="N8Q-yL-bPT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                    <state key="normal" title="ENTRAR">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundRadius" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="btnLoginPressed:" destination="-1" eventType="touchUpInside" id="nYU-YM-88m"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HuI-Rx-66C">
+                    <rect key="frame" x="131" y="540" width="153" height="31"/>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                    <state key="normal" title="Esqueci minha senha"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTw-Ip-wOl" customClass="AphButton" customModule="IngresseSDK" customModuleProvider="target">
+                    <rect key="frame" x="50" y="611" width="314" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="tb1-Bf-ZzB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                    <state key="normal" title="CONECTAR COM FACEBOOK">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundRadius" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BzR-LH-a7E" customClass="AphButton" customModule="IngresseSDK" customModuleProvider="target">
+                    <rect key="frame" x="50" y="681" width="314" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="ssl-1b-myh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="12"/>
+                    <state key="normal" title="CRIAR CONTA"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.0" green="0.64705882349999999" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundRadius" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="s9M-7E-baE" firstAttribute="top" secondItem="C4N-06-iv1" secondAttribute="bottom" constant="50" id="037-Ir-0a1"/>
+                <constraint firstItem="PGR-lO-Vfw" firstAttribute="top" secondItem="yxZ-3D-ur7" secondAttribute="bottom" constant="50" id="07P-tY-CkY"/>
+                <constraint firstAttribute="trailing" secondItem="BzR-LH-a7E" secondAttribute="trailing" constant="50" id="0sA-C2-x4v"/>
+                <constraint firstAttribute="trailing" secondItem="jTw-Ip-wOl" secondAttribute="trailing" constant="50" id="4Ng-TH-CeQ"/>
+                <constraint firstItem="BzR-LH-a7E" firstAttribute="top" secondItem="jTw-Ip-wOl" secondAttribute="bottom" constant="20" id="54M-BX-ukp"/>
+                <constraint firstItem="HuI-Rx-66C" firstAttribute="top" secondItem="PGR-lO-Vfw" secondAttribute="bottom" constant="15" id="5Ge-VO-jv9"/>
+                <constraint firstItem="s9M-7E-baE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="B1O-Lx-til"/>
+                <constraint firstItem="HuI-Rx-66C" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HPE-zQ-sF7"/>
+                <constraint firstAttribute="bottom" secondItem="BzR-LH-a7E" secondAttribute="bottom" constant="20" id="I29-bh-aiC"/>
+                <constraint firstAttribute="trailing" secondItem="yxZ-3D-ur7" secondAttribute="trailing" constant="50" id="IbC-lk-HOZ"/>
+                <constraint firstItem="PGR-lO-Vfw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="Ix2-ge-r25"/>
+                <constraint firstItem="C4N-06-iv1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Lrb-uS-WqM"/>
+                <constraint firstItem="yxZ-3D-ur7" firstAttribute="top" secondItem="s9M-7E-baE" secondAttribute="bottom" constant="50" id="U8L-1W-POR"/>
+                <constraint firstItem="jTw-Ip-wOl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="Zbd-vg-Cnv"/>
+                <constraint firstAttribute="trailing" secondItem="PGR-lO-Vfw" secondAttribute="trailing" constant="50" id="axN-ZF-TkI"/>
+                <constraint firstItem="C4N-06-iv1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="drC-xs-xvy"/>
+                <constraint firstItem="yxZ-3D-ur7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="j4p-Re-eS0"/>
+                <constraint firstAttribute="trailing" secondItem="s9M-7E-baE" secondAttribute="trailing" constant="50" id="suz-mr-5ei"/>
+                <constraint firstItem="jTw-Ip-wOl" firstAttribute="top" secondItem="HuI-Rx-66C" secondAttribute="bottom" constant="40" id="uSn-iG-VxD"/>
+                <constraint firstItem="BzR-LH-a7E" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="uZB-FS-EzU"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="logo.png" width="400" height="400"/>
+    </resources>
+</document>

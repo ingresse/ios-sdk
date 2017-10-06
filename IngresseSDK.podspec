@@ -101,7 +101,13 @@ Pod::Spec.new do |s|
   #  non-essential files like tests, examples and documentation.
   #
 
-  # s.resource  = "icon.png"
+s.resource_bundle = {
+    'IngresseSDK' => [
+        'IngresseSDK/Views/*.xib',
+        'IngresseSDK/Resources/Images/logo.png',
+        'IngresseSDK/Resources/Fonts/*.ttf'
+    ]
+}
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 

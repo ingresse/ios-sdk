@@ -7,8 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
+		0E197E3C1F82DED9000C34FA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E197E391F82DED8000C34FA /* logo.png */; };
+		0E2A610F1F599A7100B2F3E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A610D1F599A7100B2F3E2 /* LoginViewController.swift */; };
+		0E2A61151F599E2A00B2F3E2 /* AphTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A61141F599E2A00B2F3E2 /* AphTextField.swift */; };
+		0E2A61171F59A3CE00B2F3E2 /* AphButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A61161F59A3CE00B2F3E2 /* AphButton.swift */; };
+		0E2A611F1F59A58100B2F3E2 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A611A1F59A58100B2F3E2 /* Roboto-Bold.ttf */; };
+		0E2A61201F59A58100B2F3E2 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A611B1F59A58100B2F3E2 /* Roboto-Italic.ttf */; };
+		0E2A61211F59A58100B2F3E2 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A611C1F59A58100B2F3E2 /* Roboto-Light.ttf */; };
+		0E2A61221F59A58100B2F3E2 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A611D1F59A58100B2F3E2 /* Roboto-Medium.ttf */; };
+		0E2A61231F59A58100B2F3E2 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A611E1F59A58100B2F3E2 /* Roboto-Regular.ttf */; };
+		0E2A61281F59C57100B2F3E2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A61271F59C57100B2F3E2 /* LoginViewController.xib */; };
 		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
+		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
 		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
 		6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0D1EC5F76B00C7BD16 /* APIError.swift */; };
 		6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */; };
@@ -74,8 +84,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		622815921F20F4E800FD0D35 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		0E197E391F82DED8000C34FA /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = IngresseSDK/Resources/Images/logo.png; sourceTree = SOURCE_ROOT; };
+		0E2A610D1F599A7100B2F3E2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Views/LoginViewController.swift; sourceTree = "<group>"; };
+		0E2A61141F599E2A00B2F3E2 /* AphTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AphTextField.swift; path = Views/UI/AphTextField.swift; sourceTree = "<group>"; };
+		0E2A61161F59A3CE00B2F3E2 /* AphButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AphButton.swift; path = Views/UI/AphButton.swift; sourceTree = "<group>"; };
+		0E2A611A1F59A58100B2F3E2 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		0E2A611B1F59A58100B2F3E2 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		0E2A611C1F59A58100B2F3E2 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		0E2A611D1F59A58100B2F3E2 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		0E2A611E1F59A58100B2F3E2 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		0E2A61271F59C57100B2F3E2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Views/LoginViewController.xib; sourceTree = "<group>"; };
 		0E9831B31F217135001211C6 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		622815921F20F4E800FD0D35 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntranceService.swift; sourceTree = "<group>"; };
 		6239BA0D1EC5F76B00C7BD16 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -152,6 +172,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E197E361F82DE88000C34FA /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0E197E391F82DED8000C34FA /* logo.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		0E2A610C1F5999EF00B2F3E2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0E2A61131F599DE100B2F3E2 /* UI */,
+				0E2A610D1F599A7100B2F3E2 /* LoginViewController.swift */,
+				0E2A61271F59C57100B2F3E2 /* LoginViewController.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0E2A61131F599DE100B2F3E2 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0E2A61141F599E2A00B2F3E2 /* AphTextField.swift */,
+				0E2A61161F59A3CE00B2F3E2 /* AphButton.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		0E2A61181F59A4FD00B2F3E2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0E197E361F82DE88000C34FA /* Images */,
+				0E2A61191F59A52100B2F3E2 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0E2A61191F59A52100B2F3E2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0E2A611A1F59A58100B2F3E2 /* Roboto-Bold.ttf */,
+				0E2A611B1F59A58100B2F3E2 /* Roboto-Italic.ttf */,
+				0E2A611C1F59A58100B2F3E2 /* Roboto-Light.ttf */,
+				0E2A611D1F59A58100B2F3E2 /* Roboto-Medium.ttf */,
+				0E2A611E1F59A58100B2F3E2 /* Roboto-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		624525ED1EC23217007B6584 = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +242,8 @@
 		624525F91EC23217007B6584 /* IngresseSDK */ = {
 			isa = PBXGroup;
 			children = (
+				0E2A61181F59A4FD00B2F3E2 /* Resources */,
+				0E2A610C1F5999EF00B2F3E2 /* Views */,
 				6245263D1EC2327A007B6584 /* Crypto */,
 				624526111EC2322C007B6584 /* Errors */,
 				624526161EC23238007B6584 /* Helpers */,
@@ -408,6 +478,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2A61281F59C57100B2F3E2 /* LoginViewController.xib in Resources */,
+				0E2A61231F59A58100B2F3E2 /* Roboto-Regular.ttf in Resources */,
+				0E2A61211F59A58100B2F3E2 /* Roboto-Light.ttf in Resources */,
+				0E2A61221F59A58100B2F3E2 /* Roboto-Medium.ttf in Resources */,
+				0E197E3C1F82DED9000C34FA /* logo.png in Resources */,
+				0E2A61201F59A58100B2F3E2 /* Roboto-Italic.ttf in Resources */,
+				0E2A611F1F59A58100B2F3E2 /* Roboto-Bold.ttf in Resources */,
 				6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,8 +504,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2A610F1F599A7100B2F3E2 /* LoginViewController.swift in Sources */,
 				622815931F20F4E800FD0D35 /* UserData.swift in Sources */,
 				6245262C1EC2324F007B6584 /* UserTicket.swift in Sources */,
+				0E2A61171F59A3CE00B2F3E2 /* AphButton.swift in Sources */,
 				6239BA141EC6075A00C7BD16 /* PaginationInfo.swift in Sources */,
 				6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */,
 				624526351EC23255007B6584 /* MyTicketsService.swift in Sources */,
@@ -456,6 +535,7 @@
 				62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */,
 				624526281EC2324F007B6584 /* Event.swift in Sources */,
 				6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */,
+				0E2A61151F599E2A00B2F3E2 /* AphTextField.swift in Sources */,
 				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
 				6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */,
 				624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */,
