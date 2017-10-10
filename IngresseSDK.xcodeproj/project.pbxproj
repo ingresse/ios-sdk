@@ -11,7 +11,8 @@
 		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
 		6237022D1F72D124006A1335 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237022C1F72D124006A1335 /* EventService.swift */; };
 		6237022F1F72D1D8006A1335 /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237022E1F72D1D8006A1335 /* EventAttributes.swift */; };
-		623702311F72D413006A1335 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623702301F72D413006A1335 /* Advertisement.swift */; };		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
+		623702311F72D413006A1335 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623702301F72D413006A1335 /* Advertisement.swift */; };
+		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
 		6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0D1EC5F76B00C7BD16 /* APIError.swift */; };
 		6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */; };
 		6239BA121EC5FBA000C7BD16 /* GuestTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA111EC5FBA000C7BD16 /* GuestTicket.swift */; };
@@ -34,7 +35,6 @@
 		624526331EC23255007B6584 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245262E1EC23255007B6584 /* AuthService.swift */; };
 		624526341EC23255007B6584 /* IngresseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245262F1EC23255007B6584 /* IngresseService.swift */; };
 		624526351EC23255007B6584 /* MyTicketsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526301EC23255007B6584 /* MyTicketsService.swift */; };
-		624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526311EC23255007B6584 /* SessionSyncDelegate.swift */; };
 		624526371EC23255007B6584 /* TicketSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526321EC23255007B6584 /* TicketSyncDelegate.swift */; };
 		6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624526391EC2325D007B6584 /* ResponseParser.swift */; };
 		6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6245263A1EC2325D007B6584 /* URLBuilder.swift */; };
@@ -112,7 +112,6 @@
 		6245262E1EC23255007B6584 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6245262F1EC23255007B6584 /* IngresseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngresseService.swift; sourceTree = "<group>"; };
 		624526301EC23255007B6584 /* MyTicketsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTicketsService.swift; sourceTree = "<group>"; };
-		624526311EC23255007B6584 /* SessionSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSyncDelegate.swift; sourceTree = "<group>"; };
 		624526321EC23255007B6584 /* TicketSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSyncDelegate.swift; sourceTree = "<group>"; };
 		624526391EC2325D007B6584 /* ResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParser.swift; sourceTree = "<group>"; };
 		6245263A1EC2325D007B6584 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
@@ -327,7 +326,6 @@
 			children = (
 				6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */,
 				6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */,
-				624526311EC23255007B6584 /* SessionSyncDelegate.swift */,
 				624526321EC23255007B6584 /* TicketSyncDelegate.swift */,
 			);
 			path = Delegates;
@@ -495,7 +493,6 @@
 				6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */,
 				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
 				6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */,
-				624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */,
 				6237022D1F72D124006A1335 /* EventService.swift in Sources */,
 				6245262A1EC2324F007B6584 /* Session.swift in Sources */,
 				6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */,
