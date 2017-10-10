@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
 		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
+		6237022D1F72D124006A1335 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237022C1F72D124006A1335 /* EventService.swift */; };
+		6237022F1F72D1D8006A1335 /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237022E1F72D1D8006A1335 /* EventAttributes.swift */; };
+		623702311F72D413006A1335 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623702301F72D413006A1335 /* Advertisement.swift */; };
 		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
 		6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0D1EC5F76B00C7BD16 /* APIError.swift */; };
 		6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */; };
@@ -81,6 +84,9 @@
 /* Begin PBXFileReference section */
 		0E9831B31F217135001211C6 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		622815921F20F4E800FD0D35 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		6237022C1F72D124006A1335 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		6237022E1F72D1D8006A1335 /* EventAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAttributes.swift; sourceTree = "<group>"; };
+		623702301F72D413006A1335 /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntranceService.swift; sourceTree = "<group>"; };
 		6239BA0D1EC5F76B00C7BD16 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -266,6 +272,8 @@
 				624526271EC2324F007B6584 /* UserTicket.swift */,
 				62E6EDE31F1FE23400F0B1E8 /* Venue.swift */,
 				62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */,
+				6237022E1F72D1D8006A1335 /* EventAttributes.swift */,
+				623702301F72D413006A1335 /* Advertisement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,6 +291,7 @@
 				627485571F054776009AE812 /* TransactionService.swift */,
 				6294D6E51F7279E50064EBFA /* TransfersService.swift */,
 				0E9831B31F217135001211C6 /* UserService.swift */,
+				6237022C1F72D124006A1335 /* EventService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -478,6 +487,7 @@
 				6239BA121EC5FBA000C7BD16 /* GuestTicket.swift in Sources */,
 				629BCF931EDF2F230043CBDE /* CheckinTicket.swift in Sources */,
 				6294D6EA1F7280E80064EBFA /* PendingTransfer.swift in Sources */,
+				623702311F72D413006A1335 /* Advertisement.swift in Sources */,
 				6294D6EC1F728DD80064EBFA /* SearchService.swift in Sources */,
 				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
 				6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */,
@@ -487,9 +497,11 @@
 				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
 				6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */,
 				624526361EC23255007B6584 /* SessionSyncDelegate.swift in Sources */,
+				6237022D1F72D124006A1335 /* EventService.swift in Sources */,
 				6245262A1EC2324F007B6584 /* Session.swift in Sources */,
 				6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */,
 				627485651F054ACF009AE812 /* Refund.swift in Sources */,
+				6237022F1F72D1D8006A1335 /* EventAttributes.swift in Sources */,
 				627485691F056CD1009AE812 /* TransactionEvent.swift in Sources */,
 				627485671F054AF1009AE812 /* TransactionTicket.swift in Sources */,
 				6284F8601ED7601E00E5FECF /* CheckinSyncDelegate.swift in Sources */,

@@ -18,6 +18,17 @@ public class Transfer: JSONConvertible {
     public var accepted: String = ""
     public var socialId: [SocialAccount] = []
     
+    public var socialIdDict: [String:String] {
+        get {
+            var dict = [String:String]()
+            for account in socialId {
+                dict[account.network] = String(account.id)
+            }
+            
+            return dict
+        }
+    }
+    
     public override func applyJSON(_ json: [String : Any]) {
         for (key,value) in json {
             if key == "socialId" {

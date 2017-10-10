@@ -21,9 +21,13 @@ public class PendingTransfer: JSONConvertible {
                 
                 switch key {
                 case "event": self.event.applyJSON(obj)
+                    break
                 case "venue": self.venue.applyJSON(obj)
+                    break
                 case "session": self.session.applyJSON(obj)
+                    break
                 case "ticket": self.ticket.applyJSON(obj)
+                    break
                 case "receivedFrom": self.receivedFrom.applyJSON(obj)
                 default: break
                 }

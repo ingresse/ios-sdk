@@ -150,7 +150,6 @@ public class TransfersService: BaseService {
             .build()
         
         client.restClient.POST(url: url, parameters: ["isReturn":"true"], onSuccess: { (response) in
-            // TODO: Get saleTicketId from response because it's needed to delete ticket from database
             guard let id = response["saleTicketId"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
