@@ -47,7 +47,7 @@ public class UserService: BaseService {
 
         let path = "user/\(userId)"
         let params = [
-            "fields" : "id,name,email,pictures",
+            "fields" : "id,name,lastname,email,pictures",
             "usertoken" : userToken
         ]
 
@@ -69,8 +69,10 @@ public class UserService: BaseService {
 
         var dict : [String:Any] = [:]
 
-        dict["name"]       = (apiResponse["name"] as? String) ?? ""
-        dict["email"]      = (apiResponse["email"] as? String) ?? ""
+        dict["id"] = (apiResponse["id"] as? Int) ?? ""
+        dict["name"] = (apiResponse["name"] as? String) ?? ""
+        dict["lastname"] = (apiResponse["lastname"] as? String) ?? ""
+        dict["email"] = (apiResponse["email"] as? String) ?? ""
 
         var picturesDict : [String:String] = [:]
 
