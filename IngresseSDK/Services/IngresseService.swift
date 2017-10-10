@@ -7,24 +7,24 @@
 //
 
 public class IngresseService: NSObject {
-    
+
     var client: IngresseClient!
-    
+
     public init(client: IngresseClient) {
         self.client = client
     }
-    
+
     // Lazy vars, only created when needed
     public lazy var auth: AuthService = {
         [unowned self] in
         return AuthService(self.client)
         }()
-    
+
     public lazy var user: UserService = {
         [unowned self] in
         return UserService(self.client)
         }()
-    
+
     public lazy var event: EventService = {
         [unowned self] in
         return EventService(self.client)
@@ -34,17 +34,17 @@ public class IngresseService: NSObject {
         [unowned self] in
         return EntranceService(self.client)
         }()
-    
+
     public lazy var myTickets: MyTicketsService = {
         [unowned self] in
         return MyTicketsService(self.client)
         }()
-    
+
     public lazy var transaction: TransactionService = {
         [unowned self] in
         return TransactionService(self.client)
         }()
-    
+
     public lazy var transfers: TransfersService = {
         [unowned self] in
         return TransfersService(self.client)

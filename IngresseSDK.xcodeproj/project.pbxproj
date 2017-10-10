@@ -11,8 +11,7 @@
 		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
 		6237022D1F72D124006A1335 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237022C1F72D124006A1335 /* EventService.swift */; };
 		6237022F1F72D1D8006A1335 /* EventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237022E1F72D1D8006A1335 /* EventAttributes.swift */; };
-		623702311F72D413006A1335 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623702301F72D413006A1335 /* Advertisement.swift */; };
-		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
+		623702311F72D413006A1335 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623702301F72D413006A1335 /* Advertisement.swift */; };		6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0B1EC5EE4D00C7BD16 /* EntranceService.swift */; };
 		6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA0D1EC5F76B00C7BD16 /* APIError.swift */; };
 		6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6239BA0F1EC5FA7B00C7BD16 /* Localizable.strings */; };
 		6239BA121EC5FBA000C7BD16 /* GuestTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239BA111EC5FBA000C7BD16 /* GuestTicket.swift */; };
