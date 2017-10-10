@@ -55,4 +55,38 @@ public class EventService: BaseService {
             onError(error)
         }
     }
+    
+    
+    public func getTickets(ofEvent eventId: String, pos: Bool = false, asUsertoken: String = "", onSuccess: @escaping (_ tickets: [EventTicket])->(), onError: @escaping (_ errorData: APIError)->()) {
+        
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/session/0/tickets")
+            .addParameter(key: "pos", value: "\(pos)")
+            .addParameter(key: "usertoken", value: asUsertoken)
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            
+            var tickets = [EventTicket]()
+            guard
+                let data = response["data"] as? [[String:Any]]
+            else {
+                return
+            }
+            
+            for obj in data {
+                print(obj)
+                let ticket = EventTicket()
+                ticket.applyJSON(obj)
+                tickets.append(ticket)
+            }
+            
+            onSuccess(tickets)
+            
+        }) { (error) in
+            onError(error)
+        }
+        
+        
+    }
 }

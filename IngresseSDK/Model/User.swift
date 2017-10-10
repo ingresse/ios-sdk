@@ -9,6 +9,7 @@
 public class User: JSONConvertible {
     public var id: Int = 0
     public var name: String = ""
+    public var lastname: String = ""
     public var email: String = ""
     public var username: String = ""
     public var phone: String = ""
