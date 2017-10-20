@@ -9,20 +9,23 @@
 public class JSONConvertible: NSObject {
     
     public func applyJSON(_ json: [String:Any]) {
-        for key:String in json.keys {
-            applyKey(key, json: json)
+        for (key,value) in json {
+            applyKey(key, value: value)
         }
     }
     
-    public func applyKey(_ key: String, json: [String:Any]) {
+    public func applyKey(_ key: String, value: Any) {
+        
         guard
-            self.responds(to: NSSelectorFromString(key)),
-            var value = json[key],
+            (key.withCString {
+                class_getInstanceVariable(self.classForCoder, $0) != nil
+            }),
             !(value is NSNull)
-            else { return }
+        else { return }
         
-        if let str = value as? String { value = str.trim() }
+        var val = value
+        if let str = value as? String { val = str.trim() }
         
-        self.setValue(value, forKey: key)
+        self.setValue(val, forKey: key)
     }
 }

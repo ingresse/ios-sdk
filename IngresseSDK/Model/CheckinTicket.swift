@@ -13,25 +13,24 @@ public class CheckinTicket: JSONConvertible {
     public var lastUpdate: Int = 0
     public var lastCheckinTimestamp: Int = 0
     
-    public var owner: SimpleUser? = nil
-    public var holder: SimpleUser? = nil
-    public var operatorUser: SimpleUser? = nil
+    public var owner: User? = nil
+    public var holder: User? = nil
+    public var operatorUser: User? = nil
     
     override public func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if key == "lastCheckin" {
-                guard let lastCheckin = json["lastCheckin"] as? [String:Any] else { continue }
+                guard let lastCheckin = value as? [String:Any] else { continue }
                 
                 self.lastCheckinTimestamp = lastCheckin["timestamp"] as? Int ?? 0
                 
                 if let holderObj = lastCheckin["holder"] as? [String:Any] {
-                    self.holder = SimpleUser()
+                    self.holder = User()
                     self.holder?.applyJSON(holderObj)
                 }
                 
                 if let operatorObj = lastCheckin["operator"] as? [String:Any] {
-                    self.operatorUser = SimpleUser()
+                    self.operatorUser = User()
                     self.operatorUser?.applyJSON(operatorObj)
                 }
                 
@@ -39,15 +38,15 @@ public class CheckinTicket: JSONConvertible {
             }
             
             if key == "owner" {
-                guard let ownerObj = json[key] as? [String:Any] else { continue }
+                guard let ownerObj = value as? [String:Any] else { continue }
                 
-                self.owner = SimpleUser()
+                self.owner = User()
                 self.owner?.applyJSON(ownerObj)
                 
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

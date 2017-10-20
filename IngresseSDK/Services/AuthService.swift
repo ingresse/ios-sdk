@@ -6,13 +6,7 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-public class AuthService: NSObject {
-
-    var client: IngresseClient
-
-    init(_ client: IngresseClient) {
-        self.client = client
-    }
+public class AuthService: BaseService {
 
     /// Login with email and password
     ///
@@ -23,9 +17,7 @@ public class AuthService: NSObject {
     ///   - onError: Fail callback
     public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("login/")
             .build()
         
@@ -62,9 +54,7 @@ public class AuthService: NSObject {
         
         let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "fields", value: fieldsValue)

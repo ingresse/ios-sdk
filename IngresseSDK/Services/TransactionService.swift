@@ -6,13 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class TransactionService: NSObject {
-    
-    var client: IngresseClient
-    
-    init(_ client: IngresseClient) {
-        self.client = client
-    }
+public class TransactionService: BaseService {
     
     /// Get transaction details
     ///
@@ -23,9 +17,7 @@ public class TransactionService: NSObject {
     ///   - onError: fail callback
     public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: Transaction)->(), onError: @escaping (_ error: APIError) -> ()) {
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("sale/\(transactionId)")
             .addParameter(key: "usertoken", value: userToken)
             .build()

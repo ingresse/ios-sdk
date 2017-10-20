@@ -15,7 +15,9 @@ class URLBuilderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        builder = URLBuilder()
+
+        let client = IngresseClient(publicKey: "1234", privateKey: "2345", urlHost: "https://api.ingresse.com/")
+        builder = URLBuilder(client: client)
     }
     
     override func tearDown() {

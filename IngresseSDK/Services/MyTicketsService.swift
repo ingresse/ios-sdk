@@ -12,68 +12,76 @@
     case all = 0
 }
 
-public class MyTicketsService: NSObject {
+public class MyTicketsService: BaseService {
     
-    var client: IngresseClient
-    
-    init(_ client: IngresseClient) {
-        self.client = client
-    }
-
     /// Get sessions user has tickets to
     ///
     /// - Parameters:
     ///   - type: Session type (.future, .past, .all)
     ///   - page: page of request
     ///   - delegate: callback interface
-    public func getUserSessions(_ type: EventSessionType, page: Int, delegate: SessionSyncDelegate) {
-        let user = IngresseUser.user!
-        
-        var builder = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
-            .setPath("user/\(user.userId)/sessions")
-            .addParameter(key: "page", value: "\(page)")
-            .addParameter(key: "pageSize", value: "50")
-            .addParameter(key: "usertoken", value: user.token)
-        
-        let day = 24*60*60
-        let dayInterval = TimeInterval(-day)
-        let date = Date(timeIntervalSinceNow: dayInterval)
-        
-        switch type {
-        case .future: builder = builder.addParameter(key: "from", value: "\(date)")
-        case .past  : builder = builder.addParameter(key: "to", value: "\(date)")
-        case .all   : break
-        }
-        
-        let url = builder.build()
+    public func getUserWallet(userId: String, userToken: String, page: Int, delegate: WalletSyncDelegate) {
+        let url = "https://private-5fc90-carteiradeingressos.apiary-mock.com/user/userId/wallet?term=some-text&order=DESC&from=2017-10-10&to=2017-10-10&pageSize=25&page=1"
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            var eventDates = [Session]()
-            
             guard
                 let data = response["data"] as? [[String:Any]],
                 let paginationObj = response["paginationInfo"] as? [String:Any]
                 else {
-                    delegate.didFailSyncSessions(errorData: APIError.getDefaultError())
+                    delegate.didFailSyncItems(errorData: APIError.getDefaultError())
                     return
             }
             
             let pagination = PaginationInfo()
             pagination.applyJSON(paginationObj)
             
+            var items = [WalletItem]()
             for obj in data {
-                let session = Session()
-                session.applyJSON(obj)
-                eventDates.append(session)
+                let item = WalletItem()
+                item.applyJSON(obj)
+                items.append(item)
             }
             
-            delegate.didSyncSessionsPage(eventDates, pagination: pagination)
+            delegate.didSyncItemsPage(items, pagination: pagination)
         }) { (error) in
-            delegate.didFailSyncSessions(errorData: error)
+            delegate.didFailSyncItems(errorData: error)
         }
     }
+    
+    /// Get all tickets user has
+    ///
+    /// - Parameters:
+    ///   - eventId: Id of the session
+    ///   - page: page of request
+    ///   - delegate: callback interface
+    public func getUserTickets(userId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
+        let url = "https://private-5fc90-carteiradeingressos.apiary-mock.com/user/userId/tickets?eventId=999&sessionId=999&order=DESC&page=1&pageSize=25"
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let paginationObj = response["paginationInfo"] as? [String:Any]
+                else {
+                    delegate.didFailSyncTickets(errorData: APIError.getDefaultError())
+                    return
+            }
+            
+            let pagination = PaginationInfo()
+            pagination.applyJSON(paginationObj)
+            
+            var tickets = [UserTicket]()
+            for obj in data {
+                let ticket = UserTicket()
+                ticket.applyJSON(obj)
+                tickets.append(ticket)
+            }
+            
+            delegate.didSyncTicketsPage(tickets: tickets, pagination: pagination)
+        }) { (error) in
+            delegate.didFailSyncTickets(errorData: error)
+        }
+    }
+    
     
     /// Get tickets user has to specific session
     ///
@@ -81,16 +89,12 @@ public class MyTicketsService: NSObject {
     ///   - sessionID: Id of the session
     ///   - page: page of request
     ///   - delegate: callback interface
-    public func getTicketsForSession(_ sessionID: String, page: Int, delegate: TicketSyncDelegate) {
-        let user = IngresseUser.user!
-        
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
-            .setPath("user/\(user.userId)/sessions/\(sessionID)/tickets")
+    public func getTicketsForSession(_ sessionID: String, userId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)/sessions/\(sessionID)/tickets")
             .addParameter(key: "page", value: "\(page)")
             .addParameter(key: "pageSize", value: "100")
-            .addParameter(key: "usertoken", value: user.token)
+            .addParameter(key: "usertoken", value: userToken)
             .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
@@ -123,7 +127,7 @@ public class MyTicketsService: NSObject {
     /// Get all tickets of user (sessionId = 0 *WildCard*)
     ///
     /// - Parameter delegate: Callback interface
-    public func getAllUserTickets(delegate: TicketSyncDelegate) {
-        self.getTicketsForSession("0", page: 1, delegate: delegate)
+    public func getAllUserTickets(userId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
+        self.getTicketsForSession("0", userId: userId, userToken: userToken, page: page, delegate: delegate)
     }
 }
