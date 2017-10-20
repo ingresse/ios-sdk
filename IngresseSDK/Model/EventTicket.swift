@@ -26,7 +26,7 @@ public class EventTicket: JSONConvertible {
                 continue
             }
             
-            applyKey(key, value: value)
+            self.applyKey(key, value: value)
         }
     }
 }

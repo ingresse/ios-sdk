@@ -15,10 +15,13 @@ public class JSONConvertible: NSObject {
     }
     
     public func applyKey(_ key: String, value: Any) {
+        
         guard
-            self.responds(to: NSSelectorFromString(key)),
+            (key.withCString {
+                class_getInstanceVariable(self.classForCoder, $0) != nil
+            }),
             !(value is NSNull)
-            else { return }
+        else { return }
         
         var val = value
         if let str = value as? String { val = str.trim() }
