@@ -7,7 +7,7 @@
 //
 
 public enum IngresseException: Error {
-    case errorWithCode(code: Int)
+    case apiError(error: APIError)
     case genericError
     case requestError
     case jsonParserError
@@ -44,10 +44,18 @@ public class ResponseParser: NSObject {
                 // API Error
                 guard
                     let responseError = obj["responseError"] as? [String:Any],
-                    let code = responseError["code"] as? Int
+                    let code = responseError["code"] as? Int,
+                    let message = responseError["message"] as? String,
+                    let category = responseError["category"] as? String
                     else { throw IngresseException.jsonParserError }
                 
-                throw IngresseException.errorWithCode(code: code)
+                let error = APIError.Builder()
+                    .setCode(code)
+                    .setCategory(category)
+                    .setError(message)
+                    .build()
+
+                throw IngresseException.apiError(error: error)
             }
         }
 

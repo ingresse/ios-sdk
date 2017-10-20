@@ -48,18 +48,7 @@ public class UserTicket: JSONConvertible {
             }
             
             if key == "sessions" {
-                guard
-                    let sessionsObj = value as? [String:Any],
-                    let data = sessionsObj["data"] as? [[String:Any]]
-                    else { continue }
-                
-                self.sessions = []
-                for item in data {
-                    let session = Session()
-                    session.applyJSON(item)
-                    self.sessions.append(session)
-                }
-                
+                self.applyArray(key: key, value: value, of: Session.self)
                 continue
             }
             

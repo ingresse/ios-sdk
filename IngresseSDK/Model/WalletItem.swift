@@ -15,8 +15,10 @@ public class WalletItem: JSONConvertible {
     public var poster: String = ""
     public var eventDescription: String = ""
     public var tickets: Int = 0
-    public var transferred: Int = 0
+    public var transfered: Int = 0
     public var sessions: [Session] = []
+    public var sessionList: [Session] = []
+    public var customTickets: [CustomTicket] = []
     public var venue: Venue = Venue()
     
     public override func applyJSON(_ json: [String : Any]) {
@@ -26,20 +28,13 @@ public class WalletItem: JSONConvertible {
                 continue
             }
             
-            if key == "sessions" {
-                guard
-                    let obj = value as? [String:Any],
-                    let data = obj["data"] as? [[String:Any]]
-                    else { continue }
-                
-                self.sessions = []
-                for sessionObj in data {
-                    let session = Session()
-                    session.applyJSON(sessionObj)
-                    
-                    self.sessions.append(session)
-                }
-                
+            if key == "sessions" || key == "sessionList" {
+                self.applyArray(key: key, value: value, of: Session.self)
+                continue
+            }
+
+            if key == "customTickets" {
+                self.applyArray(key: key, value: value, of: CustomTicket.self)
                 continue
             }
             

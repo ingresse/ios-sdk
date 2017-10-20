@@ -8,6 +8,10 @@
 
 public class JSONConvertible: NSObject {
     
+    required public override init() {
+
+    }
+
     public func applyJSON(_ json: [String:Any]) {
         for (key,value) in json {
             applyKey(key, value: value)
@@ -24,5 +28,26 @@ public class JSONConvertible: NSObject {
         if let str = value as? String { val = str.trim() }
         
         self.setValue(val, forKey: key)
+    }
+
+    public func applyArray<T:JSONConvertible>(key: String, value: Any, of type: T.Type) {
+
+        guard
+            self.responds(to: NSSelectorFromString(key)),
+        let dictionary = value as? [String:Any],
+        let data = dictionary["data"] as? [[String:Any]]
+        else { return }
+
+        self.setValue([], forKey: key)
+
+        var values = [T]()
+        for obj in data {
+            let value = T()
+            value.applyJSON(obj)
+
+            values.append(value)
+        }
+
+        self.setValue(values, forKey: key)
     }
 }
