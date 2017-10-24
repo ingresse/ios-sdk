@@ -14,4 +14,15 @@ public class User: JSONConvertible {
     public var phone: String = ""
     public var cellphone: String = ""
     public var picture: String = ""
+
+    public override func applyJSON(_ json: [String : Any]) {
+        for (key,value) in json {
+            if key == "userId" {
+                self.applyKey("id", value: value)
+                continue
+            }
+
+            self.applyKey(key, value: value)
+        }
+    }
 }

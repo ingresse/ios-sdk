@@ -30,16 +30,10 @@ public class TransfersService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard
-                let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any]
-                else {
-                    onError(APIError.getDefaultError())
-                    return
+            guard let data = response["data"] as? [[String:Any]] else {
+                onError(APIError.getDefaultError())
+                return
             }
-            
-            let pagination = PaginationInfo()
-            pagination.applyJSON(paginationObj)
             
             var users = [User]()
             for obj in data {
