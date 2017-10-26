@@ -6,10 +6,12 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-public class Session: JSONConvertible {
+@objcMembers public class Session: JSONConvertible {
     public var id: Int = 0
     public var date: String = ""
+    public var time: String = ""
     public var timestamp: String = ""
+    public var status: String = ""
     public var dateTime: Date?
     
     public override func applyJSON(_ json: [String : Any]) {
@@ -20,6 +22,16 @@ public class Session: JSONConvertible {
                 self.date = timestamp.toDate().toString(format: .dateHourAt)
                 self.dateTime = timestamp.toDate()
                 self.timestamp = timestamp
+                
+                continue
+            }
+            
+            if key == "dateTime" {
+                guard let timestamp = value as? [String:String]
+                    else { continue }
+                
+                self.date = timestamp["date"]!
+                self.time = timestamp["time"]!
                 
                 continue
             }
