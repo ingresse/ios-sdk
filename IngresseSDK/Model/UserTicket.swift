@@ -8,6 +8,7 @@
 
 public class UserTicket: JSONConvertible {
     public var id: Int = 0
+    public var holderId: Int = 0
     public var guestTypeId: Int = 0
     public var ticketTypeId: Int = 0
     public var transactionId: String = ""
@@ -30,9 +31,11 @@ public class UserTicket: JSONConvertible {
     public var receivedFrom: Transfer?
     public var transferedTo: Transfer?
     
+    public var currentHolder: Transfer?
+
     public override func applyJSON(_ json: [String : Any]) {
         for (key,value) in json {
-            if ["receivedFrom", "transferedTo"].contains(key) {
+            if ["receivedFrom", "transferedTo", "currentHolder"].contains(key) {
                 guard let transferObj = value as? [String:Any] else { continue }
                 
                 let transfer = Transfer()
@@ -41,6 +44,7 @@ public class UserTicket: JSONConvertible {
                 switch key {
                 case "receivedFrom": self.receivedFrom = transfer
                 case "transferedTo": self.transferedTo = transfer
+                case "currentHolder": self.currentHolder = transfer
                 default: break
                 }
                 

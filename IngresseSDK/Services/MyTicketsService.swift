@@ -82,6 +82,7 @@ public class MyTicketsService: BaseService {
             for obj in data {
                 let ticket = UserTicket()
                 ticket.applyJSON(obj)
+
                 tickets.append(ticket)
             }
             

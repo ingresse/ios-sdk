@@ -114,7 +114,7 @@ public class TransfersService: BaseService {
     ///   - ticketID: id of the ticket (not the code)
     ///   - userID: id of destination user
     ///   - userToken: token of logged user
-    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: Transfer) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: NewTransfer) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
@@ -122,7 +122,7 @@ public class TransfersService: BaseService {
             .build()
         
         client.restClient.POST(url: url, parameters: ["user":userID], onSuccess: { (response) in
-            let transfer = Transfer()
+            let transfer = NewTransfer()
             transfer.applyJSON(response)
             
             onSuccess(transfer)
