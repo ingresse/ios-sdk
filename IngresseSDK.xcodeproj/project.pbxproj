@@ -51,6 +51,7 @@
 		627485691F056CD1009AE812 /* TransactionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627485681F056CD1009AE812 /* TransactionEvent.swift */; };
 		6274856B1F056ED6009AE812 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6274856A1F056ED6009AE812 /* Customer.swift */; };
 		6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6274856C1F05704F009AE812 /* TransactionSession.swift */; };
+		627D85801FD5AD1300C98171 /* PaymentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D857F1FD5AD1300C98171 /* PaymentCard.swift */; };
 		627F837E1EE997A100E14299 /* EntranceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F837D1EE997A100E14299 /* EntranceServiceTests.swift */; };
 		627F83801EE99BDF00E14299 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F837F1EE99BDF00E14299 /* MockClient.swift */; };
 		627F83831EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F83821EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift */; };
@@ -121,6 +122,7 @@
 		627485681F056CD1009AE812 /* TransactionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEvent.swift; sourceTree = "<group>"; };
 		6274856A1F056ED6009AE812 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		6274856C1F05704F009AE812 /* TransactionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSession.swift; sourceTree = "<group>"; };
+		627D857F1FD5AD1300C98171 /* PaymentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCard.swift; sourceTree = "<group>"; };
 		627F837D1EE997A100E14299 /* EntranceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceServiceTests.swift; sourceTree = "<group>"; };
 		627F837F1EE99BDF00E14299 /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClient.swift; sourceTree = "<group>"; };
 		627F83821EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyGuestListSyncDelegate.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				624526271EC2324F007B6584 /* UserTicket.swift */,
 				62E6EDE31F1FE23400F0B1E8 /* Venue.swift */,
 				62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */,
+				627D857F1FD5AD1300C98171 /* PaymentCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				629BCF931EDF2F230043CBDE /* CheckinTicket.swift in Sources */,
 				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
 				6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */,
+				627D85801FD5AD1300C98171 /* PaymentCard.swift in Sources */,
 				62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */,
 				624526281EC2324F007B6584 /* Event.swift in Sources */,
 				6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */,

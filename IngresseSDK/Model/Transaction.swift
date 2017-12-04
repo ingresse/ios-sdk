@@ -18,7 +18,7 @@ public class Transaction: JSONConvertible {
     public var paymenttype: String = ""
     public var paymentoption: String = ""
     public var paymentdetails: String = ""
-    public var creditCard: String = ""
+    public var creditCard: PaymentCard?
     
     public var totalPaid: Double = 0.0
     public var sum_up: Double = 0.0
@@ -81,6 +81,15 @@ public class Transaction: JSONConvertible {
                 continue
             }
             
+            if key == "creditCard" {
+                guard let card = json[key] as? [String:Any] else { continue }
+
+                self.creditCard = PaymentCard()
+                self.creditCard?.applyJSON(card)
+
+                continue
+            }
+
             applyKey(key, json: json)
         }
     }
