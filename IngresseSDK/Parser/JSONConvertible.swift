@@ -8,21 +8,46 @@
 
 public class JSONConvertible: NSObject {
     
+    required public override init() {
+
+    }
+
     public func applyJSON(_ json: [String:Any]) {
-        for key:String in json.keys {
-            applyKey(key, json: json)
+        for (key,value) in json {
+            applyKey(key, value: value)
         }
     }
     
-    public func applyKey(_ key: String, json: [String:Any]) {
+    public func applyKey(_ key: String, value: Any) {
         guard
             self.responds(to: NSSelectorFromString(key)),
-            var value = json[key],
             !(value is NSNull)
             else { return }
         
-        if let str = value as? String { value = str.trim() }
+        var val = value
+        if let str = value as? String { val = str.trim() }
         
-        self.setValue(value, forKey: key)
+        self.setValue(val, forKey: key)
+    }
+
+    public func applyArray<T:JSONConvertible>(key: String, value: Any, of type: T.Type) {
+
+        guard
+            self.responds(to: NSSelectorFromString(key)),
+        let dictionary = value as? [String:Any],
+        let data = dictionary["data"] as? [[String:Any]]
+        else { return }
+
+        self.setValue([], forKey: key)
+
+        var values = [T]()
+        for obj in data {
+            let value = T()
+            value.applyJSON(obj)
+
+            values.append(value)
+        }
+
+        self.setValue(values, forKey: key)
     }
 }

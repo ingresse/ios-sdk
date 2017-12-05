@@ -19,7 +19,12 @@ public class RestClient: NSObject, RestClientInterface {
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
             guard error == nil else {
-                onError(APIError.getDefaultError())
+                let errorData = APIError.Builder()
+                    .setCode(0)
+                    .setError(error!.localizedDescription)
+                    .build()
+
+                onError(errorData)
                 return
             }
             
@@ -27,12 +32,8 @@ public class RestClient: NSObject, RestClientInterface {
                 try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
                     onSuccess(responseData)
                 })
-            } catch IngresseException.errorWithCode(let code) {
-                let error = APIError.Builder()
-                    .setCode(code)
-                    .build()
-                
-                onError(error)
+            } catch IngresseException.apiError(let apiError) {
+                onError(apiError)
             } catch {
                 onError(APIError.getDefaultError())
             }
@@ -65,12 +66,8 @@ public class RestClient: NSObject, RestClientInterface {
                 try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
                     onSuccess(responseData)
                 })
-            } catch IngresseException.errorWithCode(let code) {
-                let error = APIError.Builder()
-                    .setCode(code)
-                    .build()
-                
-                onError(error)
+            } catch IngresseException.apiError(let apiError) {
+                onError(apiError)
             } catch {
                 onError(APIError.getDefaultError())
             }

@@ -9,20 +9,15 @@
 import UIKit
 
 public class APIError: NSObject {
-    public var code: Int!
-    public var title: String!
-    public var message: String!
-    public var response: [[String: Any]]!
+    public var code: Int = 0
+    public var title: String = ""
+    public var message: String = ""
+    public var category: String = ""
+    public var error: String = ""
+    public var response: [[String: Any]] = [[:]]
     
     public func getCode() -> Int {
         return code
-    }
-    
-    override init() {
-        self.code = 0
-        self.title = ""
-        self.message = ""
-        self.response = [[:]]
     }
     
     static public func getDefaultError() -> APIError {
@@ -66,6 +61,18 @@ public class APIError: NSObject {
             return self
         }
         
+        func setError(_ errorMessage: String) -> Builder {
+            error.error = errorMessage
+
+            return self
+        }
+
+        func setCategory(_ category: String) -> Builder {
+            error.category = category
+
+            return self
+        }
+
         func build() -> APIError {
             return error
         }

@@ -7,28 +7,24 @@
 //
 
 public class Session: JSONConvertible {
-    public var id: String = ""
+    public var id: Int = 0
     public var date: String = ""
+    public var timestamp: String = ""
     public var dateTime: Date?
     
     public override func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
-            if key == "id" {
-                self.id = String(json[key] as! Int)
-                continue
-            }
-            
+        for (key,value) in json {
             if key == "datetime" {
-                guard let timestamp = json[key] as? String else { continue }
+                guard let timestamp = value as? String else { continue }
                 
                 self.date = timestamp.toDate().toString(format: .dateHourAt)
                 self.dateTime = timestamp.toDate()
+                self.timestamp = timestamp
                 
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }
