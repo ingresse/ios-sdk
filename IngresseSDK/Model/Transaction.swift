@@ -10,46 +10,45 @@ public class Transaction: JSONConvertible {
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
-    
+
     public var operatorId: String = ""
     public var salesgroupId: Int = 0
-    
+
     public var app_id: Int = -1
     public var paymenttype: String = ""
     public var paymentoption: String = ""
     public var paymentdetails: String = ""
     public var creditCard: PaymentCard?
-    
+
     public var totalPaid: Double = 0.0
     public var sum_up: Double = 0.0
     public var paymentTax: Double = 0.0
-    
+
     public var interest: Int = 0
     public var taxToCostumer: Int = 0
     public var installments: Int = 1
-    
+
     public var creationdate: String = ""
     public var modificationdate: String = ""
-    
-    public var customer: Customer = Customer()
+
+    public var customer: User = User()
     public var event: TransactionEvent = TransactionEvent()
     public var session: TransactionSession = TransactionSession()
-    
+
     public var bankbillet_url: String = ""
-    
+
     public var token: String = ""
-    
+
     public var basket: [TransactionTicket] = []
-    
+
     public var refund: Refund = Refund()
     public var hasRefund: Bool = false
-    
+
     override public func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
+        for (key,value) in json {
             if ["event", "session", "customer", "refund"].contains(key) {
-                guard let obj = json[key] as? [String:Any] else { continue }
-                
+                guard let obj = value as? [String:Any] else { continue }
+
                 switch key {
                 case "event": self.event.applyJSON(obj)
                 case "session": self.session.applyJSON(obj)
@@ -57,30 +56,30 @@ public class Transaction: JSONConvertible {
                 case "refund":
                     self.hasRefund = true
                     self.refund.applyJSON(obj)
-                default: continue
+                default: break
                 }
-                
+
                 continue
             }
-            
+
             if key == "basket" {
                 guard
-                    let basket = json[key] as? [String:Any],
+                    let basket = value as? [String:Any],
                     let tickets = basket["tickets"] as? [[String:Any]]
                     else {
                         continue
                 }
-                
+
                 for item in tickets {
                     let ticket = TransactionTicket()
                     ticket.applyJSON(item)
-                    
+
                     self.basket.append(ticket)
                 }
-                
+
                 continue
             }
-            
+
             if key == "creditCard" {
                 guard let card = json[key] as? [String:Any] else { continue }
 
@@ -90,7 +89,7 @@ public class Transaction: JSONConvertible {
                 continue
             }
 
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

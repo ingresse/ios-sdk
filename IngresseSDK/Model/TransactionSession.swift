@@ -13,10 +13,9 @@ public class TransactionSession: JSONConvertible {
     public var timestamp: String = ""
 
     override public func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-
+        for (key,value) in json {
             if key == "dateTime" {
-                guard let datetime = json[key] as? [String:Any] else { continue }
+                guard let datetime = value as? [String:Any] else { continue }
 
                 self.date = datetime["date"] as? String ?? ""
                 self.time = datetime["time"] as? String ?? ""
@@ -24,7 +23,7 @@ public class TransactionSession: JSONConvertible {
                 continue
             }
 
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

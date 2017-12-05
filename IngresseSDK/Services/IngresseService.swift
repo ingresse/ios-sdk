@@ -24,6 +24,11 @@ public class IngresseService: NSObject {
         [unowned self] in
         return UserService(self.client)
         }()
+    
+    public lazy var event: EventService = {
+        [unowned self] in
+        return EventService(self.client)
+        }()
 
     public lazy var entrance: EntranceService = {
         [unowned self] in
@@ -38,5 +43,15 @@ public class IngresseService: NSObject {
     public lazy var transaction: TransactionService = {
         [unowned self] in
         return TransactionService(self.client)
+        }()
+    
+    public lazy var transfers: TransfersService = {
+        [unowned self] in
+        return TransfersService(self.client)
+        }()
+
+    public lazy var search: SearchService = {
+        [unowned self] in
+        return SearchService(self.client)
         }()
 }

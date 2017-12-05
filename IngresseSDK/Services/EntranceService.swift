@@ -6,14 +6,9 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class EntranceService: NSObject {
+public class EntranceService: BaseService {
     
-    var client: IngresseClient
     var shouldStop = false
-    
-    init(_ client: IngresseClient) {
-        self.client = client
-    }
     
     public func stopDownload() {
         shouldStop = true
@@ -40,9 +35,7 @@ public class EntranceService: NSObject {
             return
         }
 
-        var builder = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "page", value: "\(page)")
             .addParameter(key: "pageSize", value: "3000")
@@ -56,7 +49,7 @@ public class EntranceService: NSObject {
         let url = builder.build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            var guests = [Guest]()
+            var guests = [GuestTicket]()
             
             guard
                 let data = response["data"] as? [[String:Any]],
@@ -67,7 +60,7 @@ public class EntranceService: NSObject {
             }
             
             for obj in data {
-                let guest = Guest()
+                let guest = GuestTicket()
                 guest.applyJSON(obj)
                 
                 guests.append(guest)
@@ -100,9 +93,7 @@ public class EntranceService: NSObject {
     ///   - delegate: delegate to receive callbacks
     public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, sessionId: String, userToken: String, delegate: CheckinSyncDelegate) {
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
@@ -146,9 +137,7 @@ public class EntranceService: NSObject {
     ///   - onError: fail callback
     public func getValidationInfoOfTicket(code: String, eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ ticket: CheckinTicket)->(), onError: @escaping (_ error: APIError)->()) {
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
@@ -187,9 +176,7 @@ public class EntranceService: NSObject {
     ///   - onError: fail callback
     public func getTransferHistory(ticketId: String, userToken: String, onSuccess: @escaping (_ history: [TransferHistoryItem])->(), onError: @escaping (_ error: APIError)->()) {
         
-        let url = URLBuilder()
-            .setKeys(publicKey: client.publicKey, privateKey: client.privateKey)
-            .setHost(client.host)
+        let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketId)/transfer")
             .addParameter(key: "usertoken", value: userToken)
             .build()

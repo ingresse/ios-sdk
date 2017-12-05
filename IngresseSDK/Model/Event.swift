@@ -7,29 +7,25 @@
 //
 
 public class Event: JSONConvertible {
-    public var id: String = ""
+    public var id: Int = 0
     public var title: String = ""
     public var link: String = ""
     public var type: String = ""
     public var poster: String = ""
+    public var status: String = ""
+    public var saleEnabled: Bool = false
     public var eventDescription: String = ""
     
     public override func applyJSON(_ json: [String : Any]) {
-        for key:String in json.keys {
-            
-            if key == "id" {
-                self.id = String(json[key] as! Int)
-                continue
-            }
-            
+        for (key,value) in json {
             if key == "description" {
-                guard let desc = json[key] as? String else { continue }
+                guard let desc = value as? String else { continue }
                 
                 self.eventDescription = desc
                 continue
             }
             
-            applyKey(key, json: json)
+            applyKey(key, value: value)
         }
     }
 }

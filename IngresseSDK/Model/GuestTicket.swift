@@ -6,9 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-import UIKit
-
-public class Guest: JSONConvertible {
+public class GuestTicket: JSONConvertible {
     public var id: String = ""
     public var transactionId: String = ""
     public var code: String = ""
