@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class JSONConvertible: NSObject {
+@objcMembers public class JSONConvertible: NSObject {
     
     required public override init() {
 
@@ -34,9 +34,9 @@ public class JSONConvertible: NSObject {
 
         guard
             self.responds(to: NSSelectorFromString(key)),
-        let dictionary = value as? [String:Any],
-        let data = dictionary["data"] as? [[String:Any]]
-        else { return }
+            let dictionary = value as? [String:Any],
+            let data = dictionary["data"] as? [[String:Any]]
+            else { return }
 
         self.setValue([], forKey: key)
 
