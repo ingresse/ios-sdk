@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class User: JSONConvertible {
+@objcMembers public class User: JSONConvertible {
     public var id: Int = 0
     public var name: String = ""
     public var lastname: String = ""

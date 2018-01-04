@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class EventTicket: JSONConvertible {
+@objcMembers public class EventTicket: JSONConvertible {
     
     public var id: Int = 0
     public var guestTypeId: Int = 0
