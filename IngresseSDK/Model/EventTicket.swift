@@ -14,6 +14,7 @@
     public var name: String = ""
     public var desc: String = ""
     public var status: String = ""
+    public var price: Double = 0.0
     
     public override func applyJSON(_ json: [String:Any]) {
         for (key,value) in json {
