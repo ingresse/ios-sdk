@@ -36,4 +36,31 @@ public class UserService: BaseService {
         }
     }
     
+    /**
+     Get user information
+     - parameter userId: User ID.
+     - parameter userToken: (optional) User token, when performing the request as logged user.
+     - parameter completion: Callback block.
+     */
+    public func getUser(userId:Int, userToken: String = "", completion: @escaping (_ success: Bool, _ response:User?)->()) {
+        
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)")
+            .addParameter(key: "fields", value: "id,name,lastname,email,pictures")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { (response: [String:Any]) in
+            
+            let user = User()
+            user.applyJSON(response)
+            completion(true, user)
+            
+        }) { (error: APIError) in
+            
+            completion(false, nil)
+            
+        }
+    }
+    
 }
