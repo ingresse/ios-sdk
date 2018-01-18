@@ -46,7 +46,7 @@ public class UserService: BaseService {
         
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
-            .addParameter(key: "fields", value: "id,name,lastname,email,pictures")
+            .addParameter(key: "fields", value: "id,name,lastname,email,pictures,picture")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         

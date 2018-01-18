@@ -14,27 +14,12 @@
     public var username: String = ""
     public var phone: String = ""
     public var cellphone: String = ""
-    public var picture = [
-        "small" : "https://dpz4c7q921os3.cloudfront.net/images/friends-list/user_no_picture.png",
-        "medium" : "https://dpz4c7q921os3.cloudfront.net/images/friends-list/user_no_picture.png",
-        "large" : "https://dpz4c7q921os3.cloudfront.net/images/friends-list/user_no_picture.png"
-    ]
+    public var picture: String = ""
 
     public override func applyJSON(_ json: [String : Any]) {
         for (key,value) in json {
             if key == "userId" {
                 self.applyKey("id", value: value)
-                continue
-            }
-            
-            if key == "pictures" {
-                guard let pictures = value as? [String:String] else {
-                    continue
-                }
-                
-                self.picture["small"] = pictures["small"]
-                self.picture["medium"] = pictures["medium"]
-                self.picture["large"] = pictures["large"]
                 continue
             }
 
