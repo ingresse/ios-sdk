@@ -11,4 +11,18 @@ public class EventDate: JSONConvertible {
     public var date: String = ""
     public var time: String = ""
     public var status: String = ""
+
+    public override func applyJSON(_ json: [String : Any]) {
+        for (key,value) in json {
+            if key == "dateTime" {
+                guard let dateTime = value as? [String:Any] else { continue }
+
+                applyKey("date", value: dateTime["date"] ?? "")
+                applyKey("time", value: dateTime["time"] ?? "")
+                continue
+            }
+
+            applyKey(key, value: value)
+        }
+    }
 }
