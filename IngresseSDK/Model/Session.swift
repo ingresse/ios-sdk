@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-@objcMembers public class Session: JSONConvertible {
+public class Session: JSONConvertible {
     public var id: Int = 0
     public var date: String = ""
     public var time: String = ""

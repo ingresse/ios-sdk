@@ -6,7 +6,7 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-@objcMembers public class Event: JSONConvertible {
+public class Event: JSONConvertible {
     public var id: Int = 0
     public var title: String = ""
     public var link: String = ""
@@ -27,22 +27,12 @@
             }
             
             if key == "date" {
-                guard let sessions = value as? [[String:Any]] else { continue }
-                self.populateSession(sessions)
+                let list = ["data":value]
+                self.applyArray(key: key, value: list, of: Session.self)
                 continue
             }
             
             applyKey(key, value: value)
         }
-    }
-    
-    private func populateSession(_ sessions: [[String : Any]]) {
-        
-        for data in sessions {
-            let session = Session()
-            session.applyJSON(data)
-            self.date.append(session)
-        }
-        
     }
 }

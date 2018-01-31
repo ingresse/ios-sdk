@@ -6,7 +6,7 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-@objcMembers public class IngresseUser: JSONConvertible {
+public class IngresseUser: JSONConvertible {
     public var userId: Int = 0
     public var token: String = ""
     public var data: UserData?

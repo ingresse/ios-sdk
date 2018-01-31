@@ -42,7 +42,7 @@ public class UserService: BaseService {
      - parameter userToken: (optional) User token, when performing the request as logged user.
      - parameter completion: Callback block.
      */
-    public func getUser(userId:Int, userToken: String = "", completion: @escaping (_ success: Bool, _ response:User?)->()) {
+    public func getUser(userId:Int, userToken: String = "", onSuccess: @escaping (_ success: Bool, _ response:User?)->(), onError: @escaping (_ errorData: APIError)->()) {
         
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -54,11 +54,11 @@ public class UserService: BaseService {
             
             let user = User()
             user.applyJSON(response)
-            completion(true, user)
+            onSuccess(true, user)
             
         }) { (error: APIError) in
             
-            completion(false, nil)
+            onError(error)
             
         }
     }

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class JSONConvertible: NSObject {
+@objcMembers public class JSONConvertible: NSObject {
     
     required public override init() {
 
