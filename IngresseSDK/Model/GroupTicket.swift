@@ -21,8 +21,6 @@ public class GroupTicket: JSONConvertible {
             }
             
             if key == "type" {
-//                guard let types = value as? [[String:Any]] else { continue }
-//                self.populateTickets(types)
                 let list = ["data":value]
                 self.applyArray(key: key, value: list, of: EventTicket.self)
                 continue
@@ -31,15 +29,5 @@ public class GroupTicket: JSONConvertible {
             self.applyKey(key, value: value)
         }
     }
-    
-//    private func populateTickets(_ tickets: [[String:Any]]) {
-//
-//        for data in tickets {
-//            let ticket = EventTicket()
-//            ticket.applyJSON(data)
-//            self.type.append(ticket)
-//        }
-//
-//    }
 }
 
