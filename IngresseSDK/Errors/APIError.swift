@@ -14,7 +14,7 @@ public class APIError: NSObject {
     public var message: String = ""
     public var category: String = ""
     public var error: String = ""
-    public var response: [[String: Any]] = [[:]]
+    public var response: [String: Any] = [:]
     
     public func getCode() -> Int {
         return code
@@ -55,7 +55,7 @@ public class APIError: NSObject {
             return self
         }
         
-        func setResponse(_ response: [[String:Any]]) -> Builder {
+        func setResponse(_ response: [String:Any]) -> Builder {
             error.response = response
             
             return self

@@ -35,8 +35,13 @@ public class AuthService: BaseService {
             }
             
             let user = IngresseUser.login(loginData: data)
-            
-            onSuccess(user)
+
+            self.getUserData(
+                userId: String(user.userId),
+                userToken: user.token,
+                onSuccess: { (user) in onSuccess(user) },
+                onError: { (error) in onError(error) })
+
         }) { (error: APIError) in
             onError(error)
         }
@@ -50,7 +55,7 @@ public class AuthService: BaseService {
     ///   - fields: User attributes to get from API
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func getUserData(_ userId:String,_ userToken: String,_ fields:String?, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
+    public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
         
         let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
         
