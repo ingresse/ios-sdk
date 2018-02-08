@@ -27,13 +27,21 @@ public class AuthService: BaseService {
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
             
             guard let logged = response["status"] as? Bool,
-                logged,
-                let data = response["data"] as? [String:Any]
-                else {
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                onError(error)
+                return
+            }
+
+            guard let data = response["data"] as? [String:Any] else {
                 onError(APIError.getDefaultError())
                 return
             }
-            
+
             let user = IngresseUser.login(loginData: data)
 
             self.getUserData(

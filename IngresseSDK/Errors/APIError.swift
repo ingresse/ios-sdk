@@ -37,8 +37,8 @@ public class APIError: NSObject {
         
         func setCode(_ code: Int) -> Builder {
             error.code = code
-            error.title = NSLocalizedString("OPS", comment: "")
-            error.message = SDKErrors().getErrorMessage(code: code)
+            error.title = SDKErrors.shared.getErrorTitle(code: code)
+            error.message = SDKErrors.shared.getErrorMessage(code: code)
             
             return self
         }
