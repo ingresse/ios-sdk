@@ -32,5 +32,12 @@ class IngresseErrorsTests: XCTestCase {
         
         XCTAssertEqual(generated, expected)
     }
+
+    func testDefaultErrorWithCode() {
+        let generated = errors?.getErrorMessage(code: 99999)
+        let expected = String(format: errorsDict["default_message"]!, 99999)
+
+        XCTAssertEqual(generated, expected)
+    }
     
 }
