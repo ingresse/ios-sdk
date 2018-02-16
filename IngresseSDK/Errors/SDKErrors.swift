@@ -71,7 +71,7 @@ public class SDKErrors: NSObject {
         }
         
         guard let error = errors[code] else {
-            return String(format: errorDict["default_title"]!, arguments: [code])
+            return String(format: errorDict["default_message"]!, arguments: [code])
         }
         
         return error

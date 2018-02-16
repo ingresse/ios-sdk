@@ -7,15 +7,15 @@
 //
 
 import XCTest
-import IngresseSDK
+@testable import IngresseSDK
 
 class SpyGuestListSyncDelegate: GuestListSyncDelegate {
     var calledDidSync: Bool = false
-    var guestListSyncResult: [Guest]? = .none
+    var guestListSyncResult: [GuestTicket]? = .none
     var calledDidFail: Bool = false
     var asyncExpectation: XCTestExpectation?
     
-    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [Guest]) {
+    func didSyncGuestsPage(_ page: PaginationInfo, _ guests: [GuestTicket]) {
         guard let expectation = asyncExpectation else {
             XCTFail("Missing expectation!")
             return

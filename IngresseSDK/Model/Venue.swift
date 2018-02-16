@@ -29,7 +29,7 @@ public class Venue: JSONConvertible {
                     else { continue }
 
                 applyKey("latitude", value: location[0])
-                applyKey("latitude", value: location[1])
+                applyKey("longitude", value: location[1])
                 continue
             }
 

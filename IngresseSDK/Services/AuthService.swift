@@ -54,6 +54,55 @@ public class AuthService: BaseService {
             onError(error)
         }
     }
+
+    /// Login with facebook
+    ///
+    /// - Parameters:
+    ///   - email: user's email
+    ///   - fbToken: facebook access token
+    ///   - fbUserId: facebook user id
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("login/facebook")
+            .build()
+
+        let params = ["email": email,
+                      "fbToken": fbToken,
+                      "fbUserId": fbUserId]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
+
+            guard let logged = response["status"] as? Bool,
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                    onError(error)
+                    return
+            }
+
+            guard let data = response["data"] as? [String:Any] else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            let user = IngresseUser.login(loginData: data)
+
+            self.getUserData(
+                userId: String(user.userId),
+                userToken: user.token,
+                onSuccess: { (user) in onSuccess(user) },
+                onError: { (error) in onError(error) })
+
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
     
     /// Complete user data
     ///
