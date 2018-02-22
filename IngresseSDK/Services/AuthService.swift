@@ -130,4 +130,73 @@ public class AuthService: BaseService {
             onError(error)
         }
     }
+
+    /// Recover user password
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request password
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func recoverPassword(email: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("recover-password")
+            .build()
+
+        let params = ["email":email]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+    /// Validate recovery hash
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request password
+    ///   - token: hash received from email
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func validateHash(_ token: String, email: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("recover-validate")
+            .build()
+
+        var params = ["email": email]
+        params["hash"] = token
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+    /// Update user password
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request password
+    ///   - password: password to update
+    ///   - token: hash received from email
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func updatePassword(email: String, password: String, token: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("recover-update-password")
+            .build()
+
+        var params = ["email": email]
+        params["password"] = password
+        params["hash"] = token
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
 }
