@@ -20,7 +20,7 @@ public class IngresseUser: NSObject, Codable {
         return user
     }
     
-    static func fillData(userData: [String:Any]) {
+    public static func fillData(userData: [String:Any]) {
         guard user != nil else {
             return
         }

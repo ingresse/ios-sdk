@@ -52,7 +52,47 @@ class JSONConvertibleTests: XCTestCase {
         for i in 0...3 {
             XCTAssertEqual(obj.fieldArray[i].field1, "object \(i)")
         }
+    }
 
+    func testApplyArrayData() {
+        var array = [[String:Any]]()
+        for i in 0...3 {
+            let obj = ["field1":"object \(i)"]
+            array.append(obj)
+        }
+
+        let data = ["data": array]
+
+        let obj = TestClass()
+        obj.applyArray(key: "fieldArray", value: data, of: ArrayObject.self)
+
+        for i in 0...3 {
+            XCTAssertEqual(obj.fieldArray[i].field1, "object \(i)")
+        }
+    }
+
+    func testApplyArrayNilData() {
+        let data = ["data": nil] as [String : Any?]
+
+        let obj = TestClass()
+        obj.applyArray(key: "fieldArray", value: data, of: ArrayObject.self)
+
+        XCTAssertEqual(obj.fieldArray.count, 0)
+    }
+
+    func testApplyArrayWrongKey() {
+        var array = [[String:Any]]()
+        for i in 0...3 {
+            let obj = ["field1":"object \(i)"]
+            array.append(obj)
+        }
+
+        let obj = TestClass()
+        obj.applyArray(key: "wrongKey", value: array, of: ArrayObject.self)
+
+        for _ in 0...3 {
+            XCTAssertEqual(obj.fieldArray.count, 0)
+        }
     }
 
     func testApplyKeyString() {
