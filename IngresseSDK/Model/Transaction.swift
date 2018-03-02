@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Transaction: JSONConvertible {
+public class Transaction: Codable {
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
@@ -31,65 +31,22 @@ public class Transaction: JSONConvertible {
     public var creationdate: String = ""
     public var modificationdate: String = ""
 
-    public var customer: User = User()
-    public var event: TransactionEvent = TransactionEvent()
-    public var session: TransactionSession = TransactionSession()
+    public var customer: User?
+    public var event: TransactionEvent?
+    public var session: TransactionSession?
 
     public var bankbillet_url: String = ""
 
     public var token: String = ""
 
-    public var basket: [TransactionTicket] = []
+    public var basket: Basket = Basket()
 
-    public var refund: Refund = Refund()
-    public var hasRefund: Bool = false
+    public var refund: Refund?
+    public var hasRefund: Bool {
+        return refund != nil
+    }
 
-    override public func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if ["event", "session", "customer", "refund"].contains(key) {
-                guard let obj = value as? [String:Any] else { continue }
-
-                switch key {
-                case "event": self.event.applyJSON(obj)
-                case "session": self.session.applyJSON(obj)
-                case "customer": self.customer.applyJSON(obj)
-                case "refund":
-                    self.hasRefund = true
-                    self.refund.applyJSON(obj)
-                default: break
-                }
-
-                continue
-            }
-
-            if key == "basket" {
-                guard
-                    let basket = value as? [String:Any],
-                    let tickets = basket["tickets"] as? [[String:Any]]
-                    else {
-                        continue
-                }
-
-                for item in tickets {
-                    let ticket = TransactionTicket()
-                    ticket.applyJSON(item)
-
-                    self.basket.append(ticket)
-                }
-
-                continue
-            }
-
-            if key == "creditCard" {
-                guard let card = json[key] as? [String:Any] else { continue }
-
-                self.creditCard = PaymentCard()
-                self.creditCard?.applyJSON(card)
-
-                continue
-            }
-
-            applyKey(key, value: value)
-        }
+    public class Basket: Codable {
+        public var tickets: [TransactionTicket] = []
     }
 }

@@ -6,20 +6,18 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Advertisement: JSONConvertible {
+public class Advertisement: Codable {
     
-    public var coverUrl: String = ""
-    public var coverImage: String = ""
-    public var backgroundImage: String = ""
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        if let cover = json["cover"] as? [String:Any] {
-            self.coverUrl = cover["url"] as? String ?? ""
-            self.coverImage = cover["image"] as? String ?? ""
-        }
-        
-        if let background = json["background"] as? [String:Any] {
-            self.backgroundImage = background["image"] as? String ?? ""
-        }
+    public var cover: CoverAd?
+    public var background: BackgroundAd?
+
+    public class Ad: Codable {
+        public var image: String = ""
     }
+
+    public class CoverAd: Ad {
+        public var url: String = ""
+    }
+
+    public class BackgroundAd: Ad {}
 }

@@ -6,25 +6,20 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-public class Session: JSONConvertible {
+public class Session: Codable {
     public var id: Int = 0
     public var date: String = ""
     public var timestamp: String = ""
-    public var dateTime: Date?
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "datetime" {
-                guard let timestamp = value as? String else { continue }
-                
-                self.date = timestamp.toDate().toString(format: .dateHourAt)
-                self.dateTime = timestamp.toDate()
-                self.timestamp = timestamp
-                
-                continue
-            }
-            
-            applyKey(key, value: value)
+    public var datetime: DateTime?
+
+    public class DateTime: Codable {
+        var timestamp = ""
+
+        var date: String {
+            return timestamp.toDate().toString(format: .dateHourAt)
+        }
+        var dateTime: Date {
+            return timestamp.toDate()
         }
     }
 }

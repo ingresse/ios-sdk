@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Highlight: JSONConvertible {
+public class Highlight: Codable {
     public var banner: String = ""
     public var target: String = ""
 }

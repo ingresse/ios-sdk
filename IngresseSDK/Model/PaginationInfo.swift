@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class PaginationInfo: JSONConvertible {
+public class PaginationInfo: Codable {
     public var currentPage: Int = 0
     public var lastPage: Int = 0
     public var totalResults: Int = 0

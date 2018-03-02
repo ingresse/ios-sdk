@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class GuestTicket: JSONConvertible {
+public class GuestTicket: Codable {
     public var id: String = ""
     public var transactionId: String = ""
     public var code: String = ""

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-public class Event: JSONConvertible {
+public struct Event: Codable {
     public var id: Int = 0
     public var title: String = ""
     public var link: String = ""
@@ -18,23 +18,20 @@ public class Event: JSONConvertible {
     public var eventDescription: String = ""
     public var rsvp: [User] = []
     public var date: [EventDate] = []
-    public var venue: Venue = Venue()
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            switch key {
-            case "venue":
-                guard let obj = value as? [String:Any] else { continue }
-                self.venue.applyJSON(obj)
-            case "rsvp":
-                applyArray(key: key, value: value, of: User.self)
-            case "date":
-                applyArray(key: key, value: value, of: EventDate.self)
-            case "description":
-                applyKey("eventDescription", value: value)
-            default:
-                applyKey(key, value: value)
-            }
-        }
+    public var venue: Venue?
+
+    enum CodingKeys: String, CodingKey {
+        case eventDescription = "description"
+        case id
+        case title
+        case link
+        case type
+        case poster
+        case status
+        case rsvpTotal
+        case saleEnabled
+        case rsvp
+        case date
+        case venue
     }
 }

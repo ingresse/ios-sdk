@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class PaymentCard: JSONConvertible {
+public class PaymentCard: Codable {
     public var firstDigits: String = ""
     public var lastDigits: String = ""
 }

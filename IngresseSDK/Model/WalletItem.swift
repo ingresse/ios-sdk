@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class WalletItem: JSONConvertible {
+public class WalletItem: Codable {
     public var id: Int = -1
     public var ownerId: Int = -1
     public var title: String = ""
@@ -19,32 +19,21 @@ public class WalletItem: JSONConvertible {
     public var sessions: [Session] = []
     public var sessionList: [Session] = []
     public var customTickets: [CustomTicket] = []
-    public var venue: Venue = Venue()
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "description" {
-                applyKey("eventDescription", value: value)
-                continue
-            }
-            
-            if key == "sessions" || key == "sessionList" {
-                self.applyArray(key: key, value: value, of: Session.self)
-                continue
-            }
+    public var venue: Venue?
 
-            if key == "customTickets" {
-                self.applyArray(key: key, value: value, of: CustomTicket.self)
-                continue
-            }
-            
-            if key == "venue" {
-                guard let obj = value as? [String:Any] else { continue }
-                self.venue.applyJSON(obj)
-                continue
-            }
-            
-            applyKey(key, value: value)
-        }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case ownerId
+        case title
+        case link
+        case type
+        case poster
+        case eventDescription = "description"
+        case tickets
+        case transfered
+        case sessions
+        case sessionList
+        case customTickets
+        case venue
     }
 }

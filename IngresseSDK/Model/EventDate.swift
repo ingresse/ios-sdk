@@ -6,23 +6,15 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class EventDate: JSONConvertible {
+public class EventDate: Codable {
     public var id: Int = 0
     public var date: String = ""
     public var time: String = ""
     public var status: String = ""
+    public var dateTime: DateTime?
 
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "dateTime" {
-                guard let dateTime = value as? [String:Any] else { continue }
-
-                applyKey("date", value: dateTime["date"] ?? "")
-                applyKey("time", value: dateTime["time"] ?? "")
-                continue
-            }
-
-            applyKey(key, value: value)
-        }
+    public class DateTime: Codable {
+        public var date: String = ""
+        public var time: String = ""
     }
 }

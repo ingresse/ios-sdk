@@ -6,7 +6,7 @@
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 
-public class UserTicket: JSONConvertible {
+public class UserTicket: Codable {
     public var id: Int = 0
     public var holderId: Int = 0
     public var guestTypeId: Int = 0
@@ -26,44 +26,34 @@ public class UserTicket: JSONConvertible {
     
     public var eventId: Int = 0
     public var eventTitle: String = ""
-    public var eventVenue: Venue = Venue()
+    public var eventVenue: Venue?
     
     public var receivedFrom: Transfer?
     public var transferedTo: Transfer?
     
     public var currentHolder: Transfer?
 
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if ["receivedFrom", "transferedTo", "currentHolder"].contains(key) {
-                guard let transferObj = value as? [String:Any] else { continue }
-                
-                let transfer = Transfer()
-                transfer.applyJSON(transferObj)
-                
-                self.applyKey(key, value: transfer)
-                continue
-            }
-            
-            if key == "sessions" {
-                self.applyArray(key: key, value: value, of: Session.self)
-                continue
-            }
-            
-            if key == "eventVenue" {
-                guard let venue = value as? [String:Any] else { continue }
-                
-                self.eventVenue.applyJSON(venue)
-                continue
-            }
-            
-            if key == "description" {
-                applyKey("desc", value: value)
-                continue
-            }
-            
-            applyKey(key, value: value)
-        }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case holderId
+        case guestTypeId
+        case ticketTypeId
+        case transactionId
+        case code
+        case itemType
+        case sequence
+        case guestName
+        case title
+        case type
+        case desc = "description"
+        case checked
+        case sessions
+        case eventId
+        case eventTitle
+        case eventVenue
+        case receivedFrom
+        case transferedTo
+        case currentHolder
     }
 }
 

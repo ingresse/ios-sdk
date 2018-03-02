@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class User: JSONConvertible {
+public class User: Codable {
     public var id: Int = 0
     public var name: String = ""
     public var email: String = ""
@@ -15,14 +15,13 @@ public class User: JSONConvertible {
     public var cellphone: String = ""
     public var picture: String = ""
 
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "userId" {
-                self.applyKey("id", value: value)
-                continue
-            }
-
-            self.applyKey(key, value: value)
-        }
+    enum CodingKeys: String, CodingKey {
+        case id = "userId"
+        case name
+        case email
+        case username
+        case phone
+        case cellphone
+        case picture
     }
 }
