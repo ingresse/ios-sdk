@@ -6,13 +6,13 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-public class Session: Codable {
+public class Session: NSObject, Codable {
     public var id: Int = 0
     public var date: String = ""
     public var timestamp: String = ""
     public var datetime: DateTime?
 
-    public class DateTime: Codable {
+    public class DateTime: NSObject, Codable {
         var timestamp = ""
 
         var date: String {

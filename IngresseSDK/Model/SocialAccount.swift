@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class SocialAccount: Codable {
+public class SocialAccount: NSObject, Codable {
     public var id: Int = 0
     public var network: String = ""
 }

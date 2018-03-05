@@ -23,8 +23,10 @@ public class TransactionService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            let transaction = Transaction()
-            transaction.applyJSON(response)
+            guard let transaction = JSONDecoder().decodeDict(of: Transaction.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
             
             onSuccess(transaction)
         }) { (error) in

@@ -6,12 +6,12 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Advertisement: Codable {
+public class Advertisement: NSObject, Codable {
     
     public var cover: CoverAd?
     public var background: BackgroundAd?
 
-    public class Ad: Codable {
+    public class Ad: NSObject, Codable {
         public var image: String = ""
     }
 

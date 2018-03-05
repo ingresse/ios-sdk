@@ -6,7 +6,7 @@
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 
-public class UserTicket: Codable {
+public class UserTicket: NSObject, Codable {
     public var id: Int = 0
     public var holderId: Int = 0
     public var guestTypeId: Int = 0

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Transaction: Codable {
+public class Transaction: NSObject, Codable {
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
@@ -46,7 +46,7 @@ public class Transaction: Codable {
         return refund != nil
     }
 
-    public class Basket: Codable {
+    public class Basket: NSObject, Codable {
         public var tickets: [TransactionTicket] = []
     }
 }

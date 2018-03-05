@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class CustomTicket: Codable {
+public class CustomTicket: NSObject, Codable {
     public var name: String = ""
     public var slug: String = ""
 }

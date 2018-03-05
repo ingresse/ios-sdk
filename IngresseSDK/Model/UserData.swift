@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class UserData: JSONConvertible {
+public class UserData: Codable {
     public var name: String = ""
     public var lastname: String = ""
     public var email: String = ""

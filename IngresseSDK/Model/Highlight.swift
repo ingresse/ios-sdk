@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Highlight: Codable {
+public class Highlight: NSObject, Codable {
     public var banner: String = ""
     public var target: String = ""
 }

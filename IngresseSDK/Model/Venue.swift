@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Venue: Codable {
+public class Venue: NSObject, Codable {
     public var id: Int = 0
     public var city: String = ""
     public var complement: String = ""

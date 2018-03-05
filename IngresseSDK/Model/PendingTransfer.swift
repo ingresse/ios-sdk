@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class PendingTransfer: Codable {
+public class PendingTransfer: NSObject, Codable {
     public var id: Int = 0
     public var event: Event?
     public var venue: Venue?

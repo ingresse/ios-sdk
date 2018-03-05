@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class NewTransfer: Codable {
+public class NewTransfer: NSObject, Codable {
 
     public var id: Int = -1
     public var status: String = ""

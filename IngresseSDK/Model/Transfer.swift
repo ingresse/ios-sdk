@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-public class Transfer: Codable {
+public class Transfer: NSObject, Codable {
     public var transferId: Int = 0
     public var userId: Int = 0
     public var status: String = ""
@@ -43,7 +43,7 @@ public class Transfer: Codable {
         }
     }
 
-    public class StatusChange: Codable {
+    public class StatusChange: NSObject, Codable {
         public var status: String = ""
         public var date: String = ""
     }

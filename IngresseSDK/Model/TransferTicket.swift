@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class TransferTicket: Codable {
+public class TransferTicket: NSObject, Codable {
     public var id: Int = 0
     public var guestTypeId: Int = 0
     public var ticketTypeId: Int = 0

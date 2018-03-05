@@ -49,25 +49,15 @@ public class EntranceService: BaseService {
         let url = builder.build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            var guests = [GuestTicket]()
-            
             guard
                 let data = response["data"] as? [[String:Any]],
-                let paginationData = response["paginationInfo"] as? [String:Any]
+                let paginationData = response["paginationInfo"] as? [String:Any],
+                let guests = JSONDecoder().decodeArray(of: [GuestTicket].self, from: data),
+                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationData)
                 else {
                     delegate.didFailSyncGuestList(errorData: APIError.getDefaultError())
                     return
             }
-            
-            for obj in data {
-                let guest = GuestTicket()
-                guest.applyJSON(obj)
-                
-                guests.append(guest)
-            }
-            
-            let pagination = PaginationInfo()
-            pagination.applyJSON(paginationData)
             
             delegate.didSyncGuestsPage(pagination, guests)
 
@@ -108,19 +98,14 @@ public class EntranceService: BaseService {
         }
         
         client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
-            guard let data = response["data"] as? [[String:Any]] else {
-                delegate.didFailCheckin(errorData: APIError.getDefaultError())
-                return
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let tickets = JSONDecoder().decodeArray(of: [CheckinTicket].self, from: data)
+                else {
+                    delegate.didFailCheckin(errorData: APIError.getDefaultError())
+                    return
             }
-            
-            var tickets = [CheckinTicket]()
-            for obj in data {
-                let ticket = CheckinTicket()
-                ticket.applyJSON(obj)
-                
-                tickets.append(ticket)
-            }
-            
+
             delegate.didCheckinTickets(tickets)
         }) { (error) in
             delegate.didFailCheckin(errorData: error)
@@ -152,14 +137,12 @@ public class EntranceService: BaseService {
         client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String:Any]],
-                let ticketData = data.first
+                let ticketData = data.first,
+                let ticket = JSONDecoder().decodeDict(of: CheckinTicket.self, from: ticketData)
                 else {
                     onError(APIError.getDefaultError())
                     return
             }
-            
-            let ticket = CheckinTicket()
-            ticket.applyJSON(ticketData)
             
             onSuccess(ticket)
         }) { (error) in
@@ -182,19 +165,14 @@ public class EntranceService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let data = response["data"] as? [[String:Any]] else {
-                onError(APIError.getDefaultError())
-                return
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let history = JSONDecoder().decodeArray(of: [TransferHistoryItem].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
             }
-            
-            var history = [TransferHistoryItem]()
-            for obj in data {
-                let item = TransferHistoryItem()
-                item.applyJSON(obj)
-                
-                history.append(item)
-            }
-            
+
             onSuccess(history)
         }) { (error) in
             onError(error)

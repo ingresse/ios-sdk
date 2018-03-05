@@ -26,16 +26,12 @@ public class SearchService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let data = response["data"] as? [[String:Any]] else {
-                onError(APIError.getDefaultError())
-                return
-            }
-            
-            var users = [User]()
-            for obj in data {
-                let user = User()
-                user.applyJSON(obj)
-                users.append(user)
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let users = JSONDecoder().decodeArray(of: [User].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
             }
             
             onSuccess(users)

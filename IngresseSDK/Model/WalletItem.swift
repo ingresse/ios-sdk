@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class WalletItem: Codable {
+public class WalletItem: NSObject, Codable {
     public var id: Int = -1
     public var ownerId: Int = -1
     public var title: String = ""

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class User: Codable {
+public class User: NSObject, Codable {
     public var id: Int = 0
     public var name: String = ""
     public var email: String = ""

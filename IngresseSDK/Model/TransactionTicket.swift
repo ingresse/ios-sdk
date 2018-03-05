@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class TransactionTicket: Codable {
+public class TransactionTicket: NSObject, Codable {
     public var id: Int = 0
     
     public var code: String = ""

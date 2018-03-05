@@ -26,8 +26,10 @@ public class EventService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            let attributes = EventAttributes()
-            attributes.applyJSON(response)
+            guard let attributes = JSONDecoder().decodeDict(of: EventAttributes.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
             
             onSuccess(attributes)
         }) { (error) in
@@ -49,14 +51,13 @@ public class EventService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let obj = response["advertisement"] as? [String:Any],
-                let mobile = obj["mobile"] as? [String:Any]
+                let mobile = obj["mobile"] as? [String:Any],
+                let ads = JSONDecoder().decodeDict(of: Advertisement.self, from: mobile)
                 else {
                     onError(APIError.getDefaultError())
                     return
             }
-            
-            let ads = Advertisement()
-            ads.applyJSON(mobile)
+
             onSuccess(ads)
         }) { (error) in
             onError(error)
@@ -91,20 +92,12 @@ public class EventService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any]
+                let paginationObj = response["paginationInfo"] as? [String:Any],
+                let events = JSONDecoder().decodeArray(of: [Event].self, from: data),
+                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)
                 else {
                     delegate.didFailSyncEvents(errorData: APIError.getDefaultError())
                     return
-            }
-
-            let pagination = PaginationInfo()
-            pagination.applyJSON(paginationObj)
-
-            var events = [Event]()
-            for obj in data {
-                let event = Event()
-                event.applyJSON(obj)
-                events.append(event)
             }
 
             delegate.didSyncEvents(events, of: category, page: pagination)
@@ -132,16 +125,12 @@ public class EventService: BaseService {
             .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let data = response["data"] as? [[String:Any]] else {
-                onError(APIError.getDefaultError())
-                return
-            }
-
-            var events = [Highlight]()
-            for obj in data {
-                let event = Highlight()
-                event.applyJSON(obj)
-                events.append(event)
+            guard
+                let data = response["data"] as? [[String:Any]],
+                let events = JSONDecoder().decodeArray(of: [Highlight].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
             }
 
             onSuccess(events)

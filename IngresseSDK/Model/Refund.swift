@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Refund: Codable {
+public class Refund: NSObject, Codable {
     public var operatorId: String = ""
     public var reason: String = ""
     public var date: String = ""
