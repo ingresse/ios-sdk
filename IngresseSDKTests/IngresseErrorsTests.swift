@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import IngresseSDK
+@testable import IngresseSDK
 
 class IngresseErrorsTests: XCTestCase {
     
@@ -19,7 +19,7 @@ class IngresseErrorsTests: XCTestCase {
         
         errors = SDKErrors()
         
-        errorsDict = SDKErrors.getErrorDict()
+        errorsDict = SDKErrors.shared.errorDict
     }
     
     override func tearDown() {
@@ -30,6 +30,13 @@ class IngresseErrorsTests: XCTestCase {
         let generated = errors?.getErrorMessage(code: 0)
         let expected = errorsDict["default_no_code"]!
         
+        XCTAssertEqual(generated, expected)
+    }
+
+    func testDefaultErrorWithCode() {
+        let generated = errors?.getErrorMessage(code: 99999)
+        let expected = String(format: errorsDict["default_message"]!, 99999)
+
         XCTAssertEqual(generated, expected)
     }
     

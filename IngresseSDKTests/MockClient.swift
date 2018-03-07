@@ -11,12 +11,19 @@ import IngresseSDK
 class MockClient : RestClientInterface {
     
     var response : [String:Any]!
-    
-    func POST(url: String, parameters: [String : String], onSuccess: @escaping ([String : Any]) -> (), onError: @escaping (APIError) -> ()) {
+
+    func POST(
+        url: String,
+        parameters: [String : Any],
+        onSuccess: @escaping ([String : Any]) -> (),
+        onError: @escaping (APIError) -> ()) {
         onSuccess(response)
     }
     
-    func GET(url: String, onSuccess: @escaping ([String : Any]) -> (), onError: @escaping (APIError) -> ()) {
+    func GET(
+        url: String,
+        onSuccess: @escaping ([String : Any]) -> (),
+        onError: @escaping (APIError) -> ()) {
         onSuccess(response)
     }
 }

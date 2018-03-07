@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class JSONConvertible: NSObject {
+@objcMembers public class JSONConvertible: NSObject {
     
     required public override init() {
 
@@ -32,16 +32,21 @@ public class JSONConvertible: NSObject {
 
     public func applyArray<T:JSONConvertible>(key: String, value: Any, of type: T.Type) {
 
-        guard
-            self.responds(to: NSSelectorFromString(key)),
-        let dictionary = value as? [String:Any],
-        let data = dictionary["data"] as? [[String:Any]]
-        else { return }
+        guard self.responds(to: NSSelectorFromString(key)) else { return }
+
+        var data: [[String:Any]]?
+        if let dictionary = value as? [String:Any] {
+            data = dictionary["data"] as? [[String:Any]]
+        } else {
+            data = value as? [[String:Any]]
+        }
+
+        guard let array = data else { return }
 
         self.setValue([], forKey: key)
 
         var values = [T]()
-        for obj in data {
+        for obj in array {
             let value = T()
             value.applyJSON(obj)
 

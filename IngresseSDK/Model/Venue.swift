@@ -19,4 +19,21 @@ public class Venue: JSONConvertible {
     public var hidden: Bool = false
     public var latitude: Double = 0.0
     public var longitude: Double = 0.0
+
+    public override func applyJSON(_ json: [String : Any]) {
+        for (key,value) in json {
+            if key == "location" {
+                guard
+                    let location = value as? [Double],
+                    location.count >= 2
+                    else { continue }
+
+                applyKey("latitude", value: location[0])
+                applyKey("longitude", value: location[1])
+                continue
+            }
+
+            applyKey(key, value: value)
+        }
+    }
 }

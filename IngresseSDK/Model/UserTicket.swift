@@ -41,13 +41,7 @@ public class UserTicket: JSONConvertible {
                 let transfer = Transfer()
                 transfer.applyJSON(transferObj)
                 
-                switch key {
-                case "receivedFrom": self.receivedFrom = transfer
-                case "transferedTo": self.transferedTo = transfer
-                case "currentHolder": self.currentHolder = transfer
-                default: break
-                }
-                
+                self.applyKey(key, value: transfer)
                 continue
             }
             

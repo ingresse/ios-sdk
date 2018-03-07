@@ -9,7 +9,7 @@
 public class IngresseUser: JSONConvertible {
     public var userId: Int = 0
     public var token: String = ""
-    public var data: UserData?
+    public var data: UserData!
     
     public static var user : IngresseUser?
     
@@ -27,7 +27,7 @@ public class IngresseUser: JSONConvertible {
         }
         
         user!.data = UserData()
-        user!.data!.applyJSON(userData)
+        user!.data.applyJSON(userData)
     }
     
     public static func logout() {
