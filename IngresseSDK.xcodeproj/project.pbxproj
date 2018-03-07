@@ -67,6 +67,7 @@
 		627F83801EE99BDF00E14299 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F837F1EE99BDF00E14299 /* MockClient.swift */; };
 		627F83831EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F83821EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift */; };
 		6284F8601ED7601E00E5FECF /* CheckinSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */; };
+		628EE52120507C93004BA72D /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628EE52020507C93004BA72D /* EncodingTests.swift */; };
 		6294D6E61F7279E50064EBFA /* TransfersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294D6E51F7279E50064EBFA /* TransfersService.swift */; };
 		6294D6E81F7279F90064EBFA /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294D6E71F7279F90064EBFA /* BaseService.swift */; };
 		6294D6EA1F7280E80064EBFA /* PendingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6294D6E91F7280E80064EBFA /* PendingTransfer.swift */; };
@@ -158,6 +159,7 @@
 		627F837F1EE99BDF00E14299 /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClient.swift; sourceTree = "<group>"; };
 		627F83821EE9AA2600E14299 /* SpyGuestListSyncDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyGuestListSyncDelegate.swift; sourceTree = "<group>"; };
 		6284F85F1ED7601E00E5FECF /* CheckinSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinSyncDelegate.swift; sourceTree = "<group>"; };
+		628EE52020507C93004BA72D /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
 		6294D6E51F7279E50064EBFA /* TransfersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransfersService.swift; sourceTree = "<group>"; };
 		6294D6E71F7279F90064EBFA /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		6294D6E91F7280E80064EBFA /* PendingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransfer.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				624526071EC23217007B6584 /* Info.plist */,
 				627F83811EE9A9F400E14299 /* Spy */,
 				626B4D3D2037071B006504D1 /* JSONConvertibleTests.swift */,
+				628EE52020507C93004BA72D /* EncodingTests.swift */,
 			);
 			path = IngresseSDKTests;
 			sourceTree = "<group>";
@@ -448,18 +451,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Ingresse;
 				TargetAttributes = {
 					624525F61EC23217007B6584 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = KA3BZ23AM2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					624525FF1EC23217007B6584 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = KA3BZ23AM2;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -576,6 +580,7 @@
 				62743805203799A70089B5F1 /* TransactionTests.swift in Sources */,
 				6245264D1EC253FD007B6584 /* AuthTests.swift in Sources */,
 				626B4D3E2037071B006504D1 /* JSONConvertibleTests.swift in Sources */,
+				628EE52120507C93004BA72D /* EncodingTests.swift in Sources */,
 				62743801203793B80089B5F1 /* TransferTicketTests.swift in Sources */,
 				626B4D4320377DF5006504D1 /* PaginationInfoTests.swift in Sources */,
 				626B4D4520377E73006504D1 /* WalletItemTests.swift in Sources */,
@@ -607,7 +612,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -615,7 +622,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -661,7 +672,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -669,7 +682,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -714,7 +731,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -734,7 +752,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -749,7 +768,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -763,7 +783,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.IngresseSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -6,18 +6,13 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-@objc public enum EventSessionType : Int {
-    case future = 2
-    case past = 1
-    case all = 0
-}
-
 public class MyTicketsService: BaseService {
     
     /// Get sessions user has tickets to
     ///
     /// - Parameters:
-    ///   - type: Session type (.future, .past, .all)
+    ///   - userId: id of logged user
+    ///   - userToken: token of logged user
     ///   - page: page of request
     ///   - delegate: callback interface
     public func getUserWallet(userId: String, userToken: String, page: Int, delegate: WalletSyncDelegate) {
@@ -43,11 +38,12 @@ public class MyTicketsService: BaseService {
             delegate.didFailSyncItems(errorData: error)
         }
     }
-    
+
     /// Get all tickets user has
     ///
     /// - Parameters:
-    ///   - eventId: Id of the session
+    ///   - userId: id of logged user
+    ///   - userToken: token of logged user
     ///   - page: page of request
     ///   - delegate: callback interface
     public func getUserTickets(userId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
