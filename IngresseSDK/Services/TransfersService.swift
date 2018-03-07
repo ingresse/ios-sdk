@@ -68,11 +68,13 @@ public class TransfersService: BaseService {
                     return
             }
 
-            let paginationData = NSKeyedArchiver.archivedData(withRootObject: paginationObj)
-            let pagination = (try? JSONDecoder().decode(PaginationInfo.self, from: paginationData)) ?? PaginationInfo()
-
-            let transferData = NSKeyedArchiver.archivedData(withRootObject: data)
-            let transfers = (try? JSONDecoder().decode([PendingTransfer].self, from: transferData)) ?? []
+            guard
+                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj),
+                let transfers = JSONDecoder().decodeArray(of: [PendingTransfer].self, from: data)
+                else {
+                    delegate.didFailDownloadTransfers(errorData: APIError.getDefaultError())
+                    return
+            }
             
             delegate.didDownloadPendingTransfers(transfers, page: pagination)
         }) { (error) in

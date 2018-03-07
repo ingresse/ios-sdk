@@ -11,7 +11,7 @@ import XCTest
 
 class TransactionTests: XCTestCase {
 
-    func testApplyJSON() {
+    func testDecode() {
         var json = [String:Any]()
         json["event"] = ["id":"1"]
         json["session"] = ["id":"2"]
@@ -20,13 +20,15 @@ class TransactionTests: XCTestCase {
         json["creditCard"] = ["firstDigits":"5"]
         json["id"] = "1234"
 
-        let obj = Transaction()
-        obj.applyJSON(json)
+        guard let obj = JSONDecoder().decodeDict(of: Transaction.self, from: json) else {
+            XCTFail("Could not convert object")
+            return
+        }
 
-        XCTAssertEqual(obj.event.id, "1")
-        XCTAssertEqual(obj.session.id, "2")
-        XCTAssertEqual(obj.customer.id, 3)
-        XCTAssertEqual(obj.refund.operatorId, "4")
+        XCTAssertEqual(obj.event?.id, "1")
+        XCTAssertEqual(obj.session?.id, "2")
+        XCTAssertEqual(obj.customer?.id, 3)
+        XCTAssertEqual(obj.refund?.operatorId, "4")
         XCTAssertEqual(obj.creditCard?.firstDigits, "5")
         XCTAssertEqual(obj.id, "1234")
     }

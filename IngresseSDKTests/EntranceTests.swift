@@ -36,7 +36,7 @@ class EntranceTests: XCTestCase {
             ["currentPage": 1,
              "lastPage": 1,
              "totalResults": 0,
-             "pageSize": "10"]
+             "pageSize": 10]
         guestListSuccessResponse["data"] = []
 
         restClient.response = guestListSuccessResponse

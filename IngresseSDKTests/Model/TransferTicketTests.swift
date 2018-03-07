@@ -11,12 +11,14 @@ import XCTest
 
 class TransferTicketTests: XCTestCase {
 
-    func testApplyJSON() {
+    func testDecode() {
         var json = ["description": "test string"]
         json["name"] = "test name"
 
-        let obj = TransferTicket()
-        obj.applyJSON(json)
+        guard let obj = JSONDecoder().decodeDict(of: TransferTicket.self, from: json) else {
+            XCTFail("Could not convert object")
+            return
+        }
 
         XCTAssertEqual(obj.desc, "test string")
         XCTAssertEqual(obj.name, "test name")

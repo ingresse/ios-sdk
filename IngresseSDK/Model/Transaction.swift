@@ -39,7 +39,7 @@ public class Transaction: NSObject, Codable {
 
     public var token: String = ""
 
-    public var basket: Basket = Basket()
+    public var basket: Basket?
 
     public var refund: Refund?
     public var hasRefund: Bool {
@@ -48,5 +48,34 @@ public class Transaction: NSObject, Codable {
 
     public class Basket: NSObject, Codable {
         public var tickets: [TransactionTicket] = []
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        operatorId = try container.decodeIfPresent(String.self, forKey: .operatorId) ?? ""
+        salesgroupId = try container.decodeIfPresent(Int.self, forKey: .salesgroupId) ?? 0
+        transactionId = try container.decodeIfPresent(String.self, forKey: .transactionId) ?? ""
+        app_id = try container.decodeIfPresent(Int.self, forKey: .app_id) ?? -1
+        paymenttype = try container.decodeIfPresent(String.self, forKey: .paymenttype) ?? ""
+        paymentoption = try container.decodeIfPresent(String.self, forKey: .paymentoption) ?? ""
+        paymentdetails = try container.decodeIfPresent(String.self, forKey: .paymentdetails) ?? ""
+        creditCard = try container.decodeIfPresent(PaymentCard.self, forKey: .creditCard)
+        totalPaid = try container.decodeIfPresent(Double.self, forKey: .totalPaid) ?? 0.0
+        sum_up = try container.decodeIfPresent(Double.self, forKey: .sum_up) ?? 0.0
+        paymentTax = try container.decodeIfPresent(Double.self, forKey: .paymentTax) ?? 0.0
+        interest = try container.decodeIfPresent(Int.self, forKey: .interest) ?? 0
+        taxToCostumer = try container.decodeIfPresent(Int.self, forKey: .taxToCostumer) ?? 0
+        installments = try container.decodeIfPresent(Int.self, forKey: .installments) ?? 1
+        creationdate = try container.decodeIfPresent(String.self, forKey: .creationdate) ?? ""
+        modificationdate = try container.decodeIfPresent(String.self, forKey: .modificationdate) ?? ""
+        customer = try container.decodeIfPresent(User.self, forKey: .customer)
+        event = try container.decodeIfPresent(TransactionEvent.self, forKey: .event)
+        session = try container.decodeIfPresent(TransactionSession.self, forKey: .session)
+        bankbillet_url = try container.decodeIfPresent(String.self, forKey: .bankbillet_url) ?? ""
+        token = try container.decodeIfPresent(String.self, forKey: .token) ?? ""
+        basket = try container.decodeIfPresent(Basket.self, forKey: .basket)
+        refund = try container.decodeIfPresent(Refund.self, forKey: .refund)
     }
 }

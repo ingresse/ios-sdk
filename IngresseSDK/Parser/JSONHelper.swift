@@ -8,16 +8,21 @@
 
 extension JSONDecoder {
     public func decodeDict<T:Codable>(of type: T.Type, from dict: [String:Any]) -> T? {
-        let data = NSKeyedArchiver.archivedData(withRootObject: dict)
-        let result = try? self.decode(type, from: data)
-
-        return result
+        return decodeData(of: type, data: dict.toData())
     }
 
     public func decodeArray<T:Codable>(of type: [T].Type, from dict: [[String:Any]]) -> [T]? {
-        let data = NSKeyedArchiver.archivedData(withRootObject: dict)
-        let result = try? self.decode(type, from: data)
+        return decodeData(of: type, data: dict.toData())
+    }
 
-        return result
+    private func decodeData<T:Codable>(of type: T.Type, data: Data?) -> T? {
+        guard let obj = data else { return nil }
+        do {
+            return try self.decode(type, from: obj)
+        } catch {
+            print(error)
+        }
+
+        return nil
     }
 }
