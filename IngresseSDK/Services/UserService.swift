@@ -86,7 +86,7 @@ public class UserService: BaseService {
 
             let data = response["data"] as! [String: Any]
 
-            IngresseUser.login(loginData: data)
+            let _ = IngresseUser.login(loginData: data)
             IngresseUser.fillData(userData: data)
 
             onSuccess(IngresseUser.user!)
