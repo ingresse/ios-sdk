@@ -62,6 +62,7 @@ class IngresseAuthTests: XCTestCase {
         
         var loginFailResponse = [String:Any]()
         loginFailResponse["status"] = 0
+        loginFailResponse["message"] = "Teste de falha"
         
         restClient.response = loginFailResponse
         

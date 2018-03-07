@@ -27,16 +27,78 @@ public class AuthService: BaseService {
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
             
             guard let logged = response["status"] as? Bool,
-                logged,
-                let data = response["data"] as? [String:Any]
-                else {
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                onError(error)
+                return
+            }
+
+            guard let data = response["data"] as? [String:Any] else {
                 onError(APIError.getDefaultError())
                 return
             }
-            
+
             let user = IngresseUser.login(loginData: data)
-            
-            onSuccess(user)
+
+            self.getUserData(
+                userId: String(user.userId),
+                userToken: user.token,
+                onSuccess: { (user) in onSuccess(user) },
+                onError: { (error) in onError(error) })
+
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+    /// Login with facebook
+    ///
+    /// - Parameters:
+    ///   - email: user's email
+    ///   - fbToken: facebook access token
+    ///   - fbUserId: facebook user id
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("login/facebook")
+            .build()
+
+        let params = ["email": email,
+                      "fbToken": fbToken,
+                      "fbUserId": fbUserId]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
+
+            guard let logged = response["status"] as? Bool,
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                    onError(error)
+                    return
+            }
+
+            guard let data = response["data"] as? [String:Any] else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            let user = IngresseUser.login(loginData: data)
+
+            self.getUserData(
+                userId: String(user.userId),
+                userToken: user.token,
+                onSuccess: { (user) in onSuccess(user) },
+                onError: { (error) in onError(error) })
+
         }) { (error: APIError) in
             onError(error)
         }
@@ -50,7 +112,7 @@ public class AuthService: BaseService {
     ///   - fields: User attributes to get from API
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func getUserData(_ userId:String,_ userToken: String,_ fields:String?, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
+    public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
         
         let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
         
@@ -64,6 +126,75 @@ public class AuthService: BaseService {
             IngresseUser.fillData(userData: response)
             
             onSuccess(IngresseUser.user!)
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+    /// Recover user password
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request password
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func recoverPassword(email: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("recover-password")
+            .build()
+
+        let params = ["email":email]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+    /// Validate recovery hash
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request password
+    ///   - token: hash received from email
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func validateHash(_ token: String, email: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("recover-validate")
+            .build()
+
+        var params = ["email": email]
+        params["hash"] = token
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+    /// Update user password
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request password
+    ///   - password: password to update
+    ///   - token: hash received from email
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func updatePassword(email: String, password: String, token: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("recover-update-password")
+            .build()
+
+        var params = ["email": email]
+        params["password"] = password
+        params["hash"] = token
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
         }) { (error: APIError) in
             onError(error)
         }

@@ -14,7 +14,7 @@ public class APIError: NSObject {
     public var message: String = ""
     public var category: String = ""
     public var error: String = ""
-    public var response: [[String: Any]] = [[:]]
+    public var response: [String: Any] = [:]
     
     public func getCode() -> Int {
         return code
@@ -37,8 +37,8 @@ public class APIError: NSObject {
         
         func setCode(_ code: Int) -> Builder {
             error.code = code
-            error.title = NSLocalizedString("OPS", comment: "")
-            error.message = SDKErrors().getErrorMessage(code: code)
+            error.title = SDKErrors.shared.getErrorTitle(code: code)
+            error.message = SDKErrors.shared.getErrorMessage(code: code)
             
             return self
         }
@@ -55,7 +55,7 @@ public class APIError: NSObject {
             return self
         }
         
-        func setResponse(_ response: [[String:Any]]) -> Builder {
+        func setResponse(_ response: [String:Any]) -> Builder {
             error.response = response
             
             return self
