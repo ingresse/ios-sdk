@@ -75,6 +75,7 @@
 		62A6250B1F8FF26700DD054F /* CustomTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A6250A1F8FF26700DD054F /* CustomTicket.swift */; };
 		62BFE06F1F72A82B007150ED /* TransferTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFE06E1F72A82B007150ED /* TransferTicket.swift */; };
 		62BFE0711F72AB53007150ED /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFE0701F72AB53007150ED /* SocialAccount.swift */; };
+		62CFEFCE2050726E002D78A7 /* IngresseSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 62CFEFCD2050726E002D78A7 /* IngresseSDK.podspec */; };
 		62D18ACE1F1673DF00DC2270 /* TransferHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D18ACD1F1673DF00DC2270 /* TransferHistoryItem.swift */; };
 		62E134E11F20FBA70007B590 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E134E01F20FBA70007B590 /* PaymentType.swift */; };
 		62E6EDE21F1FE02300F0B1E8 /* WalletItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */; };
@@ -163,6 +164,7 @@
 		62A6250A1F8FF26700DD054F /* CustomTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTicket.swift; sourceTree = "<group>"; };
 		62BFE06E1F72A82B007150ED /* TransferTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTicket.swift; sourceTree = "<group>"; };
 		62BFE0701F72AB53007150ED /* SocialAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAccount.swift; sourceTree = "<group>"; };
+		62CFEFCD2050726E002D78A7 /* IngresseSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IngresseSDK.podspec; sourceTree = "<group>"; };
 		62D18ACD1F1673DF00DC2270 /* TransferHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferHistoryItem.swift; sourceTree = "<group>"; };
 		62E134E01F20FBA70007B590 /* PaymentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
 		62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletItem.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		624525ED1EC23217007B6584 = {
 			isa = PBXGroup;
 			children = (
+				62CFEFCD2050726E002D78A7 /* IngresseSDK.podspec */,
 				624526511EC25770007B6584 /* LICENSE */,
 				624525F91EC23217007B6584 /* IngresseSDK */,
 				624526041EC23217007B6584 /* IngresseSDKTests */,
@@ -479,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6239BA101EC5FA7B00C7BD16 /* Localizable.strings in Resources */,
+				62CFEFCE2050726E002D78A7 /* IngresseSDK.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
