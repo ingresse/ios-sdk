@@ -40,4 +40,23 @@ class ErrorsTests: XCTestCase {
         XCTAssertEqual(generated, expected)
     }
 
+    func testErrorBuilder() {
+        let error = APIError.Builder()
+            .setCode(0)
+            .setTitle("Test Title")
+            .setMessage("Test Message")
+            .setResponse(["string": "response", "bool": true, "int": 99])
+            .setError("Test Error")
+            .setCategory("Test Category")
+            .build()
+
+        XCTAssertEqual(error.code, 0)
+        XCTAssertEqual(error.title, "Test Title")
+        XCTAssertEqual(error.error, "Test Error")
+        XCTAssertEqual(error.message, "Test Message")
+        XCTAssertEqual(error.category, "Test Category")
+        XCTAssertEqual(error.response["int"] as? Int, 99)
+        XCTAssertEqual(error.response["bool"] as? Bool, true)
+        XCTAssertEqual(error.response["string"] as? String, "response")
+    }
 }

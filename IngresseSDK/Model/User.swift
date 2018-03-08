@@ -24,4 +24,15 @@ public class User: NSObject, Codable {
         case cellphone
         case picture
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
+        username = try container.decodeIfPresent(String.self, forKey: .username) ?? ""
+        phone = try container.decodeIfPresent(String.self, forKey: .phone) ?? ""
+        cellphone = try container.decodeIfPresent(String.self, forKey: .cellphone) ?? ""
+        picture = try container.decodeIfPresent(String.self, forKey: .picture) ?? ""
+    }
 }

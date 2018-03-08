@@ -16,10 +16,6 @@ public class APIError: NSObject {
     public var error: String = ""
     public var response: [String: Any] = [:]
     
-    public func getCode() -> Int {
-        return code
-    }
-    
     static public func getDefaultError() -> APIError {
         let error = APIError.Builder()
             .setCode(0)

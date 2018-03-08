@@ -23,4 +23,18 @@ public class TransactionEvent: NSObject, Codable {
     public class Venue: NSObject, Codable {
         public var name: String = ""
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
+        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
+        taxToCostumer = try container.decodeIfPresent(Int.self, forKey: .taxToCostumer) ?? 0
+        saleEnabled = try container.decodeIfPresent(Bool.self, forKey: .saleEnabled) ?? false
+
+        venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
+    }
 }

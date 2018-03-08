@@ -22,4 +22,14 @@ public class TransferTicket: NSObject, Codable {
         case name
         case type
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        guestTypeId = try container.decodeIfPresent(Int.self, forKey: .guestTypeId) ?? 0
+        ticketTypeId = try container.decodeIfPresent(Int.self, forKey: .ticketTypeId) ?? 0
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        desc = try container.decodeIfPresent(String.self, forKey: .desc) ?? ""
+    }
 }

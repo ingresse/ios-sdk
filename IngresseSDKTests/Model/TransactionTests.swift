@@ -15,8 +15,8 @@ class TransactionTests: XCTestCase {
         var json = [String:Any]()
         json["event"] = ["id":"1"]
         json["session"] = ["id":"2"]
-        json["customer"] = ["id":3]
-        json["refund"] = ["operatorId":"4"]
+        json["customer"] = ["userId":3]
+        json["refund"] = ["operator":"4"]
         json["creditCard"] = ["firstDigits":"5"]
         json["id"] = "1234"
 

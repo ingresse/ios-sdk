@@ -47,4 +47,17 @@ public class Transfer: NSObject, Codable {
         public var status: String = ""
         public var date: String = ""
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
+        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        picture = try container.decodeIfPresent(String.self, forKey: .picture) ?? ""
+        transferId = try container.decodeIfPresent(Int.self, forKey: .transferId) ?? 0
+        history = try container.decodeIfPresent([StatusChange].self, forKey: .history) ?? []
+        socialId = try container.decodeIfPresent([SocialAccount].self, forKey: .socialId) ?? []
+    }
 }

@@ -36,4 +36,22 @@ public class WalletItem: NSObject, Codable {
         case customTickets
         case venue
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
+        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        ownerId = try container.decodeIfPresent(Int.self, forKey: .ownerId) ?? -1
+        tickets = try container.decodeIfPresent(Int.self, forKey: .tickets) ?? 0
+        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
+        transfered = try container.decodeIfPresent(Int.self, forKey: .transfered) ?? 0
+        sessions = try container.decodeIfPresent([Session].self, forKey: .sessions) ?? []
+        sessionList = try container.decodeIfPresent([Session].self, forKey: .sessionList) ?? []
+        eventDescription = try container.decodeIfPresent(String.self, forKey: .eventDescription) ?? ""
+        customTickets = try container.decodeIfPresent([CustomTicket].self, forKey: .customTickets) ?? []
+
+        venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
+    }
 }

@@ -27,4 +27,13 @@ class EncodingTests: XCTestCase {
 
         XCTAssertEqual(string, expected)
     }
+
+    func testTrim() {
+        let string = " Test string with whitespaces "
+        let expected = "Test string with whitespaces"
+
+        let generated = string.trim()
+
+        XCTAssertEqual(generated, expected)
+    }
 }

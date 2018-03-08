@@ -16,4 +16,11 @@ public class Refund: NSObject, Codable {
         case reason
         case date
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        date = try container.decodeIfPresent(String.self, forKey: .date) ?? ""
+        reason = try container.decodeIfPresent(String.self, forKey: .reason) ?? ""
+        operatorId = try container.decodeIfPresent(String.self, forKey: .operatorId) ?? ""
+    }
 }

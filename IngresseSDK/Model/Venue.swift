@@ -43,4 +43,21 @@ public class Venue: NSObject, Codable {
         case lat = "latitude"
         case long = "longitude"
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        city = try container.decodeIfPresent(String.self, forKey: .city) ?? ""
+        complement = try container.decodeIfPresent(String.self, forKey: .complement) ?? ""
+        country = try container.decodeIfPresent(String.self, forKey: .country) ?? ""
+        crossStreet = try container.decodeIfPresent(String.self, forKey: .crossStreet) ?? ""
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        state = try container.decodeIfPresent(String.self, forKey: .state) ?? ""
+        street = try container.decodeIfPresent(String.self, forKey: .street) ?? ""
+        zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
+        hidden = try container.decodeIfPresent(Bool.self, forKey: .hidden) ?? false
+        location = try container.decodeIfPresent([Double].self, forKey: .location) ?? [0.0 , 0.0]
+        lat = try container.decodeIfPresent(Double.self, forKey: .lat) ?? 0.0
+        long = try container.decodeIfPresent(Double.self, forKey: .long) ?? 0.0
+    }
 }

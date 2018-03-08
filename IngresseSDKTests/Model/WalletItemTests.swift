@@ -43,12 +43,9 @@ class WalletItemTests: XCTestCase {
         var json = [String:Any]()
         json["venue"] = 1234
 
-        guard let obj = JSONDecoder().decodeDict(of: WalletItem.self, from: json) else {
-            XCTFail("Could not convert object")
-            return
-        }
+        let obj = JSONDecoder().decodeDict(of: WalletItem.self, from: json)
 
-        XCTAssertNil(obj.venue)
+        XCTAssertNil(obj)
     }
     
 }

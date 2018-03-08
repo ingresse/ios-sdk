@@ -42,13 +42,9 @@ class UserTicketTests: XCTestCase {
         json["receivedFrom"] = "test string"
         json["eventVenue"] = 4
 
-        guard let obj = JSONDecoder().decodeDict(of: UserTicket.self, from: json) else {
-            XCTFail("Could not convert object")
-            return
-        }
+        let obj = JSONDecoder().decodeDict(of: UserTicket.self, from: json)
 
-        XCTAssertNil(obj.receivedFrom)
-        XCTAssertNil(obj.eventVenue)
+        XCTAssertNil(obj)
     }
     
 }
