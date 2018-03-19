@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias errorHandler = (_ error: APIError) -> ()
+
 public class APIError: NSObject {
     public var code: Int = 0
     public var title: String = ""

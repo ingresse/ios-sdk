@@ -59,18 +59,30 @@ public class ResponseParser: NSObject {
             }
         }
 
-        guard let responseData = obj["responseData"] as? [String:Any] else {
-            // Could not get response data
+        // Simple object
+        if let responseData = obj["responseData"] as? [String:Any] {
+            completion(responseData)
+            return
+        }
 
-            guard let responseArray = obj["responseData"] as? [[String:Any]] else {
-                throw IngresseException.jsonParserError
-            }
-            
+        // List response
+        if let responseArray = obj["responseData"] as? [[String:Any]] {
             completion(["data": responseArray])
             return
         }
 
-        completion(responseData)
+        // Event API
+        if let eventResponse = obj["data"] as? [String:Any] {
+            completion(eventResponse)
+            return
+        }
 
+        // Event API List
+        if let _ = obj["data"] as? [[String:Any]] {
+            completion(obj)
+            return
+        }
+
+        throw IngresseException.jsonParserError
     }
 }

@@ -72,40 +72,70 @@ public class EventService: BaseService {
     ///   - category: ID of the category
     ///   - searchTerm: Term to filter event list
     ///   - delegate: Callback listener
-    public func getEvents(page: Int,
-        from place: String,
-        ofCategory category: Int,
+    public func getEvents(from place: String,
+        ofCategories categories: [Int],
         andSearchTerm searchTerm: String,
-        delegate: EventSyncDelegate) {
-        let path = categories[category]
+        page: ElasticPagination,
+        delegate: NewEventSyncDelegate) {
 
-        let fields = "id,title,planner,date,venue,rsvp,saleEnabled,type,link,poster,description"
         let url = URLBuilder(client: client)
-            .setPath(path)
-            .addParameter(key: "term", value: searchTerm)
+            .setHost("https://hml-event.ingresse.com/")
+            .setPath("search")
             .addParameter(key: "state", value: place)
-            .addParameter(key: "fields", value: fields)
-            .addParameter(key: "page", value: "\(page)")
-            .addParameter(key: "pageSize", value: "200")
-            .build()
+            .addParameter(key: "from", value: "now-6h")
+            .addParameter(key: "size", value: page.size)
+            .addParameter(key: "offset", value: page.currentOffset)
+            .buildWithoutKeys()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let total = response["total"] as? Int,
+                let hits = response["hits"] as? [[String:Any]],
+                let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
+                else {
+                    delegate.didFail(error: APIError.getDefaultError())
+                    return
+            }
+
+            var pagination = page
+            pagination.total = total
+
+            delegate.didSyncEvents(events, page: pagination)
+        }) { (error) in
+            delegate.didFail(error: error)
+        }
+    }
+
+    /// Get event list from state and category with search term
+    ///
+    /// - Parameters:
+    ///   - page: Index of page to get
+    ///   - place: Abbreviation of the state
+    ///   - category: ID of the category
+    ///   - searchTerm: Term to filter event list
+    ///   - delegate: Callback listener
+    public func getCategories(onSuccess: @escaping (_ categories: [Category])->(), onError: @escaping (_ errorData: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setHost("https://hml-event.ingresse.com/")
+            .setPath("categories")
+            //            .addParameter(key: "category", value: categories.map{ String($0) }.joined(separator: ","))
+            .buildWithoutKeys()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any],
-                let events = JSONDecoder().decodeArray(of: [Event].self, from: data),
-                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)
+                let categories = JSONDecoder().decodeArray(of: [Category].self, from: data)
                 else {
-                    delegate.didFailSyncEvents(errorData: APIError.getDefaultError())
+                    onError(APIError.getDefaultError())
                     return
             }
 
-            delegate.didSyncEvents(events, of: category, page: pagination)
+            onSuccess(categories)
         }) { (error) in
-            delegate.didFailSyncEvents(errorData: error)
+            onError(error)
         }
     }
-
 
     /// Get banners of featured events
     ///

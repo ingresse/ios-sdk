@@ -7,15 +7,15 @@
 //
 
 extension JSONDecoder {
-    public func decodeDict<T:Codable>(of type: T.Type, from dict: [String:Any]) -> T? {
+    public func decodeDict<T:Decodable>(of type: T.Type, from dict: [String:Any]) -> T? {
         return decodeData(of: type, data: dict.toData())
     }
 
-    public func decodeArray<T:Codable>(of type: [T].Type, from dict: [[String:Any]]) -> [T]? {
+    public func decodeArray<T:Decodable>(of type: [T].Type, from dict: [[String:Any]]) -> [T]? {
         return decodeData(of: type, data: dict.toData())
     }
 
-    private func decodeData<T:Codable>(of type: T.Type, data: Data?) -> T? {
+    private func decodeData<T:Decodable>(of type: T.Type, data: Data?) -> T? {
         guard let obj = data else { return nil }
         do {
             return try self.decode(type, from: obj)
