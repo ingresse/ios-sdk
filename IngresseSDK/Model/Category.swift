@@ -5,7 +5,7 @@
 //  Created by Rubens Gondek on 3/13/18.
 //
 
-public struct Category: Codable {
+public struct Category: Decodable, Equatable {
 
     public var id: Int = -1
     public var name: String = ""

@@ -32,9 +32,13 @@ public class WalletItem: NSObject, Codable {
         case tickets
         case transfered
         case sessions
-        case sessionList
+//        case sessionList
         case customTickets
         case venue
+    }
+
+    enum SessionCodingKeys: String, CodingKey {
+        case data
     }
 
     public required init(from decoder: Decoder) throws {
@@ -47,8 +51,13 @@ public class WalletItem: NSObject, Codable {
         tickets = try container.decodeIfPresent(Int.self, forKey: .tickets) ?? 0
         poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
         transfered = try container.decodeIfPresent(Int.self, forKey: .transfered) ?? 0
-        sessions = try container.decodeIfPresent([Session].self, forKey: .sessions) ?? []
-        sessionList = try container.decodeIfPresent([Session].self, forKey: .sessionList) ?? []
+
+        let sessionData = try container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions)
+        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
+
+//        let sessionListData = try container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessionList)
+//        sessionList = try sessionListData.decodeIfPresent([Session].self, forKey: .data) ?? []
+
         eventDescription = try container.decodeIfPresent(String.self, forKey: .eventDescription) ?? ""
         customTickets = try container.decodeIfPresent([CustomTicket].self, forKey: .customTickets) ?? []
 

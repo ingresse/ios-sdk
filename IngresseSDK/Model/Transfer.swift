@@ -19,14 +19,14 @@ public class Transfer: NSObject, Codable {
 
     public var created: String {
         for statusChange in history {
-            if statusChange.status == "pending" { return statusChange.date }
+            if statusChange.status == "pending" { return statusChange.creationDate }
         }
 
         return ""
     }
     public var accepted: String {
         for statusChange in history {
-            if statusChange.status == "accepted" { return statusChange.date }
+            if statusChange.status == "accepted" { return statusChange.creationDate }
         }
 
         return ""
@@ -45,7 +45,7 @@ public class Transfer: NSObject, Codable {
 
     public class StatusChange: NSObject, Codable {
         public var status: String = ""
-        public var date: String = ""
+        public var creationDate: String = ""
     }
 
     public required init(from decoder: Decoder) throws {

@@ -7,6 +7,6 @@
 //
 
 public class SocialAccount: NSObject, Codable {
-    public var id: Int = 0
+    public var id: String = ""
     public var network: String = ""
 }

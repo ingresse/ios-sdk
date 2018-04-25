@@ -56,6 +56,10 @@ public class UserTicket: NSObject, Codable {
         case currentHolder
     }
 
+    enum SessionCodingKey: String, CodingKey {
+        case data
+    }
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
@@ -71,7 +75,9 @@ public class UserTicket: NSObject, Codable {
         type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
         desc = try container.decodeIfPresent(String.self, forKey: .desc) ?? ""
         checked = try container.decodeIfPresent(Bool.self, forKey: .checked) ?? false
-        sessions = try container.decodeIfPresent([Session].self, forKey: .sessions) ?? []
+
+        let sessionData = try container.nestedContainer(keyedBy: SessionCodingKey.self, forKey: .sessions)
+        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
         eventId = try container.decodeIfPresent(Int.self, forKey: .eventId) ?? 0
         eventTitle = try container.decodeIfPresent(String.self, forKey: .eventTitle) ?? ""
         eventVenue = try container.decodeIfPresent(Venue.self, forKey: .eventVenue)

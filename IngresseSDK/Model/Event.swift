@@ -6,7 +6,7 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-public class Event: NSObject, Codable {
+public class Event: NSObject, Decodable {
     public var id: Int = 0
     public var title: String = ""
     public var link: String = ""

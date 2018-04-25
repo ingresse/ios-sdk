@@ -15,6 +15,10 @@ public class User: NSObject, Codable {
     public var cellphone: String = ""
     public var picture: String = ""
 
+    public convenience override init() {
+        self.init()
+    }
+
     enum CodingKeys: String, CodingKey {
         case id = "userId"
         case name

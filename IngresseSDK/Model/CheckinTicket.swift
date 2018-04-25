@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class CheckinTicket: NSObject, Codable {
+public class CheckinTicket: NSObject, Decodable {
     public var code: String = ""
     public var status: Int = -1
     public var checked: Int = -1
@@ -24,7 +24,7 @@ public class CheckinTicket: NSObject, Codable {
         case owner
     }
 
-    public class LastCheckin: NSObject, Codable {
+    public class LastCheckin: NSObject, Decodable {
         public var timestamp: Int = 0
         public var holder: User?
         public var operatorUser: User?

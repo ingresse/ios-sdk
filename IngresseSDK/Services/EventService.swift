@@ -26,10 +26,8 @@ public class EventService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let attributes = JSONDecoder().decodeDict(of: EventAttributes.self, from: response) else {
-                onError(APIError.getDefaultError())
-                return
-            }
+                let attributes = EventAttributes()
+            attributes.applyJSON(response)
             
             onSuccess(attributes)
         }) { (error) in
