@@ -35,8 +35,7 @@ public class TransfersService: BaseService {
                 return
             }
 
-            let data = NSKeyedArchiver.archivedData(withRootObject: array)
-            let users = try? JSONDecoder().decode([User].self, from: data)
+            let users = JSONDecoder().decodeArray(of: [User].self, from: array)
 
             onSuccess(users ?? [])
         }) { (error) in

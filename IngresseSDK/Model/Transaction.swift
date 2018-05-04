@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Transaction: NSObject, Codable {
+public class Transaction: NSObject, Decodable {
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
@@ -48,6 +48,34 @@ public class Transaction: NSObject, Codable {
 
     public class Basket: NSObject, Codable {
         public var tickets: [TransactionTicket] = []
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case status
+        case transactionId
+        case operatorId
+        case salesgroupId
+        case app_id
+        case paymenttype
+        case paymentoption
+        case paymentdetails
+        case creditCard
+        case totalPaid
+        case sum_up
+        case paymentTax
+        case interest
+        case taxToCostumer
+        case installments
+        case creationdate
+        case modificationdate
+        case customer
+        case event
+        case session
+        case bankbillet_url
+        case token
+        case basket
+        case refund
     }
 
     public required init(from decoder: Decoder) throws {
