@@ -97,7 +97,6 @@ public class EntranceService: BaseService {
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
-            .addParameter(key: "sessionId", value: sessionId)
             .build()
         
         var postParams = [String:String]()
@@ -105,6 +104,7 @@ public class EntranceService: BaseService {
             postParams["tickets[\(i)][ticketCode]"] = ticketCodes[i]
             postParams["tickets[\(i)][ticketStatus]"] = ticketStatus[i]
             postParams["tickets[\(i)][ticketTimestamp]"] = ticketTimestamps[i]
+            postParams["tickets[\(i)][sessionId]"] = sessionId
         }
         
         client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
