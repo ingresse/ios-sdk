@@ -34,4 +34,20 @@ public class Event: NSObject, Decodable {
         case date
         case venue
     }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        saleEnabled = try container.decodeIfPresent(Bool.self, forKey: .saleEnabled) ?? false
+        rsvpTotal = try container.decodeIfPresent(Int.self, forKey: .rsvpTotal) ?? 0
+        eventDescription = try container.decodeIfPresent(String.self, forKey: .eventDescription) ?? ""
+        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        rsvp = try container.decodeIfPresent([User].self, forKey: .rsvp) ?? []
+        date = try container.decodeIfPresent([EventDate].self, forKey: .date) ?? []
+        venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
+    }
 }

@@ -6,7 +6,7 @@
 //
 
 public struct ElasticPagination {
-    public var size: Int = 0
+    public var size: Int = 100
     public var total: Int = 0
     public var currentOffset: Int = 0
 

@@ -78,7 +78,7 @@ public class EventService: BaseService {
 
         let url = URLBuilder(client: client)
             .setHost("https://hml-event.ingresse.com/")
-            .setPath("search")
+            .setPath("search/company/1")
             .addParameter(key: "state", value: place)
             .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "size", value: page.size)
