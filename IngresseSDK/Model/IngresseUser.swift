@@ -6,28 +6,26 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-public class IngresseUser: JSONConvertible {
+public class IngresseUser: NSObject, Codable {
     public var userId: Int = 0
     public var token: String = ""
     public var data: UserData!
     
     public static var user : IngresseUser?
     
-    static func login(loginData: [String:Any]) -> IngresseUser {
-        user = IngresseUser()
-        
-        user!.applyJSON(loginData)
-        
-        return user!
+    public static func login(loginData: [String:Any]) -> IngresseUser {
+        let user = JSONDecoder().decodeDict(of: IngresseUser.self, from: loginData) ?? IngresseUser()
+
+        IngresseUser.user = user
+        return user
     }
     
-    static func fillData(userData: [String:Any]) {
+    public static func fillData(userData: [String:Any]) {
         guard user != nil else {
             return
         }
         
-        user!.data = UserData()
-        user!.data.applyJSON(userData)
+        user!.data = JSONDecoder().decodeDict(of: UserData.self, from: userData)
     }
     
     public static func logout() {

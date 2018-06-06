@@ -6,19 +6,21 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Refund: JSONConvertible {
+public class Refund: NSObject, Codable {
     public var operatorId: String = ""
     public var reason: String = ""
     public var date: String = ""
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "operator" {
-                self.operatorId = value as? String ?? ""
-                continue
-            }
-            
-            applyKey(key, value: value)
-        }
+
+    enum CodingKeys: String, CodingKey {
+        case operatorId = "operator"
+        case reason
+        case date
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        date = try container.decodeIfPresent(String.self, forKey: .date) ?? ""
+        reason = try container.decodeIfPresent(String.self, forKey: .reason) ?? ""
+        operatorId = try container.decodeIfPresent(String.self, forKey: .operatorId) ?? ""
     }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias errorHandler = (_ error: APIError) -> ()
+
 public class APIError: NSObject {
     public var code: Int = 0
     public var title: String = ""
@@ -15,10 +17,6 @@ public class APIError: NSObject {
     public var category: String = ""
     public var error: String = ""
     public var response: [String: Any] = [:]
-    
-    public func getCode() -> Int {
-        return code
-    }
     
     static public func getDefaultError() -> APIError {
         let error = APIError.Builder()

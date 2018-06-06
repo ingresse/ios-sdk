@@ -40,24 +40,29 @@ public class URLBuilder: NSObject {
         return self
     }
     
-    public func addParameter(key: String, value: String) -> URLBuilder {
-        self.parameters[key] = value
+    public func addParameter(key: String, value: Any) -> URLBuilder {
+        self.parameters[key] = String(describing: value)
         
         return self
     }
     
     public func build() -> String {
+        var url = buildWithoutKeys()
+        url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
+
+        return url
+    }
+
+    public func buildWithoutKeys() -> String {
         var url = self.host
         url += path
         url += "?"
-        
+
         if !parameters.isEmpty {
             url += parameters.stringFromHttpParameters()
             url += "&"
         }
-        
-        url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
-        
+
         return url
     }
 

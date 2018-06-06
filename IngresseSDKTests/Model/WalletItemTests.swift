@@ -11,7 +11,7 @@ import XCTest
 
 class WalletItemTests: XCTestCase {
     
-    func testApplyJSON() {
+    func testDecode() {
         var json = [String:Any]()
         json["venue"] = ["id":1]
         json["sessions"] = [["id":2], ["id":3], ["id":4]]
@@ -20,10 +20,12 @@ class WalletItemTests: XCTestCase {
         json["description"] = "test string"
         json["id"] = 1234
 
-        let obj = WalletItem()
-        obj.applyJSON(json)
+        guard let obj = JSONDecoder().decodeDict(of: WalletItem.self, from: json) else {
+            XCTFail("Could not convert object")
+            return
+        }
 
-        XCTAssertEqual(obj.venue.id, 1)
+        XCTAssertEqual(obj.venue?.id, 1)
         XCTAssertEqual(obj.sessions[0].id, 2)
         XCTAssertEqual(obj.sessions[1].id, 3)
         XCTAssertEqual(obj.sessions[2].id, 4)
@@ -37,14 +39,13 @@ class WalletItemTests: XCTestCase {
         XCTAssertEqual(obj.id, 1234)
     }
 
-    func testApplyJSONWrongValues() {
+    func testDecodeWrongValues() {
         var json = [String:Any]()
         json["venue"] = 1234
 
-        let obj = WalletItem()
-        obj.applyJSON(json)
+        let obj = JSONDecoder().decodeDict(of: WalletItem.self, from: json)
 
-        XCTAssertEqual(obj.venue.id, 0)
+        XCTAssertNil(obj)
     }
     
 }

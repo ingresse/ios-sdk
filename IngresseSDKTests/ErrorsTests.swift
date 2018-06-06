@@ -9,27 +9,27 @@
 import XCTest
 @testable import IngresseSDK
 
-class IngresseErrorsTests: XCTestCase {
-    
+class ErrorsTests: XCTestCase {
+
     var errors: SDKErrors?
     var errorsDict: [String:String]!
-    
+
     override func setUp() {
         super.setUp()
-        
+
         errors = SDKErrors()
-        
+
         errorsDict = SDKErrors.shared.errorDict
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testDefaultError() {
         let generated = errors?.getErrorMessage(code: 0)
         let expected = errorsDict["default_no_code"]!
-        
+
         XCTAssertEqual(generated, expected)
     }
 
@@ -39,5 +39,24 @@ class IngresseErrorsTests: XCTestCase {
 
         XCTAssertEqual(generated, expected)
     }
-    
+
+    func testErrorBuilder() {
+        let error = APIError.Builder()
+            .setCode(0)
+            .setTitle("Test Title")
+            .setMessage("Test Message")
+            .setResponse(["string": "response", "bool": true, "int": 99])
+            .setError("Test Error")
+            .setCategory("Test Category")
+            .build()
+
+        XCTAssertEqual(error.code, 0)
+        XCTAssertEqual(error.title, "Test Title")
+        XCTAssertEqual(error.error, "Test Error")
+        XCTAssertEqual(error.message, "Test Message")
+        XCTAssertEqual(error.category, "Test Category")
+        XCTAssertEqual(error.response["int"] as? Int, 99)
+        XCTAssertEqual(error.response["bool"] as? Bool, true)
+        XCTAssertEqual(error.response["string"] as? String, "response")
+    }
 }

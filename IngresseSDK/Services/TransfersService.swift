@@ -30,19 +30,14 @@ public class TransfersService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let data = response["data"] as? [[String:Any]] else {
+            guard let array = response["data"] as? [[String:Any]] else {
                 onError(APIError.getDefaultError())
                 return
             }
-            
-            var users = [User]()
-            for obj in data {
-                let user = User()
-                user.applyJSON(obj)
-                users.append(user)
-            }
-            
-            onSuccess(users)
+
+            let users = JSONDecoder().decodeArray(of: [User].self, from: array)
+
+            onSuccess(users ?? [])
         }) { (error) in
             onError(error)
         }
@@ -71,15 +66,13 @@ public class TransfersService: BaseService {
                     delegate.didFailDownloadTransfers(errorData: APIError.getDefaultError())
                     return
             }
-            
-            let pagination = PaginationInfo()
-            pagination.applyJSON(paginationObj)
-            
-            var transfers = [PendingTransfer]()
-            for obj in data {
-                let transfer = PendingTransfer()
-                transfer.applyJSON(obj)
-                transfers.append(transfer)
+
+            guard
+                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj),
+                let transfers = JSONDecoder().decodeArray(of: [PendingTransfer].self, from: data)
+                else {
+                    delegate.didFailDownloadTransfers(errorData: APIError.getDefaultError())
+                    return
             }
             
             delegate.didDownloadPendingTransfers(transfers, page: pagination)
@@ -122,9 +115,11 @@ public class TransfersService: BaseService {
             .build()
         
         client.restClient.POST(url: url, parameters: ["user":userID], onSuccess: { (response) in
-            let transfer = NewTransfer()
-            transfer.applyJSON(response)
-            
+            guard let transfer = JSONDecoder().decodeDict(of: NewTransfer.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
             onSuccess(transfer)
         }) { (error) in
             onError(error)
