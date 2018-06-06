@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class WalletItem: JSONConvertible {
+public class WalletItem: NSObject, Codable {
     public var id: Int = -1
     public var ownerId: Int = -1
     public var title: String = ""
@@ -19,32 +19,48 @@ public class WalletItem: JSONConvertible {
     public var sessions: [Session] = []
     public var sessionList: [Session] = []
     public var customTickets: [CustomTicket] = []
-    public var venue: Venue = Venue()
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "description" {
-                applyKey("eventDescription", value: value)
-                continue
-            }
-            
-            if key == "sessions" || key == "sessionList" {
-                self.applyArray(key: key, value: value, of: Session.self)
-                continue
-            }
+    public var venue: Venue?
 
-            if key == "customTickets" {
-                self.applyArray(key: key, value: value, of: CustomTicket.self)
-                continue
-            }
-            
-            if key == "venue" {
-                guard let obj = value as? [String:Any] else { continue }
-                self.venue.applyJSON(obj)
-                continue
-            }
-            
-            applyKey(key, value: value)
-        }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case ownerId
+        case title
+        case link
+        case type
+        case poster
+        case eventDescription = "description"
+        case tickets
+        case transfered
+        case sessions
+//        case sessionList
+        case customTickets
+        case venue
+    }
+
+    enum SessionCodingKeys: String, CodingKey {
+        case data
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
+        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        ownerId = try container.decodeIfPresent(Int.self, forKey: .ownerId) ?? -1
+        tickets = try container.decodeIfPresent(Int.self, forKey: .tickets) ?? 0
+        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
+        transfered = try container.decodeIfPresent(Int.self, forKey: .transfered) ?? 0
+
+        let sessionData = try container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions)
+        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
+
+//        let sessionListData = try container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessionList)
+//        sessionList = try sessionListData.decodeIfPresent([Session].self, forKey: .data) ?? []
+
+        eventDescription = try container.decodeIfPresent(String.self, forKey: .eventDescription) ?? ""
+        customTickets = try container.decodeIfPresent([CustomTicket].self, forKey: .customTickets) ?? []
+
+        venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
     }
 }

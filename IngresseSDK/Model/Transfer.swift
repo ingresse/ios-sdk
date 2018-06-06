@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-public class Transfer: JSONConvertible {
+public class Transfer: NSObject, Codable {
     public var transferId: Int = 0
     public var userId: Int = 0
     public var status: String = ""
@@ -14,9 +14,23 @@ public class Transfer: JSONConvertible {
     public var name: String = ""
     public var type: String = ""
     public var picture: String = ""
-    public var created: String = ""
-    public var accepted: String = ""
     public var socialId: [SocialAccount] = []
+    public var history: [StatusChange] = []
+
+    public var created: String {
+        for statusChange in history {
+            if statusChange.status == "pending" { return statusChange.creationDate }
+        }
+
+        return ""
+    }
+    public var accepted: String {
+        for statusChange in history {
+            if statusChange.status == "accepted" { return statusChange.creationDate }
+        }
+
+        return ""
+    }
     
     public var socialIdDict: [String:String] {
         get {
@@ -28,45 +42,22 @@ public class Transfer: JSONConvertible {
             return dict
         }
     }
-    
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "socialId" {
-                guard let arrSocial = value as? [[String:String]] else { continue }
 
-                self.socialId = []
-                
-                for social in arrSocial {
-                    let account = SocialAccount()
-                    account.applyJSON(social)
-                    
-                    self.socialId.append(account)
-                }
-                
-                continue
-            }
-            
-            if key == "history" {
-                guard let history = value as? [[String:String]] else { continue }
-                
-                for statusChange in history {
-                    guard let status = statusChange["status"],
-                        let date = statusChange["creationDate"]
-                        else {
-                            continue
-                    }
-                    
-                    switch status {
-                    case "pending": self.created = date
-                    case "accepted": self.accepted = date
-                    default: break
-                    }
-                }
-                
-                continue
-            }
-            
-            applyKey(key, value: value)
-        }
+    public class StatusChange: NSObject, Codable {
+        public var status: String = ""
+        public var creationDate: String = ""
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
+        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        picture = try container.decodeIfPresent(String.self, forKey: .picture) ?? ""
+        transferId = try container.decodeIfPresent(Int.self, forKey: .transferId) ?? 0
+        history = try container.decodeIfPresent([StatusChange].self, forKey: .history) ?? []
+        socialId = try container.decodeIfPresent([SocialAccount].self, forKey: .socialId) ?? []
     }
 }

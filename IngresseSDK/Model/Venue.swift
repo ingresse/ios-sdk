@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Venue: JSONConvertible {
+public class Venue: NSObject, Codable {
     public var id: Int = 0
     public var city: String = ""
     public var complement: String = ""
@@ -17,23 +17,47 @@ public class Venue: JSONConvertible {
     public var street: String = ""
     public var zipCode: String = ""
     public var hidden: Bool = false
-    public var latitude: Double = 0.0
-    public var longitude: Double = 0.0
+    public var location: [Double] = [0.0 , 0.0]
+    public var lat: Double?
+    public var long: Double?
 
-    public override func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "location" {
-                guard
-                    let location = value as? [Double],
-                    location.count >= 2
-                    else { continue }
+    public var latitude: Double {
+        return lat ?? location[0]
+    }
+    public var longitude: Double {
+        return long ?? location[1]
+    }
 
-                applyKey("latitude", value: location[0])
-                applyKey("longitude", value: location[1])
-                continue
-            }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case city
+        case complement
+        case country
+        case crossStreet
+        case name
+        case state
+        case street
+        case zipCode
+        case hidden
+        case location
+        case lat = "latitude"
+        case long = "longitude"
+    }
 
-            applyKey(key, value: value)
-        }
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        city = try container.decodeIfPresent(String.self, forKey: .city) ?? ""
+        complement = try container.decodeIfPresent(String.self, forKey: .complement) ?? ""
+        country = try container.decodeIfPresent(String.self, forKey: .country) ?? ""
+        crossStreet = try container.decodeIfPresent(String.self, forKey: .crossStreet) ?? ""
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        state = try container.decodeIfPresent(String.self, forKey: .state) ?? ""
+        street = try container.decodeIfPresent(String.self, forKey: .street) ?? ""
+        zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
+        hidden = try container.decodeIfPresent(Bool.self, forKey: .hidden) ?? false
+        location = try container.decodeIfPresent([Double].self, forKey: .location) ?? [0.0 , 0.0]
+        lat = try container.decodeIfPresent(Double.self, forKey: .lat) ?? 0.0
+        long = try container.decodeIfPresent(Double.self, forKey: .long) ?? 0.0
     }
 }

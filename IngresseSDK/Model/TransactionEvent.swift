@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class TransactionEvent: JSONConvertible {
+public class TransactionEvent: NSObject, Codable {
     public var id: String = ""
 
     public var title: String = ""
@@ -15,28 +15,26 @@ public class TransactionEvent: JSONConvertible {
     public var link: String = ""
     public var poster: String = ""
 
-    public var venueName: String = ""
+    public var venue: Venue?
 
     public var saleEnabled: Bool = false
     public var taxToCostumer: Int = 0
 
-    override public func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if key == "venue" {
-                guard let venue = value as? [String:Any] else { continue }
+    public class Venue: NSObject, Codable {
+        public var name: String = ""
+    }
 
-                self.venueName = venue["name"] as? String ?? ""
-                continue
-            }
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
+        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
+        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
+        taxToCostumer = try container.decodeIfPresent(Int.self, forKey: .taxToCostumer) ?? 0
+        saleEnabled = try container.decodeIfPresent(Bool.self, forKey: .saleEnabled) ?? false
 
-            if key == "saleEnabled" {
-                guard let enabled = value as? Int else { continue }
-
-                self.saleEnabled = enabled == 1
-                continue
-            }
-
-            applyKey(key, value: value)
-        }
+        venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
     }
 }

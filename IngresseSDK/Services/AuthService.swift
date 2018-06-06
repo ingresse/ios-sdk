@@ -159,7 +159,7 @@ public class AuthService: BaseService {
     ///   - token: hash received from email
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func validateHash(_ token: String, email: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+    public func validateHash(_ token: String, email: String, onSuccess: @escaping ()->(), onError: @escaping errorHandler) {
 
         let url = URLBuilder(client: client)
             .setPath("recover-validate")

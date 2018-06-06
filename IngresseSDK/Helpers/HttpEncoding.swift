@@ -38,4 +38,14 @@ extension Dictionary {
 
         return parameterArray.joined(separator: "&")
     }
+
+    func toData() -> Data? {
+        return try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+    }
+}
+
+extension Array {
+    func toData() -> Data? {
+        return try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+    }
 }

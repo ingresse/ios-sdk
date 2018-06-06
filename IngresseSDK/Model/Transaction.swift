@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Transaction: JSONConvertible {
+public class Transaction: NSObject, Decodable {
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
@@ -31,65 +31,79 @@ public class Transaction: JSONConvertible {
     public var creationdate: String = ""
     public var modificationdate: String = ""
 
-    public var customer: User = User()
-    public var event: TransactionEvent = TransactionEvent()
-    public var session: TransactionSession = TransactionSession()
+    public var customer: User?
+    public var event: TransactionEvent?
+    public var session: TransactionSession?
 
     public var bankbillet_url: String = ""
 
     public var token: String = ""
 
-    public var basket: [TransactionTicket] = []
+    public var basket: Basket?
 
-    public var refund: Refund = Refund()
-    public var hasRefund: Bool = false
+    public var refund: Refund?
+    public var hasRefund: Bool {
+        return refund != nil
+    }
 
-    override public func applyJSON(_ json: [String : Any]) {
-        for (key,value) in json {
-            if ["event", "session", "customer", "refund"].contains(key) {
-                guard let obj = value as? [String:Any] else { continue }
+    public class Basket: NSObject, Codable {
+        public var tickets: [TransactionTicket] = []
+    }
 
-                switch key {
-                case "event": self.event.applyJSON(obj)
-                case "session": self.session.applyJSON(obj)
-                case "customer": self.customer.applyJSON(obj)
-                case "refund":
-                    self.hasRefund = true
-                    self.refund.applyJSON(obj)
-                default: break
-                }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case status
+        case transactionId
+        case operatorId
+        case salesgroupId
+        case app_id
+        case paymenttype
+        case paymentoption
+        case paymentdetails
+        case creditCard
+        case totalPaid
+        case sum_up
+        case paymentTax
+        case interest
+        case taxToCostumer
+        case installments
+        case creationdate
+        case modificationdate
+        case customer
+        case event
+        case session
+        case bankbillet_url
+        case token
+        case basket
+        case refund
+    }
 
-                continue
-            }
-
-            if key == "basket" {
-                guard
-                    let basket = value as? [String:Any],
-                    let tickets = basket["tickets"] as? [[String:Any]]
-                    else {
-                        continue
-                }
-
-                for item in tickets {
-                    let ticket = TransactionTicket()
-                    ticket.applyJSON(item)
-
-                    self.basket.append(ticket)
-                }
-
-                continue
-            }
-
-            if key == "creditCard" {
-                guard let card = json[key] as? [String:Any] else { continue }
-
-                self.creditCard = PaymentCard()
-                self.creditCard?.applyJSON(card)
-
-                continue
-            }
-
-            applyKey(key, value: value)
-        }
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
+        operatorId = try container.decodeIfPresent(String.self, forKey: .operatorId) ?? ""
+        salesgroupId = try container.decodeIfPresent(Int.self, forKey: .salesgroupId) ?? 0
+        transactionId = try container.decodeIfPresent(String.self, forKey: .transactionId) ?? ""
+        app_id = try container.decodeIfPresent(Int.self, forKey: .app_id) ?? -1
+        paymenttype = try container.decodeIfPresent(String.self, forKey: .paymenttype) ?? ""
+        paymentoption = try container.decodeIfPresent(String.self, forKey: .paymentoption) ?? ""
+        paymentdetails = try container.decodeIfPresent(String.self, forKey: .paymentdetails) ?? ""
+        creditCard = try container.decodeIfPresent(PaymentCard.self, forKey: .creditCard)
+        totalPaid = try container.decodeIfPresent(Double.self, forKey: .totalPaid) ?? 0.0
+        sum_up = try container.decodeIfPresent(Double.self, forKey: .sum_up) ?? 0.0
+        paymentTax = try container.decodeIfPresent(Double.self, forKey: .paymentTax) ?? 0.0
+        interest = try container.decodeIfPresent(Int.self, forKey: .interest) ?? 0
+        taxToCostumer = try container.decodeIfPresent(Int.self, forKey: .taxToCostumer) ?? 0
+        installments = try container.decodeIfPresent(Int.self, forKey: .installments) ?? 1
+        creationdate = try container.decodeIfPresent(String.self, forKey: .creationdate) ?? ""
+        modificationdate = try container.decodeIfPresent(String.self, forKey: .modificationdate) ?? ""
+        customer = try container.decodeIfPresent(User.self, forKey: .customer)
+        event = try container.decodeIfPresent(TransactionEvent.self, forKey: .event)
+        session = try container.decodeIfPresent(TransactionSession.self, forKey: .session)
+        bankbillet_url = try container.decodeIfPresent(String.self, forKey: .bankbillet_url) ?? ""
+        token = try container.decodeIfPresent(String.self, forKey: .token) ?? ""
+        basket = try container.decodeIfPresent(Basket.self, forKey: .basket)
+        refund = try container.decodeIfPresent(Refund.self, forKey: .refund)
     }
 }
