@@ -48,6 +48,11 @@ public class URLBuilder: NSObject {
     
     public func build() -> String {
         var url = buildWithoutKeys()
+        
+        if !parameters.isEmpty {
+            url += "&"
+        }
+        
         url += generateAuthString(publicKey: publicKey, privateKey: privateKey)
 
         return url
@@ -60,7 +65,6 @@ public class URLBuilder: NSObject {
 
         if !parameters.isEmpty {
             url += parameters.stringFromHttpParameters()
-            url += "&"
         }
 
         return url
