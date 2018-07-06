@@ -57,7 +57,7 @@ public class Venue: NSObject, Codable {
         zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
         hidden = try container.decodeIfPresent(Bool.self, forKey: .hidden) ?? false
         location = try container.decodeIfPresent([Double].self, forKey: .location) ?? [0.0 , 0.0]
-        lat = try container.decodeIfPresent(Double.self, forKey: .lat) ?? 0.0
-        long = try container.decodeIfPresent(Double.self, forKey: .long) ?? 0.0
+        lat = try container.decodeIfPresent(Double.self, forKey: .lat)
+        long = try container.decodeIfPresent(Double.self, forKey: .long)
     }
 }
