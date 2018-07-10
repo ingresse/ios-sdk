@@ -6,7 +6,49 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
+/// Login by company
+///
+/// - Parameters:
+///   - email: user's email
+///   - pass: password
+///   - onSuccess: Success callback
+///   - onError: Fail callback
 public class AuthService: BaseService {
+
+    public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> (), onError: @escaping (_ error: APIError) -> ()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("company-login")
+            .build()
+
+        let params = ["email": email,
+                      "password": pass]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
+
+            guard let logged = response["status"] as? Bool,
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                    onError(error)
+                    return
+            }
+
+            guard let data = response["data"] as? [[String:Any]],
+            let companyArray = JSONDecoder().decodeArray(of: [CompanyData].self, from: data)
+            else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(companyArray)
+
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
 
     /// Login with email and password
     ///
@@ -114,7 +156,7 @@ public class AuthService: BaseService {
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
         
-        let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId"
+        let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type"
         
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -123,9 +165,21 @@ public class AuthService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response: [String:Any]) in
-            IngresseUser.fillData(userData: response)
+            guard let data = response as? [String:Any],
+                let userData = JSONDecoder().decodeDict(of: UserData.self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            let user = IngresseUser()
+            user.data = userData
+            user.userId = Int(userId) ?? -1
+            user.token = userToken
+            IngresseUser.user = user
+
+            onSuccess(user)
             
-            onSuccess(IngresseUser.user!)
         }) { (error: APIError) in
             onError(error)
         }
