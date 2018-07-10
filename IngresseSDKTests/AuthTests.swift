@@ -19,7 +19,10 @@ class AuthTests: XCTestCase {
         super.setUp()
 
         restClient = MockClient()
-        client = IngresseClient(publicKey: "1234", privateKey: "2345", restClient: restClient)
+        //pegar chaves que estão no app
+        client = IngresseClient(publicKey: "e9424e72263bcab5d37ecb04e05505cf91d67639", privateKey: "5e09cb45c8665fff9fd0d5e043d0152191943a31", urlHost: "https://test-api.ingresse.com/")
+        //restclient = null
+
         service = IngresseService(client: client)
     }
 

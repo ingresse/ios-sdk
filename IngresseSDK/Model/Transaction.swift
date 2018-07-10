@@ -17,12 +17,12 @@ public class Transaction: NSObject, Decodable {
     public var creditCard: PaymentCard?
 
     public var totalPaid: Double = 0.0
-    public var sum_up: Double = 0.0
-    public var paymentTax: Double = 0.0
+    //public var sum_up: Double = 0.0
+    //public var paymentTax: Double = 0.0
 
-    public var interest: Int = 0
-    public var taxToCostumer: Int = 0
-    public var installments: Int = 1
+    //public var interest: Int = 0
+    //public var taxToCostumer: Int = 0
+    //public var installments: Int = 1
 
     public var creationdate: String = ""
     public var modificationdate: String = ""
@@ -54,11 +54,11 @@ public class Transaction: NSObject, Decodable {
         case paymentdetails
         case creditCard
         case totalPaid
-        case sum_up
-        case paymentTax
-        case interest
-        case taxToCostumer
-        case installments
+        //case sum_up
+        //case paymentTax
+        //case interest
+        //case taxToCostumer
+        //case installments
         case creationdate
         case modificationdate
         case customer
@@ -106,8 +106,13 @@ public class Transaction: NSObject, Decodable {
             basket = JSONDecoder().decodeDict(of: TransactionBasket.self, from: ["tickets": json])
         }
     }
-    
+
     public static func fromJSON(_ json: [String: Any]) -> Transaction? {
         return JSONDecoder().decodeDict(of: Transaction.self, from: json)
     }
+
+    public static func fromJSON(_ json: [String:Any]) -> Transaction? {
+        return JSONDecoder().decodeDict(of: Transaction.self, from: json)
+    }
+
 }

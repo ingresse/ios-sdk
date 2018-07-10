@@ -33,4 +33,23 @@ public class TransactionService: BaseService {
             onError(error)
         }
     }
+
+    public func getCheckinStatus(_ ticketCode: String, userToken: String, onSuccess: @escaping (_ checkinSession: CheckinSession)->(), onError: @escaping (_ error: APIError) -> ()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("ticket/\(ticketCode)/status")
+            .addParameter(key: "userToken", value: userToken)
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let checkinSession = JSONDecoder().decodeDict(of: CheckinSession.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            onSuccess(checkinSession)
+        }) { (error) in
+            onError(error)
+        }
+    }
 }

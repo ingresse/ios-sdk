@@ -13,8 +13,8 @@ public class TransactionEvent: NSObject, Codable {
 
     public var venue: Venue?
 
-    public var saleEnabled: Bool = false
-    public var taxToCostumer: Int = 0
+    //public var saleEnabled: Bool = false
+    //public var taxToCostumer: Int = 0
 
     public class Venue: NSObject, Codable {
         public var name: String = ""
