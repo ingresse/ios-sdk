@@ -26,8 +26,7 @@ public class CheckinStatus: NSObject, Decodable {
         id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
         timestamp = try container.decodeIfPresent(Int.self, forKey: .timestamp) ?? -1
         operation = try container.decodeIfPresent(String.self, forKey: .operation) ?? ""
-        operatorUser = try container.decodeIfPresent(User.self, forKey: .operatorUser)
-        holder = try container.decodeIfPresent(User.self, forKey: .holder)
+        operatorUser = try container.decodeIfPresent(Operator.self, forKey: .operatorUser)
+        holder = try container.decodeIfPresent(Owner.self, forKey: .holder)
     }
-
 }
