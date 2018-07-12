@@ -29,7 +29,6 @@ public class DateTime: NSObject, Codable {
         case dateTime
     }
     
-    
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         tms = try container.decodeIfPresent(String.self, forKey: .tms)
@@ -38,4 +37,3 @@ public class DateTime: NSObject, Codable {
         dateTime = try container.decodeIfPresent(String.self, forKey: .dateTime)
     }
 }
-

@@ -6,15 +6,15 @@
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
-/// Login by company
-///
-/// - Parameters:
-///   - email: user's email
-///   - pass: password
-///   - onSuccess: Success callback
-///   - onError: Fail callback
 public class AuthService: BaseService {
 
+    /// Login by company
+    ///
+    /// - Parameters:
+    ///   - email: user's email
+    ///   - pass: password
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
     public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> (), onError: @escaping (_ error: APIError) -> ()) {
 
         let url = URLBuilder(client: client)

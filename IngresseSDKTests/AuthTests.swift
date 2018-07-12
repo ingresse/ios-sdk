@@ -30,26 +30,6 @@ class AuthTests: XCTestCase {
         IngresseUser.user = nil
     }
 
-    func testCompanyLoginSuccess() {
-        let loginExpectation = expectation(description: "loginCallback")
-
-        var logged = false
-        var responseError: APIError?
-
-        service.auth.companyLogin("testeingresseadm@gmail.com", andPassword: "#jpyw5Ki", onSuccess: { (companyData) in
-            logged = true
-            loginExpectation.fulfill()
-        }) { (error) in
-            responseError = error
-            logged = false
-            loginExpectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 60) { (error:Error?) in
-            XCTAssertTrue(logged, "\(responseError!.message)")
-        }
-    }
-
     func testLoginSuccess() {
         let loginExpectation = expectation(description: "loginCallback")
 

@@ -1,8 +1,4 @@
 //
-//  Application.swift
-//  IngresseSDK
-//
-
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
@@ -20,5 +16,4 @@ public class CompanyApp: NSObject, Codable {
         publicKey = try container.decodeIfPresent(String.self, forKey: .publicKey) ?? ""
         privateKey = try container.decodeIfPresent(String.self, forKey: .privateKey) ?? ""
     }
-    
 }

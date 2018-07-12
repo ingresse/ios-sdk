@@ -15,9 +15,10 @@ public class IngresseService: NSObject {
     }
     
     // Lazy vars, only created when needed
-    public var auth: AuthService {
+    public lazy var auth: AuthService =  {
+        [unowned self] in
         return AuthService(self.client)
-    }
+        }()
     
     public lazy var user: UserService = {
         [unowned self] in

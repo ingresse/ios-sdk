@@ -1,8 +1,4 @@
 //
-//  CompanyData.swift
-//  IngresseSDK
-//
-//  Created by Mobile Developer on 6/25/18.
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
@@ -30,5 +26,3 @@ public class CompanyData: NSObject, Decodable {
         application = try container.decodeIfPresent(CompanyApp.self, forKey: .application)
     }
 }
-
-
