@@ -9,8 +9,8 @@
 public class TransactionSession: NSObject, Codable {
     public var id: String = ""
     public var dateTime: DateTime?
-
 }
+
 public class DateTime: NSObject, Codable {
     public var date: String = ""
     public var time: String = ""
