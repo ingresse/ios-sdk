@@ -102,7 +102,7 @@ public class Transaction: NSObject, Decodable {
         basket = try container.decodeIfPresent(TransactionBasket.self, forKey: .basket)
         refund = try container.decodeIfPresent(Refund.self, forKey: .refund)
     }
-
+    
     public static func fromJSON(_ json: [String: Any]) -> Transaction? {
         return JSONDecoder().decodeDict(of: Transaction.self, from: json)
     }
