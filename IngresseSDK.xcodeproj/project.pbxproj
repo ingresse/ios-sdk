@@ -623,6 +623,7 @@
 				6246D6B61FD7086E0012FAD9 /* Planner.swift in Sources */,
 				627485651F054ACF009AE812 /* Refund.swift in Sources */,
 				6237022F1F72D1D8006A1335 /* EventAttributes.swift in Sources */,
+				752FFBD220F6C7F600BCF285 /* TransactionSessions.swift in Sources */,
 				627485691F056CD1009AE812 /* TransactionEvent.swift in Sources */,
 				627485671F054AF1009AE812 /* TransactionTicket.swift in Sources */,
 				6284F8601ED7601E00E5FECF /* CheckinSyncDelegate.swift in Sources */,
