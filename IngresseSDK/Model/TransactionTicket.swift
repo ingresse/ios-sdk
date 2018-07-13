@@ -4,22 +4,19 @@
 
 public class TransactionTicket: NSObject, Decodable {
     public var id: Int = 0
-
     public var code: String = ""
     public var name: String = ""
     public var checked: String = ""
     public var lastUpdate: String = ""
-
     public var transferred: Bool = false
-
     public var ticket: String = ""
     public var type: String = ""
     public var ticketId: String = ""
     public var typeId: String = ""
-
     public var price: String = ""
     public var tax: String = ""
     public var percentTax: Int = 0
+    public var sessions: [BasketSessions] = []
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -53,5 +50,6 @@ public class TransactionTicket: NSObject, Decodable {
         price = try container.decodeIfPresent(String.self, forKey: .price) ?? ""
         tax = try container.decodeIfPresent(String.self, forKey: .tax) ?? ""
         percentTax = container.safeDecodeTo(Int.self, forKey: .percentTax) ?? 0
+        sessions = try container.decodeIfPresent([BasketSessions].self, forKey: .sessions) ?? []
     }
 }
