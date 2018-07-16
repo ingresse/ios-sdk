@@ -1,8 +1,4 @@
 //
-//  TransactionService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 6/29/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -34,9 +30,17 @@ public class TransactionService: BaseService {
         }
     }
 
+    /// Get status from user tickets
+    ///
+    /// - Parameters:
+    ///   - ticketCode: ticket code
+    ///   - userToken: user Token
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
     public func getCheckinStatus(_ ticketCode: String, userToken: String, onSuccess: @escaping (_ checkinSession: [CheckinSession])->(), onError: @escaping (_ error: APIError) -> ()) {
+        let ticket: String = ticketCode.stringWithPercentEncoding()!
         let url = URLBuilder(client: client)
-            .setPath("ticket/\(ticketCode.stringWithPercentEncoding()!)/status")
+            .setPath("ticket/\(ticket)/status")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
