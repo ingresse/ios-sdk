@@ -22,10 +22,10 @@ public class Venue: NSObject, Codable {
     public var long: Double?
 
     public var latitude: Double {
-        return lat ?? location[0]
+        return lat ?? location[1]
     }
     public var longitude: Double {
-        return long ?? location[1]
+        return long ?? location[0]
     }
 
     enum CodingKeys: String, CodingKey {
