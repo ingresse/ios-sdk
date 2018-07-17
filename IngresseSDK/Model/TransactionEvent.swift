@@ -1,8 +1,4 @@
 //
-//  TransactionEvent.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 6/29/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -32,8 +28,8 @@ public class TransactionEvent: NSObject, Codable {
         title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
         status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
         poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
-        taxToCostumer = try container.decodeIfPresent(Int.self, forKey: .taxToCostumer) ?? 0
-        saleEnabled = try container.decodeIfPresent(Bool.self, forKey: .saleEnabled) ?? false
+        taxToCostumer = container.safeDecodeTo(Int.self, forKey: .taxToCostumer) ?? 0
+        saleEnabled = container.safeDecodeTo(Bool.self, forKey: .saleEnabled) ?? false
 
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
     }

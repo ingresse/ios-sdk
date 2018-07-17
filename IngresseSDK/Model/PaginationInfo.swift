@@ -1,16 +1,12 @@
 //
-//  PaginationInfo.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 5/12/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
 public class PaginationInfo: NSObject, Codable {
-    public var currentPage: Int
-    public var lastPage: Int
-    public var totalResults: Int
-    public var pageSize: Int
+    public var currentPage: Int = 0
+    public var lastPage: Int = 0
+    public var totalResults: Int = 0
+    public var pageSize: Int = 0
     
     public var isLastPage: Bool {
         get {
@@ -32,10 +28,11 @@ public class PaginationInfo: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        currentPage = try container.decodeIfPresent(Int.self, forKey: .currentPage) ?? 0
-        lastPage = try container.decodeIfPresent(Int.self, forKey: .lastPage) ?? 0
-        totalResults = try container.decodeIfPresent(Int.self, forKey: .totalResults) ?? 0
-        pageSize = try container.decodeIfPresent(Int.self, forKey: .pageSize) ?? 0
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+
+        currentPage = container.safeDecodeTo(Int.self, forKey: .currentPage) ?? 0
+        lastPage = container.safeDecodeTo(Int.self, forKey: .lastPage) ?? 0
+        totalResults = container.safeDecodeTo(Int.self, forKey: .totalResults) ?? 0
+        pageSize = container.safeDecodeTo(Int.self, forKey: .pageSize) ?? 0
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class UserData: Codable {
+public class UserData: NSObject, Codable {
     public var name: String
     public var lastname: String
     public var email: String
@@ -20,6 +20,7 @@ public class UserData: Codable {
     public var number: String
     public var fbUserId: String
     public var verified: Bool
+    public var type: String
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -36,5 +37,6 @@ public class UserData: Codable {
         number = try container.decodeIfPresent(String.self, forKey: .number) ?? ""
         fbUserId = try container.decodeIfPresent(String.self, forKey: .fbUserId) ?? ""
         verified = try container.decodeIfPresent(Bool.self, forKey: .verified) ?? false
+        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
     }
 }

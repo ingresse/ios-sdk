@@ -1,8 +1,4 @@
 //
-//  Transaction.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 6/29/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -39,15 +35,11 @@ public class Transaction: NSObject, Decodable {
 
     public var token: String = ""
 
-    public var basket: Basket?
+    public var basket: TransactionBasket?
 
     public var refund: Refund?
     public var hasRefund: Bool {
         return refund != nil
-    }
-
-    public class Basket: NSObject, Codable {
-        public var tickets: [TransactionTicket] = []
     }
 
     enum CodingKeys: String, CodingKey {
@@ -79,7 +71,8 @@ public class Transaction: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+
         id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
         status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
         operatorId = try container.decodeIfPresent(String.self, forKey: .operatorId) ?? ""
@@ -90,12 +83,12 @@ public class Transaction: NSObject, Decodable {
         paymentoption = try container.decodeIfPresent(String.self, forKey: .paymentoption) ?? ""
         paymentdetails = try container.decodeIfPresent(String.self, forKey: .paymentdetails) ?? ""
         creditCard = try container.decodeIfPresent(PaymentCard.self, forKey: .creditCard)
-        totalPaid = try container.decodeIfPresent(Double.self, forKey: .totalPaid) ?? 0.0
-        sum_up = try container.decodeIfPresent(Double.self, forKey: .sum_up) ?? 0.0
-        paymentTax = try container.decodeIfPresent(Double.self, forKey: .paymentTax) ?? 0.0
-        interest = try container.decodeIfPresent(Int.self, forKey: .interest) ?? 0
-        taxToCostumer = try container.decodeIfPresent(Int.self, forKey: .taxToCostumer) ?? 0
-        installments = try container.decodeIfPresent(Int.self, forKey: .installments) ?? 1
+        totalPaid = container.safeDecodeTo(Double.self, forKey: .totalPaid) ?? 0.0
+        sum_up = container.safeDecodeTo(Double.self, forKey: .sum_up) ?? 0.0
+        paymentTax = container.safeDecodeTo(Double.self, forKey: .paymentTax) ?? 0.0
+        interest = container.safeDecodeTo(Int.self, forKey: .interest) ?? 0
+        taxToCostumer = container.safeDecodeTo(Int.self, forKey: .taxToCostumer) ?? 0
+        installments = container.safeDecodeTo(Int.self, forKey: .installments) ?? 1
         creationdate = try container.decodeIfPresent(String.self, forKey: .creationdate) ?? ""
         modificationdate = try container.decodeIfPresent(String.self, forKey: .modificationdate) ?? ""
         customer = try container.decodeIfPresent(User.self, forKey: .customer)
@@ -103,7 +96,18 @@ public class Transaction: NSObject, Decodable {
         session = try container.decodeIfPresent(TransactionSession.self, forKey: .session)
         bankbillet_url = try container.decodeIfPresent(String.self, forKey: .bankbillet_url) ?? ""
         token = try container.decodeIfPresent(String.self, forKey: .token) ?? ""
-        basket = try container.decodeIfPresent(Basket.self, forKey: .basket)
         refund = try container.decodeIfPresent(Refund.self, forKey: .refund)
+
+        if let jsonBasket = try? container.decodeIfPresent(TransactionBasket.self, forKey: .basket) {
+            basket = jsonBasket
+        } else {
+            let tickets = try? container.decodeIfPresent([TransactionTicket].self, forKey: .basket) ?? []
+            let json = tickets ?? []
+            basket = JSONDecoder().decodeDict(of: TransactionBasket.self, from: ["tickets": json])
+        }
+    }
+    
+    public static func fromJSON(_ json: [String: Any]) -> Transaction? {
+        return JSONDecoder().decodeDict(of: Transaction.self, from: json)
     }
 }

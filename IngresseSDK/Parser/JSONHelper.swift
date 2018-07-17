@@ -1,8 +1,4 @@
 //
-//  JSONHelper.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 3/5/18.
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
@@ -21,6 +17,34 @@ extension JSONDecoder {
             return try self.decode(type, from: obj)
         } catch {
             print(error)
+        }
+
+        return nil
+    }
+}
+
+extension KeyedDecodingContainer where K : CodingKey {
+    public func safeDecodeTo<T>(_ type: T.Type, forKey key: K) -> T? where T: Decodable {
+        if let firstTry = try? decodeIfPresent(type, forKey: key), firstTry != nil {
+            return firstTry
+        }
+
+        guard let stringTry = try? decodeIfPresent(String.self, forKey: key),
+            stringTry != nil,
+            stringTry != "<null>" else {
+            return nil
+        }
+
+        if T.self == Double.self {
+            return Double(stringTry!) as? T
+        }
+
+        if T.self == Int.self {
+            return Int(stringTry!) as? T
+        }
+
+        if T.self == Bool.self {
+            return (stringTry == "1" || stringTry == "true") as? T
         }
 
         return nil
