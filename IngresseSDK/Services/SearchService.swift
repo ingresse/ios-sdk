@@ -39,4 +39,38 @@ public class SearchService: BaseService {
             onError(error)
         }
     }
+
+    public func getSearch(searchTerm: String,
+                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int)->(),
+                          onError: @escaping (_ error: IngresseSDK.APIError)->()) {
+
+        let categories = ["event", "featured", "festas_e_baladas", "universitario", "shows_e_festivais", "teatro"]
+        //let page: ElasticPagination
+
+        let url = URLBuilder(client: client)
+            .setHost("https://hml-event.ingresse.com/")
+            .setPath("search/company/1")
+            //.addParameter(key: "state", value: place)
+            //.addParameter(key: "size", value: page.size)
+            //page.currentOffset)
+            .buildWithoutKeys()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let total = response["total"] as? Int,
+                let hits = response["hits"] as? [[String:Any]],
+                let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            //var pagination = page
+            //pagination.total = total
+
+            onSuccess(events, total)
+        }) { (error) in
+            onError(error)
+        }
+    }
 }
