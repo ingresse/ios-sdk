@@ -39,15 +39,11 @@ public class Transaction: NSObject, Decodable {
 
     public var token: String = ""
 
-    public var basket: Basket?
+    public var basket: TransactionBasket?
 
     public var refund: Refund?
     public var hasRefund: Bool {
         return refund != nil
-    }
-
-    public class Basket: NSObject, Codable {
-        public var tickets: [TransactionTicket] = []
     }
 
     enum CodingKeys: String, CodingKey {
@@ -103,7 +99,11 @@ public class Transaction: NSObject, Decodable {
         session = try container.decodeIfPresent(TransactionSession.self, forKey: .session)
         bankbillet_url = try container.decodeIfPresent(String.self, forKey: .bankbillet_url) ?? ""
         token = try container.decodeIfPresent(String.self, forKey: .token) ?? ""
-        basket = try container.decodeIfPresent(Basket.self, forKey: .basket)
+        basket = try container.decodeIfPresent(TransactionBasket.self, forKey: .basket)
         refund = try container.decodeIfPresent(Refund.self, forKey: .refund)
+    }
+    
+    public static func fromJSON(_ json: [String: Any]) -> Transaction? {
+        return JSONDecoder().decodeDict(of: Transaction.self, from: json)
     }
 }
