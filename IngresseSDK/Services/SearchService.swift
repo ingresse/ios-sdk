@@ -1,8 +1,4 @@
 //
-//  SearchService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -40,19 +36,22 @@ public class SearchService: BaseService {
         }
     }
 
-    public func getSearch(searchTerm: String,
+    /// Search events based on term
+    ///
+    /// - Parameters:
+    ///   - eventTitle: title from required event search
+    public func getEvents(eventTitle: String,
                           onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int)->(),
                           onError: @escaping (_ error: IngresseSDK.APIError)->()) {
 
-        let categories = ["event", "featured", "festas_e_baladas", "universitario", "shows_e_festivais", "teatro"]
-        //let page: ElasticPagination
-
         let url = URLBuilder(client: client)
-            .setHost("https://hml-event.ingresse.com/")
-            .setPath("search/company/1")
-            //.addParameter(key: "state", value: place)
-            //.addParameter(key: "size", value: page.size)
-            //page.currentOffset)
+            .setHost("https://event-search.ingresse.com/")
+            .setPath("1")
+            .addParameter(key: "title", value: eventTitle)
+            .addParameter(key: "size", value: "20")
+            .addParameter(key: "from", value: "now-6h")
+            .addParameter(key: "orderBy", value: "sessions.dateTime")
+            .addParameter(key: "offset", value: "0")
             .buildWithoutKeys()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
@@ -64,9 +63,6 @@ public class SearchService: BaseService {
                     onError(APIError.getDefaultError())
                     return
             }
-
-            //var pagination = page
-            //pagination.total = total
 
             onSuccess(events, total)
         }) { (error) in
