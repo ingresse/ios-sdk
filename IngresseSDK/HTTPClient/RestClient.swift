@@ -16,8 +16,9 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onError: fail callback
     public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
-        
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
+
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             guard error == nil else {
                 let errorData = APIError.Builder()
                     .setCode(0)
@@ -27,7 +28,7 @@ public class RestClient: NSObject, RestClientInterface {
                 onError(errorData)
                 return
             }
-            
+
             do {
                 try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
                     onSuccess(responseData)
@@ -38,6 +39,8 @@ public class RestClient: NSObject, RestClientInterface {
                 onError(APIError.getDefaultError())
             }
         }
+
+        task.resume()
     }
     
     /// REST POST Method using NSURLConnection
@@ -55,13 +58,14 @@ public class RestClient: NSObject, RestClientInterface {
         let body = parameters.stringFromHttpParameters()
         
         request.httpBody = body.data(using: .utf8)
-        
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
+
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             guard error == nil else {
                 onError(APIError.getDefaultError())
                 return
             }
-            
+
             do {
                 try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
                     onSuccess(responseData)
@@ -72,5 +76,7 @@ public class RestClient: NSObject, RestClientInterface {
                 onError(APIError.getDefaultError())
             }
         }
+
+        task.resume()
     }
 }
