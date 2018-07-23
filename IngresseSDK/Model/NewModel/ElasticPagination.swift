@@ -1,8 +1,5 @@
 //
-//  ElasticPagination.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 3/16/18.
+//  Copyright © 2018 Ingresse. All rights reserved.
 //
 
 public struct ElasticPagination {

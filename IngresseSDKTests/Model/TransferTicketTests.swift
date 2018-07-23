@@ -1,8 +1,4 @@
 //
-//  TransferTicketTests.swift
-//  IngresseSDKTests
-//
-//  Created by Rubens Gondek on 2/16/18.
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
@@ -12,16 +8,25 @@ import XCTest
 class TransferTicketTests: XCTestCase {
 
     func testDecode() {
-        var json = ["description": "test string"]
-        json["name"] = "test name"
+        // Given
+        var json = [String: Any]()
+        json["id"] = 1
+        json["guestTypeId"] = 2
+        json["ticketTypeId"] = 3
+        json["description"] = "description"
+        json["name"] = "name"
+        json["type"] = "type"
 
-        guard let obj = JSONDecoder().decodeDict(of: TransferTicket.self, from: json) else {
-            XCTFail("Could not convert object")
-            return
-        }
+        // When
+        let obj = JSONDecoder().decodeDict(of: TransferTicket.self, from: json)
 
-        XCTAssertEqual(obj.desc, "test string")
-        XCTAssertEqual(obj.name, "test name")
+        // Then
+        XCTAssertNotNil(obj)
+        XCTAssertEqual(obj?.id, 1)
+        XCTAssertEqual(obj?.guestTypeId, 2)
+        XCTAssertEqual(obj?.ticketTypeId, 3)
+        XCTAssertEqual(obj?.desc, "description")
+        XCTAssertEqual(obj?.name, "name")
+        XCTAssertEqual(obj?.type, "type")
     }
-
 }

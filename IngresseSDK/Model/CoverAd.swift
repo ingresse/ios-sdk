@@ -1,8 +1,4 @@
 //
-//  CoverAd.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 5/24/18.
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
@@ -16,8 +12,8 @@ public class CoverAd: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
-        url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        image = container.decodeKey(.image, ofType: String.self)
+        url = container.decodeKey(.url, ofType: String.self)
     }
 }

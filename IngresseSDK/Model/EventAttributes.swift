@@ -1,8 +1,4 @@
 //
-//  EventAttributes.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -11,9 +7,10 @@ public class EventAttributes: NSObject, Codable {
     public var ticket_transfer_enabled: Bool = true
     public var ticket_transfer_required: Bool = false
 
-    public func applyJSON(_ json: [String: Any]) {
-        accepted_apps = json["accepted_apps"] as? [String] ?? []
-        ticket_transfer_enabled = json["ticket_transfer_enabled"] as? Bool ?? true
-        ticket_transfer_required = json["ticket_transfer_required"] as? Bool ?? false
+    public required init(from decoder: Decoder) throws {
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        accepted_apps = container.decodeKey(.accepted_apps, ofType: [String].self)
+        ticket_transfer_enabled = container.decodeKey(.ticket_transfer_enabled, ofType: Bool.self)
+        ticket_transfer_required = container.decodeKey(.ticket_transfer_required, ofType: Bool.self)
     }
 }

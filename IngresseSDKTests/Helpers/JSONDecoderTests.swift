@@ -1,8 +1,4 @@
 //
-//  JSONDecoderTests.swift
-//  IngresseSDKTests
-//
-//  Created by Rubens Gondek on 3/7/18.
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
@@ -17,10 +13,13 @@ class JSONDecoderTests: XCTestCase {
     }
 
     func testDecodeDict() {
+        // Given
         let dict: [String:Any] = ["id": 111]
 
+        // When
         let obj = JSONDecoder().decodeDict(of: TestObj.self, from: dict)
 
+        // Then
         XCTAssertNotNil(obj)
     }
 }

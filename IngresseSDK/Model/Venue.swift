@@ -1,8 +1,4 @@
 //
-//  Venue.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 7/19/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -17,15 +13,15 @@ public class Venue: NSObject, Codable {
     public var street: String = ""
     public var zipCode: String = ""
     public var hidden: Bool = false
-    public var location: [Double] = [0.0 , 0.0]
+    public var location: [Double] = [0.0, 0.0]
     public var lat: Double?
     public var long: Double?
 
     public var latitude: Double {
-        return lat ?? location[0]
+        return lat ?? location[1]
     }
     public var longitude: Double {
-        return long ?? location[1]
+        return long ?? location[0]
     }
 
     enum CodingKeys: String, CodingKey {
@@ -46,18 +42,18 @@ public class Venue: NSObject, Codable {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        city = try container.decodeIfPresent(String.self, forKey: .city) ?? ""
-        complement = try container.decodeIfPresent(String.self, forKey: .complement) ?? ""
-        country = try container.decodeIfPresent(String.self, forKey: .country) ?? ""
-        crossStreet = try container.decodeIfPresent(String.self, forKey: .crossStreet) ?? ""
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        state = try container.decodeIfPresent(String.self, forKey: .state) ?? ""
-        street = try container.decodeIfPresent(String.self, forKey: .street) ?? ""
-        zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
-        hidden = try container.decodeIfPresent(Bool.self, forKey: .hidden) ?? false
+        id = container.decodeKey(.id, ofType: Int.self)
+        city = container.decodeKey(.city, ofType: String.self)
+        complement = container.decodeKey(.complement, ofType: String.self)
+        country = container.decodeKey(.country, ofType: String.self)
+        crossStreet = container.decodeKey(.crossStreet, ofType: String.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        state = container.decodeKey(.state, ofType: String.self)
+        street = container.decodeKey(.street, ofType: String.self)
+        zipCode = container.decodeKey(.zipCode, ofType: String.self)
+        hidden = container.decodeKey(.hidden, ofType: Bool.self)
         location = try container.decodeIfPresent([Double].self, forKey: .location) ?? [0.0 , 0.0]
-        lat = try container.decodeIfPresent(Double.self, forKey: .lat) ?? 0.0
-        long = try container.decodeIfPresent(Double.self, forKey: .long) ?? 0.0
+        lat = try container.decodeIfPresent(Double.self, forKey: .lat)
+        long = try container.decodeIfPresent(Double.self, forKey: .long)
     }
 }

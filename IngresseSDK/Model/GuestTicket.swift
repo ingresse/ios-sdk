@@ -17,16 +17,10 @@ public class GuestTicket: NSObject, Decodable {
     public var type: String = ""
     public var guestTypeId: String = ""
     public var seatLocator: String = ""
-    public var checked: String = ""
+    public var checked: Bool = false
     public var lastUpdate: String = ""
     public var soldOnline: String = ""
     public var transferred: Bool = false
-    
-    public var isChecked: Bool {
-        get {
-            return checked == "1"
-        }
-    }
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -52,23 +46,23 @@ public class GuestTicket: NSObject, Decodable {
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
 
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
-        transactionId = try container.decodeIfPresent(String.self, forKey: .transactionId) ?? ""
-        code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
-        userId = try container.decodeIfPresent(String.self, forKey: .userId) ?? ""
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
-        holderUserId = try container.decodeIfPresent(String.self, forKey: .holderUserId) ?? ""
-        holderEmail = try container.decodeIfPresent(String.self, forKey: .holderEmail) ?? ""
-        holderName = try container.decodeIfPresent(String.self, forKey: .holderName) ?? ""
-        ticketId = try container.decodeIfPresent(String.self, forKey: .ticketId) ?? ""
-        ticket = try container.decodeIfPresent(String.self, forKey: .ticket) ?? ""
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        guestTypeId = try container.decodeIfPresent(String.self, forKey: .guestTypeId) ?? ""
-        seatLocator = try container.decodeIfPresent(String.self, forKey: .seatLocator) ?? ""
-        checked = try container.decodeIfPresent(String.self, forKey: .checked) ?? ""
-        lastUpdate = try container.decodeIfPresent(String.self, forKey: .lastUpdate) ?? ""
-        soldOnline = try container.decodeIfPresent(String.self, forKey: .soldOnline) ?? ""
-        transferred = container.safeDecodeTo(Bool.self, forKey: .transferred) ?? false
+        id = container.decodeKey(.id, ofType: String.self)
+        transactionId = container.decodeKey(.transactionId, ofType: String.self)
+        code = container.decodeKey(.code, ofType: String.self)
+        userId = container.decodeKey(.userId, ofType: String.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        email = container.decodeKey(.email, ofType: String.self)
+        holderUserId = container.decodeKey(.holderUserId, ofType: String.self)
+        holderEmail = container.decodeKey(.holderEmail, ofType: String.self)
+        holderName = container.decodeKey(.holderName, ofType: String.self)
+        ticketId = container.decodeKey(.ticketId, ofType: String.self)
+        ticket = container.decodeKey(.ticket, ofType: String.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        guestTypeId = container.decodeKey(.guestTypeId, ofType: String.self)
+        seatLocator = container.decodeKey(.seatLocator, ofType: String.self)
+        checked = container.decodeKey(.checked, ofType: Bool.self)
+        lastUpdate = container.decodeKey(.lastUpdate, ofType: String.self)
+        soldOnline = container.decodeKey(.soldOnline, ofType: String.self)
+        transferred = container.decodeKey(.transferred, ofType: Bool.self)
     }
 }

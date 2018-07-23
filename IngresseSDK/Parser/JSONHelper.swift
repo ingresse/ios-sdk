@@ -49,4 +49,32 @@ extension KeyedDecodingContainer where K : CodingKey {
 
         return nil
     }
+
+    func decodeKey<T:Decodable>(_ key: K, ofType type: T.Type) -> T {
+        return safeDecodeTo(type, forKey: key) ?? defaultValueFor(type)
+    }
+
+    private func defaultValueFor<T:Decodable>(_ type: T.Type) -> T {
+        if T.self == Double.self {
+            return 0.0 as! T
+        }
+
+        if T.self == Int.self {
+            return 0 as! T
+        }
+
+        if T.self == Bool.self {
+            return false as! T
+        }
+
+        if T.self == String.self {
+            return "" as! T
+        }
+
+        if String(describing: T.self).hasPrefix("Array") {
+            return [] as! T
+        }
+
+        return 0 as! T
+    }
 }

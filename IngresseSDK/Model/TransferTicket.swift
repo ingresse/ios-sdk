@@ -1,8 +1,4 @@
 //
-//  TransferTicket.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -24,12 +20,13 @@ public class TransferTicket: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        guestTypeId = try container.decodeIfPresent(Int.self, forKey: .guestTypeId) ?? 0
-        ticketTypeId = try container.decodeIfPresent(Int.self, forKey: .ticketTypeId) ?? 0
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        desc = try container.decodeIfPresent(String.self, forKey: .desc) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+
+        id = container.decodeKey(.id, ofType: Int.self)
+        guestTypeId = container.decodeKey(.guestTypeId, ofType: Int.self)
+        ticketTypeId = container.decodeKey(.ticketTypeId, ofType: Int.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        desc = container.decodeKey(.desc, ofType: String.self)
     }
 }
