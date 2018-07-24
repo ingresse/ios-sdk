@@ -164,13 +164,8 @@ public class AuthService: BaseService {
             .addParameter(key: "fields", value: fieldsValue)
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response: [String:Any]) in
-            guard let data = response as? [String:Any],
-                let userData = JSONDecoder().decodeDict(of: UserData.self, from: data)
-                else {
-                    onError(APIError.getDefaultError())
-                    return
-            }
+        client.restClient.GET(url: url, onSuccess: { (response: [String: Any]) in
+            let userData = JSONDecoder().decodeDict(of: UserData.self, from: response)!
 
             let user = IngresseUser()
             user.data = userData

@@ -1,8 +1,4 @@
 //
-//  EntranceServiceTests.swift
-//  IngresseSDKTests
-//
-//  Created by Rubens Gondek on 6/8/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -11,24 +7,21 @@ import IngresseSDK
 
 class EntranceTests: XCTestCase {
 
-    var restClient : MockClient!
-    var client : IngresseClient!
-    var service : IngresseService!
+    var restClient: MockClient!
+    var client: IngresseClient!
+    var service: EntranceService!
 
     override func setUp() {
         super.setUp()
 
         restClient = MockClient()
         client = IngresseClient(publicKey: "1234", privateKey: "2345", restClient: restClient)
-        service = IngresseService(client: client)
+        service = IngresseService(client: client).entrance
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
+    // MARK: - Get Guest List
     func testGetGuestList() {
+        // Given
         let guestExpectation = expectation(description: "guestListCallback")
 
         var guestListSuccessResponse = [String:Any]()
@@ -40,50 +33,337 @@ class EntranceTests: XCTestCase {
         guestListSuccessResponse["data"] = []
 
         restClient.response = guestListSuccessResponse
+        restClient.shouldFail = false
 
-        let delegate = SpyGuestListSyncDelegate()
+        let delegate = GuestListSyncDelegateSpy()
         delegate.asyncExpectation = guestExpectation
 
-        service.entrance.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
+        // When
+        service.getGuestListOfEvent("12345", sessionId: "23456", from: 9999, userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
 
+        // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
-            if let error = error {
-                XCTFail("waitForExpectationsWithTimeout error: \(error)")
-            }
-
-            XCTAssert(delegate.calledDidSync)
-
-            guard let result = delegate.guestListSyncResult else {
-                XCTFail("no result")
-                return
-            }
-
-            XCTAssertEqual([], result)
+            XCTAssert(delegate.didSyncGuestsPageCalled)
+            XCTAssertEqual(delegate.guestListSyncResult, [])
         }
     }
 
-    func testGetGuestListFail() {
+    func testGetGuestListWrongData() {
+        // Given
         let guestExpectation = expectation(description: "guestListCallback")
 
         var guestListSuccessResponse = [String:Any]()
         guestListSuccessResponse["data"] = nil
 
         restClient.response = guestListSuccessResponse
+        restClient.shouldFail = false
 
-        let delegate = SpyGuestListSyncDelegate()
+        let delegate = GuestListSyncDelegateSpy()
         delegate.asyncExpectation = guestExpectation
 
-        service.entrance.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
+        // When
+        service.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
 
+        // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
-            if let error = error {
-                XCTFail("waitForExpectationsWithTimeout error: \(error)")
-            }
-
-            XCTAssert(delegate.calledDidFail)
-
+            XCTAssert(delegate.didFailSyncGuestListCalled)
             XCTAssertNil(delegate.guestListSyncResult)
         }
     }
 
+    func testGetGuestListFail() {
+        // Given
+        let guestExpectation = expectation(description: "guestListCallback")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        let delegate = GuestListSyncDelegateSpy()
+        delegate.asyncExpectation = guestExpectation
+
+        // When
+        service.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(delegate.didFailSyncGuestListCalled)
+            XCTAssertNil(delegate.guestListSyncResult)
+            let apiError = delegate.syncFailError
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - Checkin Tickets
+    func testCheckinTickets() {
+        // Given
+        let checkinExpectation = expectation(description: "checkinTickets")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        let delegate = CheckinSyncDelegateSpy()
+        delegate.asyncExpectation = checkinExpectation
+
+        // When
+        service.checkinTickets(["000", "111", "333"], ticketStatus: ["0", "0", "0"], ticketTimestamps: ["999", "999", "999"], eventId: "1234", sessionId: "2345", userToken: "12345-token", delegate: delegate)
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(delegate.didCheckinTicketsCalled)
+            XCTAssertEqual(delegate.checkinResult, [])
+        }
+    }
+
+    func testCheckinTicketsWrongData() {
+        // Given
+        let checkinExpectation = expectation(description: "checkinTickets")
+
+        var response = [String:Any]()
+        response["data"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        let delegate = CheckinSyncDelegateSpy()
+        delegate.asyncExpectation = checkinExpectation
+
+        // When
+        service.checkinTickets(["000", "111", "333"], ticketStatus: ["0", "0", "0"], ticketTimestamps: ["999", "999", "999"], eventId: "1234", sessionId: "2345", userToken: "12345-token", delegate: delegate)
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(delegate.didFailCheckinCalled)
+            XCTAssertNil(delegate.checkinResult)
+        }
+    }
+
+    func testCheckinTicketsFail() {
+        // Given
+        let checkinExpectation = expectation(description: "checkinTickets")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        let delegate = CheckinSyncDelegateSpy()
+        delegate.asyncExpectation = checkinExpectation
+
+        // When
+        service.checkinTickets(["000", "111", "333"], ticketStatus: ["0", "0", "0"], ticketTimestamps: ["999", "999", "999"], eventId: "1234", sessionId: "2345", userToken: "12345-token", delegate: delegate)
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(delegate.didFailCheckinCalled)
+            XCTAssertNil(delegate.checkinResult)
+            let apiError = delegate.syncFailError
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - Get Validation Info
+    func testGetValidationInfo() {
+        // Given
+        let infoExpectation = expectation(description: "validationInfo")
+
+        var response = [String:Any]()
+        response["data"] = [
+            ["code": "000", "status": 3, "lastUpdate": 999, "checked": 1, "owner": nil, "lastCheckin" : nil],
+            ["code": "111", "status": 4, "lastUpdate": 99, "checked": 0, "owner": nil, "lastCheckin" : nil]
+        ]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: CheckinTicket?
+
+        // When
+        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (ticket) in
+            success = true
+            result = ticket
+            infoExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.checked, 1)
+            XCTAssertEqual(result?.code, "000")
+            XCTAssertEqual(result?.lastUpdate, 999)
+            XCTAssertEqual(result?.status, 3)
+            XCTAssertEqual(result?.owner, nil)
+            XCTAssertEqual(result?.lastCheckin, nil)
+        }
+    }
+
+    func testGetValidationInfoWrongData() {
+        // Given
+        let infoExpectation = expectation(description: "validationInfo")
+
+        var response = [String:Any]()
+        response["data"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+            success = false
+            apiError = error
+            infoExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetValidationInfoFail() {
+        // Given
+        let infoExpectation = expectation(description: "validationInfo")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+            success = false
+            apiError = error
+            infoExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - Get Transfer History
+    func testGetTransferHistory() {
+        // Given
+        let transferHistoryExpectation = expectation(description: "transferHistory")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: [TransferHistoryItem]?
+
+        // When
+        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (items) in
+            success = true
+            result = items
+            transferHistoryExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testGetTransferHistoryWrongData() {
+        // Given
+        let transferHistoryExpectation = expectation(description: "transferHistory")
+
+        var response = [String:Any]()
+        response["data"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+            success = false
+            apiError = error
+            transferHistoryExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetTransferHistoryFail() {
+        // Given
+        let transferHistoryExpectation = expectation(description: "transferHistory")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+            success = false
+            apiError = error
+            transferHistoryExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
 }
