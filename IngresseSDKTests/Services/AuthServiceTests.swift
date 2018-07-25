@@ -3,9 +3,9 @@
 //
 
 import XCTest
-import IngresseSDK
+@testable import IngresseSDK
 
-class AuthTests: XCTestCase {
+class AuthServiceTests: XCTestCase {
 
     var restClient : MockClient!
     var client : IngresseClient!
@@ -438,7 +438,7 @@ class AuthTests: XCTestCase {
         }
     }
 
-    // MARK: - Get User Data
+    // MARK: - User Data
     func testGetUserDataFail() {
         // Given
         let userDataExpectation = expectation(description: "userData")

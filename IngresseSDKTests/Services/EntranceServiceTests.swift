@@ -3,9 +3,9 @@
 //
 
 import XCTest
-import IngresseSDK
+@testable import IngresseSDK
 
-class EntranceTests: XCTestCase {
+class EntranceServiceTests: XCTestCase {
 
     var restClient: MockClient!
     var client: IngresseClient!
@@ -19,7 +19,7 @@ class EntranceTests: XCTestCase {
         service = IngresseService(client: client).entrance
     }
 
-    // MARK: - Get Guest List
+    // MARK: - Guest List
     func testGetGuestList() {
         // Given
         let guestExpectation = expectation(description: "guestListCallback")
@@ -178,7 +178,7 @@ class EntranceTests: XCTestCase {
         }
     }
 
-    // MARK: - Get Validation Info
+    // MARK: - Validation Info
     func testGetValidationInfo() {
         // Given
         let infoExpectation = expectation(description: "validationInfo")
@@ -229,7 +229,7 @@ class EntranceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             infoExpectation.fulfill()
@@ -261,7 +261,7 @@ class EntranceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             infoExpectation.fulfill()
@@ -277,7 +277,7 @@ class EntranceTests: XCTestCase {
         }
     }
 
-    // MARK: - Get Transfer History
+    // MARK: - Transfer History
     func testGetTransferHistory() {
         // Given
         let transferHistoryExpectation = expectation(description: "transferHistory")
@@ -319,7 +319,7 @@ class EntranceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             transferHistoryExpectation.fulfill()
@@ -351,7 +351,7 @@ class EntranceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (ticket) in }, onError: { (error) in
+        service.getTransferHistory(ticketId: "123", userToken: "12345-token", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             transferHistoryExpectation.fulfill()
