@@ -1,8 +1,4 @@
 //
-//  TransfersService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -19,6 +15,8 @@ public class TransfersService: BaseService {
     ///   - userID: id of logged user
     ///   - userToken: token of logged user (required)
     ///   - limit: number of items on response
+    ///   - onSuccess: success callback with User array
+    ///   - onError: fail callback with APIError
     public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
         
         let url = URLBuilder(client: client)

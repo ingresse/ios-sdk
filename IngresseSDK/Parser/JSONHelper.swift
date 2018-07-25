@@ -12,14 +12,11 @@ extension JSONDecoder {
     }
 
     private func decodeData<T:Decodable>(of type: T.Type, data: Data?) -> T? {
-        guard let obj = data else { return nil }
-        do {
-            return try self.decode(type, from: obj)
-        } catch {
-            print(error)
-        }
+        guard let obj = data,
+            let decoded = try? self.decode(type, from: obj)
+            else { return nil }
 
-        return nil
+        return decoded
     }
 }
 
