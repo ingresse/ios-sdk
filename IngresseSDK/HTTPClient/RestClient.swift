@@ -1,13 +1,11 @@
 //
-//  RestClient.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/17/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
 public class RestClient: NSObject, RestClientInterface {
     
+    var session = URLSession(configuration: .default)
+
     /// REST GET Method using NSURLConnection
     ///
     /// - Parameters:
@@ -17,7 +15,7 @@ public class RestClient: NSObject, RestClientInterface {
     public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ()) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
+        session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
                 let errorData = APIError.Builder()
                     .setCode(0)
@@ -37,7 +35,7 @@ public class RestClient: NSObject, RestClientInterface {
             } catch {
                 onError(APIError.getDefaultError())
             }
-        }
+            }.resume()
     }
     
     /// REST POST Method using NSURLConnection
@@ -56,9 +54,14 @@ public class RestClient: NSObject, RestClientInterface {
         
         request.httpBody = body.data(using: .utf8)
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue()) { (response:URLResponse?, data:Data?, error:Error?) in
+        session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
-                onError(APIError.getDefaultError())
+                let errorData = APIError.Builder()
+                    .setCode(0)
+                    .setError(error!.localizedDescription)
+                    .build()
+
+                onError(errorData)
                 return
             }
             
@@ -71,6 +74,6 @@ public class RestClient: NSObject, RestClientInterface {
             } catch {
                 onError(APIError.getDefaultError())
             }
-        }
+        }.resume()
     }
 }

@@ -1,8 +1,4 @@
 //
-//  URLBuilderTests.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/13/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
@@ -20,14 +16,12 @@ class URLBuilderTests: XCTestCase {
         builder = URLBuilder(client: client)
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     public func testMakeURL() {
+        // Given
         let authString = builder.generateAuthString(publicKey: "1234", privateKey: "2345")
         let expected = "https://api.ingresse.com/test/?param1=value1&param2=value2&\(authString)"
         
+        // When
         let generated = builder
             .setHost("https://api.ingresse.com/")
             .setPath("test/")
@@ -36,23 +30,28 @@ class URLBuilderTests: XCTestCase {
             .addParameter(key: "param2", value: "value2")
             .build()
         
+        // Then
         XCTAssertEqual(expected, generated)
     }
     
     public func testMakeURLNoParameters() {
+        // Given
         let authString = builder.generateAuthString(publicKey: "1234", privateKey: "2345")
         let expected = "https://api.ingresse.com/test/?\(authString)"
         
+        // When
         let generated = builder
             .setHost("https://api.ingresse.com/")
             .setPath("test/")
             .setKeys(publicKey: "1234", privateKey: "2345")
             .build()
         
+        // Then
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetTimeStamp() {
+        // Given
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         df.timeZone = TimeZone(abbreviation: "GMT")
@@ -60,28 +59,36 @@ class URLBuilderTests: XCTestCase {
         
         let expected = df.string(from: Date()).removingPercentEncoding!
         
+        // When
         let generated = builder.getTimestamp()
         
+        // Then
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetSignature() {
+        // Given
         let timestamp = builder.getTimestamp()
         let data = "1234".appending(timestamp)
         
+        // When
         let expected = HMACSHA1.hash(data, key: "2345").stringWithPercentEncoding()
         let generated = builder.getSignature("1234", "2345", timestamp)
         
+        // Then
         XCTAssertEqual(expected, generated)
     }
     
     public func testGetAuthString() {
+        // Given
         let timestamp = builder.getTimestamp()
         let signature = builder.getSignature("1234", "2345", timestamp)
         
+        // When
         let expected = "publickey=1234&signature=\(signature)&timestamp=\(timestamp)"
         let generated = builder.generateAuthString(publicKey: "1234", privateKey: "2345")
         
+        // Then
         XCTAssertEqual(expected, generated)
     }
 }

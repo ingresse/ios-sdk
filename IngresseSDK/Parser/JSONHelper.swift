@@ -52,10 +52,6 @@ extension KeyedDecodingContainer where K : CodingKey {
     }
 
     private func defaultValueFor<T:Decodable>(_ type: T.Type) -> T {
-        if T.self == Double.self {
-            return 0.0 as! T
-        }
-
         if T.self == Int.self {
             return 0 as! T
         }
@@ -72,6 +68,6 @@ extension KeyedDecodingContainer where K : CodingKey {
             return [] as! T
         }
 
-        return 0 as! T
+        return 0.0 as! T
     }
 }

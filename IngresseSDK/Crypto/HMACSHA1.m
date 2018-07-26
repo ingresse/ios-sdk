@@ -1,8 +1,4 @@
 //
-//  HMACSHA1.m
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/13/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
