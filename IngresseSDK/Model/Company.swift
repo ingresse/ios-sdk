@@ -14,9 +14,9 @@ public class Company: NSObject, Decodable {
     }
     
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        id = container.decodeKey(.id, ofType: Int.self)
+        name = container.decodeKey(.name, ofType: String.self)
         logo = try container.decodeIfPresent(CompanyLogo.self, forKey: .logo)
     }
 }

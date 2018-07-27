@@ -1,8 +1,4 @@
 //
-//  Event.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
@@ -36,18 +32,18 @@ public class Event: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        saleEnabled = try container.decodeIfPresent(Bool.self, forKey: .saleEnabled) ?? false
-        rsvpTotal = try container.decodeIfPresent(Int.self, forKey: .rsvpTotal) ?? 0
-        eventDescription = try container.decodeIfPresent(String.self, forKey: .eventDescription) ?? ""
-        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
-        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
-        rsvp = try container.decodeIfPresent([User].self, forKey: .rsvp) ?? []
-        date = try container.decodeIfPresent([EventDate].self, forKey: .date) ?? []
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        id = container.decodeKey(.id, ofType: Int.self)
+        saleEnabled = container.decodeKey(.saleEnabled, ofType: Bool.self)
+        rsvpTotal = container.decodeKey(.rsvpTotal, ofType: Int.self)
+        eventDescription = container.decodeKey(.eventDescription, ofType: String.self)
+        title = container.decodeKey(.title, ofType: String.self)
+        link = container.decodeKey(.link, ofType: String.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        poster = container.decodeKey(.poster, ofType: String.self)
+        status = container.decodeKey(.status, ofType: String.self)
+        rsvp = container.decodeKey(.rsvp, ofType: [User].self)
+        date = container.decodeKey(.date, ofType: [EventDate].self)
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
     }
 }

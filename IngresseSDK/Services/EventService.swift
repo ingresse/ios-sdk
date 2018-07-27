@@ -1,8 +1,4 @@
 //
-//  EventService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -26,9 +22,7 @@ public class EventService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-                let attributes = EventAttributes()
-            attributes.applyJSON(response)
-            
+            let attributes = JSONDecoder().decodeDict(of: EventAttributes.self, from: response)!
             onSuccess(attributes)
         }) { (error) in
             onError(error)
@@ -117,7 +111,6 @@ public class EventService: BaseService {
         let url = URLBuilder(client: client)
             .setHost("https://hml-event.ingresse.com/")
             .setPath("categories")
-            //            .addParameter(key: "category", value: categories.map{ String($0) }.joined(separator: ","))
             .buildWithoutKeys()
 
         client.restClient.GET(url: url, onSuccess: { (response) in

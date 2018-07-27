@@ -12,14 +12,11 @@ extension JSONDecoder {
     }
 
     private func decodeData<T:Decodable>(of type: T.Type, data: Data?) -> T? {
-        guard let obj = data else { return nil }
-        do {
-            return try self.decode(type, from: obj)
-        } catch {
-            print(error)
-        }
+        guard let obj = data,
+            let decoded = try? self.decode(type, from: obj)
+            else { return nil }
 
-        return nil
+        return decoded
     }
 }
 
@@ -48,5 +45,29 @@ extension KeyedDecodingContainer where K : CodingKey {
         }
 
         return nil
+    }
+
+    func decodeKey<T:Decodable>(_ key: K, ofType type: T.Type) -> T {
+        return safeDecodeTo(type, forKey: key) ?? defaultValueFor(type)
+    }
+
+    private func defaultValueFor<T:Decodable>(_ type: T.Type) -> T {
+        if T.self == Int.self {
+            return 0 as! T
+        }
+
+        if T.self == Bool.self {
+            return false as! T
+        }
+
+        if T.self == String.self {
+            return "" as! T
+        }
+
+        if String(describing: T.self).hasPrefix("Array") {
+            return [] as! T
+        }
+
+        return 0.0 as! T
     }
 }

@@ -34,25 +34,12 @@ extension Date {
     func weekDay() -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let comp = (calendar as NSCalendar).components(.weekday, from: self)
-        let day = comp.weekday
-        switch day! {
-        case 0:
-            return "DOM"
-        case 1:
-            return "SEG"
-        case 2:
-            return "TER"
-        case 3:
-            return "QUA"
-        case 4:
-            return "QUI"
-        case 5:
-            return "SEX"
-        case 6:
-            return "SAB"
-        default:
-            return "---"
-        }
+
+        guard let day = comp.weekday,
+            day > 0 && day <= 7
+            else { return "---" }
+
+        return ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"][day-1]
     }
 }
 

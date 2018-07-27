@@ -1,8 +1,4 @@
 //
-//  IngresseErrorsTests.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/16/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
@@ -22,25 +18,26 @@ class ErrorsTests: XCTestCase {
         errorsDict = SDKErrors.shared.errorDict
     }
 
-    override func tearDown() {
-        super.tearDown()
-    }
-
     func testDefaultError() {
+        // When
         let generated = errors?.getErrorMessage(code: 0)
         let expected = errorsDict["default_no_code"]!
 
+        // Then
         XCTAssertEqual(generated, expected)
     }
 
     func testDefaultErrorWithCode() {
+        // When
         let generated = errors?.getErrorMessage(code: 99999)
         let expected = String(format: errorsDict["default_message"]!, 99999)
 
+        // Then
         XCTAssertEqual(generated, expected)
     }
 
     func testErrorBuilder() {
+        // When
         let error = APIError.Builder()
             .setCode(0)
             .setTitle("Test Title")
@@ -50,6 +47,7 @@ class ErrorsTests: XCTestCase {
             .setCategory("Test Category")
             .build()
 
+        // Then
         XCTAssertEqual(error.code, 0)
         XCTAssertEqual(error.title, "Test Title")
         XCTAssertEqual(error.error, "Test Error")

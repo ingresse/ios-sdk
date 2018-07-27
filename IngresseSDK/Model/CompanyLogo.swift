@@ -14,10 +14,10 @@ public class CompanyLogo: NSObject, Decodable {
     }
     
     public required init(from decoder: Decoder)  throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        small = try container.decodeIfPresent(String.self, forKey: .small) ?? ""
-        medium = try container.decodeIfPresent(String.self, forKey: .medium) ?? ""
-        large = try container.decodeIfPresent(String.self, forKey: .large) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        small = container.decodeKey(.small, ofType: String.self)
+        medium = container.decodeKey(.medium, ofType: String.self)
+        large = container.decodeKey(.large, ofType: String.self)
     }
 }
 

@@ -1,8 +1,4 @@
 //
-//  User.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -32,15 +28,16 @@ public class User: NSObject, Decodable {
     public override init() {}
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        username = try container.decodeIfPresent(String.self, forKey: .username) ?? ""
-        phone = try container.decodeIfPresent(String.self, forKey: .phone) ?? ""
-        cellphone = try container.decodeIfPresent(String.self, forKey: .cellphone) ?? ""
-        picture = try container.decodeIfPresent(String.self, forKey: .picture) ?? ""
-        social = try container.decodeIfPresent([SocialAccount].self, forKey: .social) ?? []
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+
+        id = container.decodeKey(.id, ofType: Int.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        email = container.decodeKey(.email, ofType: String.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        username = container.decodeKey(.username, ofType: String.self)
+        phone = container.decodeKey(.phone, ofType: String.self)
+        cellphone = container.decodeKey(.cellphone, ofType: String.self)
+        picture = container.decodeKey(.picture, ofType: String.self)
+        social = container.decodeKey(.social, ofType: [SocialAccount].self)
     }
 }

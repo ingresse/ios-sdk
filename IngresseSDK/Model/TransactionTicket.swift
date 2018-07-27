@@ -2,7 +2,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class TransactionTicket: NSObject, Decodable {
+public class TransactionTicket: NSObject, Codable {
     public var id: Int = 0
     
     public var code: String = ""
@@ -21,37 +21,21 @@ public class TransactionTicket: NSObject, Decodable {
     public var tax: String = ""
     public var percentTax: Int = 0
 
-    enum CodingKeys: String, CodingKey {
-        case id
-        case code
-        case name
-        case checked
-        case lastUpdate
-        case transferred
-        case ticket
-        case ticketId
-        case type
-        case typeId
-        case price
-        case tax
-        case percentTax
-    }
-
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
 
-        id = container.safeDecodeTo(Int.self, forKey: .id) ?? 0
-        code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        checked = container.safeDecodeTo(Bool.self, forKey: .checked) ?? false
-        lastUpdate = container.safeDecodeTo(Int.self, forKey: .lastUpdate) ?? 0
-        transferred = container.safeDecodeTo(Bool.self, forKey: .transferred) ?? false
-        ticket = try container.decodeIfPresent(String.self, forKey: .ticket) ?? ""
-        ticketId = container.safeDecodeTo(Int.self, forKey: .ticketId) ?? 0
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        typeId = container.safeDecodeTo(Int.self, forKey: .typeId) ?? 0
-        price = try container.decodeIfPresent(String.self, forKey: .price) ?? ""
-        tax = try container.decodeIfPresent(String.self, forKey: .tax) ?? ""
-        percentTax = container.safeDecodeTo(Int.self, forKey: .percentTax) ?? 0
+        id = container.decodeKey(.id, ofType: Int.self)
+        code = container.decodeKey(.code, ofType: String.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        checked = container.decodeKey(.checked, ofType: Bool.self)
+        lastUpdate = container.decodeKey(.lastUpdate, ofType: Int.self)
+        transferred = container.decodeKey(.transferred, ofType: Bool.self)
+        ticket = container.decodeKey(.ticket, ofType: String.self)
+        ticketId = container.decodeKey(.ticketId, ofType: Int.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        typeId = container.decodeKey(.typeId, ofType: Int.self)
+        price = container.decodeKey(.price, ofType: String.self)
+        tax = container.decodeKey(.tax, ofType: String.self)
+        percentTax = container.decodeKey(.percentTax, ofType: Int.self)
     }
 }

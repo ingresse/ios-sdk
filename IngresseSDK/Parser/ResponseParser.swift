@@ -1,8 +1,4 @@
 //
-//  IngresseAPIBuilder.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 
@@ -27,36 +23,32 @@ public class ResponseParser: NSObject {
             throw IngresseException.requestError
         }
 
-        var objData: Any
-
-        do {
-            objData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-        } catch {
-            throw IngresseException.jsonParserError
-        }
-        
-        guard let obj = objData as? [String:Any] else {
+        guard
+            let objData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers),
+            let obj = objData as? [String:Any] else {
             throw IngresseException.jsonParserError
         }
         
         if let responseString = obj["responseData"] as? String {
-            if responseString.contains("[Ingresse Exception Error]") {
-                // API Error
-                guard
-                    let responseError = obj["responseError"] as? [String:Any],
-                    let code = responseError["code"] as? Int,
-                    let message = responseError["message"] as? String,
-                    let category = responseError["category"] as? String
-                    else { throw IngresseException.jsonParserError }
-                
-                let error = APIError.Builder()
-                    .setCode(code)
-                    .setCategory(category)
-                    .setError(message)
-                    .build()
-
-                throw IngresseException.apiError(error: error)
+            if !responseString.contains("[Ingresse Exception Error]") {
+                throw IngresseException.genericError
             }
+
+            // API Error
+            guard
+                let responseError = obj["responseError"] as? [String:Any],
+                let code = responseError["code"] as? Int,
+                let message = responseError["message"] as? String,
+                let category = responseError["category"] as? String
+                else { throw IngresseException.jsonParserError }
+
+            let error = APIError.Builder()
+                .setCode(code)
+                .setCategory(category)
+                .setError(message)
+                .build()
+
+            throw IngresseException.apiError(error: error)
         }
 
         // Simple object

@@ -1,8 +1,4 @@
 //
-//  Advertisement.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -17,7 +13,7 @@ public class Advertisement: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         cover = try container.decodeIfPresent(CoverAd.self, forKey: .cover)
         background = try container.decodeIfPresent(BackgroundAd.self, forKey: .background)
     }

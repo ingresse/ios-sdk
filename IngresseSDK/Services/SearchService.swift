@@ -1,8 +1,4 @@
 //
-//  SearchService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -14,6 +10,8 @@ public class SearchService: BaseService {
     ///   - userToken: token of logged user (required)
     ///   - queryString: term to search for
     ///   - limit: number of results
+    ///   - onSuccess: success callback with User array
+    ///   - onError: fail callback with APIError
     public func getFriends(_ userToken: String, queryString: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
         
         let str = queryString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!

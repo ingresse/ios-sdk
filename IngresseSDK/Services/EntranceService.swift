@@ -1,22 +1,8 @@
 //
-//  EntranceService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 5/12/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
 public class EntranceService: BaseService {
-    
-    var shouldStop = false
-    
-    public func stopDownload() {
-        shouldStop = true
-    }
-
-    public func allowDownload() {
-        shouldStop = false
-    }
 
     /// Get list of tickets for entrance (Guest List)
     ///
@@ -30,10 +16,6 @@ public class EntranceService: BaseService {
     ///
     ///   - delegate:   callback listener
     public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, delegate: GuestListSyncDelegate) {
-        
-        if shouldStop {
-            return
-        }
 
         var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
@@ -60,19 +42,14 @@ public class EntranceService: BaseService {
             }
             
             delegate.didSyncGuestsPage(pagination, guests)
-
-            if pagination.isLastPage {
-                return
-            }
-
-            self.getGuestListOfEvent(eventId, sessionId: sessionId, from: from, userToken: userToken, page: pagination.currentPage+1, delegate: delegate)
-
         }) { (error) in
             delegate.didFailSyncGuestList(errorData: error)
         }
     }
     
     /// Make checkin of tickets
+    ///
+    /// - Requires: User token (logged user)
     ///
     /// - Parameters:
     ///   - ticketCodes: array with ticketCodes
@@ -114,6 +91,8 @@ public class EntranceService: BaseService {
     
     /// Get validation info of ticket
     ///
+    /// - Requires: User token (logged user)
+    ///
     /// - Parameters:
     ///   - code: ticket code
     ///   - eventId: event id
@@ -151,6 +130,8 @@ public class EntranceService: BaseService {
     }
     
     /// Get transfer history of ticket
+    ///
+    /// - Requires: User token (logged user)
     ///
     /// - Parameters:
     ///   - ticketId: id of ticket

@@ -1,8 +1,4 @@
 //
-//  IngresseUser.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/16/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
@@ -11,7 +7,7 @@ public class IngresseUser: NSObject, Codable {
     public var token: String = ""
     public var data: UserData!
     
-    public static var user : IngresseUser?
+    public static var user: IngresseUser?
     
     public static func login(loginData: [String:Any]) -> IngresseUser {
         let user = JSONDecoder().decodeDict(of: IngresseUser.self, from: loginData) ?? IngresseUser()

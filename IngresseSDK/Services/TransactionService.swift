@@ -1,8 +1,4 @@
 //
-//  TransactionService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 6/29/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -13,8 +9,8 @@ public class TransactionService: BaseService {
     /// - Parameters:
     ///   - transactionId: transaction id
     ///   - userToken: user Token
-    ///   - onSuccess: success callback
-    ///   - onError: fail callback
+    ///   - onSuccess: success callback with Transaction
+    ///   - onError: fail callback with APIError
     public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: Transaction)->(), onError: @escaping (_ error: APIError) -> ()) {
         
         let url = URLBuilder(client: client)
@@ -23,11 +19,7 @@ public class TransactionService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let transaction = JSONDecoder().decodeDict(of: Transaction.self, from: response) else {
-                onError(APIError.getDefaultError())
-                return
-            }
-            
+            let transaction = JSONDecoder().decodeDict(of: Transaction.self, from: response)!
             onSuccess(transaction)
         }) { (error) in
             onError(error)

@@ -1,19 +1,15 @@
 //
-//  UserService.swift
-//  IngresseSDK
-//
-//  Created by Marcelo Bissuh on 20/07/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-@objc public protocol UserEventsDownloaderDelegate {
-    
-    func didDownloadEvents(_ userEvents: [[String: Any]])
-    func didFailDownloadEvents(errorData: APIError)
-}
-
 public class UserService: BaseService {
 
+    /// Get events using usertoken
+    ///
+    /// - Parameters:
+    ///   - usertoken: token of logged user
+    ///   - page: page of request
+    ///   - delegate: callback interface
     public func getEvents(fromUsertoken usertoken: String, page: Int = 1, delegate: UserEventsDownloaderDelegate) {
         
         let userId = usertoken.components(separatedBy: "-").first!
@@ -36,6 +32,16 @@ public class UserService: BaseService {
         }
     }
 
+    /// Create user account
+    ///
+    /// - Parameters:
+    ///   - name: user's name
+    ///   - phone: user's phone number
+    ///   - email: user's email
+    ///   - password: password
+    ///   - newsletter: defines if user wants to receive our newsletter
+    ///   - onSuccess: success callback with IngresseUser
+    ///   - onError: fail callback with APIError
     public func createAccount(name: String, phone: String, email: String, password: String, newsletter: Bool, onSuccess: @escaping (_ user: IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
         let url = URLBuilder(client: client)
             .setPath("user")
@@ -52,7 +58,6 @@ public class UserService: BaseService {
 
         let firstName = splitName.joined(separator: " ")
         params["name"] = firstName
-
         params["phone"] = phone
         params["email"] = email
         params["emailConfirm"] = email
@@ -95,6 +100,14 @@ public class UserService: BaseService {
         }
     }
 
+    /// Verify account with API
+    ///
+    /// - Parameters:
+    ///   - userId: id of logged user
+    ///   - userToken: token of logged user
+    ///   - accountkitCode: code sent by accountkit
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback with APIError
     public func verifyAccount(userId: Int, userToken: String, accountkitCode: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -105,7 +118,6 @@ public class UserService: BaseService {
         let params = ["accountkitCode": accountkitCode]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
-            print(response)
             onSuccess()
         }) { (error) in
             onError(error)

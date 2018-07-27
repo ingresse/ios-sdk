@@ -18,10 +18,10 @@ public class CompanyData: NSObject, Decodable {
     }
     
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? -1
-        token = try container.decodeIfPresent(String.self, forKey: .token) ?? ""
-        authToken = try container.decodeIfPresent(String.self, forKey: .authToken) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        userId = container.decodeKey(.userId, ofType: Int.self)
+        token = container.decodeKey(.token, ofType: String.self)
+        authToken = container.decodeKey(.authToken, ofType: String.self)
         company = try container.decodeIfPresent(Company.self, forKey: .company)
         application = try container.decodeIfPresent(CompanyApp.self, forKey: .application)
     }

@@ -1,0 +1,110 @@
+//
+//  Copyright © 2018 Ingresse. All rights reserved.
+//
+
+import XCTest
+@testable import IngresseSDK
+
+class SearchServiceTests: XCTestCase {
+    var restClient: MockClient!
+    var client: IngresseClient!
+    var service: SearchService!
+    
+    override func setUp() {
+        super.setUp()
+
+        restClient = MockClient()
+        client = IngresseClient(publicKey: "1234", privateKey: "2345", restClient: restClient)
+        service = IngresseService(client: client).search
+    }
+    
+    // MARK: - Friends
+    func testGetFriends() {
+        // Given
+        let asyncExpectation = expectation(description: "getFriends")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: [User]?
+
+        // When
+        service.getFriends("1234-token", queryString: "name", limit: 12, onSuccess: { (users) in
+            success = true
+            result = users
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+    
+    func testGetFriendsWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "getFriends")
+
+        var response = [String:Any]()
+        response["advertisement"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getFriends("1234-token", queryString: "name", limit: 12, onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetFriendsFail() {
+        // Given
+        let asyncExpectation = expectation(description: "getFriends")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getFriends("1234-token", queryString: "name", limit: 12, onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+}
