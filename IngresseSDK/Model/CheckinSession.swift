@@ -14,7 +14,7 @@ public class CheckinSession: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         session = try container.decodeIfPresent(Session.self, forKey: .session)
         owner = try container.decodeIfPresent(User.self, forKey: .owner)
         lastStatus = try container.decodeIfPresent(CheckinStatus.self, forKey: .lastStatus)
@@ -30,8 +30,8 @@ public class CheckinSession: NSObject, Decodable {
         }
 
         public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+            guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+            id = container.decodeKey(.id, ofType: Int.self)
             dateTime = try container.decodeIfPresent(DateTime.self, forKey: .dateTime)
         }
     }
@@ -48,10 +48,10 @@ public class CheckinSession: NSObject, Decodable {
         }
 
         public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            date = try container.decodeIfPresent(String.self, forKey: .date) ?? ""
-            time = try container.decodeIfPresent(String.self, forKey: .time) ?? ""
-            dateTime = try container.decodeIfPresent(String.self, forKey: .dateTime) ?? ""
+            guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+            date = container.decodeKey(.date, ofType: String.self)
+            time = container.decodeKey(.time, ofType: String.self)
+            dateTime = container.decodeKey(.dateTime, ofType: String.self)
         }
     }
 }

@@ -446,4 +446,72 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+
+    // MARK: - Event Details
+    func testGetEvent() {
+        // Given
+        let asyncExpectation = expectation(description: "event")
+
+        var json = [String:Any]()
+        json["id"] = 1
+        json["title"] = "eventTitle"
+        json["link"] = "eventLink"
+        json["type"] = "eventType"
+        json["poster"] = "eventPoster"
+        json["status"] = "eventStatus"
+        json["rsvpTotal"] = 100
+        json["saleEnabled"] = true
+        json["description"] = "eventDescription"
+
+        restClient.response = json
+        restClient.shouldFail = false
+
+        var success = false
+        var result: Event?
+
+        // When
+        service.getEventDetails(eventId: "1234", onSuccess: { (data) in
+            success = true
+            result = data
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testGetEventFail() {
+        // Given
+        let asyncExpectation = expectation(description: "event")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getEventDetails(eventId: "1234", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
 }

@@ -14,9 +14,9 @@ public class SessionDate: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        date = try container.decodeIfPresent(String.self, forKey: .date) ?? ""
-        time = try container.decodeIfPresent(String.self, forKey: .time) ?? ""
-        dateTime = try container.decodeIfPresent(String.self, forKey: .dateTime) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        date = container.decodeKey(.date, ofType: String.self)
+        time = container.decodeKey(.time, ofType: String.self)
+        dateTime = container.decodeKey(.dateTime, ofType: String.self)
     }
 }

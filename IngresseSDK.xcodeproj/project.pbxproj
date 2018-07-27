@@ -130,6 +130,11 @@
 		62E134E11F20FBA70007B590 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E134E01F20FBA70007B590 /* PaymentType.swift */; };
 		62E6EDE21F1FE02300F0B1E8 /* WalletItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */; };
 		62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E6EDE31F1FE23400F0B1E8 /* Venue.swift */; };
+		62EDCFE1210BB725001A6C7C /* SessionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE0210BB725001A6C7C /* SessionDate.swift */; };
+		62EDCFE3210BC314001A6C7C /* CheckinSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE2210BC314001A6C7C /* CheckinSessionTests.swift */; };
+		62EDCFE5210BC547001A6C7C /* PlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE4210BC547001A6C7C /* PlannerTests.swift */; };
+		62EDCFE7210BC6CA001A6C7C /* SessionDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE6210BC6CA001A6C7C /* SessionDateTests.swift */; };
+		62EDCFE9210BC845001A6C7C /* EventDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE8210BC845001A6C7C /* EventDateTests.swift */; };
 		750A814420E183F7004881C8 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814320E183F7004881C8 /* CompanyData.swift */; };
 		750A814620E186D0004881C8 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814520E186D0004881C8 /* Company.swift */; };
 		750A814820E1875D004881C8 /* CompanyLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814720E1875D004881C8 /* CompanyLogo.swift */; };
@@ -277,6 +282,11 @@
 		62E134E01F20FBA70007B590 /* PaymentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
 		62E6EDE11F1FE02300F0B1E8 /* WalletItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletItem.swift; sourceTree = "<group>"; };
 		62E6EDE31F1FE23400F0B1E8 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		62EDCFE0210BB725001A6C7C /* SessionDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDate.swift; sourceTree = "<group>"; };
+		62EDCFE2210BC314001A6C7C /* CheckinSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSessionTests.swift; sourceTree = "<group>"; };
+		62EDCFE4210BC547001A6C7C /* PlannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTests.swift; sourceTree = "<group>"; };
+		62EDCFE6210BC6CA001A6C7C /* SessionDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDateTests.swift; sourceTree = "<group>"; };
+		62EDCFE8210BC845001A6C7C /* EventDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateTests.swift; sourceTree = "<group>"; };
 		750A814320E183F7004881C8 /* CompanyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		750A814520E186D0004881C8 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		750A814720E1875D004881C8 /* CompanyLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyLogo.swift; sourceTree = "<group>"; };
@@ -400,11 +410,11 @@
 		624526221EC2324F007B6584 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				62EDCFE0210BB725001A6C7C /* SessionDate.swift */,
 				623702301F72D413006A1335 /* Advertisement.swift */,
 				6231F24620B7442200206D85 /* BackgroundAd.swift */,
 				6231F24820B7449900206D85 /* Category.swift */,
 				759406252100E98F00BA1BFB /* TransactionBasket.swift */,
-				750A814320E183F7004881C8 /* CompanyData.swift */,
 				752FFBD120F6C7F600BCF285 /* BasketSessions.swift */,
 				629BCF921EDF2F230043CBDE /* CheckinTicket.swift */,
 				750A814520E186D0004881C8 /* Company.swift */,
@@ -429,7 +439,6 @@
 				624526251EC2324F007B6584 /* Session.swift */,
 				62BFE0701F72AB53007150ED /* SocialAccount.swift */,
 				627485621F054A6C009AE812 /* Transaction.swift */,
-				75F71FCE20F79CEE00BD9D1C /* TransactionBasket.swift */,
 				627485681F056CD1009AE812 /* TransactionEvent.swift */,
 				6274856C1F05704F009AE812 /* TransactionSession.swift */,
 				627485661F054AF1009AE812 /* TransactionTicket.swift */,
@@ -513,6 +522,10 @@
 				626B4D3F203778E5006504D1 /* UserTicketTests.swift */,
 				62A708B221067E030027F05E /* VenueTests.swift */,
 				626B4D4420377E73006504D1 /* WalletItemTests.swift */,
+				62EDCFE2210BC314001A6C7C /* CheckinSessionTests.swift */,
+				62EDCFE4210BC547001A6C7C /* PlannerTests.swift */,
+				62EDCFE6210BC6CA001A6C7C /* SessionDateTests.swift */,
+				62EDCFE8210BC845001A6C7C /* EventDateTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -762,6 +775,7 @@
 				627D85801FD5AD1300C98171 /* PaymentCard.swift in Sources */,
 				62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */,
 				624526281EC2324F007B6584 /* Event.swift in Sources */,
+				62EDCFE1210BB725001A6C7C /* SessionDate.swift in Sources */,
 				6245263B1EC2325D007B6584 /* ResponseParser.swift in Sources */,
 				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
 				6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */,
@@ -798,7 +812,9 @@
 				6280CABA2108DD830075FACB /* MyTicketsServiceTests.swift in Sources */,
 				62A708A7210643D70027F05E /* SessionTests.swift in Sources */,
 				62A708BD210692840027F05E /* PosterTests.swift in Sources */,
+				62EDCFE5210BC547001A6C7C /* PlannerTests.swift in Sources */,
 				62A7089B2103C5260027F05E /* CompanyAppTests.swift in Sources */,
+				62EDCFE9210BC845001A6C7C /* EventDateTests.swift in Sources */,
 				6280CAD3210A57420075FACB /* URLSessionDataTaskMock.swift in Sources */,
 				62A708B1210676A80027F05E /* UserTests.swift in Sources */,
 				626B4D40203778E5006504D1 /* UserTicketTests.swift in Sources */,
@@ -836,11 +852,13 @@
 				62A708A521063C130027F05E /* IngresseUserTests.swift in Sources */,
 				627F83801EE99BDF00E14299 /* MockClient.swift in Sources */,
 				6245264C1EC253FD007B6584 /* HMACSHA1Tests.m in Sources */,
+				62EDCFE3210BC314001A6C7C /* CheckinSessionTests.swift in Sources */,
 				62A708AF21066D830027F05E /* TransferTests.swift in Sources */,
 				62A708BF210693F00027F05E /* PlaceTests.swift in Sources */,
 				62A708C9210782090027F05E /* EventServiceTests.swift in Sources */,
 				6245264F1EC253FD007B6584 /* ResponseParserTests.swift in Sources */,
 				624526501EC253FD007B6584 /* URLBuilderTests.swift in Sources */,
+				62EDCFE7210BC6CA001A6C7C /* SessionDateTests.swift in Sources */,
 				62A7089F2103C9300027F05E /* EventAttributesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

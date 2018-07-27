@@ -22,13 +22,13 @@ public class Planner: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        username = try container.decodeIfPresent(String.self, forKey: .username) ?? ""
-        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
-        phone = try container.decodeIfPresent(String.self, forKey: .phone) ?? ""
-        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
-        logo = try container.decodeIfPresent(String.self, forKey: .logo) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        id = container.decodeKey(.id, ofType: Int.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        username = container.decodeKey(.username, ofType: String.self)
+        email = container.decodeKey(.email, ofType: String.self)
+        phone = container.decodeKey(.phone, ofType: String.self)
+        link = container.decodeKey(.link, ofType: String.self)
+        logo = container.decodeKey(.logo, ofType: String.self)
     }
 }

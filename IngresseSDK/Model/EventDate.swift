@@ -15,11 +15,11 @@ public class EventDate: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
-        date = try container.decodeIfPresent(String.self, forKey: .date) ?? ""
-        time = try container.decodeIfPresent(String.self, forKey: .time) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        id = container.decodeKey(.id, ofType: Int.self)
+        status = container.decodeKey(.status, ofType: String.self)
+        date = container.decodeKey(.date, ofType: String.self)
+        time = container.decodeKey(.time, ofType: String.self)
         dateTime = try container.decodeIfPresent(DateTime.self, forKey: .dateTime)
     }
 }

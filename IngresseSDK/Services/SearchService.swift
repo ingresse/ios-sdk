@@ -42,9 +42,11 @@ public class SearchService: BaseService {
     ///
     /// - Parameters:
     ///   - eventTitle: title from required event search
+    ///   - onSuccess: success callback with NewEvent array
+    ///   - onError: fail callback with APIError
     public func getEvents(eventTitle: String,
-                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int)->(),
-                          onError: @escaping (_ error: IngresseSDK.APIError)->()) {
+                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int) -> Void,
+                          onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setHost("https://event-search.ingresse.com/")

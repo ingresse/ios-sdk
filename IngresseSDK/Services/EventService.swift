@@ -40,12 +40,7 @@ public class EventService: BaseService {
             .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard
-                let event = JSONDecoder().decodeDict(of: Event.self, from: response) else {
-                    onError(APIError.getDefaultError())
-                    return
-            }
-
+            let event = JSONDecoder().decodeDict(of: Event.self, from: response)!
             onSuccess(event)
         }) { (error) in
             onError(error)
