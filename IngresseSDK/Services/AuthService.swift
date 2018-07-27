@@ -58,16 +58,16 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
-        
+
         let url = URLBuilder(client: client)
             .setPath("login/")
             .build()
-        
+
         let params = ["email": email,
                       "password": pass]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
-            
+
             guard let logged = response["status"] as? Bool,
                 logged else {
                     let error = APIError.Builder()
@@ -145,7 +145,7 @@ public class AuthService: BaseService {
             onError(error)
         }
     }
-    
+
     /// Complete user data
     ///
     /// - Parameters:
@@ -155,15 +155,14 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
-        
         let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type"
-        
+
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "fields", value: fieldsValue)
             .build()
-        
+
         client.restClient.GET(url: url, onSuccess: { (response: [String: Any]) in
             let userData = JSONDecoder().decodeDict(of: UserData.self, from: response)!
 
@@ -174,7 +173,6 @@ public class AuthService: BaseService {
             IngresseUser.user = user
 
             onSuccess(user)
-            
         }) { (error: APIError) in
             onError(error)
         }

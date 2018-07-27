@@ -4,15 +4,12 @@
 
 public class TransactionEvent: NSObject, Codable {
     public var id: String = ""
-
     public var title: String = ""
     public var type: String = ""
     public var status: String = ""
     public var link: String = ""
     public var poster: String = ""
-
     public var venue: Venue?
-
     public var saleEnabled: Bool = false
     public var taxToCostumer: Int = 0
 

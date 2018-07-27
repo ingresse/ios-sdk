@@ -16,13 +16,13 @@ public class Transaction: NSObject, Decodable {
     public var paymentdetails: String = ""
     public var creditCard: PaymentCard?
 
-    public var totalPaid: Double = 0.0
-    public var sum_up: Double = 0.0
-    public var paymentTax: Double = 0.0
+    public var totalPaid: Double = 0
+    public var sum_up: Double = 0
+    public var paymentTax: Double = 0
 
     public var interest: Int = 0
     public var taxToCostumer: Int = 0
-    public var installments: Int = 1
+    public var installments: Int = 0
 
     public var creationdate: String = ""
     public var modificationdate: String = ""
@@ -107,7 +107,7 @@ public class Transaction: NSObject, Decodable {
 
         basket = jsonBasket ?? arrayBasket
     }
-    
+
     public static func fromJSON(_ json: [String: Any]) -> Transaction? {
         return JSONDecoder().decodeDict(of: Transaction.self, from: json)
     }

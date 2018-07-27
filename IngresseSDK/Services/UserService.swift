@@ -11,21 +11,21 @@ public class UserService: BaseService {
     ///   - page: page of request
     ///   - delegate: callback interface
     public func getEvents(fromUsertoken usertoken: String, page: Int = 1, delegate: UserEventsDownloaderDelegate) {
-        
+
         let userId = usertoken.components(separatedBy: "-").first!
-        
+
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)/events")
             .addParameter(key: "usertoken", value: usertoken)
             .addParameter(key: "page", value: String(page))
             .build()
-        
+
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard let data = response["data"] as? [[String:Any]] else {
                 delegate.didFailDownloadEvents(errorData: APIError.getDefaultError())
                 return
             }
-            
+
             delegate.didDownloadEvents(data)
         }) { (error) in
             delegate.didFailDownloadEvents(errorData: error)

@@ -4,22 +4,19 @@
 
 public class TransactionTicket: NSObject, Codable {
     public var id: Int = 0
-    
     public var code: String = ""
     public var name: String = ""
     public var checked: Bool = false
     public var lastUpdate: Int = 0
-    
     public var transferred: Bool = false
-    
     public var ticket: String = ""
     public var type: String = ""
     public var ticketId: Int = 0
     public var typeId: Int = 0
-    
     public var price: String = ""
     public var tax: String = ""
     public var percentTax: Int = 0
+    public var sessions: [BasketSessions] = []
 
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
@@ -37,5 +34,7 @@ public class TransactionTicket: NSObject, Codable {
         price = container.decodeKey(.price, ofType: String.self)
         tax = container.decodeKey(.tax, ofType: String.self)
         percentTax = container.decodeKey(.percentTax, ofType: Int.self)
+
+        sessions = try container.decodeIfPresent([BasketSessions].self, forKey: .sessions) ?? []
     }
 }
