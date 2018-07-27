@@ -29,6 +29,29 @@ public class EventService: BaseService {
         }
     }
     
+    /// Get event details
+    ///
+    /// - Parameters:
+    ///   - eventId: id of the event
+    public func getEventDetails(eventId: String, onSuccess: @escaping (_ attributes: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)")
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let event = JSONDecoder().decodeDict(of: Event.self, from: response) else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            onSuccess(event)
+        }) { (error) in
+            onError(error)
+        }
+    }
+
     /// Get advertisement info for event
     ///
     /// - Parameters:
@@ -74,7 +97,7 @@ public class EventService: BaseService {
             .setHost("https://hml-event.ingresse.com/")
             .setPath("search/company/1")
             .addParameter(key: "state", value: place)
-            .addParameter(key: "from", value: "now-6h")
+//            .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "size", value: page.size)
             .addParameter(key: "offset", value: page.currentOffset)
             .buildWithoutKeys()

@@ -14,6 +14,7 @@ public class Event: NSObject, Decodable {
     public var eventDescription: String = ""
     public var rsvp: [User] = []
     public var date: [EventDate] = []
+    public var addedBy: Planner?
     public var venue: Venue?
 
     enum CodingKeys: String, CodingKey {
@@ -28,6 +29,7 @@ public class Event: NSObject, Decodable {
         case saleEnabled
         case rsvp
         case date
+        case addedBy
         case venue
     }
 
@@ -44,6 +46,8 @@ public class Event: NSObject, Decodable {
         status = container.decodeKey(.status, ofType: String.self)
         rsvp = container.decodeKey(.rsvp, ofType: [User].self)
         date = container.decodeKey(.date, ofType: [EventDate].self)
+
+        addedBy = try container.decodeIfPresent(Planner.self, forKey: .addedBy)
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
     }
 }
