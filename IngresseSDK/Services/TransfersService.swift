@@ -17,7 +17,7 @@ public class TransfersService: BaseService {
     ///   - limit: number of items on response
     ///   - onSuccess: success callback with User array
     ///   - onError: fail callback with APIError
-    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("user/\(userID)/last-transfers")
@@ -81,7 +81,7 @@ public class TransfersService: BaseService {
     ///   - userToken: token of logged user (required)
     ///   - onSuccess: success callback
     ///   - onError: fail callback with APIError
-    public func updateTransfer(_ action: String, ticketID: String, transferID: String, userToken: String, onSuccess: @escaping () -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    public func updateTransfer(_ action: String, ticketID: String, transferID: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer/\(transferID)")
@@ -103,7 +103,7 @@ public class TransfersService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback with NewTransfer
     ///   - onError: fail callback with APIError
-    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: NewTransfer) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: NewTransfer) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
@@ -129,7 +129,7 @@ public class TransfersService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback with ticketId
     ///   - onError: fail callback with APIError
-    public func returnTicket(_ ticketID: String, userToken: String, onSuccess: @escaping (_ ticketId: Int) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    public func returnTicket(_ ticketID: String, userToken: String, onSuccess: @escaping (_ ticketId: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")

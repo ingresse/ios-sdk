@@ -15,7 +15,7 @@ public class AuthService: BaseService {
     ///   - pass: password
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("company-login")
@@ -57,7 +57,7 @@ public class AuthService: BaseService {
     ///   - pass: password
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("login/")
@@ -105,7 +105,7 @@ public class AuthService: BaseService {
     ///   - fbUserId: facebook user id
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("login/facebook")

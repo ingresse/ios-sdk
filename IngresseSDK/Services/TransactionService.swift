@@ -11,7 +11,7 @@ public class TransactionService: BaseService {
     ///   - userToken: user Token
     ///   - onSuccess: success callback with Transaction
     ///   - onError: fail callback with APIError
-    public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: Transaction)->(), onError: @escaping (_ error: APIError) -> ()) {
+    public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: Transaction)->(), onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("sale/\(transactionId)")
@@ -33,7 +33,7 @@ public class TransactionService: BaseService {
     ///   - userToken: user Token
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getCheckinStatus(_ ticketCode: String, userToken: String, onSuccess: @escaping (_ checkinSession: [CheckinSession])->(), onError: @escaping (_ error: APIError) -> ()) {
+    public func getCheckinStatus(_ ticketCode: String, userToken: String, onSuccess: @escaping (_ checkinSession: [CheckinSession])->(), onError: @escaping (_ error: APIError) -> Void) {
         let ticket: String = ticketCode.stringWithPercentEncoding()!
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticket)/status")

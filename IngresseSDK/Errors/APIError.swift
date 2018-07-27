@@ -4,7 +4,7 @@
 
 import UIKit
 
-public typealias errorHandler = (_ error: APIError) -> ()
+public typealias errorHandler = (_ error: APIError) -> Void
 
 public class APIError: NSObject {
     public var code: Int = 0

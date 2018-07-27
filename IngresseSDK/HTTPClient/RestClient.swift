@@ -12,7 +12,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - url: request path
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
         let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         
         session.dataTask(with: request) { (data, response, error) in
@@ -45,7 +45,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: post body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
         
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"

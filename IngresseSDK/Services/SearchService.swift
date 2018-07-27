@@ -12,7 +12,7 @@ public class SearchService: BaseService {
     ///   - limit: number of results
     ///   - onSuccess: success callback with User array
     ///   - onError: fail callback with APIError
-    public func getFriends(_ userToken: String, queryString: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    public func getFriends(_ userToken: String, queryString: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let str = queryString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         
