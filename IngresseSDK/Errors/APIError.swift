@@ -1,14 +1,10 @@
 //
-//  APIError.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 5/12/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
 import UIKit
 
-public typealias errorHandler = (_ error: APIError) -> ()
+public typealias errorHandler = (_ error: APIError) -> Void
 
 public class APIError: NSObject {
     public var code: Int = 0

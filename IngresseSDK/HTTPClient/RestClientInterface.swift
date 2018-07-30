@@ -8,6 +8,6 @@
 
 @objc public protocol RestClientInterface {
     
-    func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ())
-    func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> (), onError: @escaping (_ error: APIError) -> ())
+    func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void)
+    func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void)
 }

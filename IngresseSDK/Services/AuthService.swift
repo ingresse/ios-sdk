@@ -15,7 +15,7 @@ public class AuthService: BaseService {
     ///   - pass: password
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("company-login")
@@ -57,17 +57,17 @@ public class AuthService: BaseService {
     ///   - pass: password
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
-        
+    public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+
         let url = URLBuilder(client: client)
             .setPath("login/")
             .build()
-        
+
         let params = ["email": email,
                       "password": pass]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String:Any]) in
-            
+
             guard let logged = response["status"] as? Bool,
                 logged else {
                     let error = APIError.Builder()
@@ -105,7 +105,7 @@ public class AuthService: BaseService {
     ///   - fbUserId: facebook user id
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> (), onError: @escaping (_ error: APIError) -> ()) {
+    public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("login/facebook")
@@ -145,7 +145,7 @@ public class AuthService: BaseService {
             onError(error)
         }
     }
-    
+
     /// Complete user data
     ///
     /// - Parameters:
@@ -155,22 +155,16 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
-        
         let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type"
-        
+
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "fields", value: fieldsValue)
             .build()
-        
-        client.restClient.GET(url: url, onSuccess: { (response: [String:Any]) in
-            guard let data = response as? [String:Any],
-                let userData = JSONDecoder().decodeDict(of: UserData.self, from: data)
-                else {
-                    onError(APIError.getDefaultError())
-                    return
-            }
+
+        client.restClient.GET(url: url, onSuccess: { (response: [String: Any]) in
+            let userData = JSONDecoder().decodeDict(of: UserData.self, from: response)!
 
             let user = IngresseUser()
             user.data = userData
@@ -179,7 +173,6 @@ public class AuthService: BaseService {
             IngresseUser.user = user
 
             onSuccess(user)
-            
         }) { (error: APIError) in
             onError(error)
         }

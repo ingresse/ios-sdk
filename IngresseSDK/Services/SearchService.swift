@@ -1,8 +1,4 @@
 //
-//  SearchService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -14,7 +10,9 @@ public class SearchService: BaseService {
     ///   - userToken: token of logged user (required)
     ///   - queryString: term to search for
     ///   - limit: number of results
-    public func getFriends(_ userToken: String, queryString: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    ///   - onSuccess: success callback with User array
+    ///   - onError: fail callback with APIError
+    public func getFriends(_ userToken: String, queryString: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let str = queryString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         
@@ -35,6 +33,42 @@ public class SearchService: BaseService {
             }
             
             onSuccess(users)
+        }) { (error) in
+            onError(error)
+        }
+    }
+
+    /// Search events based on term
+    ///
+    /// - Parameters:
+    ///   - eventTitle: title from required event search
+    ///   - onSuccess: success callback with NewEvent array
+    ///   - onError: fail callback with APIError
+    public func getEvents(eventTitle: String,
+                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int) -> Void,
+                          onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
+
+        let url = URLBuilder(client: client)
+            .setHost("https://event-search.ingresse.com/")
+            .setPath("1")
+            .addParameter(key: "title", value: eventTitle)
+            .addParameter(key: "size", value: "20")
+            .addParameter(key: "from", value: "now-6h")
+            .addParameter(key: "orderBy", value: "sessions.dateTime")
+            .addParameter(key: "offset", value: "0")
+            .buildWithoutKeys()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let total = response["total"] as? Int,
+                let hits = response["hits"] as? [[String:Any]],
+                let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            onSuccess(events, total)
         }) { (error) in
             onError(error)
         }

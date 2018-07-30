@@ -1,8 +1,4 @@
 //
-//  Transfer.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
@@ -18,29 +14,15 @@ public class Transfer: NSObject, Codable {
     public var history: [StatusChange] = []
 
     public var created: String {
-        for statusChange in history {
-            if statusChange.status == "pending" { return statusChange.creationDate }
-        }
-
-        return ""
+        return history.first(where: { $0.status == "pending" })?.creationDate ?? ""
     }
-    public var accepted: String {
-        for statusChange in history {
-            if statusChange.status == "accepted" { return statusChange.creationDate }
-        }
 
-        return ""
+    public var accepted: String {
+        return history.first(where: { $0.status == "accepted" })?.creationDate ?? ""
     }
     
     public var socialIdDict: [String:String] {
-        get {
-            var dict = [String:String]()
-            for account in socialId {
-                dict[account.network] = String(account.id)
-            }
-            
-            return dict
-        }
+        return socialId.reduce(into: [String:String]()) { $0[$1.network] = $1.id }
     }
 
     public class StatusChange: NSObject, Codable {
@@ -49,15 +31,15 @@ public class Transfer: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
-        email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
-        status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
-        picture = try container.decodeIfPresent(String.self, forKey: .picture) ?? ""
-        transferId = try container.decodeIfPresent(Int.self, forKey: .transferId) ?? 0
-        history = try container.decodeIfPresent([StatusChange].self, forKey: .history) ?? []
-        socialId = try container.decodeIfPresent([SocialAccount].self, forKey: .socialId) ?? []
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        name = container.decodeKey(.name, ofType: String.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        userId = container.decodeKey(.userId, ofType: Int.self)
+        email = container.decodeKey(.email, ofType: String.self)
+        status = container.decodeKey(.status, ofType: String.self)
+        picture = container.decodeKey(.picture, ofType: String.self)
+        transferId = container.decodeKey(.transferId, ofType: Int.self)
+        history = container.decodeKey(.history, ofType: [StatusChange].self)
+        socialId = container.decodeKey(.socialId, ofType: [SocialAccount].self)
     }
 }

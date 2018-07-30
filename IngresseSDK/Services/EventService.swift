@@ -1,8 +1,4 @@
 //
-//  EventService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -26,15 +22,31 @@ public class EventService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-                let attributes = EventAttributes()
-            attributes.applyJSON(response)
-            
+            let attributes = JSONDecoder().decodeDict(of: EventAttributes.self, from: response)!
             onSuccess(attributes)
         }) { (error) in
             onError(error)
         }
     }
     
+    /// Get event details
+    ///
+    /// - Parameters:
+    ///   - eventId: id of the event
+    public func getEventDetails(eventId: String, onSuccess: @escaping (_ attributes: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)")
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            let event = JSONDecoder().decodeDict(of: Event.self, from: response)!
+            onSuccess(event)
+        }) { (error) in
+            onError(error)
+        }
+    }
+
     /// Get advertisement info for event
     ///
     /// - Parameters:
@@ -80,7 +92,7 @@ public class EventService: BaseService {
             .setHost("https://hml-event.ingresse.com/")
             .setPath("search/company/1")
             .addParameter(key: "state", value: place)
-            .addParameter(key: "from", value: "now-6h")
+//            .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "size", value: page.size)
             .addParameter(key: "offset", value: page.currentOffset)
             .buildWithoutKeys()
@@ -117,7 +129,6 @@ public class EventService: BaseService {
         let url = URLBuilder(client: client)
             .setHost("https://hml-event.ingresse.com/")
             .setPath("categories")
-            //            .addParameter(key: "category", value: categories.map{ String($0) }.joined(separator: ","))
             .buildWithoutKeys()
 
         client.restClient.GET(url: url, onSuccess: { (response) in

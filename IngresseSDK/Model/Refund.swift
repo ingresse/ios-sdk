@@ -1,8 +1,4 @@
 //
-//  Refund.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 6/29/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -18,9 +14,9 @@ public class Refund: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        date = try container.decodeIfPresent(String.self, forKey: .date) ?? ""
-        reason = try container.decodeIfPresent(String.self, forKey: .reason) ?? ""
-        operatorId = try container.decodeIfPresent(String.self, forKey: .operatorId) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        date = container.decodeKey(.date, ofType: String.self)
+        reason = container.decodeKey(.reason, ofType: String.self)
+        operatorId = container.decodeKey(.operatorId, ofType: String.self)
     }
 }

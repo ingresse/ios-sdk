@@ -1,8 +1,4 @@
 //
-//  WalletItem.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 7/19/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -32,7 +28,7 @@ public class WalletItem: NSObject, Codable {
         case tickets
         case transfered
         case sessions
-//        case sessionList
+        case sessionList
         case customTickets
         case venue
     }
@@ -42,25 +38,26 @@ public class WalletItem: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        link = try container.decodeIfPresent(String.self, forKey: .link) ?? ""
-        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        ownerId = try container.decodeIfPresent(Int.self, forKey: .ownerId) ?? -1
-        tickets = try container.decodeIfPresent(Int.self, forKey: .tickets) ?? 0
-        poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
-        transfered = try container.decodeIfPresent(Int.self, forKey: .transfered) ?? 0
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
 
-        let sessionData = try container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions)
-        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
-
-//        let sessionListData = try container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessionList)
-//        sessionList = try sessionListData.decodeIfPresent([Session].self, forKey: .data) ?? []
-
-        eventDescription = try container.decodeIfPresent(String.self, forKey: .eventDescription) ?? ""
-        customTickets = try container.decodeIfPresent([CustomTicket].self, forKey: .customTickets) ?? []
-
+        id = container.decodeKey(.id, ofType: Int.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        link = container.decodeKey(.link, ofType: String.self)
+        title = container.decodeKey(.title, ofType: String.self)
+        ownerId = container.decodeKey(.ownerId, ofType: Int.self)
+        tickets = container.decodeKey(.tickets, ofType: Int.self)
+        poster = container.decodeKey(.poster, ofType: String.self)
+        transfered = container.decodeKey(.transfered, ofType: Int.self)
+        eventDescription = container.decodeKey(.eventDescription, ofType: String.self)
+        customTickets = container.decodeKey(.customTickets, ofType: [CustomTicket].self)
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
+
+        guard
+            let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions),
+            let sessionListData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessionList)
+            else { return }
+
+        sessions = sessionData.decodeKey(.data, ofType: [Session].self)
+        sessionList = sessionListData.decodeKey(.data, ofType: [Session].self)
     }
 }

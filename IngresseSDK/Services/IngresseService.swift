@@ -1,8 +1,4 @@
 //
-//  IngresseService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 

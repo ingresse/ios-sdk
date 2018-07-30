@@ -10,10 +10,10 @@ public class CompanyApp: NSObject, Codable {
     public var privateKey: String = ""
     
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        publicKey = try container.decodeIfPresent(String.self, forKey: .publicKey) ?? ""
-        privateKey = try container.decodeIfPresent(String.self, forKey: .privateKey) ?? ""
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        id = container.decodeKey(.id, ofType: Int.self)
+        name = container.decodeKey(.name, ofType: String.self)
+        publicKey = container.decodeKey(.publicKey, ofType: String.self)
+        privateKey = container.decodeKey(.privateKey, ofType: String.self)
     }
 }

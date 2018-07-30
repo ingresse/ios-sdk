@@ -1,31 +1,27 @@
 //
-//  Ticket.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2016 Gondek. All rights reserved.
 //
 
 public class UserTicket: NSObject, Codable {
-    public var id: Int
-    public var holderId: Int
-    public var guestTypeId: Int
-    public var ticketTypeId: Int
-    public var transactionId: String
+    public var id: Int = 0
+    public var holderId: Int = 0
+    public var guestTypeId: Int = 0
+    public var ticketTypeId: Int = 0
+    public var transactionId: String = ""
     
-    public var code: String
-    public var itemType: String
-    public var sequence: String
+    public var code: String = ""
+    public var itemType: String = ""
+    public var sequence: String = ""
     public var guestName: String?
-    public var title: String
-    public var type: String
-    public var desc: String
-    public var checked: Bool
+    public var title: String = ""
+    public var type: String = ""
+    public var desc: String = ""
+    public var checked: Bool = false
     
-    public var sessions: [Session]
+    public var sessions: [Session] = []
     
-    public var eventId: Int
-    public var eventTitle: String
+    public var eventId: Int = 0
+    public var eventTitle: String = ""
     public var eventVenue: Venue?
     
     public var receivedFrom: Transfer?
@@ -61,29 +57,32 @@ public class UserTicket: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        holderId = try container.decodeIfPresent(Int.self, forKey: .holderId) ?? 0
-        guestTypeId = try container.decodeIfPresent(Int.self, forKey: .guestTypeId) ?? 0
-        ticketTypeId = try container.decodeIfPresent(Int.self, forKey: .ticketTypeId) ?? 0
-        transactionId = try container.decodeIfPresent(String.self, forKey: .transactionId) ?? ""
-        code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
-        itemType = try container.decodeIfPresent(String.self, forKey: .itemType) ?? ""
-        sequence = try container.decodeIfPresent(String.self, forKey: .sequence) ?? "000000"
-        guestName = try container.decodeIfPresent(String.self, forKey: .guestName)
-        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        desc = try container.decodeIfPresent(String.self, forKey: .desc) ?? ""
-        checked = try container.decodeIfPresent(Bool.self, forKey: .checked) ?? false
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
 
-        let sessionData = try container.nestedContainer(keyedBy: SessionCodingKey.self, forKey: .sessions)
-        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
-        eventId = try container.decodeIfPresent(Int.self, forKey: .eventId) ?? 0
-        eventTitle = try container.decodeIfPresent(String.self, forKey: .eventTitle) ?? ""
+        id = container.decodeKey(.id, ofType: Int.self)
+        holderId = container.decodeKey(.holderId, ofType: Int.self)
+        guestTypeId = container.decodeKey(.guestTypeId, ofType: Int.self)
+        ticketTypeId = container.decodeKey(.ticketTypeId, ofType: Int.self)
+        transactionId = container.decodeKey(.transactionId, ofType: String.self)
+        code = container.decodeKey(.code, ofType: String.self)
+        itemType = container.decodeKey(.itemType, ofType: String.self)
+        sequence = container.decodeKey(.sequence, ofType: String.self)
+        guestName = container.decodeKey(.guestName, ofType: String.self)
+        title = container.decodeKey(.title, ofType: String.self)
+        type = container.decodeKey(.type, ofType: String.self)
+        desc = container.decodeKey(.desc, ofType: String.self)
+        checked = container.decodeKey(.checked, ofType: Bool.self)
+        eventId = container.decodeKey(.eventId, ofType: Int.self)
+        eventTitle = container.decodeKey(.eventTitle, ofType: String.self)
         eventVenue = try container.decodeIfPresent(Venue.self, forKey: .eventVenue)
         receivedFrom = try container.decodeIfPresent(Transfer.self, forKey: .receivedFrom)
         transferedTo = try container.decodeIfPresent(Transfer.self, forKey: .transferedTo)
         currentHolder = try container.decodeIfPresent(Transfer.self, forKey: .currentHolder)
+
+        guard
+            let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKey.self, forKey: .sessions)
+            else { return }
+
+        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
     }
 }
-

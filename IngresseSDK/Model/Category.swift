@@ -1,8 +1,5 @@
 //
-//  Category.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 3/13/18.
+//  Copyright © 2018 Ingresse. All rights reserved.
 //
 
 public struct Category: Decodable, Equatable {

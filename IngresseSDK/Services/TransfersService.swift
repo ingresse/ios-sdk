@@ -1,8 +1,4 @@
 //
-//  TransfersService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 9/20/17.
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
@@ -19,7 +15,9 @@ public class TransfersService: BaseService {
     ///   - userID: id of logged user
     ///   - userToken: token of logged user (required)
     ///   - limit: number of items on response
-    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    ///   - onSuccess: success callback with User array
+    ///   - onError: fail callback with APIError
+    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("user/\(userID)/last-transfers")
@@ -30,14 +28,14 @@ public class TransfersService: BaseService {
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let array = response["data"] as? [[String:Any]] else {
+            guard
+                let array = response["data"] as? [[String:Any]],
+                let users = JSONDecoder().decodeArray(of: [User].self, from: array) else {
                 onError(APIError.getDefaultError())
                 return
             }
 
-            let users = JSONDecoder().decodeArray(of: [User].self, from: array)
-
-            onSuccess(users ?? [])
+            onSuccess(users)
         }) { (error) in
             onError(error)
         }
@@ -61,13 +59,7 @@ public class TransfersService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any]
-                else {
-                    delegate.didFailDownloadTransfers(errorData: APIError.getDefaultError())
-                    return
-            }
-
-            guard
+                let paginationObj = response["paginationInfo"] as? [String:Any],
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj),
                 let transfers = JSONDecoder().decodeArray(of: [PendingTransfer].self, from: data)
                 else {
@@ -87,7 +79,9 @@ public class TransfersService: BaseService {
     ///   - action: what should the resquest do: accept | refuse | cancel
     ///   - ticketID: id of ticket (not the code)
     ///   - userToken: token of logged user (required)
-    public func updateTransfer(_ action: String, ticketID: String, transferID: String, userToken: String, onSuccess: @escaping () -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback with APIError
+    public func updateTransfer(_ action: String, ticketID: String, transferID: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer/\(transferID)")
@@ -107,7 +101,9 @@ public class TransfersService: BaseService {
     ///   - ticketID: id of the ticket (not the code)
     ///   - userID: id of destination user
     ///   - userToken: token of logged user
-    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: NewTransfer) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    ///   - onSuccess: success callback with NewTransfer
+    ///   - onError: fail callback with APIError
+    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: NewTransfer) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
@@ -131,7 +127,9 @@ public class TransfersService: BaseService {
     /// - Parameters:
     ///   - ticketID: id of the ticket (not the code)
     ///   - userToken: token of logged user
-    public func returnTicket(_ ticketID: String, userToken: String, onSuccess: @escaping (_ ticketId: Int) -> (), onError: @escaping (_ errorData: APIError) -> ()) {
+    ///   - onSuccess: success callback with ticketId
+    ///   - onError: fail callback with APIError
+    public func returnTicket(_ ticketID: String, userToken: String, onSuccess: @escaping (_ ticketId: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
