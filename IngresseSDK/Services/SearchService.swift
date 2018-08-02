@@ -73,4 +73,32 @@ public class SearchService: BaseService {
             onError(error)
         }
     }
+
+    /// Search events based on id
+    ///
+    /// - Parameters:
+    ///   - eventId: id from required event search
+    public func getEvents(eventId: String,
+                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent])->(),
+                          onError: @escaping (_ error: IngresseSDK.APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setHost("https://event-search.ingresse.com/")
+            .setPath("1")
+            .addParameter(key: "id", value: eventId)
+            .buildWithoutKeys()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let hits = response["hits"] as? [[String:Any]],
+                let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            onSuccess(events)
+        }) { (error) in
+            onError(error)
+        }
+    }
 }
