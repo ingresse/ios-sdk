@@ -51,6 +51,12 @@ public class ResponseParser: NSObject {
             throw IngresseException.apiError(error: error)
         }
 
+        // RSVP response
+        if let status = obj["responseData"] as? Int {
+            completion(["status": status])
+            return
+        }
+
         // Simple object
         if let responseData = obj["responseData"] as? [String:Any] {
             completion(responseData)

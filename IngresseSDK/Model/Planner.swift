@@ -5,7 +5,6 @@
 public class Planner: NSObject, Codable {
     public var id: Int = 0
     public var name: String = ""
-    public var username: String = ""
     public var email: String = ""
     public var phone: String = ""
     public var link: String = ""
@@ -14,7 +13,6 @@ public class Planner: NSObject, Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case username
         case email
         case phone
         case link
@@ -25,7 +23,6 @@ public class Planner: NSObject, Codable {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         id = container.decodeKey(.id, ofType: Int.self)
         name = container.decodeKey(.name, ofType: String.self)
-        username = container.decodeKey(.username, ofType: String.self)
         email = container.decodeKey(.email, ofType: String.self)
         phone = container.decodeKey(.phone, ofType: String.self)
         link = container.decodeKey(.link, ofType: String.self)
