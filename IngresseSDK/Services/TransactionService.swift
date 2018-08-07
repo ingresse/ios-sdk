@@ -43,7 +43,12 @@ public class TransactionService: BaseService {
         }
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
-            let transaction = (response["data"] as! [String:Any])["transactionId"] as! String
+            guard
+                let responseData = response["data"] as? [String:Any],
+                let transaction = responseData["transactionId"] as? String else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
             onSuccess(transaction)
         }) { (error) in
             onError(error)

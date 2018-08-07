@@ -33,7 +33,11 @@ public class PaymentService: BaseService {
                       "ingeprefsPayload" : ingeprefsPayload]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
-            let newResponse = response["data"] as! [String:Any]
+            guard
+                let newResponse = response["data"] as? [String:Any] else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
             let paymentResponse = JSONDecoder().decodeDict(of: PaymentResponse.self, from: newResponse)!
             onSuccess(paymentResponse)
         }) { (error) in
