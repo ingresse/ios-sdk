@@ -228,6 +228,33 @@ class ResponseParserTests: XCTestCase {
         }
     }
 
+    func testRSVPResponse() {
+        // Given
+        let asyncExpectation = expectation(description: "builderCallback")
+
+        var response = [String: Any]()
+        response["responseData"] = 1
+
+        var success = false
+        var result: [String: Any]?
+
+        let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+
+        // When
+        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+            success = true
+            result = responseData
+            asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 5) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?["status"] as? Int, 1)
+        }
+    }
+
     func testEventsResponse() {
         // Given
         let asyncExpectation = expectation(description: "builderCallback")
