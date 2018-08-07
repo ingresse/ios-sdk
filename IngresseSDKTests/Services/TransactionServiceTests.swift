@@ -30,7 +30,7 @@ class TransactionServiceTests: XCTestCase {
         restClient.shouldFail = false
 
         var success = false
-        var result: Transaction?
+        var result: TransactionData?
 
         // When
         service.getTransactionDetails("transactionId", userToken: "1234-token", onSuccess: { (data) in

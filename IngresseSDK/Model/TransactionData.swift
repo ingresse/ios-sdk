@@ -2,7 +2,7 @@
 //  Copyright © 2017 Ingresse. All rights reserved.
 //
 
-public class Transaction: NSObject, Decodable {
+public class TransactionData: NSObject, Decodable {
     public var id: String = ""
     public var status: String = ""
     public var transactionId: String = ""
@@ -108,7 +108,7 @@ public class Transaction: NSObject, Decodable {
         basket = jsonBasket ?? arrayBasket
     }
 
-    public static func fromJSON(_ json: [String: Any]) -> Transaction? {
-        return JSONDecoder().decodeDict(of: Transaction.self, from: json)
+    public static func fromJSON(_ json: [String: Any]) -> TransactionData? {
+        return JSONDecoder().decodeDict(of: TransactionData.self, from: json)
     }
 }

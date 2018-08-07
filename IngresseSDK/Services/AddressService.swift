@@ -25,6 +25,20 @@ public class AddressService: BaseService {
         }
     }
 
+    /// Update address
+    ///
+    /// - Parameters:
+    ///   - userId: id of logged user
+    ///   - userToken: token of logged user
+    ///   - zip: address zip
+    ///   - street: address street
+    ///   - number: address number
+    ///   - complement: address complement
+    ///   - district: address district
+    ///   - city: address city
+    ///   - state: address state
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
     public func updateAddress(userId: String,
                               userToken: String,
                               zip: String,
