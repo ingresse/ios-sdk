@@ -12,7 +12,6 @@ class PlannerTests: XCTestCase {
         var json = [String:Any]()
         json["id"] = 1
         json["name"] = "name"
-        json["username"] = "username"
         json["email"] = "email"
         json["phone"] = "phone"
         json["link"] = "link"
@@ -25,7 +24,6 @@ class PlannerTests: XCTestCase {
         XCTAssertNotNil(obj)
         XCTAssertEqual(obj?.id, 1)
         XCTAssertEqual(obj?.name, "name")
-        XCTAssertEqual(obj?.username, "username")
         XCTAssertEqual(obj?.email, "email")
         XCTAssertEqual(obj?.phone, "phone")
         XCTAssertEqual(obj?.link, "link")
