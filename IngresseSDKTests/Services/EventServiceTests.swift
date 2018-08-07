@@ -483,6 +483,36 @@ class EventServiceTests: XCTestCase {
         }
     }
 
+    func testGetEventWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "event")
+
+        var response = [String:Any]()
+        response["venue"] = "venue"
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getEventDetails(eventId: "1234", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
     func testGetEventFail() {
         // Given
         let asyncExpectation = expectation(description: "event")
@@ -500,6 +530,93 @@ class EventServiceTests: XCTestCase {
 
         // When
         service.getEventDetails(eventId: "1234", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - RSVP Response
+    func testRSVPResponse() {
+        // Given
+        let asyncExpectation = expectation(description: "rsvpResponse")
+
+        var json = [String:Any]()
+        json["status"] = 1
+
+        restClient.response = json
+        restClient.shouldFail = false
+
+        var success = false
+
+        // When
+        service.rsvpResponse(eventId: "1234", userToken: "12345-token", willGo: true, onSuccess: {
+            success = true
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+        }
+    }
+
+    func testRSVPResponseWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "rsvpResponse")
+
+        var response = [String:Any]()
+        response["status"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.rsvpResponse(eventId: "1234", userToken: "12345-token", willGo: true, onSuccess: {}, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testRSVPResponseFail() {
+        // Given
+        let asyncExpectation = expectation(description: "rsvpResponse")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.rsvpResponse(eventId: "1234", userToken: "12345-token", willGo: true, onSuccess: {}, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()

@@ -33,14 +33,19 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getEventDetails(eventId: String, onSuccess: @escaping (_ attributes: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
+    public func getEventDetails(eventId: String, onSuccess: @escaping (_ details: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
 
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)")
+            .addParameter(key: "fields", value: "title,planner,link,description,date,ticket,venue, saleEnabled,id,status,rsvp,rsvpTotal,type,poster")
             .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
-            let event = JSONDecoder().decodeDict(of: Event.self, from: response)!
+            guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
             onSuccess(event)
         }) { (error) in
             onError(error)
@@ -173,6 +178,31 @@ public class EventService: BaseService {
             }
 
             onSuccess(events)
+        }) { (error) in
+            onError(error)
+        }
+    }
+
+    /// Get event details
+    ///
+    /// - Parameters:
+    ///   - eventId: id of the event
+    public func rsvpResponse(eventId: String, userToken: String, willGo: Bool, onSuccess: @escaping ()->(), onError: @escaping (_ errorData: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/rsvp")
+            .addParameter(key: "usertoken", value: userToken)
+            .addParameter(key: "method", value: willGo ? "add" : "remove")
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let status = response["status"] as? Int,
+                status == 1 else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            onSuccess()
         }) { (error) in
             onError(error)
         }
