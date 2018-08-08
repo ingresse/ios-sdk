@@ -19,6 +19,8 @@ public class PaymentResponse: NSObject, Decodable {
         case transactionId
     }
 
+    public override init() {}
+
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         boleto = container.decodeKey(.boleto, ofType: String.self)
@@ -27,5 +29,9 @@ public class PaymentResponse: NSObject, Decodable {
         tax = container.decodeKey(.tax, ofType: Double.self)
         total = container.decodeKey(.total, ofType: Double.self)
         transactionId = container.decodeKey(.transactionId, ofType: String.self)
+    }
+
+    public static func fromJSON(_ json: [String: Any]) -> PaymentResponse? {
+        return JSONDecoder().decodeDict(of: PaymentResponse.self, from: json)
     }
 }
