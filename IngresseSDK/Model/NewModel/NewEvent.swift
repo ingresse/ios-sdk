@@ -6,7 +6,7 @@
 //
 
 
-public struct NewEvent: Decodable {
+public struct NewEvent: Decodable, Equatable {
 
 //    public var attributes: Attributes?
     public var categories: [Category] = []
@@ -50,7 +50,7 @@ public struct NewEvent: Decodable {
         public var saleEnabled: Bool = true
     }
 
-    public struct Category: Codable {
+    public struct Category: Codable, Equatable {
         public var id: Int = -1
         public var name: String = ""
         public var isPublic: Bool = true
@@ -64,7 +64,7 @@ public struct NewEvent: Decodable {
         }
     }
 
-    public struct Place: Codable {
+    public struct Place: Codable, Equatable {
         public var city: String = ""
         public var country: String = ""
         public var externalId: String = ""
@@ -76,7 +76,7 @@ public struct NewEvent: Decodable {
         public var street: String = ""
         public var zip: String = ""
 
-        public struct Location: Codable {
+        public struct Location: Codable, Equatable {
             public var lat: Double = 0.0
             public var long: Double = 0.0
 
@@ -104,7 +104,7 @@ public struct NewEvent: Decodable {
         }
     }
 
-    public struct Poster: Codable {
+    public struct Poster: Codable, Equatable {
         public var large: String = ""
         public var medium: String = ""
         public var small: String = ""
@@ -120,13 +120,13 @@ public struct NewEvent: Decodable {
         }
     }
 
-    public struct Session: Codable {
+    public struct Session: Codable, Equatable {
         public var dateTime: String = ""
         public var id: Int = -1
         public var status: String = ""
     }
 
-    public struct Status: Codable {
+    public struct Status: Codable, Equatable {
         public var id: Int = -1
         public var name: String = ""
     }
