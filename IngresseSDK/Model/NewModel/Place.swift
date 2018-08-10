@@ -2,7 +2,7 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public struct Place: Codable {
+public struct Place: Codable, Equatable {
     public var city: String = ""
     public var country: String = ""
     public var externalId: String = ""
@@ -14,7 +14,7 @@ public struct Place: Codable {
     public var street: String = ""
     public var zip: String = ""
 
-    public struct Location: Codable {
+    public struct Location: Codable, Equatable {
         public var lat: Double = 0.0
         public var long: Double = 0.0
 
