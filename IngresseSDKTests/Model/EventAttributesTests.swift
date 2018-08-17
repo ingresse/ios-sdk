@@ -24,4 +24,22 @@ class EventAttributesTests: XCTestCase {
         XCTAssertEqual(obj?.ticket_transfer_enabled, false)
         XCTAssertEqual(obj?.ticket_transfer_required, true)
     }
+
+    func testFromJSON() {
+        // Given
+        var json = [String:Any]()
+        json["accepted_apps"] = ["site","android"]
+        json["ticket_transfer_enabled"] = false
+        json["ticket_transfer_required"] = true
+
+        // When
+        let obj = EventAttributes.fromJSON(json)
+
+        // Then
+        XCTAssertNotNil(obj)
+        XCTAssertEqual(obj?.accepted_apps[0], "site")
+        XCTAssertEqual(obj?.accepted_apps[1], "android")
+        XCTAssertEqual(obj?.ticket_transfer_enabled, false)
+        XCTAssertEqual(obj?.ticket_transfer_required, true)
+    }
 }

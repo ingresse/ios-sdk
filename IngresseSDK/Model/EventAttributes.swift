@@ -13,4 +13,8 @@ public class EventAttributes: NSObject, Codable {
         ticket_transfer_enabled = container.decodeKey(.ticket_transfer_enabled, ofType: Bool.self)
         ticket_transfer_required = container.decodeKey(.ticket_transfer_required, ofType: Bool.self)
     }
+
+    public static func fromJSON(_ json: [String: Any]) -> EventAttributes? {
+        return JSONDecoder().decodeDict(of: EventAttributes.self, from: json)
+    }
 }
