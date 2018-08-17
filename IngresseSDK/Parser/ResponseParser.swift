@@ -81,6 +81,12 @@ public class ResponseParser: NSObject {
             return
         }
 
+        // Address
+        if let zip = obj["zip"] as? String {
+            completion(obj)
+            return
+        }
+
         throw IngresseException.jsonParserError
     }
 }

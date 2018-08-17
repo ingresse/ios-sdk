@@ -311,6 +311,34 @@ class ResponseParserTests: XCTestCase {
         }
     }
 
+    func testZipCodeResponse() {
+        // Given
+        let asyncExpectation = expectation(description: "builderCallback")
+
+        var response = [String: Any]()
+        response["zip"] = "zip"
+
+        var success = false
+        var result: [String: Any]?
+
+        let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+
+        // When
+        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+            success = true
+            result = responseData
+            asyncExpectation.fulfill()
+        }
+
+        // Then
+        // Then
+        waitForExpectations(timeout: 5) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?["zip"] as? String, "zip")
+        }
+    }
+
     func testInvalidResponse() {
         // Given
         let asyncExpectation = expectation(description: "builderCallback")

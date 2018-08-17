@@ -40,7 +40,7 @@ class TransactionTests: XCTestCase {
         ]
 
         // When
-        let obj = Transaction.fromJSON(json)
+        let obj = TransactionData.fromJSON(json)
 
         // Then
         XCTAssertNotNil(obj)
@@ -82,7 +82,7 @@ class TransactionTests: XCTestCase {
         ]
 
         // When
-        let obj = Transaction.fromJSON(json)
+        let obj = TransactionData.fromJSON(json)
 
         // Then
         XCTAssertEqual(obj?.basket?.tickets.count, 3)
@@ -103,7 +103,7 @@ class TransactionTests: XCTestCase {
         ]
 
         // When
-        let obj = Transaction.fromJSON(json)
+        let obj = TransactionData.fromJSON(json)
 
         // Then
         XCTAssertEqual(obj?.basket?.tickets.count, 3)

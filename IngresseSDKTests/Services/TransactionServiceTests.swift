@@ -30,7 +30,7 @@ class TransactionServiceTests: XCTestCase {
         restClient.shouldFail = false
 
         var success = false
-        var result: Transaction?
+        var result: TransactionData?
 
         // When
         service.getTransactionDetails("transactionId", userToken: "1234-token", onSuccess: { (data) in
@@ -67,6 +67,121 @@ class TransactionServiceTests: XCTestCase {
             apiError = error
             asyncExpectation.fulfill()
         })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    func testCreateTransaction() {
+        // Given
+        let asyncExpectation = expectation(description: "createTransaction")
+
+        var response = [String:Any]()
+        response["data"] = ["transactionId": "transactionId"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: String!
+
+        let sessionTickets = [ShopTicket(id: 0,
+                                         name: "name",
+                                         fullDescription: "fullDescription",
+                                         guestTypeId: 0,
+                                         status: "status",
+                                         typeName: "typeName",
+                                         price: 0.0,
+                                         tax: 0.0,
+                                         hidden: false,
+                                         quantity: 1,
+                                         maximum: 1,
+                                         minimum: 1)]
+
+        // When
+        service.createTransaction(userId: "userId", userToken: "1234-token", eventId: "eventId", passkey: "passkey", sessionTickets: sessionTickets, onSuccess: { (transactionId) in
+            success = true
+            result = transactionId
+            asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testCreateTransactionWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "createTransaction")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        let sessionTickets = [ShopTicket(id: 0,
+                                         name: "name",
+                                         fullDescription: "fullDescription",
+                                         guestTypeId: 0,
+                                         status: "status",
+                                         typeName: "typeName",
+                                         price: 0.0,
+                                         tax: 0.0,
+                                         hidden: false,
+                                         quantity: 1,
+                                         maximum: 1,
+                                         minimum: 1)]
+
+        // When
+        service.createTransaction(userId: "userId", userToken: "1234-token", eventId: "eventId", passkey: "passkey", sessionTickets: sessionTickets, onSuccess: { (transactionId) in }) { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testCreateTransactionFail() {
+        // Given
+        let asyncExpectation = expectation(description: "createTransaction")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.createTransaction(userId: "userId", userToken: "1234-token", eventId: "eventId", passkey: "passkey", sessionTickets: [ShopTicket](), onSuccess: { (transactionId) in }) { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        }
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
