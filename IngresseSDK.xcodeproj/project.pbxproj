@@ -132,6 +132,7 @@
 		62A708C7210714AD0027F05E /* CheckinSyncDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A708C6210714AD0027F05E /* CheckinSyncDelegateSpy.swift */; };
 		62A708C9210782090027F05E /* EventServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A708C8210782090027F05E /* EventServiceTests.swift */; };
 		62AB232D204D8AC50014B91A /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AB232C204D8AC50014B91A /* JSONHelper.swift */; };
+		62BEC14F2127555000092CF1 /* EquatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BEC14E2127555000092CF1 /* EquatableTests.swift */; };
 		62BFE06F1F72A82B007150ED /* TransferTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFE06E1F72A82B007150ED /* TransferTicket.swift */; };
 		62BFE0711F72AB53007150ED /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFE0701F72AB53007150ED /* SocialAccount.swift */; };
 		62CE9BB621027153001C5454 /* CompanyDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CE9BB521027153001C5454 /* CompanyDataTests.swift */; };
@@ -294,6 +295,7 @@
 		62A708C6210714AD0027F05E /* CheckinSyncDelegateSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSyncDelegateSpy.swift; sourceTree = "<group>"; };
 		62A708C8210782090027F05E /* EventServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServiceTests.swift; sourceTree = "<group>"; };
 		62AB232C204D8AC50014B91A /* JSONHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
+		62BEC14E2127555000092CF1 /* EquatableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatableTests.swift; sourceTree = "<group>"; };
 		62BFE06E1F72A82B007150ED /* TransferTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTicket.swift; sourceTree = "<group>"; };
 		62BFE0701F72AB53007150ED /* SocialAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAccount.swift; sourceTree = "<group>"; };
 		62CE9BB521027153001C5454 /* CompanyDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDataTests.swift; sourceTree = "<group>"; };
@@ -554,6 +556,7 @@
 				35EF5D902119EA51001901B9 /* AddressTests.swift */,
 				35EF5D942119EE82001901B9 /* ShopTicketTests.swift */,
 				35EF5D98211A10CF001901B9 /* PaymentResponseTests.swift */,
+				62BEC14E2127555000092CF1 /* EquatableTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				62A708952102898C0027F05E /* CompanyLogoTests.swift in Sources */,
 				628EE52320508565004BA72D /* JSONDecoderTests.swift in Sources */,
 				62A708992103C1FA0027F05E /* GuestTicketTests.swift in Sources */,
+				62BEC14F2127555000092CF1 /* EquatableTests.swift in Sources */,
 				6245264D1EC253FD007B6584 /* AuthServiceTests.swift in Sources */,
 				62A708AB21065DB80027F05E /* TransactionSessionTests.swift in Sources */,
 				628EE52120507C93004BA72D /* EncodingTests.swift in Sources */,
