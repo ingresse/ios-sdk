@@ -28,7 +28,7 @@ public class ResponseParser: NSObject {
             let obj = objData as? [String:Any] else {
             throw IngresseException.jsonParserError
         }
-        
+
         if let responseString = obj["responseData"] as? String {
             if !responseString.contains("[Ingresse Exception Error]") {
                 throw IngresseException.genericError
@@ -82,7 +82,7 @@ public class ResponseParser: NSObject {
         }
 
         // Address
-        if let zip = obj["zip"] as? String {
+        if let _ = obj["zip"] as? String {
             completion(obj)
             return
         }
