@@ -13,7 +13,6 @@ public class WalletItem: NSObject, Codable {
     public var tickets: Int = 0
     public var transfered: Int = 0
     public var sessions: [Session] = []
-    public var sessionList: [Session] = []
     public var customTickets: [CustomTicket] = []
     public var venue: Venue?
 
@@ -28,7 +27,6 @@ public class WalletItem: NSObject, Codable {
         case tickets
         case transfered
         case sessions
-        case sessionList
         case customTickets
         case venue
     }
@@ -53,11 +51,9 @@ public class WalletItem: NSObject, Codable {
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
 
         guard
-            let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions),
-            let sessionListData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessionList)
+            let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions)
             else { return }
 
         sessions = sessionData.decodeKey(.data, ofType: [Session].self)
-        sessionList = sessionListData.decodeKey(.data, ofType: [Session].self)
     }
 }

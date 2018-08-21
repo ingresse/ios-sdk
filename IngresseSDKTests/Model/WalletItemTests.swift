@@ -21,7 +21,6 @@ class WalletItemTests: XCTestCase {
         json["description"] = "description"
         json["venue"] = ["id":1]
         json["sessions"] = ["data":[["id":2], ["id":3], ["id":4]]]
-        json["sessionList"] = ["data":[["id":5], ["id":6], ["id":7]]]
         json["customTickets"] = [["name":"test1"], ["name":"test2"], ["name":"test3"]]
 
         // When
@@ -41,9 +40,6 @@ class WalletItemTests: XCTestCase {
         XCTAssertEqual(obj?.sessions[0].id, 2)
         XCTAssertEqual(obj?.sessions[1].id, 3)
         XCTAssertEqual(obj?.sessions[2].id, 4)
-        XCTAssertEqual(obj?.sessionList[0].id, 5)
-        XCTAssertEqual(obj?.sessionList[1].id, 6)
-        XCTAssertEqual(obj?.sessionList[2].id, 7)
         XCTAssertEqual(obj?.customTickets[0].name, "test1")
         XCTAssertEqual(obj?.customTickets[1].name, "test2")
         XCTAssertEqual(obj?.customTickets[2].name, "test3")
