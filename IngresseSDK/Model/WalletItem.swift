@@ -50,8 +50,10 @@ public class WalletItem: NSObject, Codable {
         customTickets = container.decodeKey(.customTickets, ofType: [CustomTicket].self)
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
 
-        if let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions) {
-            sessions = sessionData.decodeKey(.data, ofType: [Session].self)
-        }
+        guard
+            let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions)
+            else { return }
+
+        sessions = sessionData.decodeKey(.data, ofType: [Session].self)
     }
 }
