@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HMACSHA1.h"
 
 //! Project version number for IngresseSDK.
 FOUNDATION_EXPORT double IngresseSDKVersionNumber;
