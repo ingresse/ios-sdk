@@ -6,7 +6,6 @@ public struct Place: Codable {
     public var city: String = ""
     public var country: String = ""
     public var externalId: String = ""
-    public var id: Int = -1
     public var location: Location?
     public var name: String = ""
     public var origin: String = ""
@@ -32,7 +31,6 @@ public struct Place: Codable {
         city = container.decodeKey(.city, ofType: String.self)
         country = container.decodeKey(.country, ofType: String.self)
         externalId = container.decodeKey(.externalId, ofType: String.self)
-        id = container.decodeKey(.id, ofType: Int.self)
         name = container.decodeKey(.name, ofType: String.self)
         origin = container.decodeKey(.origin, ofType: String.self)
         state = container.decodeKey(.state, ofType: String.self)

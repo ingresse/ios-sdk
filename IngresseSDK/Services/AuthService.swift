@@ -178,6 +178,19 @@ public class AuthService: BaseService {
         }
     }
 
+    public func getUserImage(userId: String, onSuccess: @escaping (_ imageData:Data)->(), onError: @escaping (_ error: APIError)->()) {
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)/picture")
+            .build()
+
+        do {
+            let userPictureData = try Data(contentsOf: URL(string: url)!)
+            onSuccess(userPictureData)
+        } catch {
+            onError(APIError.getDefaultError())
+        }
+    }
+
     /// Recover user password
     ///
     /// - Parameters:
