@@ -155,7 +155,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
-        let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type"
+        let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type,picture"
 
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -175,19 +175,6 @@ public class AuthService: BaseService {
             onSuccess(user)
         }) { (error: APIError) in
             onError(error)
-        }
-    }
-
-    public func getUserImage(userId: String, onSuccess: @escaping (_ imageData:Data)->(), onError: @escaping (_ error: APIError)->()) {
-        let url = URLBuilder(client: client)
-            .setPath("user/\(userId)/picture")
-            .build()
-
-        do {
-            let userPictureData = try Data(contentsOf: URL(string: url)!)
-            onSuccess(userPictureData)
-        } catch {
-            onError(APIError.getDefaultError())
         }
     }
 

@@ -28,7 +28,6 @@ class PlaceTests: XCTestCase {
         XCTAssertEqual(obj?.city, "city")
         XCTAssertEqual(obj?.country, "country")
         XCTAssertEqual(obj?.externalId, "externalId")
-        XCTAssertEqual(obj?.id, 1)
         XCTAssertEqual(obj?.name, "name")
         XCTAssertEqual(obj?.origin, "origin")
         XCTAssertEqual(obj?.state, "state")
