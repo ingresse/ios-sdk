@@ -12,6 +12,7 @@ public class Event: NSObject, Decodable {
     public var rsvpTotal: Int = 0
     public var saleEnabled: Bool = false
     public var eventDescription: String = ""
+    public var customTickets: [CustomTicket] = []
     public var rsvp: [User] = []
     public var date: [EventDate] = []
     public var planner: Planner?
@@ -27,6 +28,7 @@ public class Event: NSObject, Decodable {
         case status
         case rsvpTotal
         case saleEnabled
+        case customTickets
         case rsvp
         case date
         case planner
@@ -44,6 +46,7 @@ public class Event: NSObject, Decodable {
         type = container.decodeKey(.type, ofType: String.self)
         poster = container.decodeKey(.poster, ofType: String.self)
         status = container.decodeKey(.status, ofType: String.self)
+        customTickets = container.decodeKey(.customTickets, ofType: [CustomTicket].self)
         rsvp = container.decodeKey(.rsvp, ofType: [User].self)
         date = container.decodeKey(.date, ofType: [EventDate].self)
 
