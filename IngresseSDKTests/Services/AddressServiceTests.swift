@@ -88,7 +88,9 @@ class AddressServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "updateAddress")
 
-        let response = [String:Any]()
+        var response = [String:Any]()
+        response["status"] = 200
+        response["data"] = []
 
         restClient.response = response
         restClient.shouldFail = false
@@ -151,6 +153,121 @@ class AddressServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.code, 1)
             XCTAssertEqual(apiError?.message, "message")
             XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    func testUpdateAddressWithWrongResponse() {
+        let asyncExpectation = expectation(description: "updateAddress")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateAddress(userId: "userId",
+                              userToken: "userToken",
+                              zip: "zip",
+                              street: "street",
+                              number: "number",
+                              complement: "complement",
+                              district: "district",
+                              city: "city",
+                              state: "state", onSuccess: {}) { (error) in
+                                success = false
+                                apiError = error
+                                asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
+            XCTAssertEqual(apiError?.message, APIError.getDefaultError().message)
+            XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
+        }
+    }
+
+    func testUpdateAddressWithStatusZero() {
+        let asyncExpectation = expectation(description: "updateAddress")
+
+        var response = [String:Any]()
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = ["message"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateAddress(userId: "userId",
+                              userToken: "userToken",
+                              zip: "zip",
+                              street: "street",
+                              number: "number",
+                              complement: "complement",
+                              district: "district",
+                              city: "city",
+                              state: "state", onSuccess: {}) { (error) in
+                                success = false
+                                apiError = error
+                                asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 0)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "")
+        }
+    }
+
+    func testUpdateAddressWithStatusZeroWrongMessage() {
+        let asyncExpectation = expectation(description: "updateAddress")
+
+        var response = [String:Any]()
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = [1]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateAddress(userId: "userId",
+                              userToken: "userToken",
+                              zip: "zip",
+                              street: "street",
+                              number: "number",
+                              complement: "complement",
+                              district: "district",
+                              city: "city",
+                              state: "state", onSuccess: {}) { (error) in
+                                success = false
+                                apiError = error
+                                asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
+            XCTAssertEqual(apiError?.message, APIError.getDefaultError().message)
+            XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
         }
     }
 }

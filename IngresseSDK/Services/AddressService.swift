@@ -65,6 +65,28 @@ public class AddressService: BaseService {
                        "state" : state]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+            guard let status = response["status"] as? Int else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            if status == 0 {
+                guard let message = response["message"] as? [String] else {
+                    onError(APIError.getDefaultError())
+                    return
+                }
+
+                let error = APIError.Builder()
+                    .setCode(0)
+                    .setTitle("Verifique suas informações")
+                    .setMessage(message.joined(separator: "\n"))
+                    .setResponse(response)
+                    .build()
+
+                onError(error)
+                return
+            }
+
             onSuccess()
         }) { (error) in
             onError(error)

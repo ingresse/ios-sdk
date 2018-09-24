@@ -6,6 +6,7 @@ public class UserData: NSObject, Codable {
     public var name: String = ""
     public var lastname: String = ""
     public var email: String = ""
+    public var cpf: String = ""
     public var state: String = ""
     public var city: String = ""
     public var district: String = ""
@@ -24,6 +25,7 @@ public class UserData: NSObject, Codable {
         name = container.decodeKey(.name, ofType: String.self)
         lastname = container.decodeKey(.lastname, ofType: String.self)
         email = container.decodeKey(.email, ofType: String.self)
+        cpf = container.decodeKey(.cpf, ofType: String.self)
         state = container.decodeKey(.state, ofType: String.self)
         city = container.decodeKey(.city, ofType: String.self)
         district = container.decodeKey(.district, ofType: String.self)

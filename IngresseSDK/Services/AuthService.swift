@@ -155,7 +155,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user:IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
-        let fieldsValue = fields ?? "id,name,lastname,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type,picture"
+        let fieldsValue = fields ?? "id,name,lastname,cpf,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type,picture"
 
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -241,6 +241,55 @@ public class AuthService: BaseService {
         params["hash"] = token
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            onSuccess()
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
+
+
+    /// Change profile password
+    ///
+    /// - Parameters:
+    ///   - currentPassword: current user password
+    ///   - newPassword: user new password
+    ///   - token: user logged token
+    ///   - userId: user logged id
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func changeProfilePassword(currentPassword: String, newPassword: String, token: String, userId: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)")
+            .addParameter(key: "usertoken", value: token)
+            .build()
+
+        var params = ["password": currentPassword]
+        params["newPassword"] = newPassword
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            guard let status = response["status"] as? Int else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            if status == 0 {
+                guard let message = response["message"] as? [String] else {
+                    onError(APIError.getDefaultError())
+                    return
+                }
+
+                let error = APIError.Builder()
+                    .setCode(0)
+                    .setTitle("Verifique suas informações")
+                    .setMessage(message.joined(separator: "\n"))
+                    .setResponse(response)
+                    .build()
+
+                onError(error)
+                return
+            }
+
             onSuccess()
         }) { (error: APIError) in
             onError(error)

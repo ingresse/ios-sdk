@@ -309,4 +309,198 @@ class UserServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+
+    // MARK: - Update basic infos
+    func testUpdateBasicInfos() {
+        // Given
+        let asyncExpectation = expectation(description: "updateBasicInfos")
+
+        var response = [String:Any]()
+        response["status"] = 200
+        response["data"] = ["ddi": "ddi",
+                            "phone": "phone",
+                            "id": "id",
+                            "lastname": "lastname",
+                            "verified": "verified",
+                            "email": "email",
+                            "cpf": "cpf",
+                            "name": "name"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: UpdatedUser?
+
+        // When
+        service.updateBasicInfos(userId: "userId",
+                                 userToken: "userToken",
+                                 name: "name",
+                                 lastname: "lastname",
+                                 currentEmail: "currentEmail",
+                                 newEmail: "newEmail",
+                                 phone: "phone",
+                                 cpf: "cpf", onSuccess: { (user) in
+                                    success = true
+                                    result = user
+                                    asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertTrue(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.cpf, "cpf")
+        }
+    }
+
+    func testUpdateBasicInfosFail() {
+        let asyncExpectation = expectation(description: "updateBasicInfos")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateBasicInfos(userId: "userId",
+                                 userToken: "userToken",
+                                 name: "name",
+                                 lastname: "lastname",
+                                 currentEmail: "currentEmail",
+                                 newEmail: "newEmail",
+                                 phone: "phone",
+                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                        success = false
+                                        apiError = error
+                                        asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    func testUpdateBasicInfosWithWrongResponse() {
+        let asyncExpectation = expectation(description: "updateBasicInfos")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateBasicInfos(userId: "userId",
+                                 userToken: "userToken",
+                                 name: "name",
+                                 lastname: "lastname",
+                                 currentEmail: "currentEmail",
+                                 newEmail: "newEmail",
+                                 phone: "phone",
+                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                        success = false
+                                        apiError = error
+                                        asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
+            XCTAssertEqual(apiError?.message, APIError.getDefaultError().message)
+            XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
+        }
+    }
+
+    func testUpdateBasicInfosWithStatusZero() {
+        let asyncExpectation = expectation(description: "updateBasicInfos")
+
+        var response = [String:Any]()
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = ["message"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateBasicInfos(userId: "userId",
+                                 userToken: "userToken",
+                                 name: "name",
+                                 lastname: "lastname",
+                                 currentEmail: "currentEmail",
+                                 newEmail: "newEmail",
+                                 phone: "phone",
+                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                        success = false
+                                        apiError = error
+                                        asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 0)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "")
+        }
+    }
+
+    func testUpdateBasicInfosWithStatusZeroWrongMessage() {
+        let asyncExpectation = expectation(description: "updateBasicInfos")
+
+        var response = [String:Any]()
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = [1]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.updateBasicInfos(userId: "userId",
+                                 userToken: "userToken",
+                                 name: "name",
+                                 lastname: "lastname",
+                                 currentEmail: "currentEmail",
+                                 newEmail: "newEmail",
+                                 phone: "phone",
+                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                        success = false
+                                        apiError = error
+                                        asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
+            XCTAssertEqual(apiError?.message, APIError.getDefaultError().message)
+            XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
+        }
+    }
 }

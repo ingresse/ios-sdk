@@ -632,4 +632,167 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+
+    // MARK: - Change Profile Password
+    func testChangeProfilePassword() {
+        // Given
+        let asyncExpectation = expectation(description: "changeProfilePassword")
+
+        var response = [String:Any]()
+        response["status"] = 200
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+
+        // When
+        service.changeProfilePassword(currentPassword: "currentPass",
+                                      newPassword: "newPass",
+                                      token: "token",
+                                      userId: "userId", onSuccess: {
+                                        success = true
+                                        asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertTrue(success)
+        }
+    }
+
+    func testChangeProfilePasswordFail() {
+        let asyncExpectation = expectation(description: "changeProfilePassword")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.changeProfilePassword(currentPassword: "currentPass",
+                                      newPassword: "newPass",
+                                      token: "token",
+                                      userId: "userId", onSuccess: {}) { (error) in
+                                        success = false
+                                        apiError = error
+                                        asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    func testChangeProfilePasswordWithWrongResponse() {
+        let asyncExpectation = expectation(description: "changeProfilePassword")
+
+        var response = [String:Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.changeProfilePassword(currentPassword: "currentPass",
+                                      newPassword: "newPass",
+                                      token: "token",
+                                      userId: "userId", onSuccess: {}) { (error) in
+                                success = false
+                                apiError = error
+                                asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
+            XCTAssertEqual(apiError?.message, APIError.getDefaultError().message)
+            XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
+        }
+    }
+
+    func testChangeProfilePasswordWithStatusZero() {
+        let asyncExpectation = expectation(description: "changeProfilePassword")
+
+        var response = [String:Any]()
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = ["message"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.changeProfilePassword(currentPassword: "currentPass",
+                                      newPassword: "newPass",
+                                      token: "token",
+                                      userId: "userId", onSuccess: {}) { (error) in
+                                success = false
+                                apiError = error
+                                asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 0)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "")
+        }
+    }
+
+    func testChangeProfilePasswordWithStatusZeroWrongMessage() {
+        let asyncExpectation = expectation(description: "changeProfilePassword")
+
+        var response = [String:Any]()
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = [1]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.changeProfilePassword(currentPassword: "currentPass",
+                                      newPassword: "newPass",
+                                      token: "token",
+                                      userId: "userId", onSuccess: {}) { (error) in
+                                success = false
+                                apiError = error
+                                asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
+            XCTAssertEqual(apiError?.message, APIError.getDefaultError().message)
+            XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
+        }
+    }
 }

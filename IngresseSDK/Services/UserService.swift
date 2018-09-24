@@ -123,4 +123,71 @@ public class UserService: BaseService {
             onError(error)
         }
     }
+
+
+    /// Update basic infos
+    ///
+    /// - Parameters:
+    ///   - userId: logged user id
+    ///   - userToken: logged user token
+    ///   - name: new user name
+    ///   - lastname: new user lastname
+    ///   - email: new user email
+    ///   - phone: new user phone
+    ///   - cpf: new user cpf
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func updateBasicInfos(userId: String,
+                              userToken: String,
+                              name: String,
+                              lastname: String,
+                              currentEmail: String,
+                              newEmail: String,
+                              phone: String,
+                              cpf: String,
+                              onSuccess: @escaping (_ user: UpdatedUser) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        var params = ["name" : name,
+                      "lastname" : lastname,
+                      "phone" : phone,
+                      "cpf" : cpf]
+
+        if !(currentEmail.elementsEqual(newEmail)) {
+            params["email"] = newEmail
+        }
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+            guard let status = response["status"] as? Int else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            if status == 0 {
+                guard let message = response["message"] as? [String] else {
+                    onError(APIError.getDefaultError())
+                    return
+                }
+
+                let error = APIError.Builder()
+                    .setCode(0)
+                    .setTitle("Verifique suas informações")
+                    .setMessage(message.joined(separator: "\n"))
+                    .setResponse(response)
+                    .build()
+
+                onError(error)
+                return
+            }
+
+            let userUpdated = JSONDecoder().decodeDict(of: UpdatedUser.self, from: response["data"] as! [String : Any])!
+            onSuccess(userUpdated)
+        }) { (error: APIError) in
+            onError(error)
+        }
+    }
 }
