@@ -10,7 +10,7 @@ public class User: NSObject, Decodable {
     public var username: String = ""
     public var phone: String = ""
     public var cellphone: String = ""
-    public var picture: String = ""
+    public var pictures: [String: String] = [:]
     public var social: [SocialAccount] = []
 
     enum CodingKeys: String, CodingKey {
@@ -21,7 +21,7 @@ public class User: NSObject, Decodable {
         case username
         case phone
         case cellphone
-        case picture
+        case pictures
         case social
     }
 
@@ -37,7 +37,7 @@ public class User: NSObject, Decodable {
         username = container.decodeKey(.username, ofType: String.self)
         phone = container.decodeKey(.phone, ofType: String.self)
         cellphone = container.decodeKey(.cellphone, ofType: String.self)
-        picture = container.decodeKey(.picture, ofType: String.self)
+        pictures = container.decodeKey(.pictures, ofType: [String: String].self)
         social = container.decodeKey(.social, ofType: [SocialAccount].self)
     }
 }

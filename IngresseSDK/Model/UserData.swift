@@ -18,7 +18,7 @@ public class UserData: NSObject, Codable {
     public var fbUserId: String = ""
     public var verified: Bool = false
     public var type: String = ""
-    public var picture: String = ""
+    public var pictures: [String: String] = [:]
 
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
@@ -37,6 +37,6 @@ public class UserData: NSObject, Codable {
         fbUserId = container.decodeKey(.fbUserId, ofType: String.self)
         verified = container.decodeKey(.verified, ofType: Bool.self)
         type = container.decodeKey(.type, ofType: String.self)
-        picture = container.decodeKey(.picture, ofType: String.self)
+        pictures = container.decodeKey(.pictures, ofType: [String: String].self)
     }
 }
