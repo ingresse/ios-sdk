@@ -503,4 +503,72 @@ class UserServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
         }
     }
+
+    // MARK: - Change picture
+    func testChangePicture() {
+        // Given
+        let asyncExpectation = expectation(description: "changePicture")
+
+        var response = [String:Any]()
+        response["status"] = 200
+        response["data"] = ["ddi": "ddi",
+                            "phone": "phone",
+                            "id": "id",
+                            "lastname": "lastname",
+                            "verified": "verified",
+                            "email": "email",
+                            "cpf": "cpf",
+                            "name": "name"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+
+        // When
+        service.changePicture(userId: "userId",
+                              userToken: "userToken",
+                              imageData: "imageData", onSuccess: {
+                                success = true
+                                asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertTrue(success)
+        }
+    }
+
+    func testChangePictureFail() {
+        let asyncExpectation = expectation(description: "changePicture")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.changePicture(userId: "userId",
+                              userToken: "userToken",
+                              imageData: "imageData", onSuccess: { }) { (error) in
+                                    success = false
+                                    apiError = error
+                                    asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
 }

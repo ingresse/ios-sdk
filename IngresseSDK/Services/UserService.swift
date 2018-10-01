@@ -190,4 +190,32 @@ public class UserService: BaseService {
             onError(error)
         }
     }
+
+    /// Change user picture
+    ///
+    /// - Parameters:
+    ///   - userId: logged user id
+    ///   - userToken: logged user token
+    ///   - imageData: data from new user picture
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func changePicture(userId: String,
+                       userToken: String,
+                       imageData: String,
+                       onSuccess: @escaping () -> Void, onError: @escaping (_ error: APIError) -> Void) {
+
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)")
+            .addParameter(key: "method", value: "update")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let params = ["picture": String(format:"data:image/png;base64,%@", imageData)]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+            onSuccess()
+        }) { (error) in
+            onError(error)
+        }
+    }
 }

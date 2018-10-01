@@ -68,6 +68,10 @@ extension KeyedDecodingContainer where K : CodingKey {
             return [] as! T
         }
 
+        if String(describing: T.self).hasPrefix("Dict") {
+            return [:] as! T
+        }
+
         return 0.0 as! T
     }
 }

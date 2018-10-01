@@ -17,7 +17,7 @@ class UserTests: XCTestCase {
         json["username"] = "username"
         json["phone"] = "phone"
         json["cellphone"] = "cellphone"
-        json["picture"] = "picture"
+        json["pictures"] = [:]
         json["social"] = [
             [
                 "network": "facebook",
@@ -40,7 +40,7 @@ class UserTests: XCTestCase {
         XCTAssertEqual(obj?.username, "username")
         XCTAssertEqual(obj?.phone, "phone")
         XCTAssertEqual(obj?.cellphone, "cellphone")
-        XCTAssertEqual(obj?.picture, "picture")
+        XCTAssertEqual(obj?.pictures, [:])
 
         let social = obj!.social
         XCTAssertEqual(social[0].network, "facebook")
@@ -61,7 +61,7 @@ class UserTests: XCTestCase {
         XCTAssertEqual(obj.username, "")
         XCTAssertEqual(obj.phone, "")
         XCTAssertEqual(obj.cellphone, "")
-        XCTAssertEqual(obj.picture, "")
+        XCTAssertEqual(obj.pictures, [:])
         XCTAssertEqual(obj.social, [])
     }
 }
