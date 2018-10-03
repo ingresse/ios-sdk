@@ -29,6 +29,18 @@ public class ResponseParser: NSObject {
             throw IngresseException.jsonParserError
         }
 
+        if  let objError = obj["error"] as? Bool,
+                objError == true,
+            let message = obj["message"] as? String {
+            let error = APIError.Builder()
+                .setCode(0)
+                .setError(message)
+                .setMessage(message)
+                .build()
+
+            throw IngresseException.apiError(error: error)
+        }
+
         if let responseString = obj["responseData"] as? String {
             if !responseString.contains("[Ingresse Exception Error]") {
                 throw IngresseException.genericError
