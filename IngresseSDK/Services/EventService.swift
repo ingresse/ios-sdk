@@ -94,11 +94,11 @@ public class EventService: BaseService {
         delegate: NewEventSyncDelegate) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://hml-event.ingresse.com/")
-            .setPath("search/company/1")
+            .setHost("https://event-search.ingresse.com/")
+            .setPath("1")
             .addParameter(key: "state", value: place)
-//            .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "size", value: page.size)
+            .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "offset", value: page.currentOffset)
             .buildWithoutKeys()
 
