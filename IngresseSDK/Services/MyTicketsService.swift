@@ -40,11 +40,13 @@ public class MyTicketsService: BaseService {
     /// - Parameters:
     ///   - userId: id of logged user
     ///   - userToken: token of logged user
+    ///   - eventId: id of requested event
     ///   - page: page of request
     ///   - delegate: callback interface
-    public func getUserTickets(userId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
+    public func getUserTickets(userId: String, eventId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)/tickets")
+            .addParameter(key: "eventId", value: eventId)
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "page", value: String(page))
             .addParameter(key: "pageSize", value: "25")
