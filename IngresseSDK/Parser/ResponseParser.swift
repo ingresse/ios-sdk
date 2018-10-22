@@ -29,12 +29,12 @@ public class ResponseParser: NSObject {
             throw IngresseException.jsonParserError
         }
 
-        if  let objError = obj["error"] as? Bool,
-                objError == true,
+        // Address error
+        if let objError = obj["error"] as? Bool,
+            objError == true,
             let message = obj["message"] as? String {
             let error = APIError.Builder()
                 .setCode(0)
-                .setError(message)
                 .setMessage(message)
                 .build()
 

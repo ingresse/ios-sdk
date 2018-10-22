@@ -13,6 +13,7 @@ public class SDKErrors: NSObject {
 
     let errors = [
         -1: "Verifique suas informações e tente novamente.",
+        56: "Senha atual incorreta.",
         1033: "Verifique se preencheu o campo de CPF e tente novamente.",
         1061: "Acesse a área de \"Meus Dados\" por um navegador desktop ou mobile e preencha as informações que faltam.",
         1109: "Este telefone já foi utilizado para validar uma conta Ingresse. Insira outro número ou entre em contato com nosso suporte.",
