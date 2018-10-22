@@ -2,7 +2,8 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public struct NewEvent: Decodable {
+public struct NewEvent: Decodable, Equatable {
+
     public var categories: [Category] = []
     public var companyId: Int = -1
     public var createdAt: String = ""
@@ -22,7 +23,6 @@ public struct NewEvent: Decodable {
     }
 
     enum EventCodingKeys: String, CodingKey {
-        case attributes
         case categories
         case companyId
         case createdAt
@@ -38,13 +38,13 @@ public struct NewEvent: Decodable {
         case updatedAt
     }
 
-    public struct Session: Codable {
+    public struct Session: Codable, Equatable {
         public var dateTime: String = ""
         public var id: Int = -1
         public var status: String = ""
     }
 
-    public struct Status: Codable {
+    public struct Status: Codable, Equatable {
         public var id: Int = -1
         public var name: String = ""
     }

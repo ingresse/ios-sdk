@@ -69,6 +69,20 @@ public class ResponseParser: NSObject {
             return
         }
 
+        // Events API Error
+        if let info = obj["info"] as? [String:Any],
+            let code = obj["code"] as? Int,
+            let message = obj["message"] as? String {
+
+            let error = APIError.Builder()
+                .setResponse(info)
+                .setCode(code)
+                .setError(message)
+                .build()
+
+            throw IngresseException.apiError(error: error)
+        }
+
         // Simple object
         if let responseData = obj["responseData"] as? [String:Any] {
             completion(responseData)
