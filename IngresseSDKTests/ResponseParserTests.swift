@@ -331,11 +331,42 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        // Then
         waitForExpectations(timeout: 5) { (error:Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["zip"] as? String, "zip")
+        }
+    }
+
+    func testZipCodeWithErrorMessageResponse() {
+        // Given
+        let builderExpectation = expectation(description: "builderCallback")
+
+        var response = [String: Any]()
+        response["error"] = true
+        response["message"] = "message zip error"
+
+        var requestError = false
+        var apiError: APIError?
+
+        let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+
+        // When
+        do {
+            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+        } catch IngresseException.apiError(let error) {
+            requestError = true
+            apiError = error
+            builderExpectation.fulfill()
+        } catch {
+            XCTFail("Error")
+        }
+
+        // Then
+        waitForExpectations(timeout: 5) { (error:Error?) in
+            XCTAssertTrue(requestError)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.error, "message zip error")
         }
     }
 

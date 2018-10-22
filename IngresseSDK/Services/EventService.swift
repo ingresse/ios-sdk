@@ -37,7 +37,7 @@ public class EventService: BaseService {
 
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)")
-            .addParameter(key: "fields", value: "title,planner,link,description,date,ticket,venue, saleEnabled,id,status,rsvp,rsvpTotal,type,poster")
+            .addParameter(key: "fields", value: "title,planner,link,description,date,ticket,venue, saleEnabled,id,status,customTickets,rsvp,rsvpTotal,type,poster")
             .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in

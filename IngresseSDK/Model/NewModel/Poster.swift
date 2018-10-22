@@ -2,7 +2,7 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public struct Poster: Codable {
+public struct Poster: Codable, Equatable {
     public var large: String = ""
     public var medium: String = ""
     public var small: String = ""

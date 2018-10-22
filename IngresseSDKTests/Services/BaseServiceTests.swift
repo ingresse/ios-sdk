@@ -9,13 +9,12 @@ class BaseServiceTests: XCTestCase {
     
     func testInit() {
         // Given
-        let client = IngresseClient(publicKey: "1234", privateKey: "5678")
+        let client = IngresseClient(apiKey: "1234", userAgent: "")
 
         // When
         let service = BaseService(client)
 
         // Then
-        XCTAssertEqual(service.client.publicKey, "1234")
-        XCTAssertEqual(service.client.privateKey, "5678")
+        XCTAssertEqual(service.client.apiKey, "1234")
     }
 }

@@ -13,7 +13,11 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
-        let request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
+        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
+
+        if let header = UserAgent.header {
+            request.addValue(header, forHTTPHeaderField: "User-Agent")
+        }
         
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
@@ -35,7 +39,7 @@ public class RestClient: NSObject, RestClientInterface {
             } catch {
                 onError(APIError.getDefaultError())
             }
-            }.resume()
+        }.resume()
     }
     
     /// REST POST Method using NSURLConnection
@@ -46,10 +50,13 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
-        
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
         
+        if let header = UserAgent.header {
+            request.addValue(header, forHTTPHeaderField: "User-Agent")
+        }
+
         let body = parameters.stringFromHttpParameters()
         
         request.httpBody = body.data(using: .utf8)

@@ -29,12 +29,12 @@ public class ResponseParser: NSObject {
             throw IngresseException.jsonParserError
         }
 
-        if  let objError = obj["error"] as? Bool,
-                objError == true,
+        // Address error
+        if let objError = obj["error"] as? Bool,
+            objError == true,
             let message = obj["message"] as? String {
             let error = APIError.Builder()
                 .setCode(0)
-                .setError(message)
                 .setMessage(message)
                 .build()
 
@@ -67,6 +67,20 @@ public class ResponseParser: NSObject {
         if let status = obj["responseData"] as? Int {
             completion(["status": status])
             return
+        }
+
+        // Events API Error
+        if let info = obj["info"] as? [String:Any],
+            let code = obj["code"] as? Int,
+            let message = obj["message"] as? String {
+
+            let error = APIError.Builder()
+                .setResponse(info)
+                .setCode(code)
+                .setError(message)
+                .build()
+
+            throw IngresseException.apiError(error: error)
         }
 
         // Simple object

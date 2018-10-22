@@ -15,7 +15,7 @@ class AuthServiceTests: XCTestCase {
         super.setUp()
 
         restClient = MockClient()
-        client = IngresseClient(publicKey: "1234", privateKey: "2345", restClient: restClient)
+        client = IngresseClient(apiKey: "1234", userAgent: "", restClient: restClient)
         service = IngresseService(client: client).auth
     }
 
