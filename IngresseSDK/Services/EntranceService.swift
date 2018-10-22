@@ -15,12 +15,12 @@ public class EntranceService: BaseService {
     ///   - page:       result page
     ///
     ///   - delegate:   callback listener
-    public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, delegate: GuestListSyncDelegate) {
+    public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, pageSize: Int = 1000, delegate: GuestListSyncDelegate) {
 
         var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
-            .addParameter(key: "page", value: "\(page)")
-            .addParameter(key: "pageSize", value: "3000")
+            .addParameter(key: "page", value: page)
+            .addParameter(key: "pageSize", value: pageSize)
             .addParameter(key: "sessionid", value: sessionId)
             .addParameter(key: "usertoken", value: userToken)
         
@@ -57,8 +57,9 @@ public class EntranceService: BaseService {
     ///   - ticketTimestamps: array with timestamps of last update
     ///   - eventId: id of the event
     ///   - userToken: token of logged user
-    ///   - delegate: delegate to receive callbacks
-    public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, sessionId: String, userToken: String, delegate: CheckinSyncDelegate) {
+    ///   - onSuccess: Success callback with array of [CheckinTickets]
+    ///   - onError: Error callback with APIError
+    public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ tickets: [CheckinTicket]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
@@ -79,13 +80,13 @@ public class EntranceService: BaseService {
                 let data = response["data"] as? [[String:Any]],
                 let tickets = JSONDecoder().decodeArray(of: [CheckinTicket].self, from: data)
                 else {
-                    delegate.didFailCheckin(errorData: APIError.getDefaultError())
+                    onError(APIError.getDefaultError())
                     return
             }
 
-            delegate.didCheckinTickets(tickets)
+            onSuccess(tickets)
         }) { (error) in
-            delegate.didFailCheckin(errorData: error)
+            onError(error)
         }
     }
     
@@ -105,13 +106,13 @@ public class EntranceService: BaseService {
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
-            .addParameter(key: "sessionId", value: sessionId)
             .build()
         
         var postParams = [String:String]()
         postParams["tickets[0][ticketCode]"] = code
         postParams["tickets[0][ticketStatus]"] = "1"
         postParams["tickets[0][ticketTimestamp]"] = "\(Int(Date().timeIntervalSince1970)*1000)"
+        postParams["tickets[0][sessionId]"] = sessionId
         
         client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
             guard

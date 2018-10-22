@@ -9,15 +9,11 @@ public class PaginationInfo: NSObject, Codable {
     public var pageSize: Int = 0
     
     public var isLastPage: Bool {
-        get {
-            return lastPage <= currentPage
-        }
+        return lastPage <= currentPage
     }
     
     public var nextPage: Int {
-        get {
-            return currentPage + 1
-        }
+        return currentPage + 1
     }
 
     public override init() {
