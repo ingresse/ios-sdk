@@ -1,0 +1,2 @@
+app_identifier("com.ingresse.sdk") # The bundle identifier of your app
+apple_id("mobile@ingresse.com") # Your Apple email address
