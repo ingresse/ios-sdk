@@ -9,7 +9,7 @@ class BaseServiceTests: XCTestCase {
     
     func testInit() {
         // Given
-        let client = IngresseClient(apiKey: "1234")
+        let client = IngresseClient(apiKey: "1234", userAgent: "")
 
         // When
         let service = BaseService(client)

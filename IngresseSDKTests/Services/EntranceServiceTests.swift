@@ -15,7 +15,7 @@ class EntranceServiceTests: XCTestCase {
         super.setUp()
 
         restClient = MockClient()
-        client = IngresseClient(apiKey: "1234", restClient: restClient)
+        client = IngresseClient(apiKey: "1234", userAgent: "", restClient: restClient)
         service = IngresseService(client: client).entrance
     }
 
