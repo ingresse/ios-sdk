@@ -208,7 +208,7 @@ public class EventService: BaseService {
         }
     }
     
-    public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketTypes: [TicketType])->(), onError: @escaping (_ errorData: APIError)->()) {
+    public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketType])->(), onError: @escaping (_ errorData: APIError)->()) {
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/session/\(sessionId)/tickets")
             .build()
