@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class TicketType: NSObject, Decodable {
+public class TicketGroup: NSObject, Decodable {
     public var id: Int = -1
     public var name: String = ""
     public var desc: String = ""
