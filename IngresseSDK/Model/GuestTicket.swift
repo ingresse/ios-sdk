@@ -21,6 +21,7 @@ public class GuestTicket: NSObject, Decodable {
     public var lastUpdate: String = ""
     public var soldOnline: String = ""
     public var transferred: Bool = false
+    public var external: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -41,6 +42,7 @@ public class GuestTicket: NSObject, Decodable {
         case lastUpdate
         case soldOnline
         case transferred
+        case external
     }
 
     public required init(from decoder: Decoder) throws {
@@ -64,5 +66,6 @@ public class GuestTicket: NSObject, Decodable {
         lastUpdate = container.decodeKey(.lastUpdate, ofType: String.self)
         soldOnline = container.decodeKey(.soldOnline, ofType: String.self)
         transferred = container.decodeKey(.transferred, ofType: Bool.self)
+        external = container.decodeKey(.external, ofType: Bool.self)
     }
 }
