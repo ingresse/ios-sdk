@@ -17,20 +17,20 @@ public class TransfersService: BaseService {
     ///   - limit: number of items on response
     ///   - onSuccess: success callback with User array
     ///   - onError: fail callback with APIError
-    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [Transfer]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
             .setPath("user/\(userID)/last-transfers")
             .addParameter(key: "page", value: "1")
             .addParameter(key: "order", value: "desc")
-            .addParameter(key: "pageSize", value: "\(limit)")
+            .addParameter(key: "size", value: "\(limit)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let array = response["data"] as? [[String:Any]],
-                let users = JSONDecoder().decodeArray(of: [User].self, from: array) else {
+                let users = JSONDecoder().decodeArray(of: [Transfer].self, from: array) else {
                 onError(APIError.getDefaultError())
                 return
             }
