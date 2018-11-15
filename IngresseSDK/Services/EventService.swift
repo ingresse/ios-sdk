@@ -207,4 +207,22 @@ public class EventService: BaseService {
             onError(error)
         }
     }
+    
+    public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketType])->(), onError: @escaping (_ errorData: APIError)->()) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/session/\(sessionId)/tickets")
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let data = response["data"] as? [[String:Any]],
+                let types = JSONDecoder().decodeArray(of: [TicketType].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            onSuccess(types)
+        }) { (error) in
+            onError(error)
+        }
+    }
 }
