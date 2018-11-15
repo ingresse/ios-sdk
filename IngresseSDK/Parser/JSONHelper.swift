@@ -21,7 +21,13 @@ extension JSONDecoder {
 }
 
 extension KeyedDecodingContainer where K : CodingKey {
-    public func safeDecodeTo<T>(_ type: T.Type, forKey key: K) -> T? where T: Decodable {
+    /// Decode key considering string value with wrong type and null fields
+    ///
+    /// - Parameters:
+    ///   - type: Use this for any type of decodable object
+    ///   - key: key of the container
+    /// - Returns: Value parsed to right type or nil
+    public func safeDecodeKey<T>(_ key: K, to type: T.Type) -> T? where T: Decodable {
         if let firstTry = try? decodeIfPresent(type, forKey: key), firstTry != nil {
             return firstTry
         }
@@ -47,8 +53,14 @@ extension KeyedDecodingContainer where K : CodingKey {
         return nil
     }
 
+    /// Decode value for key or get default value for type
+    ///
+    /// - Parameters:
+    ///   - key: key to parse
+    ///   - type: (Int, Double, String, Array or Bool)
+    /// - Returns: Safe result for parsing
     func decodeKey<T:Decodable>(_ key: K, ofType type: T.Type) -> T {
-        return safeDecodeTo(type, forKey: key) ?? defaultValueFor(type)
+        return safeDecodeKey(key, to: type) ?? defaultValueFor(type)
     }
 
     private func defaultValueFor<T:Decodable>(_ type: T.Type) -> T {

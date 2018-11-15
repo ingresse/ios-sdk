@@ -120,7 +120,7 @@ class MyTicketsServiceTests: XCTestCase {
         delegate.asyncExpectation = asyncExpectation
 
         // When
-        service.getUserTickets(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
+        service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
@@ -149,7 +149,7 @@ class MyTicketsServiceTests: XCTestCase {
         delegate.asyncExpectation = asyncExpectation
 
         // When
-        service.getUserTickets(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
+        service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
@@ -177,7 +177,7 @@ class MyTicketsServiceTests: XCTestCase {
         delegate.asyncExpectation = asyncExpectation
 
         // When
-        service.getUserTickets(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
+        service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in

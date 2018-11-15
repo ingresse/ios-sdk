@@ -20,6 +20,6 @@ public class EventDate: NSObject, Codable {
         status = container.decodeKey(.status, ofType: String.self)
         date = container.decodeKey(.date, ofType: String.self)
         time = container.decodeKey(.time, ofType: String.self)
-        dateTime = try container.decodeIfPresent(DateTime.self, forKey: .dateTime)
+        dateTime = container.safeDecodeKey(.dateTime, to: DateTime.self)
     }
 }

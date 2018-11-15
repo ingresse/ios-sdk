@@ -207,4 +207,91 @@ public class EventService: BaseService {
             onError(error)
         }
     }
+    
+
+    /// Get session details
+    ///
+    /// - Parameters:
+    ///   - eventId: id from current event
+    ///   - sessionId: id from current session
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup])->(), onError: @escaping (_ errorData: APIError)->()) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/session/\(sessionId)/tickets")
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let data = response["data"] as? [[String:Any]],
+                let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            onSuccess(types)
+        }) { (error) in
+            onError(error)
+        }
+    }
+
+    /// Get Event PassKey
+    ///
+    /// - Parameters:
+    ///   - eventId: id from current event
+    ///   - passkeyCode: passkey code to show tickets
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func getEventPassKey(eventId: String, passkeyCode: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup])->(), onError: @escaping (_ errorData: APIError)->()) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/session/0/tickets")
+            .addParameter(key: "passkey", value: passkeyCode)
+            .build()
+
+        var newTickets = [TicketGroup]()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let data = response["data"] as? [[String:Any]],
+                let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            newTickets.append(contentsOf: types)
+
+            self.getEventPassportsPassKey(eventId: eventId,
+                                          passkeyCode: passkeyCode,
+                                          onSuccess: { (groups) in
+                                            newTickets.append(contentsOf: groups)
+                                            onSuccess(newTickets) },
+                                          onError: { (error) in onError(error) })
+        }) { (error) in
+            onError(error)
+        }
+    }
+
+    /// Get Event Passports PassKey
+    ///
+    /// - Parameters:
+    ///   - eventId: id from current event
+    ///   - passkeyCode: passkey code to show passports
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func getEventPassportsPassKey(eventId: String, passkeyCode: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup])->(), onError: @escaping (_ errorData: APIError)->()) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/session/passports/tickets")
+            .addParameter(key: "passkey", value: passkeyCode)
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let data = response["data"] as? [[String:Any]],
+                let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            onSuccess(types)
+        }) { (error) in
+            onError(error)
+        }
+    }
 }

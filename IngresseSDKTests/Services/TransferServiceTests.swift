@@ -30,7 +30,7 @@ class TransferServiceTests: XCTestCase {
         restClient.shouldFail = false
 
         var success = false
-        var result: [User]?
+        var result: [Transfer]?
 
         // When
         service.getRecentTransfers(userID: "1234", userToken: "1234-token", limit: 12, onSuccess: { (users) in

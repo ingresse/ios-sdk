@@ -38,7 +38,7 @@ public class URLBuilder: NSObject {
     }
     
     public func addParameter(key: String, value: Any) -> URLBuilder {
-        self.parameters[key] = String(describing: value)
+        self.parameters[key] = "\(value)"
         
         return self
     }

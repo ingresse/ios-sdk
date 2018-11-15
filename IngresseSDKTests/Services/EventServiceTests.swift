@@ -488,28 +488,28 @@ class EventServiceTests: XCTestCase {
         let asyncExpectation = expectation(description: "event")
 
         var response = [String:Any]()
-        response["venue"] = "venue"
+        response["wrongKey"] = []
 
         restClient.response = response
         restClient.shouldFail = false
 
         var success = false
-        var apiError: APIError?
+        var apiEvent: Event?
 
         // When
-        service.getEventDetails(eventId: "1234", onSuccess: { (_) in }, onError: { (error) in
-            success = false
-            apiError = error
+        service.getEventDetails(eventId: "1234", onSuccess: { (event) in
+            success = true
+            apiEvent = event
             asyncExpectation.fulfill()
-        })
+        }, onError: { (_) in })
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
-            XCTAssertFalse(success)
-            XCTAssertNotNil(apiError)
-            let defaultError = APIError.getDefaultError()
-            XCTAssertEqual(apiError?.code, defaultError.code)
-            XCTAssertEqual(apiError?.message, defaultError.message)
+            XCTAssert(success)
+            XCTAssertNotNil(apiEvent)
+            XCTAssertEqual(apiEvent?.id, 0)
+            XCTAssertNil(apiEvent?.planner)
+            XCTAssertNil(apiEvent?.venue)
         }
     }
 
