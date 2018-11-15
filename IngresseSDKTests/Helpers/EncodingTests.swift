@@ -17,10 +17,13 @@ class EncodingTests: XCTestCase {
 
         // When
         let string = dict.stringFromHttpParameters()
-        let expected = "int=10&double=99.9&bool=true&string=testString"
+        let expected = string.contains("double=99.9")
+            && string.contains("bool=true")
+            && string.contains("string=testString")
+            && string.contains("int=10")
 
         // Then
-        XCTAssertEqual(string, expected)
+        XCTAssert(expected)
     }
 
     func testTrim() {

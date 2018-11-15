@@ -22,7 +22,7 @@ public class CompanyData: NSObject, Decodable {
         userId = container.decodeKey(.userId, ofType: Int.self)
         token = container.decodeKey(.token, ofType: String.self)
         authToken = container.decodeKey(.authToken, ofType: String.self)
-        company = try container.decodeIfPresent(Company.self, forKey: .company)
-        application = try container.decodeIfPresent(CompanyApp.self, forKey: .application)
+        company = container.safeDecodeKey(.company, to: Company.self)
+        application = container.safeDecodeKey(.application, to: CompanyApp.self)
     }
 }

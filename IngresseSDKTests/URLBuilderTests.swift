@@ -20,6 +20,7 @@ class URLBuilderTests: XCTestCase {
         // Given
         let authString = builder.generateAuthString(apiKey: "1234")
         let expected = "https://api.ingresse.com/test/?param1=value1&param2=value2&\(authString)"
+        let expected2 = "https://api.ingresse.com/test/?param2=value2&param1=value1&\(authString)"
         
         // When
         let generated = builder
@@ -31,7 +32,7 @@ class URLBuilderTests: XCTestCase {
             .build()
         
         // Then
-        XCTAssertEqual(expected, generated)
+        XCTAssert(generated == expected || generated == expected2)
     }
     
     public func testMakeURLNoParameters() {

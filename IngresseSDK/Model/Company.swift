@@ -17,6 +17,6 @@ public class Company: NSObject, Decodable {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         id = container.decodeKey(.id, ofType: Int.self)
         name = container.decodeKey(.name, ofType: String.self)
-        logo = try container.decodeIfPresent(CompanyLogo.self, forKey: .logo)
+        logo = container.safeDecodeKey(.logo, to: CompanyLogo.self)
     }
 }

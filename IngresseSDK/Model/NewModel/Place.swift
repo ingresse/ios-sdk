@@ -37,6 +37,6 @@ public struct Place: Codable, Equatable {
         street = container.decodeKey(.street, ofType: String.self)
         zip = container.decodeKey(.zip, ofType: String.self)
 
-        location = try container.decodeIfPresent(Location.self, forKey: .location)
+        location = container.safeDecodeKey(.location, to: Location.self)
     }
 }

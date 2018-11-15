@@ -366,7 +366,7 @@ class ResponseParserTests: XCTestCase {
         waitForExpectations(timeout: 5) { (error:Error?) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
-            XCTAssertEqual(apiError?.error, "message zip error")
+            XCTAssertEqual(apiError?.message, "message zip error")
         }
     }
 

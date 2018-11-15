@@ -29,11 +29,11 @@ public class PendingTransfer: NSObject, Decodable {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
 
         id = container.decodeKey(.id, ofType: Int.self)
-        event = container.decodeKey(.event, ofType: Event.self)
-        venue = container.decodeKey(.venue, ofType: Venue.self)
-        session = container.decodeKey(.session, ofType: Session.self)
-        ticket = container.decodeKey(.ticket, ofType: TransferTicket.self)
-        receivedFrom = container.decodeKey(.receivedFrom, ofType: Transfer.self)
+        event = container.safeDecodeKey(.event, to: Event.self)
+        venue = container.safeDecodeKey(.venue, to: Venue.self)
+        session = container.safeDecodeKey(.session, to: Session.self)
+        ticket = container.safeDecodeKey(.ticket, to: TransferTicket.self)
+        receivedFrom = container.safeDecodeKey(.receivedFrom, to: Transfer.self)
 
         guard
             let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKeys.self, forKey: .sessions)

@@ -36,7 +36,8 @@ public class Event: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
         id = container.decodeKey(.id, ofType: Int.self)
         saleEnabled = container.decodeKey(.saleEnabled, ofType: Bool.self)
         rsvpTotal = container.decodeKey(.rsvpTotal, ofType: Int.self)
@@ -50,7 +51,7 @@ public class Event: NSObject, Decodable {
         rsvp = container.decodeKey(.rsvp, ofType: [User].self)
         date = container.decodeKey(.date, ofType: [EventDate].self)
         
-        planner = try container.decodeIfPresent(Planner.self, forKey: .planner)
-        venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
+        planner = container.safeDecodeKey(.planner, to: Planner.self)
+        venue = container.safeDecodeKey(.venue, to: Venue.self)
     }
 }

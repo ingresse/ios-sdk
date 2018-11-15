@@ -67,9 +67,9 @@ public struct NewEvent: Decodable, Equatable {
         categories = container.decodeKey(.categories, ofType: [Category].self)
         sessions = container.decodeKey(.sessions, ofType: [Session].self)
 
-        place = try container.decodeIfPresent(Place.self, forKey: .place)
-        poster = try container.decodeIfPresent(Poster.self, forKey: .poster)
-        status = try container.decodeIfPresent(Status.self, forKey: .status)
+        place = container.safeDecodeKey(.place, to: Place.self)
+        poster = container.safeDecodeKey(.poster, to: Poster.self)
+        status = container.safeDecodeKey(.status, to: Status.self)
     }
 }
 
