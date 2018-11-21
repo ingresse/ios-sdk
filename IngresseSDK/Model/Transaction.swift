@@ -2,7 +2,7 @@
 //  Created by macbook ingresse on 20/11/2018.
 //
 
-public class Transaction: NSObject, Decodable {
+public class Transaction: Decodable {
     public var transactionId: String = ""
     public var gateway: [String: String] = [:]
     public var status: String = ""

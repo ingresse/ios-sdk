@@ -2,7 +2,7 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public class PaymentMethod: NSObject, Decodable {
+public class PaymentMethod: Decodable {
     public var paymentType: String = ""
     public var installments: [Installment] = []
 

@@ -2,7 +2,7 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public class Installment: NSObject, Decodable {
+public class Installment: Decodable {
     public var quantity: Int = 0
     public var value: Double = 0
     public var total: Double = 0

@@ -13,25 +13,21 @@ public class PaymentService: BaseService {
     ///   - tickets: tickets selected by user
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func createTransaction(userId: String, userToken: String, eventId: String, tickets: [[String: String]], onSuccess: @escaping (_ response: Transaction) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func createTransaction(userId: String, userToken: String, eventId: String, tickets: [PaymentTicket], onSuccess: @escaping (_ response: Transaction) -> Void, onError: @escaping (_ error: APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setPath("shop/")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        var params = ["userId" : userId,
-                      "eventId" : eventId] as [String : Any]
-
-        tickets.enumerated().forEach { tuple in
-            let guestTypeIdKey = "tickets[\(tuple.offset)][guestTypeId]"
-            params[guestTypeIdKey] = tuple.element["guestTypeId"]!
-
-            let quantityKey = "tickets[\(tuple.offset)][quantity]"
-            params[quantityKey] = tuple.element["quantity"]!
+        let params = StartTransaction(userId: userId, eventId: eventId, tickets: tickets)
+        guard
+            let data = try? JSONEncoder().encode(params) else {
+                onError(APIError.getDefaultError())
+                return
         }
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard
                 let newResponse = response["data"] as? [String:Any] else {
                     onError(APIError.getDefaultError())
