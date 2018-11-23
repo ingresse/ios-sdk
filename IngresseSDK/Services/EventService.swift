@@ -33,12 +33,19 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getEventDetails(eventId: String, onSuccess: @escaping (_ details: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
+    public func getEventDetails(eventId: String, slug: String = "", onSuccess: @escaping (_ details: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
 
-        let url = URLBuilder(client: client)
+        var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)")
             .addParameter(key: "fields", value: "title,planner,link,description,date,ticket,venue, saleEnabled,id,status,customTickets,rsvp,rsvpTotal,type,poster")
-            .build()
+
+        if slug != "" {
+            builder = builder.setPath("event")
+            builder = builder.addParameter(key: "method", value: "identify")
+            builder = builder.addParameter(key: "link", value: slug)
+        }
+
+        let url = builder.build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else {
