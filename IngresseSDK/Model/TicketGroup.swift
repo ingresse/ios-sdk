@@ -9,7 +9,7 @@ public class TicketGroup: NSObject, Decodable {
     public var name: String = ""
     public var desc: String = ""
     public var status: String = ""
-    public var tickets: [Ticket] = [Ticket]()
+    public var tickets: [TicketItem] = [TicketItem]()
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -25,6 +25,6 @@ public class TicketGroup: NSObject, Decodable {
         name = container.decodeKey(.name, ofType: String.self)
         desc = container.decodeKey(.desc, ofType: String.self)
         status = container.decodeKey(.status, ofType: String.self)
-        tickets = container.decodeKey(.tickets, ofType: [Ticket].self)
+        tickets = container.decodeKey(.tickets, ofType: [TicketItem].self)
     }
 }

@@ -3,7 +3,6 @@
 //
 
 public class CompanyApp: NSObject, Codable {
-    
     public var id: Int = -1
     public var name: String = ""
     public var apiKey: String = ""

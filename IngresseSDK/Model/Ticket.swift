@@ -2,7 +2,7 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public class Ticket: NSObject, Decodable {
+public class TicketItem: NSObject, Decodable {
     public var id: Int = -1
     public var name: String = ""
     public var desc: String = ""
