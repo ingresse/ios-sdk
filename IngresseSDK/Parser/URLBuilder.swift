@@ -11,6 +11,22 @@ public enum Environment: String {
     case hml = "hml-"
     case test = "test-"
     case stg = "stg-"
+    case undefined = "undefined-"
+
+    public init(envType: String) {
+        switch envType {
+        case "prod":
+            self = .prod
+        case "hml":
+            self = .hml
+        case "test":
+            self = .test
+        case "stg":
+            self = .stg
+        default:
+            self = .undefined
+        }
+    }
 }
 
 public enum Host: String {
