@@ -13,7 +13,8 @@ public class AddressService: BaseService {
     public func getAddressBy(zipCode: String, onSuccess: @escaping (_ response: Address) -> Void, onError: @escaping (_ error: APIError) -> Void){
 
         let url = URLBuilder(client: client)
-            .setHost("https://cep.ingresse.com/")
+            .setHost(.cep)
+            .setEnvironment(.prod)
             .setPath(zipCode)
             .build()
 

@@ -94,7 +94,7 @@ public class EventService: BaseService {
         delegate: NewEventSyncDelegate) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://event-search.ingresse.com/")
+            .setHost(.search)
             .setPath("1")
             .addParameter(key: "state", value: place)
             .addParameter(key: "size", value: page.size)
@@ -132,7 +132,7 @@ public class EventService: BaseService {
     public func getCategories(onSuccess: @escaping (_ categories: [Category])->(), onError: @escaping (_ errorData: APIError)->()) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://hml-event.ingresse.com/")
+            .setHost(.events)
             .setPath("categories")
             .buildWithoutKeys()
 
