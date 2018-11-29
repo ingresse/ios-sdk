@@ -3,14 +3,14 @@
 //
 
 public class IngresseClient: NSObject {
-    var host: String
+    var environment: Environment
     var apiKey: String
     var restClient: RestClientInterface
     
-    public init(apiKey: String, userAgent: String, urlHost: String = "https://api.ingresse.com/", restClient: RestClientInterface? = nil) {
+    public init(apiKey: String, userAgent: String, env: Environment = .prod, restClient: RestClientInterface? = nil) {
         self.apiKey = apiKey
         self.restClient = restClient ?? RestClient()
-        self.host = urlHost
+        self.environment = env
         UserAgent.header = userAgent
     }
 }
