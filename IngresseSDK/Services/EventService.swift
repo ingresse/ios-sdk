@@ -63,7 +63,7 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getAdvertisement(ofEvent eventId: String, onSuccess: @escaping (_ ads: Advertisement)->(), onError: @escaping (_ errorData: APIError)->()) {
+    public func getAdvertisement(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement)->(), onError: @escaping (_ errorData: APIError)->()) {
         
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
@@ -80,6 +80,7 @@ public class EventService: BaseService {
                     return
             }
 
+            ads.eventId = eventId
             onSuccess(ads)
         }) { (error) in
             onError(error)
