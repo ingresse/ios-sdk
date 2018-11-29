@@ -12,7 +12,7 @@ class URLBuilderTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        let client = IngresseClient(apiKey: "1234", userAgent: "", urlHost: "https://api.ingresse.com/")
+        let client = IngresseClient(apiKey: "1234", userAgent: "")
         builder = URLBuilder(client: client)
     }
     
@@ -24,7 +24,8 @@ class URLBuilderTests: XCTestCase {
         
         // When
         let generated = builder
-            .setHost("https://api.ingresse.com/")
+            .setHost(.api)
+            .setEnvironment(.prod)
             .setPath("test/")
             .setKeys(apiKey: "1234")
             .addParameter(key: "param1", value: "value1")
@@ -42,7 +43,8 @@ class URLBuilderTests: XCTestCase {
         
         // When
         let generated = builder
-            .setHost("https://api.ingresse.com/")
+            .setHost(.api)
+            .setEnvironment(.prod)
             .setPath("test/")
             .setKeys(apiKey: "1234")
             .build()

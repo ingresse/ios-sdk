@@ -50,6 +50,15 @@ extension Response.Shop.Transaction {
 }
 
 extension Response.Shop.Payment {
+    enum CodingKeys: String, CodingKey {
+        case boleto
+        case message
+        case status
+        case tax
+        case total
+        case transactionId
+    }
+
     public init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self)
             else { return }

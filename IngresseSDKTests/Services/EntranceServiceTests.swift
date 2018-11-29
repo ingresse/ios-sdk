@@ -112,16 +112,27 @@ class EntranceServiceTests: XCTestCase {
         restClient.response = response
         restClient.shouldFail = false
 
-        let delegate = CheckinSyncDelegateSpy()
-        delegate.asyncExpectation = checkinExpectation
+        var result: [CheckinTicket]?
+        var apiError: APIError?
 
         // When
-        service.checkinTickets(["000", "111", "333"], ticketStatus: ["0", "0", "0"], ticketTimestamps: ["999", "999", "999"], eventId: "1234", sessionId: "2345", userToken: "12345-token", delegate: delegate)
+        service.checkinTickets(
+            ["000", "111", "333"],
+            ticketStatus: ["0", "0", "0"],
+            ticketTimestamps: ["999", "999", "999"],
+            eventId: "1234", sessionId: "2345",
+            userToken: "12345-token", onSuccess: { (tickets) in
+                result = tickets
+                checkinExpectation.fulfill()
+        }, onError: { (error) in
+            apiError = error
+            checkinExpectation.fulfill()
+        })
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
-            XCTAssert(delegate.didCheckinTicketsCalled)
-            XCTAssertEqual(delegate.checkinResult, [])
+            XCTAssertNotNil(result)
+            XCTAssertNil(apiError)
         }
     }
 
@@ -135,16 +146,27 @@ class EntranceServiceTests: XCTestCase {
         restClient.response = response
         restClient.shouldFail = false
 
-        let delegate = CheckinSyncDelegateSpy()
-        delegate.asyncExpectation = checkinExpectation
+        var result: [CheckinTicket]?
+        var apiError: APIError?
 
         // When
-        service.checkinTickets(["000", "111", "333"], ticketStatus: ["0", "0", "0"], ticketTimestamps: ["999", "999", "999"], eventId: "1234", sessionId: "2345", userToken: "12345-token", delegate: delegate)
+        service.checkinTickets(
+            ["000", "111", "333"],
+            ticketStatus: ["0", "0", "0"],
+            ticketTimestamps: ["999", "999", "999"],
+            eventId: "1234", sessionId: "2345",
+            userToken: "12345-token", onSuccess: { (tickets) in
+                result = tickets
+                checkinExpectation.fulfill()
+        }, onError: { (error) in
+            apiError = error
+            checkinExpectation.fulfill()
+        })
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
-            XCTAssert(delegate.didFailCheckinCalled)
-            XCTAssertNil(delegate.checkinResult)
+            XCTAssertNil(result)
+            XCTAssertNotNil(apiError)
         }
     }
 
@@ -160,17 +182,26 @@ class EntranceServiceTests: XCTestCase {
         restClient.error = error
         restClient.shouldFail = true
 
-        let delegate = CheckinSyncDelegateSpy()
-        delegate.asyncExpectation = checkinExpectation
+        var result: [CheckinTicket]?
+        var apiError: APIError?
 
         // When
-        service.checkinTickets(["000", "111", "333"], ticketStatus: ["0", "0", "0"], ticketTimestamps: ["999", "999", "999"], eventId: "1234", sessionId: "2345", userToken: "12345-token", delegate: delegate)
+        service.checkinTickets(
+            ["000", "111", "333"],
+            ticketStatus: ["0", "0", "0"],
+            ticketTimestamps: ["999", "999", "999"],
+            eventId: "1234", sessionId: "2345",
+            userToken: "12345-token", onSuccess: { (tickets) in
+                result = tickets
+                checkinExpectation.fulfill()
+        }, onError: { (error) in
+            apiError = error
+            checkinExpectation.fulfill()
+        })
 
         // Then
         waitForExpectations(timeout: 1) { (error:Error?) in
-            XCTAssert(delegate.didFailCheckinCalled)
-            XCTAssertNil(delegate.checkinResult)
-            let apiError = delegate.syncFailError
+            XCTAssertNil(result)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
             XCTAssertEqual(apiError?.message, "message")

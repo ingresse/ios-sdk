@@ -96,7 +96,7 @@ class EventServiceTests: XCTestCase {
         var result: Advertisement?
 
         // When
-        service.getAdvertisement(ofEvent: "1234", onSuccess: { (ads) in
+        service.getAdvertisement(ofEvent: 1234, onSuccess: { (ads) in
             success = true
             result = ads
             asyncExpectation.fulfill()
@@ -123,7 +123,7 @@ class EventServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getAdvertisement(ofEvent: "1234", onSuccess: { (_) in }, onError: { (error) in
+        service.getAdvertisement(ofEvent: 1234, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -155,7 +155,7 @@ class EventServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getAdvertisement(ofEvent: "1234", onSuccess: { (_) in }, onError: { (error) in
+        service.getAdvertisement(ofEvent: 1234, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()

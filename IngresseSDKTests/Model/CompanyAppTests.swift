@@ -12,7 +12,7 @@ class CompanyAppTests: XCTestCase {
         var json = [String:Any]()
         json["id"] = 1
         json["name"] = "name"
-        json["apiKey"] = "apiKey"
+        json["publicKey"] = "apiKey"
 
         // When
         let obj = JSONDecoder().decodeDict(of: CompanyApp.self, from: json)
@@ -21,6 +21,6 @@ class CompanyAppTests: XCTestCase {
         XCTAssertNotNil(obj)
         XCTAssertEqual(obj?.id, 1)
         XCTAssertEqual(obj?.name, "name")
-        XCTAssertEqual(obj?.apiKey, "apiKey")
+        XCTAssertEqual(obj?.publicKey, "apiKey")
     }
 }

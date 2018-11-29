@@ -35,23 +35,19 @@ class PaymentServiceTests: XCTestCase {
         restClient.shouldFail = false
 
         var success = false
-        var result: PaymentResponse?
+        var result: Response.Shop.Payment?
+
+        let request = Request.Shop.Free()
 
         // When
-        service.doReserve(userToken: "userToken",
-                          userId: "userId",
-                          document: "dcument",
-                          eventId: "eventId",
-                          postback: "postback",
-                          transactionId: "transactionId",
-                          ingeprefsPayload: "ingeprefsPayload", onSuccess: { (response) in
-                            success = true
-                            result = response
-                            asyncExpectation.fulfill()
-        }) { (error) in }
+        service.doReserve(request: request, userToken: "userToken", onSuccess: { (payment) in
+            success = true
+            result = payment
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 2) { (error:Error?) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.boleto, "boleto")
@@ -79,21 +75,17 @@ class PaymentServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        let request = Request.Shop.Free()
+
         // When
-        service.doReserve(userToken: "userToken",
-                          userId: "userId",
-                          document: "dcument",
-                          eventId: "eventId",
-                          postback: "postback",
-                          transactionId: "transactionId",
-                          ingeprefsPayload: "ingeprefsPayload", onSuccess: { (response) in }) { (error) in
-                            success = false
-                            apiError = error
-                            asyncExpectation.fulfill()
-        }
+        service.doReserve(request: request, userToken: "userToken", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 2) { (error:Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -116,21 +108,17 @@ class PaymentServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        let request = Request.Shop.Free()
+
         // When
-        service.doReserve(userToken: "userToken",
-                          userId: "userId",
-                          document: "dcument",
-                          eventId: "eventId",
-                          postback: "postback",
-                          transactionId: "transactionId",
-                          ingeprefsPayload: "ingeprefsPayload", onSuccess: { (response) in }) { (error) in
-                            success = false
-                            apiError = error
-                            asyncExpectation.fulfill()
-        }
+        service.doReserve(request: request, userToken: "userToken", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 2) { (error:Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
