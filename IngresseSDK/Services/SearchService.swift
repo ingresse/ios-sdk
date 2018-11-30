@@ -49,7 +49,7 @@ public class SearchService: BaseService {
                           onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://event-search.ingresse.com/")
+            .setHost(.search)
             .setPath("1")
             .addParameter(key: "title", value: eventTitle)
             .addParameter(key: "size", value: "20")
@@ -83,7 +83,7 @@ public class SearchService: BaseService {
                           onError: @escaping (_ error: IngresseSDK.APIError)->()) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://event-search.ingresse.com/")
+            .setHost(.search)
             .setPath("1")
             .addParameter(key: "id", value: eventId)
             .buildWithoutKeys()

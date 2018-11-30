@@ -3,7 +3,7 @@
 //
 
 public class Advertisement: NSObject, Decodable {
-    
+    public var eventId: Int = -1
     public var cover: CoverAd?
     public var background: BackgroundAd?
 

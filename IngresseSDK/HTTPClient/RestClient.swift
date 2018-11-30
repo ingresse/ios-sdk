@@ -50,16 +50,38 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+
+        let body = parameters.stringFromHttpParameters()
+
+        if let data = body.data(using: .utf8) {
+            POSTData(url: url,
+                     data: data,
+                     JSONData: false,
+                     onSuccess: onSuccess,
+                     onError: onError)
+        }
+    }
+
+    /// REST POST Method using NSURLConnection
+    ///
+    /// - Parameters:
+    ///   - url: request path
+    ///   - data: post data
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func POSTData(url: String, data: Data, JSONData: Bool, onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
         
         if let header = UserAgent.header {
             request.addValue(header, forHTTPHeaderField: "User-Agent")
         }
-
-        let body = parameters.stringFromHttpParameters()
         
-        request.httpBody = body.data(using: .utf8)
+        if JSONData {
+            request.addValue("application/json", forHTTPHeaderField: "content-type")
+        }
+
+        request.httpBody = data
         
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {

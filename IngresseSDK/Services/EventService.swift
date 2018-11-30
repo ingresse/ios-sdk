@@ -33,12 +33,19 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getEventDetails(eventId: String, onSuccess: @escaping (_ details: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
+    public func getEventDetails(eventId: String, slug: String = "", onSuccess: @escaping (_ details: Event)->(), onError: @escaping (_ errorData: APIError)->()) {
 
-        let url = URLBuilder(client: client)
+        var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)")
             .addParameter(key: "fields", value: "title,planner,link,description,date,ticket,venue, saleEnabled,id,status,customTickets,rsvp,rsvpTotal,type,poster")
-            .build()
+
+        if slug != "" {
+            builder = builder.setPath("event")
+            builder = builder.addParameter(key: "method", value: "identify")
+            builder = builder.addParameter(key: "link", value: slug)
+        }
+
+        let url = builder.build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else {
@@ -56,7 +63,7 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getAdvertisement(ofEvent eventId: String, onSuccess: @escaping (_ ads: Advertisement)->(), onError: @escaping (_ errorData: APIError)->()) {
+    public func getAdvertisement(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement)->(), onError: @escaping (_ errorData: APIError)->()) {
         
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
@@ -73,6 +80,7 @@ public class EventService: BaseService {
                     return
             }
 
+            ads.eventId = eventId
             onSuccess(ads)
         }) { (error) in
             onError(error)
@@ -94,7 +102,7 @@ public class EventService: BaseService {
         delegate: NewEventSyncDelegate) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://event-search.ingresse.com/")
+            .setHost(.search)
             .setPath("1")
             .addParameter(key: "state", value: place)
             .addParameter(key: "size", value: page.size)
@@ -132,7 +140,7 @@ public class EventService: BaseService {
     public func getCategories(onSuccess: @escaping (_ categories: [Category])->(), onError: @escaping (_ errorData: APIError)->()) {
 
         let url = URLBuilder(client: client)
-            .setHost("https://hml-event.ingresse.com/")
+            .setHost(.events)
             .setPath("categories")
             .buildWithoutKeys()
 
