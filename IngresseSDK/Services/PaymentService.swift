@@ -65,6 +65,14 @@ public class PaymentService: BaseService {
         })
     }
 
+
+    /// Do payment tickets
+    ///
+    /// - Parameters:
+    ///   - request: struct with all needed parameters
+    ///   - userToken: token of logged user
+    ///   - onSuccess: success callback
+    ///   - onError: error callback
     public func doPayment(request: Request.Shop.Payment, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void, onError: @escaping (_ error: APIError) -> Void) {
         let url = URLBuilder(client: client)
             .setPath("shop")
