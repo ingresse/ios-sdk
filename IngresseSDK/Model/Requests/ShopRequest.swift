@@ -7,6 +7,7 @@ extension Request {
         public struct Create: Encodable {
             public var userId: String = ""
             public var eventId: String = ""
+            public var passkey: String?
             public var tickets: [PaymentTicket] = []
 
             public init() {}
