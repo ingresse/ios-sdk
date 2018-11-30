@@ -19,6 +19,15 @@ class MockClient: RestClientInterface {
         shouldFail ? onError(error!) : onSuccess(response!)
     }
     
+    func POSTData(
+        url: String,
+        data: Data,
+        JSONData: Bool,
+        onSuccess: @escaping ([String : Any]) -> Void,
+        onError: @escaping (APIError) -> Void) {
+        shouldFail ? onError(error!) : onSuccess(response!)
+    }
+
     func GET(
         url: String,
         onSuccess: @escaping ([String : Any]) -> (),

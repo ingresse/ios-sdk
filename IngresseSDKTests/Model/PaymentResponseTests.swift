@@ -18,7 +18,7 @@ class PaymentResponseTests: XCTestCase {
         json["transactionId"] = "transactionId"
 
         // When
-        let obj = JSONDecoder().decodeDict(of: PaymentResponse.self, from: json)
+        let obj = JSONDecoder().decodeDict(of: Response.Shop.Payment.self, from: json)
 
         // Then
         XCTAssertNotNil(obj)
@@ -40,7 +40,7 @@ class PaymentResponseTests: XCTestCase {
         json["transactionId"] = "transactionId"
 
         // When
-        let obj = PaymentResponse.fromJSON(json)
+        let obj = Response.Shop.Payment.fromJSON(json)
 
         // Then
         XCTAssertNotNil(obj)
@@ -54,7 +54,7 @@ class PaymentResponseTests: XCTestCase {
 
     func testInit() {
         // When
-        let obj = PaymentResponse()
+        let obj = Response.Shop.Payment()
 
         // Then
         XCTAssertNotNil(obj)

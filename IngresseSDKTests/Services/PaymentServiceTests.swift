@@ -18,10 +18,133 @@ class PaymentServiceTests: XCTestCase {
         service = IngresseService(client: client).payment
     }
 
+    // MARK: - Create transaction
+    func testCreateTransaction() {
+        // Given
+        let asyncExpectation = expectation(description: "transaction")
+
+        var request = Request.Shop.Create()
+        request.userId = "userId"
+        request.eventId = "transactionId"
+        request.tickets = []
+
+        var response  = [String:Any]()
+        response["data"] = ["transactionId": "transactionId",
+                            "status": "status",
+                            "message": "message",
+                            "availablePaymentMethods": [:]]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: Response.Shop.Transaction?
+
+        // When
+        service.createTransaction(request: request,
+                                  userToken: "userToken", onSuccess: { (response) in
+                            success = true
+                            result = response
+                            asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertTrue(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.transactionId, "transactionId")
+            XCTAssertEqual(result?.status, "status")
+            XCTAssertEqual(result?.message, "message")
+        }
+    }
+
+    func testCreateTransactionWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "transaction")
+        let response = ["boleto": "boleto",
+                        "message": "message",
+                        "status": "status",
+                        "tax": 0.0,
+                        "total": 0.0,
+                        "transactionId": "transactionId"] as [String:Any]
+
+        var request = Request.Shop.Create()
+        request.userId = "userId"
+        request.eventId = "transactionId"
+        request.tickets = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.createTransaction(request: request,
+                                  userToken: "userToken", onSuccess: { (response) in }) { (error) in
+                            success = false
+                            apiError = error
+                            asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testCreateTransactionFail() {
+        let asyncExpectation = expectation(description: "transaction")
+
+        var request = Request.Shop.Create()
+        request.userId = "userId"
+        request.eventId = "transactionId"
+        request.tickets = []
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.createTransaction(request: request,
+                                  userToken: "userToken", onSuccess: { (response) in }) { (error) in
+                            success = false
+                            apiError = error
+                            asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
     // MARK: - Do tickets reserve
     func testDoReserve() {
         // Given
         let asyncExpectation = expectation(description: "doReserve")
+
+        var request = Request.Shop.Free()
+        request.userId = "userId"
+        request.transactionId = "transactionId"
+        request.document = "document"
+        request.postback = "postback"
+        request.ingeprefsPayload = "ingeprefsPayload"
 
         var response  = [String:Any]()
         response["data"] = ["boleto": "boleto",
@@ -35,16 +158,11 @@ class PaymentServiceTests: XCTestCase {
         restClient.shouldFail = false
 
         var success = false
-        var result: PaymentResponse?
+        var result: Response.Shop.Payment?
 
         // When
-        service.doReserve(userToken: "userToken",
-                          userId: "userId",
-                          document: "dcument",
-                          eventId: "eventId",
-                          postback: "postback",
-                          transactionId: "transactionId",
-                          ingeprefsPayload: "ingeprefsPayload", onSuccess: { (response) in
+        service.doReserve(request: request,
+                          userToken: "userToken", onSuccess: { (response) in
                             success = true
                             result = response
                             asyncExpectation.fulfill()
@@ -73,6 +191,13 @@ class PaymentServiceTests: XCTestCase {
                         "total": 0.0,
                         "transactionId": "transactionId"] as [String:Any]
 
+        var request = Request.Shop.Free()
+        request.userId = "userId"
+        request.transactionId = "transactionId"
+        request.document = "document"
+        request.postback = "postback"
+        request.ingeprefsPayload = "ingeprefsPayload"
+
         restClient.response = response
         restClient.shouldFail = false
 
@@ -80,13 +205,8 @@ class PaymentServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.doReserve(userToken: "userToken",
-                          userId: "userId",
-                          document: "dcument",
-                          eventId: "eventId",
-                          postback: "postback",
-                          transactionId: "transactionId",
-                          ingeprefsPayload: "ingeprefsPayload", onSuccess: { (response) in }) { (error) in
+        service.doReserve(request: request,
+                          userToken: "userToken", onSuccess: { (response) in }) { (error) in
                             success = false
                             apiError = error
                             asyncExpectation.fulfill()
@@ -105,6 +225,13 @@ class PaymentServiceTests: XCTestCase {
     func testDoReserveFail() {
         let asyncExpectation = expectation(description: "doReserve")
 
+        var request = Request.Shop.Free()
+        request.userId = "userId"
+        request.transactionId = "transactionId"
+        request.document = "document"
+        request.postback = "postback"
+        request.ingeprefsPayload = "ingeprefsPayload"
+
         let error = APIError()
         error.code = 1
         error.message = "message"
@@ -117,13 +244,148 @@ class PaymentServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.doReserve(userToken: "userToken",
-                          userId: "userId",
-                          document: "dcument",
-                          eventId: "eventId",
-                          postback: "postback",
-                          transactionId: "transactionId",
-                          ingeprefsPayload: "ingeprefsPayload", onSuccess: { (response) in }) { (error) in
+        service.doReserve(request: request,
+                          userToken: "userToken", onSuccess: { (response) in }) { (error) in
+                            success = false
+                            apiError = error
+                            asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - Do tickets payment
+    func testDoPayment() {
+        // Given
+        let asyncExpectation = expectation(description: "doPayment")
+        let creditCard = Request.Shop.CreditCard()
+
+        var request = Request.Shop.Payment()
+        request.userId = "userId"
+        request.transactionId = "transactionId"
+        request.creditcard = creditCard
+        request.installments = 1
+        request.paymentMethod = "method"
+        request.document = "document"
+        request.postback = "postback"
+        request.ingeprefsPayload = "ingeprefsPayload"
+
+        var response  = [String:Any]()
+        response["data"] = ["boleto": "boleto",
+                            "message": "message",
+                            "status": "status",
+                            "tax": 0.0,
+                            "total": 0.0,
+                            "transactionId": "transactionId"]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: Response.Shop.Payment?
+
+        // When
+        service.doPayment(request: request,
+                          userToken: "userToken", onSuccess: { (response) in
+                            success = true
+                            result = response
+                            asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertTrue(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.boleto, "boleto")
+            XCTAssertEqual(result?.message, "message")
+            XCTAssertEqual(result?.status, "status")
+            XCTAssertEqual(result?.tax, 0.0)
+            XCTAssertEqual(result?.total, 0.0)
+            XCTAssertEqual(result?.transactionId, "transactionId")
+        }
+    }
+
+    func testDoPaymentWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "doReserve")
+        let response = ["boleto": "boleto",
+                        "message": "message",
+                        "status": "status",
+                        "tax": 0.0,
+                        "total": 0.0,
+                        "transactionId": "transactionId"] as [String:Any]
+
+        let creditCard = Request.Shop.CreditCard()
+
+        var request = Request.Shop.Payment()
+        request.userId = "userId"
+        request.transactionId = "transactionId"
+        request.creditcard = creditCard
+        request.installments = 1
+        request.paymentMethod = "method"
+        request.document = "document"
+        request.postback = "postback"
+        request.ingeprefsPayload = "ingeprefsPayload"
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.doPayment(request: request,
+                          userToken: "userToken", onSuccess: { (response) in }) { (error) in
+                            success = false
+                            apiError = error
+                            asyncExpectation.fulfill()
+        }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testDoPaymentFail() {
+        let asyncExpectation = expectation(description: "doReserve")
+        let creditCard = Request.Shop.CreditCard()
+
+        var request = Request.Shop.Payment()
+        request.userId = "userId"
+        request.transactionId = "transactionId"
+        request.creditcard = creditCard
+        request.installments = 1
+        request.paymentMethod = "method"
+        request.document = "document"
+        request.postback = "postback"
+        request.ingeprefsPayload = "ingeprefsPayload"
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.doPayment(request: request,
+                          userToken: "userToken", onSuccess: { (response) in }) { (error) in
                             success = false
                             apiError = error
                             asyncExpectation.fulfill()

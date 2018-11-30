@@ -202,4 +202,94 @@ class SearchServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+
+    // MARK: - Events with id
+    func testGetEventsWithId() {
+        // Given
+        let asyncExpectation = expectation(description: "getEvents")
+
+        var response = [String:Any]()
+        response["hits"] = [[:]]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var result: [NewEvent]?
+
+        // When
+        service.getEvents(eventId: "eventId", onSuccess: { (events) in
+            success = true
+            result = events
+            asyncExpectation.fulfill()
+        }) { (error) in }
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testGetEventsWithIdWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "getEvents")
+
+        var response = [String:Any]()
+        response["data"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getEvents(eventId: "eventId", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetEventsWithIdFail() {
+        // Given
+        let asyncExpectation = expectation(description: "getEvents")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getEvents(eventId: "eventId", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
 }

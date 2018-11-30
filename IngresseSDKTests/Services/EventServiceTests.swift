@@ -631,4 +631,295 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+
+    // MARK: - Get Session Details
+    func testGetSessionDetails() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        var data = [String: Any]()
+        data["id"] = 1
+        data["name"] = "eventName"
+        data["status"] = "status"
+        data["description"] = "description"
+        data["type"] = []
+
+        var json = [String: Any]()
+        json["data"] = [data]
+
+        restClient.response = json
+        restClient.shouldFail = false
+
+        var success = false
+        var result: [TicketGroup]?
+
+        // When
+        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (response) in
+            success = true
+            result = response
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testGetSessionDetailsWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        var response = [String:Any]()
+        response["wrongKey"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var apiError: APIError?
+        var success = false
+
+        // When
+        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (response) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetSessionDetailsFail() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (response) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - Get Event PassKey
+    func testGetEventPasskey() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        var data = [String: Any]()
+        data["id"] = 1
+        data["name"] = "eventName"
+        data["status"] = "status"
+        data["description"] = "description"
+        data["type"] = []
+
+        var json = [String: Any]()
+        json["data"] = [data]
+
+        restClient.response = json
+        restClient.shouldFail = false
+
+        var success = false
+        var result: [TicketGroup]?
+
+        // When
+        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in
+            success = true
+            result = response
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testGetEventPasskeyWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        var response = [String:Any]()
+        response["wrongKey"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var apiError: APIError?
+        var success = false
+
+        // When
+        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetEventPasskeyFail() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+
+    // MARK: - Get Event Passports PassKey
+    func testGetEventPassportsPasskey() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        var data = [String: Any]()
+        data["id"] = 1
+        data["name"] = "eventName"
+        data["status"] = "status"
+        data["description"] = "description"
+        data["type"] = []
+
+        var json = [String: Any]()
+        json["data"] = [data]
+
+        restClient.response = json
+        restClient.shouldFail = false
+
+        var success = false
+        var result: [TicketGroup]?
+
+        // When
+        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in
+            success = true
+            result = response
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+        }
+    }
+
+    func testGetEventPassportsPasskeyWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        var response = [String:Any]()
+        response["wrongKey"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var apiError: APIError?
+        var success = false
+
+        // When
+        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetEventPassportsPasskeyFail() {
+        // Given
+        let asyncExpectation = expectation(description: "session")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error:Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
 }
