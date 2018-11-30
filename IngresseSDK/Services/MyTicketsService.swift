@@ -9,14 +9,28 @@ public class MyTicketsService: BaseService {
     /// - Parameters:
     ///   - userId: id of logged user
     ///   - userToken: token of logged user
+    ///   - from: past or future events
     ///   - page: page of request
+    ///   - pageSize: number of events per page
     ///   - delegate: callback interface
-    public func getUserWallet(userId: String, userToken: String, page: Int, delegate: WalletSyncDelegate) {
-        let url = URLBuilder(client: client)
+    public func getUserWallet(userId: String, userToken: String, from: String = "", page: Int, pageSize: Int = 50, delegate: WalletSyncDelegate) {
+        var builder = URLBuilder(client: client)
             .setPath("user/\(userId)/wallet")
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "page", value: String(page))
-            .build()
+            .addParameter(key: "pageSize", value: String(pageSize))
+
+        if from == "future" {
+            builder = builder.addParameter(key: "order", value: "ASC")
+            builder = builder.addParameter(key: "from", value: "yesterday")
+        }
+
+        if from == "past" {
+            builder = builder.addParameter(key: "order", value: "DESC")
+            builder = builder.addParameter(key: "to", value: "yesterday")
+        }
+
+        let url = builder.build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
@@ -29,7 +43,7 @@ public class MyTicketsService: BaseService {
                     return
             }
 
-            delegate.didSyncItemsPage(items, pagination: pagination)
+            delegate.didSyncItemsPage(items, from: from, pagination: pagination)
         }) { (error) in
             delegate.didFailSyncItems(errorData: error)
         }
