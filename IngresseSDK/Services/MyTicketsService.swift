@@ -77,7 +77,7 @@ public class MyTicketsService: BaseService {
                     return
             }
             
-            delegate.didSyncTicketsPage(tickets: tickets, pagination: pagination)
+            delegate.didSyncTicketsPage(eventId: eventId, tickets: tickets, pagination: pagination)
         }) { (error) in
             delegate.didFailSyncTickets(errorData: error)
         }
