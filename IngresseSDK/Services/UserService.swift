@@ -42,7 +42,7 @@ public class UserService: BaseService {
     ///   - newsletter: defines if user wants to receive our newsletter
     ///   - onSuccess: success callback with IngresseUser
     ///   - onError: fail callback with APIError
-    public func createAccount(name: String, phone: String, email: String, password: String, newsletter: Bool, onSuccess: @escaping (_ user: IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
+    public func createAccount(name: String, phone: String, cpf: String, email: String, password: String, newsletter: Bool, onSuccess: @escaping (_ user: IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
         let url = URLBuilder(client: client)
             .setPath("user")
             .addParameter(key: "method", value: "create")
@@ -61,6 +61,7 @@ public class UserService: BaseService {
         params["phone"] = phone
         params["email"] = email
         params["emailConfirm"] = email
+        params["document"] = cpf
         params["password"] = password
         params["passCheck"] = password
         params["terms"] = true
