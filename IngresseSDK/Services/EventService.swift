@@ -142,7 +142,7 @@ public class EventService: BaseService {
         let url = URLBuilder(client: client)
             .setHost(.events)
             .setPath("categories")
-            .buildWithoutKeys()
+            .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
