@@ -18,11 +18,7 @@ public class PaymentService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        guard let data = try? JSONEncoder().encode(request) else {
-            onError(APIError.getDefaultError())
-            return
-        }
-
+        let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let newResponse = response["data"] as? [String: Any],
                 let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Transaction.self, from: newResponse) else {
@@ -48,11 +44,7 @@ public class PaymentService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        guard let data = try? JSONEncoder().encode(request) else {
-            onError(APIError.getDefaultError())
-            return
-        }
-
+        let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let newResponse = response["data"] as? [String: Any],
                 let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Payment.self, from: newResponse) else {
@@ -78,11 +70,7 @@ public class PaymentService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        guard let data = try? JSONEncoder().encode(request) else {
-            onError(APIError.getDefaultError())
-            return
-        }
-
+        let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let newResponse = response["data"] as? [String: Any],
                 let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Payment.self, from: newResponse) else {

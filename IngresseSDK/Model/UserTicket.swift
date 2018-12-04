@@ -74,15 +74,15 @@ public class UserTicket: NSObject, Codable {
         checked = container.decodeKey(.checked, ofType: Bool.self)
         eventId = container.decodeKey(.eventId, ofType: Int.self)
         eventTitle = container.decodeKey(.eventTitle, ofType: String.self)
-        eventVenue = try container.decodeIfPresent(Venue.self, forKey: .eventVenue)
-        receivedFrom = try container.decodeIfPresent(Transfer.self, forKey: .receivedFrom)
-        transferedTo = try container.decodeIfPresent(Transfer.self, forKey: .transferedTo)
-        currentHolder = try container.decodeIfPresent(Transfer.self, forKey: .currentHolder)
+        eventVenue = container.safeDecodeKey(.eventVenue, to: Venue.self)
+        receivedFrom = container.safeDecodeKey(.receivedFrom, to: Transfer.self)
+        transferedTo = container.safeDecodeKey(.transferedTo, to: Transfer.self)
+        currentHolder = container.safeDecodeKey(.currentHolder, to: Transfer.self)
 
         guard
             let sessionData = try? container.nestedContainer(keyedBy: SessionCodingKey.self, forKey: .sessions)
             else { return }
 
-        sessions = try sessionData.decodeIfPresent([Session].self, forKey: .data) ?? []
+        sessions = sessionData.decodeKey(.data, ofType: [Session].self)
     }
 }

@@ -57,7 +57,7 @@ class PaymentServiceTests: XCTestCase {
         }
     }
 
-    func testCreateTransactionWrongData() {
+    func testCreateTransactionWrongResponse() {
         // Given
         let asyncExpectation = expectation(description: "transaction")
         let response = ["boleto": "boleto",

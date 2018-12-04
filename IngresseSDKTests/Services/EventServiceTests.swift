@@ -482,6 +482,44 @@ class EventServiceTests: XCTestCase {
         }
     }
 
+    func testGetEventWithSlug() {
+        // Given
+        let asyncExpectation = expectation(description: "event")
+
+        var json = [String: Any]()
+        json["id"] = 1
+        json["title"] = "eventTitle"
+        json["link"] = "eventLink"
+        json["type"] = "eventType"
+        json["poster"] = "eventPoster"
+        json["status"] = "eventStatus"
+        json["rsvpTotal"] = 100
+        json["saleEnabled"] = true
+        json["description"] = "eventDescription"
+
+        restClient.response = json
+        restClient.shouldFail = false
+
+        var success = false
+        var result: Event?
+
+        // When
+        service.getEventDetails(eventId: "", slug: "event-link", onSuccess: { (data) in
+            success = true
+            result = data
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+            let url = self.restClient.urlCalled ?? ""
+            XCTAssert(url.contains("method=identify"))
+            XCTAssert(url.contains("link=event-link"))
+        }
+    }
+
     func testGetEventWrongData() {
         // Given
         let asyncExpectation = expectation(description: "event")

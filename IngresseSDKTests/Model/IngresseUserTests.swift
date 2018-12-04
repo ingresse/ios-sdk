@@ -6,7 +6,6 @@ import XCTest
 @testable import IngresseSDK
 
 class IngresseUserTests: XCTestCase {
-    
     func testLogin() {
         // Given
         var json = [String: Any]()
@@ -22,6 +21,19 @@ class IngresseUserTests: XCTestCase {
         XCTAssertEqual(user.token, "userToken")
     }
     
+    func testLoginWrongData() {
+        // Given
+        let json = [String: Any]()
+
+        // When
+        let user = IngresseUser.login(loginData: json)
+
+        // Then
+        XCTAssertNotNil(IngresseUser.user)
+        XCTAssertEqual(user.userId, 0)
+        XCTAssertEqual(user.token, "")
+    }
+
     func testLogout() {
         // Given
         var json = [String: Any]()

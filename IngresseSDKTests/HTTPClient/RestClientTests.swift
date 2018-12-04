@@ -307,4 +307,87 @@ class RestClientTests: XCTestCase {
             XCTAssertEqual(apiError?.message, defaultError.message)
         }
     }
+
+    // MARK: - POST Data
+    func testPOSTData() {
+        // Given
+        let asyncExpectation = expectation(description: "POST")
+
+        let session = URLSessionMock()
+        var response = [String: Any]()
+        response["responseData"] = ["id": 1, "name": "name"]
+
+        let responseData = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+
+        session.data = responseData
+        session.error = nil
+        session.response = URLResponse()
+
+        client.session = session
+
+        var success: Bool = false
+        var result: [String: Any]?
+
+        let data = "bodyData".data(using: .utf8)
+
+        // When
+        client.POSTData(url: "url", data: data, JSONData: false, onSuccess: { (response) in
+            success = true
+            result = response
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 5) { (error: Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?["id"] as? Int, 1)
+            XCTAssertEqual(result?["name"] as? String, "name")
+
+            let request = session.taskRequest
+            XCTAssertNotNil(request)
+            XCTAssertNil(request?.value(forHTTPHeaderField: "content-type"))
+        }
+    }
+
+    func testPOSTDataJSON() {
+        // Given
+        let asyncExpectation = expectation(description: "POST")
+
+        let session = URLSessionMock()
+        var response = [String: Any]()
+        response["responseData"] = ["id": 1, "name": "name"]
+
+        let responseData = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+
+        session.data = responseData
+        session.error = nil
+        session.response = URLResponse()
+
+        client.session = session
+
+        var success: Bool = false
+        var result: [String: Any]?
+
+        let data = "bodyData".data(using: .utf8)
+
+        // When
+        client.POSTData(url: "url", data: data, JSONData: true, onSuccess: { (response) in
+            success = true
+            result = response
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 5) { (error: Error?) in
+            XCTAssert(success)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?["id"] as? Int, 1)
+            XCTAssertEqual(result?["name"] as? String, "name")
+
+            let request = session.taskRequest
+            XCTAssertNotNil(request)
+            XCTAssertEqual(request?.value(forHTTPHeaderField: "content-type"), "application/json")
+        }
+    }
 }

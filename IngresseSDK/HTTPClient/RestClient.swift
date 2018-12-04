@@ -69,7 +69,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - data: post data
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POSTData(url: String, data: Data, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func POSTData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
         

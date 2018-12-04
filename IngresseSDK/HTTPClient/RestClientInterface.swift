@@ -9,7 +9,7 @@
               onError: @escaping ErrorHandler)
 
     func POSTData(url: String,
-                  data: Data,
+                  data: Data?,
                   JSONData: Bool,
                   onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
                   onError: @escaping ErrorHandler)

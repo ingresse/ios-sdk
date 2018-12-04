@@ -31,6 +31,7 @@
 		35EF5D99211A10CF001901B9 /* PaymentResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF5D98211A10CF001901B9 /* PaymentResponseTests.swift */; };
 		35EF5D9B211A11B3001901B9 /* PaymentServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF5D9A211A11B3001901B9 /* PaymentServiceTests.swift */; };
 		621F43C61FA3BCD900B10323 /* NewTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621F43C51FA3BCD900B10323 /* NewTransfer.swift */; };
+		62275D1D21B6F4BB004F3B28 /* PendingTransferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62275D1C21B6F4BB004F3B28 /* PendingTransferTests.swift */; };
 		622815931F20F4E800FD0D35 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622815921F20F4E800FD0D35 /* UserData.swift */; };
 		6231F24520B743FD00206D85 /* CoverAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6231F24420B743FD00206D85 /* CoverAd.swift */; };
 		6231F24720B7442200206D85 /* BackgroundAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6231F24620B7442200206D85 /* BackgroundAd.swift */; };
@@ -205,6 +206,7 @@
 		35EF5D98211A10CF001901B9 /* PaymentResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResponseTests.swift; sourceTree = "<group>"; };
 		35EF5D9A211A11B3001901B9 /* PaymentServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceTests.swift; sourceTree = "<group>"; };
 		621F43C51FA3BCD900B10323 /* NewTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransfer.swift; sourceTree = "<group>"; };
+		62275D1C21B6F4BB004F3B28 /* PendingTransferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransferTests.swift; sourceTree = "<group>"; };
 		622815921F20F4E800FD0D35 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		6231F24420B743FD00206D85 /* CoverAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverAd.swift; sourceTree = "<group>"; };
 		6231F24620B7442200206D85 /* BackgroundAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAd.swift; sourceTree = "<group>"; };
@@ -560,45 +562,46 @@
 		626B4D41203778EA006504D1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				35EF5D902119EA51001901B9 /* AddressTests.swift */,
 				62A7089C2103C7440027F05E /* AdvertisementTests.swift */,
+				62EDCFE2210BC314001A6C7C /* CheckinSessionTests.swift */,
 				62A7089A2103C5260027F05E /* CompanyAppTests.swift */,
 				62CE9BB521027153001C5454 /* CompanyDataTests.swift */,
 				62A708942102898C0027F05E /* CompanyLogoTests.swift */,
 				62A708922102886B0027F05E /* CompanyTests.swift */,
 				62A708B4210685C70027F05E /* ElasticPaginationTests.swift */,
+				62BEC14E2127555000092CF1 /* EquatableTests.swift */,
 				62A7089E2103C9300027F05E /* EventAttributesTests.swift */,
+				62EDCFE8210BC845001A6C7C /* EventDateTests.swift */,
 				62A70896210290EE0027F05E /* EventTests.swift */,
 				62A708982103C1FA0027F05E /* GuestTicketTests.swift */,
 				62A708A421063C130027F05E /* IngresseUserTests.swift */,
+				356BC97721B17871000F7A0A /* InstallmentsTests.swift */,
 				62A708C0210694EE0027F05E /* NewEventTests.swift */,
 				626B4D4220377DF5006504D1 /* PaginationInfoTests.swift */,
+				356BC97921B18684000F7A0A /* PaymentMethodTests.swift */,
+				35EF5D98211A10CF001901B9 /* PaymentResponseTests.swift */,
+				356BC97B21B187E6000F7A0A /* PaymentTicketTests.swift */,
+				62275D1C21B6F4BB004F3B28 /* PendingTransferTests.swift */,
 				62A708BE210693F00027F05E /* PlaceTests.swift */,
+				62EDCFE4210BC547001A6C7C /* PlannerTests.swift */,
 				62A708BC210692840027F05E /* PosterTests.swift */,
+				62EDCFE6210BC6CA001A6C7C /* SessionDateTests.swift */,
 				62A708A6210643D70027F05E /* SessionTests.swift */,
+				35EF5D942119EE82001901B9 /* ShopTicketTests.swift */,
+				356BC97D21B18C87000F7A0A /* TicketDateTests.swift */,
+				356BC97F21B18D85000F7A0A /* TicketTests.swift */,
 				62A708A821065C100027F05E /* TransactionEventTests.swift */,
 				62A708AA21065DB80027F05E /* TransactionSessionTests.swift */,
 				62743804203799A70089B5F1 /* TransactionTests.swift */,
 				62A708AC2106666A0027F05E /* TransactionTicketTests.swift */,
 				62A708AE21066D830027F05E /* TransferTests.swift */,
 				62743800203793B80089B5F1 /* TransferTicketTests.swift */,
+				35468569215956C000217706 /* UpdatedUserTests.swift */,
 				62A708B0210676A80027F05E /* UserTests.swift */,
 				626B4D3F203778E5006504D1 /* UserTicketTests.swift */,
 				62A708B221067E030027F05E /* VenueTests.swift */,
 				626B4D4420377E73006504D1 /* WalletItemTests.swift */,
-				62EDCFE2210BC314001A6C7C /* CheckinSessionTests.swift */,
-				62EDCFE4210BC547001A6C7C /* PlannerTests.swift */,
-				62EDCFE6210BC6CA001A6C7C /* SessionDateTests.swift */,
-				62EDCFE8210BC845001A6C7C /* EventDateTests.swift */,
-				35EF5D902119EA51001901B9 /* AddressTests.swift */,
-				35EF5D942119EE82001901B9 /* ShopTicketTests.swift */,
-				35EF5D98211A10CF001901B9 /* PaymentResponseTests.swift */,
-				62BEC14E2127555000092CF1 /* EquatableTests.swift */,
-				35468569215956C000217706 /* UpdatedUserTests.swift */,
-				356BC97721B17871000F7A0A /* InstallmentsTests.swift */,
-				356BC97921B18684000F7A0A /* PaymentMethodTests.swift */,
-				356BC97B21B187E6000F7A0A /* PaymentTicketTests.swift */,
-				356BC97D21B18C87000F7A0A /* TicketDateTests.swift */,
-				356BC97F21B18D85000F7A0A /* TicketTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -973,6 +976,7 @@
 				62A708C321070A030027F05E /* BaseServiceTests.swift in Sources */,
 				35EF5D99211A10CF001901B9 /* PaymentResponseTests.swift in Sources */,
 				35EF5D9B211A11B3001901B9 /* PaymentServiceTests.swift in Sources */,
+				62275D1D21B6F4BB004F3B28 /* PendingTransferTests.swift in Sources */,
 				62A708A921065C100027F05E /* TransactionEventTests.swift in Sources */,
 				626B4D4320377DF5006504D1 /* PaginationInfoTests.swift in Sources */,
 				62A708B5210685C70027F05E /* ElasticPaginationTests.swift in Sources */,

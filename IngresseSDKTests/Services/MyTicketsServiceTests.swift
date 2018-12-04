@@ -50,6 +50,64 @@ class MyTicketsServiceTests: XCTestCase {
         }
     }
 
+    func testGetUserWalletFuture() {
+        // Given
+        let asyncExpectation = expectation(description: "userWallet")
+
+        var response = [String: Any]()
+        response["data"] = [["id": 1]]
+        response["paginationInfo"] = ["currentPage": 1, "lastPage": 10, "totalResults": 1000, "pageSize": 100]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        let delegate = WalletSyncDelegateSpy()
+        delegate.asyncExpectation = asyncExpectation
+
+        // When
+        service.getUserWallet(userId: "1234", userToken: "1234-token", from: "future", page: 1, delegate: delegate)
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssert(delegate.didSyncItemsPageCalled)
+            guard let url = self.restClient.urlCalled else {
+                XCTFail("Invalid URL")
+                return
+            }
+            XCTAssert(url.contains("order=ASC"))
+            XCTAssert(url.contains("from=yesterday"))
+        }
+    }
+
+    func testGetUserWalletPast() {
+        // Given
+        let asyncExpectation = expectation(description: "userWallet")
+
+        var response = [String: Any]()
+        response["data"] = [["id": 1]]
+        response["paginationInfo"] = ["currentPage": 1, "lastPage": 10, "totalResults": 1000, "pageSize": 100]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        let delegate = WalletSyncDelegateSpy()
+        delegate.asyncExpectation = asyncExpectation
+
+        // When
+        service.getUserWallet(userId: "1234", userToken: "1234-token", from: "past", page: 1, delegate: delegate)
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssert(delegate.didSyncItemsPageCalled)
+            guard let url = self.restClient.urlCalled else {
+                XCTFail("Invalid URL")
+                return
+            }
+            XCTAssert(url.contains("order=DESC"))
+            XCTAssert(url.contains("to=yesterday"))
+        }
+    }
+
     func testGetUserWalletWrongData() {
         // Given
         let asyncExpectation = expectation(description: "userWallet")

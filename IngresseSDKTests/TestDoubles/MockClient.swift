@@ -9,6 +9,7 @@ class MockClient: RestClientInterface {
     var error: APIError?
     var response: [String: Any]?
     var shouldFail: Bool = false
+    var urlCalled: String?
 
     // MARK: Mocked methods
     func POST(
@@ -16,15 +17,17 @@ class MockClient: RestClientInterface {
         parameters: [String: Any],
         onSuccess: @escaping ([String: Any]) -> Void,
         onError: @escaping (APIError) -> Void) {
+        urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }
     
     func POSTData(
         url: String,
-        data: Data,
+        data: Data?,
         JSONData: Bool,
         onSuccess: @escaping ([String: Any]) -> Void,
         onError: @escaping (APIError) -> Void) {
+        urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
@@ -32,6 +35,7 @@ class MockClient: RestClientInterface {
         url: String,
         onSuccess: @escaping ([String: Any]) -> Void,
         onError: @escaping (APIError) -> Void) {
+        urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 }
