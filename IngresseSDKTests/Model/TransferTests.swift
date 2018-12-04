@@ -9,7 +9,7 @@ class TransferTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["transferId"] = 1
         json["userId"] = 2
         json["status"] = "status"
@@ -38,12 +38,12 @@ class TransferTests: XCTestCase {
     
     func testStatusHistory() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["history"] = [
             [
                 "status": "pending",
                 "creationDate": "createdAt"
-            ],[
+            ], [
                 "status": "accepted",
                 "creationDate": "acceptedAt"
             ]
@@ -58,14 +58,28 @@ class TransferTests: XCTestCase {
         XCTAssertEqual(obj?.accepted, "acceptedAt")
     }
     
+    func testStatusHistoryWithoutStatus() {
+        // Given
+        var json = [String: Any]()
+        json["history"] = []
+
+        // When
+        let obj = JSONDecoder().decodeDict(of: Transfer.self, from: json)
+
+        // Then
+        XCTAssertNotNil(obj)
+        XCTAssertEqual(obj?.created, "")
+        XCTAssertEqual(obj?.accepted, "")
+    }
+
     func testSocialId() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["socialId"] = [
             [
                 "network": "facebook",
                 "id": "facebookId"
-            ],[
+            ], [
                 "network": "twitter",
                 "id": "twitterId"
             ]

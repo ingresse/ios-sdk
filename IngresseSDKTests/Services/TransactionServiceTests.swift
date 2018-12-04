@@ -23,7 +23,7 @@ class TransactionServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "transactionDetails")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -40,7 +40,7 @@ class TransactionServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -69,7 +69,7 @@ class TransactionServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -82,7 +82,7 @@ class TransactionServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "createTransaction")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = ["transactionId": "transactionId"]
 
         restClient.response = response
@@ -105,14 +105,20 @@ class TransactionServiceTests: XCTestCase {
                                          minimum: 1)]
 
         // When
-        service.createTransaction(userId: "userId", userToken: "1234-token", eventId: "eventId", passkey: "passkey", sessionTickets: sessionTickets, onSuccess: { (transactionId) in
-            success = true
-            result = transactionId
-            asyncExpectation.fulfill()
-        }) { (error) in }
+        service.createTransaction(
+            userId: "userId",
+            userToken: "1234-token",
+            eventId: "eventId",
+            passkey: "passkey",
+            sessionTickets: sessionTickets,
+            onSuccess: { (transactionId) in
+                success = true
+                result = transactionId
+                asyncExpectation.fulfill()
+        }, onError: { (error) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -122,7 +128,7 @@ class TransactionServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "createTransaction")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -145,14 +151,21 @@ class TransactionServiceTests: XCTestCase {
                                          minimum: 1)]
 
         // When
-        service.createTransaction(userId: "userId", userToken: "1234-token", eventId: "eventId", passkey: "passkey", sessionTickets: sessionTickets, onSuccess: { (transactionId) in }) { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        }
+        service.createTransaction(
+            userId: "userId",
+            userToken: "1234-token",
+            eventId: "eventId",
+            passkey: "passkey",
+            sessionTickets: sessionTickets,
+            onSuccess: { (transactionId) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -177,14 +190,21 @@ class TransactionServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.createTransaction(userId: "userId", userToken: "1234-token", eventId: "eventId", passkey: "passkey", sessionTickets: [ShopTicket](), onSuccess: { (transactionId) in }) { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        }
+        service.createTransaction(
+            userId: "userId",
+            userToken: "1234-token",
+            eventId: "eventId",
+            passkey: "passkey",
+            sessionTickets: [ShopTicket](),
+            onSuccess: { (transactionId) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -198,7 +218,7 @@ class TransactionServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "checkinStatus")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -215,7 +235,7 @@ class TransactionServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -225,7 +245,7 @@ class TransactionServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "checkinStatus")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["advertisement"] = nil
 
         restClient.response = response
@@ -242,7 +262,7 @@ class TransactionServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -274,7 +294,7 @@ class TransactionServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

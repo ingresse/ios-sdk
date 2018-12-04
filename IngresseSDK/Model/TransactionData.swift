@@ -10,14 +10,14 @@ public class TransactionData: NSObject, Decodable {
     public var operatorId: String = ""
     public var salesgroupId: Int = 0
 
-    public var app_id: Int = -1
+    public var appId: Int = -1
     public var paymenttype: String = ""
     public var paymentoption: String = ""
     public var paymentdetails: String = ""
     public var creditCard: PaymentCard?
 
     public var totalPaid: Double = 0
-    public var sum_up: Double = 0
+    public var sumUp: Double = 0
     public var paymentTax: Double = 0
 
     public var interest: Int = 0
@@ -31,7 +31,7 @@ public class TransactionData: NSObject, Decodable {
     public var event: TransactionEvent?
     public var session: TransactionSession?
 
-    public var bankbillet_url: String = ""
+    public var bankbilletUrl: String = ""
 
     public var token: String = ""
 
@@ -48,13 +48,13 @@ public class TransactionData: NSObject, Decodable {
         case transactionId
         case operatorId
         case salesgroupId
-        case app_id
+        case appId = "app_id"
         case paymenttype
         case paymentoption
         case paymentdetails
         case creditCard
         case totalPaid
-        case sum_up
+        case sumUp = "sum_up"
         case paymentTax
         case interest
         case taxToCostumer
@@ -64,7 +64,7 @@ public class TransactionData: NSObject, Decodable {
         case customer
         case event
         case session
-        case bankbillet_url
+        case bankbilletUrl = "bankbillet_url"
         case token
         case basket
         case refund
@@ -78,14 +78,14 @@ public class TransactionData: NSObject, Decodable {
         operatorId = container.decodeKey(.operatorId, ofType: String.self)
         salesgroupId = container.decodeKey(.salesgroupId, ofType: Int.self)
         transactionId = container.decodeKey(.transactionId, ofType: String.self)
-        app_id = container.decodeKey(.app_id, ofType: Int.self)
+        appId = container.decodeKey(.appId, ofType: Int.self)
         paymenttype = container.decodeKey(.paymenttype, ofType: String.self)
         paymentoption = container.decodeKey(.paymentoption, ofType: String.self)
         paymentdetails = container.decodeKey(.paymentdetails, ofType: String.self)
-        bankbillet_url = container.decodeKey(.bankbillet_url, ofType: String.self)
+        bankbilletUrl = container.decodeKey(.bankbilletUrl, ofType: String.self)
         token = container.decodeKey(.token, ofType: String.self)
         totalPaid = container.decodeKey(.totalPaid, ofType: Double.self)
-        sum_up = container.decodeKey(.sum_up, ofType: Double.self)
+        sumUp = container.decodeKey(.sumUp, ofType: Double.self)
         paymentTax = container.decodeKey(.paymentTax, ofType: Double.self)
         interest = container.decodeKey(.interest, ofType: Int.self)
         taxToCostumer = container.decodeKey(.taxToCostumer, ofType: Int.self)
@@ -102,7 +102,7 @@ public class TransactionData: NSObject, Decodable {
         let jsonBasket = try? container.decodeIfPresent(TransactionBasket.self, forKey: .basket)
 
         let tickets = container.decodeKey(.basket, ofType: [TransactionTicket].self)
-        let arrayBasket = JSONDecoder().decodeDict(of: TransactionBasket.self, from: ["tickets":[]])
+        let arrayBasket = JSONDecoder().decodeDict(of: TransactionBasket.self, from: ["tickets": []])
         arrayBasket?.tickets = tickets
 
         basket = jsonBasket ?? arrayBasket

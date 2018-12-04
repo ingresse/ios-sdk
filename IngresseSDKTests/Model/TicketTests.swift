@@ -6,13 +6,12 @@ import XCTest
 @testable import IngresseSDK
 
 class TicketTests: XCTestCase {
-
     func testDecode() {
         // Given
         let ticketDate = ["id": 0,
                     "date": "date",
                     "time": "time",
-                    "dateTime": "dateTime"] as [String : Any]
+                    "dateTime": "dateTime"] as [String: Any]
 
         let json = ["id": 0,
                     "name": "name",
@@ -24,10 +23,10 @@ class TicketTests: XCTestCase {
                     "status": "status",
                     "restrictions": ["max": 1],
                     "hidden": false,
-                    "dates": [ticketDate]] as [String : Any]
+                    "dates": [ticketDate]] as [String: Any]
 
         // When
-        let obj = JSONDecoder().decodeDict(of: Ticket.self, from: json)
+        let obj = JSONDecoder().decodeDict(of: TicketItem.self, from: json)
 
         // Then
         XCTAssertNotNil(obj)

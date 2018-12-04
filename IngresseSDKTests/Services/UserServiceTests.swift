@@ -23,7 +23,7 @@ class UserServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "userEvents")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = [["id": 1]]
 
         restClient.response = response
@@ -36,7 +36,7 @@ class UserServiceTests: XCTestCase {
         service.getEvents(fromUsertoken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didDownloadEventsCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertEqual(delegate.resultData?[0]["id"] as? Int, 1)
@@ -47,7 +47,7 @@ class UserServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "userEvents")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -60,7 +60,7 @@ class UserServiceTests: XCTestCase {
         service.getEvents(fromUsertoken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailDownloadEventsCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -88,7 +88,7 @@ class UserServiceTests: XCTestCase {
         service.getEvents(fromUsertoken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailDownloadEventsCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -111,10 +111,10 @@ class UserServiceTests: XCTestCase {
         service.verifyAccount(userId: 1234, userToken: "1234-token", accountkitCode: "accountkitCode", onSuccess: {
             success = true
             asyncExpectation.fulfill()
-        }) { (_) in }
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertTrue(success)
         }
     }
@@ -135,14 +135,14 @@ class UserServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.verifyAccount(userId: 1234, userToken: "1234-token", accountkitCode: "accountkitCode", onSuccess: {}) { (error) in
+        service.verifyAccount(userId: 1234, userToken: "1234-token", accountkitCode: "accountkitCode", onSuccess: {}, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -170,14 +170,21 @@ class UserServiceTests: XCTestCase {
         var result: IngresseUser?
 
         // When
-        service.createAccount(name: "name lastname", phone: "phone", email: "email", password: "password", newsletter: true, onSuccess: { (user) in
-            success = true
-            result = user
-            asyncExpectation.fulfill()
-        }) { (_) in }
+        service.createAccount(
+            name: "name lastname",
+            phone: "phone",
+            cpf: "cpf",
+            email: "email",
+            password: "password",
+            newsletter: true,
+            onSuccess: { (user) in
+                success = true
+                result = user
+                asyncExpectation.fulfill()
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.userId, 1)
@@ -201,14 +208,22 @@ class UserServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.createAccount(name: "name lastname", phone: "phone", email: "email", password: "password", newsletter: true, onSuccess: { (_) in }) { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        }
+        service.createAccount(
+            name: "name lastname",
+            phone: "phone",
+            cpf: "cpf",
+            email: "email",
+            password: "password",
+            newsletter: true,
+            onSuccess: { (_) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -231,14 +246,22 @@ class UserServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.createAccount(name: "name lastname", phone: "phone", email: "email", password: "password", newsletter: true, onSuccess: { (_) in }) { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        }
+        service.createAccount(
+            name: "name lastname",
+            phone: "phone",
+            cpf: "cpf",
+            email: "email",
+            password: "password",
+            newsletter: true,
+            onSuccess: { (_) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -262,14 +285,22 @@ class UserServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.createAccount(name: "name lastname", phone: "phone", email: "email", password: "password", newsletter: true, onSuccess: { (_) in }) { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        }
+        service.createAccount(
+            name: "name lastname",
+            phone: "phone",
+            cpf: "cpf",
+            email: "email",
+            password: "password",
+            newsletter: true,
+            onSuccess: { (_) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 0)
@@ -294,14 +325,22 @@ class UserServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.createAccount(name: "name lastname", phone: "phone", email: "email", password: "password", newsletter: true, onSuccess: { (_) in }) { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        }
+        service.createAccount(
+            name: "name lastname",
+            phone: "phone",
+            cpf: "cpf",
+            email: "email",
+            password: "password",
+            newsletter: true,
+            onSuccess: { (_) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                asyncExpectation.fulfill()
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -315,7 +354,7 @@ class UserServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["status"] = 200
         response["data"] = ["ddi": "ddi",
                             "phone": "phone",
@@ -344,10 +383,10 @@ class UserServiceTests: XCTestCase {
                                     success = true
                                     result = user
                                     asyncExpectation.fulfill()
-        }) { (error) in }
+        }, onError: { (error) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.cpf, "cpf")
@@ -376,14 +415,14 @@ class UserServiceTests: XCTestCase {
                                  currentEmail: "currentEmail",
                                  newEmail: "newEmail",
                                  phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -395,7 +434,7 @@ class UserServiceTests: XCTestCase {
     func testUpdateBasicInfosWithWrongResponse() {
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -412,14 +451,14 @@ class UserServiceTests: XCTestCase {
                                  currentEmail: "currentEmail",
                                  newEmail: "newEmail",
                                  phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
@@ -431,7 +470,7 @@ class UserServiceTests: XCTestCase {
     func testUpdateBasicInfosWithStatusZero() {
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
         response["status"] = 0
         response["message"] = ["message"]
@@ -450,14 +489,14 @@ class UserServiceTests: XCTestCase {
                                  currentEmail: "currentEmail",
                                  newEmail: "newEmail",
                                  phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 0)
@@ -469,7 +508,7 @@ class UserServiceTests: XCTestCase {
     func testUpdateBasicInfosWithStatusZeroWrongMessage() {
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
         response["status"] = 0
         response["message"] = [1]
@@ -488,14 +527,14 @@ class UserServiceTests: XCTestCase {
                                  currentEmail: "currentEmail",
                                  newEmail: "newEmail",
                                  phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }) { (error) in
+                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
@@ -509,7 +548,7 @@ class UserServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "changePicture")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["status"] = 200
         response["data"] = ["ddi": "ddi",
                             "phone": "phone",
@@ -531,10 +570,10 @@ class UserServiceTests: XCTestCase {
                               imageData: "imageData", onSuccess: {
                                 success = true
                                 asyncExpectation.fulfill()
-        }) { (error) in }
+        }, onError: { (error) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertTrue(success)
         }
     }
@@ -556,14 +595,14 @@ class UserServiceTests: XCTestCase {
         // When
         service.changePicture(userId: "userId",
                               userToken: "userToken",
-                              imageData: "imageData", onSuccess: { }) { (error) in
+                              imageData: "imageData", onSuccess: { }, onError: { (error) in
                                     success = false
                                     apiError = error
                                     asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

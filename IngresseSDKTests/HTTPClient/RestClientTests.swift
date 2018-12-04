@@ -6,7 +6,6 @@ import XCTest
 @testable import IngresseSDK
 
 class RestClientTests: XCTestCase {
-    
     var client: RestClient!
 
     override func setUp() {
@@ -38,10 +37,10 @@ class RestClientTests: XCTestCase {
             success = true
             result = response
             asyncExpectation.fulfill()
-        }) { (_) in }
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["id"] as? Int, 1)
@@ -65,11 +64,11 @@ class RestClientTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        client.GET(url: "url", onSuccess: { (_) in }) { (error) in
+        client.GET(url: "url", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
         waitForExpectations(timeout: 1) { (_) in
@@ -105,14 +104,14 @@ class RestClientTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        client.GET(url: "url", onSuccess: { (_) in }) { (error) in
+        client.GET(url: "url", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -141,14 +140,14 @@ class RestClientTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        client.GET(url: "url", onSuccess: { (_) in }) { (error) in
+        client.GET(url: "url", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -184,10 +183,10 @@ class RestClientTests: XCTestCase {
             success = true
             result = response
             asyncExpectation.fulfill()
-        }) { (_) in }
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["id"] as? Int, 1)
@@ -213,11 +212,11 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }) { (error) in
+        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
         waitForExpectations(timeout: 1) { (_) in
@@ -255,14 +254,14 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }) { (error) in
+        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -293,14 +292,14 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }) { (error) in
+        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
-        }
+        })
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()

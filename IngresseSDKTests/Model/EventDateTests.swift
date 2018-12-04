@@ -9,7 +9,7 @@ class EventDateTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = 1
         json["date"] = "date"
         json["time"] = "time"

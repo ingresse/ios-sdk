@@ -9,12 +9,12 @@ class CompanyDataTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["userId"] = 99
         json["token"] = "token-99"
         json["authToken"] = "authToken-99"
-        json["company"] = ["id":1]
-        json["application"] = ["id":2]
+        json["company"] = ["id": 1]
+        json["application"] = ["id": 2]
 
         // When
         let obj = JSONDecoder().decodeDict(of: CompanyData.self, from: json)

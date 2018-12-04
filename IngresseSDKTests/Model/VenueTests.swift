@@ -9,7 +9,7 @@ class VenueTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = 1
         json["city"] = "city"
         json["complement"] = "complement"
@@ -44,7 +44,7 @@ class VenueTests: XCTestCase {
     
     func testLatLong() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["latitude"] = 10.0
         json["longitude"] = 20.0
 

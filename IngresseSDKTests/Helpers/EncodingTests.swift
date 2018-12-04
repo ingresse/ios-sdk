@@ -9,7 +9,7 @@ class EncodingTests: XCTestCase {
 
     func testNotStringValue() {
         // Given
-        var dict = [String:Any]()
+        var dict = [String: Any]()
         dict["string"] = "testString"
         dict["bool"] = true
         dict["int"] = 10

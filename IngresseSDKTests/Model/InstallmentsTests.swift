@@ -13,7 +13,7 @@ class InstallmentsTests: XCTestCase {
                     "value": 10,
                     "total": 10,
                     "taxValue": 10,
-                    "shippingCost": 10] as [String : Any]
+                    "shippingCost": 10] as [String: Any]
 
         // When
         let obj = JSONDecoder().decodeDict(of: Installment.self, from: json)

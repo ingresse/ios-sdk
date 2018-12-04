@@ -25,7 +25,7 @@ public class SearchService: BaseService {
         
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let data = response["data"] as? [[String:Any]],
+                let data = response["data"] as? [[String: Any]],
                 let users = JSONDecoder().decodeArray(of: [User].self, from: data)
                 else {
                     onError(APIError.getDefaultError())
@@ -33,9 +33,9 @@ public class SearchService: BaseService {
             }
             
             onSuccess(users)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Search events based on term
@@ -61,7 +61,7 @@ public class SearchService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let total = response["total"] as? Int,
-                let hits = response["hits"] as? [[String:Any]],
+                let hits = response["hits"] as? [[String: Any]],
                 let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
                 else {
                     onError(APIError.getDefaultError())
@@ -69,9 +69,9 @@ public class SearchService: BaseService {
             }
 
             onSuccess(events, total)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Search events based on id
@@ -79,8 +79,8 @@ public class SearchService: BaseService {
     /// - Parameters:
     ///   - eventId: id from required event search
     public func getEvents(eventId: String,
-                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent])->(),
-                          onError: @escaping (_ error: IngresseSDK.APIError)->()) {
+                          onSuccess: @escaping (_ event: [IngresseSDK.NewEvent]) -> Void,
+                          onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
         let url = URLBuilder(client: client)
             .setHost(.search)
@@ -90,15 +90,15 @@ public class SearchService: BaseService {
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let hits = response["hits"] as? [[String:Any]],
+                let hits = response["hits"] as? [[String: Any]],
                 let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
                 else {
                     onError(APIError.getDefaultError())
                     return
             }
             onSuccess(events)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 }

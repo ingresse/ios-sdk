@@ -9,7 +9,7 @@ class PaginationInfoTests: XCTestCase {
 
     func testDecoder() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["currentPage"] = 3
         json["lastPage"] = 5
         json["totalResults"] = 500

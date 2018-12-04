@@ -9,7 +9,7 @@ class IngresseUserTests: XCTestCase {
     
     func testLogin() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["userId"] = 999
         json["token"] = "userToken"
 
@@ -24,7 +24,7 @@ class IngresseUserTests: XCTestCase {
     
     func testLogout() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["userId"] = 999
         json["token"] = "userToken"
         let user = JSONDecoder().decodeDict(of: IngresseUser.self, from: json)
@@ -39,12 +39,12 @@ class IngresseUserTests: XCTestCase {
     
     func testFillData() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["userId"] = 999
         json["token"] = "userToken"
-        let _ = IngresseUser.login(loginData: json)
+        _ = IngresseUser.login(loginData: json)
 
-        var data = [String:Any]()
+        var data = [String: Any]()
         data["name"] = "name"
         data["lastname"] = "lastname"
         data["email"] = "email"

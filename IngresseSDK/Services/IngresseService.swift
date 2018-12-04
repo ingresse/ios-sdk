@@ -11,17 +11,17 @@ public class IngresseService: NSObject {
     }
     
     // Lazy vars, only created when needed
-    public lazy var payment: PaymentService =  {
+    public lazy var payment: PaymentService = {
         [unowned self] in
         return PaymentService(self.client)
         }()
 
-    public lazy var address: AddressService =  {
+    public lazy var address: AddressService = {
         [unowned self] in
         return AddressService(self.client)
         }()
 
-    public lazy var auth: AuthService =  {
+    public lazy var auth: AuthService = {
         [unowned self] in
         return AuthService(self.client)
         }()

@@ -29,16 +29,16 @@ public class TransfersService: BaseService {
         
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let array = response["data"] as? [[String:Any]],
+                let array = response["data"] as? [[String: Any]],
                 let users = JSONDecoder().decodeArray(of: [Transfer].self, from: array) else {
                 onError(APIError.getDefaultError())
                 return
             }
 
             onSuccess(users)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
     
     /// Get pending transfers (invites user has not accepted yet)
@@ -58,8 +58,8 @@ public class TransfersService: BaseService {
         
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any],
+                let data = response["data"] as? [[String: Any]],
+                let paginationObj = response["paginationInfo"] as? [String: Any],
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj),
                 let transfers = JSONDecoder().decodeArray(of: [PendingTransfer].self, from: data)
                 else {
@@ -68,9 +68,9 @@ public class TransfersService: BaseService {
             }
             
             delegate.didDownloadPendingTransfers(transfers, page: pagination)
-        }) { (error) in
+        }, onError: { (error) in
             delegate.didFailDownloadTransfers(errorData: error)
-        }
+        })
     }
     
     /// Update transfer based on given action
@@ -82,17 +82,16 @@ public class TransfersService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback with APIError
     public func updateTransfer(_ action: String, ticketID: String, transferID: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer/\(transferID)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.POST(url: url, parameters: ["action":action], onSuccess: { (_) in
+        client.restClient.POST(url: url, parameters: ["action": action], onSuccess: { (_) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
     
     /// Transfer ticket to some user
@@ -110,16 +109,16 @@ public class TransfersService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.POST(url: url, parameters: ["user":userID], onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: ["user": userID], onSuccess: { (response) in
             guard let transfer = JSONDecoder().decodeDict(of: NewTransfer.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return
             }
 
             onSuccess(transfer)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
  
     /// Return ticket to last holder
@@ -130,21 +129,20 @@ public class TransfersService: BaseService {
     ///   - onSuccess: success callback with ticketId
     ///   - onError: fail callback with APIError
     public func returnTicket(_ ticketID: String, userToken: String, onSuccess: @escaping (_ ticketId: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        
         let url = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.POST(url: url, parameters: ["isReturn":"true"], onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: ["isReturn": "true"], onSuccess: { (response) in
             guard let id = response["saleTicketId"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
             }
             
             onSuccess(id)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 }

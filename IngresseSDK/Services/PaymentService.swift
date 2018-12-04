@@ -12,7 +12,7 @@ public class PaymentService: BaseService {
     ///   - tickets: tickets selected by user
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func createTransaction(request: Request.Shop.Create, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func createTransaction(request: Request.Shop.Create, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)
@@ -30,9 +30,9 @@ public class PaymentService: BaseService {
                 return
             }
             onSuccess(paymentResponse)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Do free tickets reservation
@@ -42,7 +42,7 @@ public class PaymentService: BaseService {
     ///   - request: struct with all needed parameters
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func doReserve(request: Request.Shop.Free, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func doReserve(request: Request.Shop.Free, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)
@@ -65,7 +65,6 @@ public class PaymentService: BaseService {
         })
     }
 
-
     /// Do payment tickets
     ///
     /// - Parameters:
@@ -73,7 +72,7 @@ public class PaymentService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func doPayment(request: Request.Shop.Payment, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func doPayment(request: Request.Shop.Payment, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)

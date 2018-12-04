@@ -16,7 +16,7 @@ class ResponseParserTests: XCTestCase {
         
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: nil) { (response:[String : Any]) in }
+            try ResponseParser.build(URLResponse(), data: nil) { (response: [String: Any]) in }
         } catch IngresseException.requestError {
             requestError = true
             builderExpectation.fulfill()
@@ -25,7 +25,7 @@ class ResponseParserTests: XCTestCase {
         }
         
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
         }
     }
@@ -38,7 +38,7 @@ class ResponseParserTests: XCTestCase {
         
         // When
         do {
-            try ResponseParser.build(nil, data: Data()) { (response:[String : Any]) in }
+            try ResponseParser.build(nil, data: Data()) { (response: [String: Any]) in }
         } catch IngresseException.requestError {
             requestError = true
             builderExpectation.fulfill()
@@ -47,7 +47,7 @@ class ResponseParserTests: XCTestCase {
         }
         
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
         }
     }
@@ -60,7 +60,7 @@ class ResponseParserTests: XCTestCase {
         
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: Data()) { (response:[String : Any]) in }
+            try ResponseParser.build(URLResponse(), data: Data()) { (response: [String: Any]) in }
         } catch IngresseException.jsonParserError {
             requestError = true
             builderExpectation.fulfill()
@@ -69,7 +69,7 @@ class ResponseParserTests: XCTestCase {
         }
         
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
         }
     }
@@ -104,7 +104,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -139,7 +139,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
         }
     }
@@ -166,7 +166,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
         }
     }
@@ -177,7 +177,7 @@ class ResponseParserTests: XCTestCase {
         let asyncExpectation = expectation(description: "builderCallback")
 
         var response = [String: Any]()
-        response["responseData"] = ["result":"result"]
+        response["responseData"] = ["result": "result"]
 
         var success = false
         var result: [String: Any]?
@@ -192,7 +192,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["result"] as? String, "result")
@@ -204,7 +204,7 @@ class ResponseParserTests: XCTestCase {
         let asyncExpectation = expectation(description: "builderCallback")
 
         var response = [String: Any]()
-        response["responseData"] = [["result":"result"]]
+        response["responseData"] = [["result": "result"]]
 
         var success = false
         var result: [String: Any]?
@@ -219,10 +219,10 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
-            let list = result?["data"] as? [[String:Any]]
+            let list = result?["data"] as? [[String: Any]]
             XCTAssertNotNil(list)
             XCTAssertEqual(list?[0]["result"] as? String, "result")
         }
@@ -248,7 +248,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["status"] as? Int, 1)
@@ -260,7 +260,7 @@ class ResponseParserTests: XCTestCase {
         let asyncExpectation = expectation(description: "builderCallback")
 
         var response = [String: Any]()
-        response["data"] = ["result":"result"]
+        response["data"] = ["result": "result"]
 
         var success = false
         var result: [String: Any]?
@@ -275,7 +275,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["result"] as? String, "result")
@@ -287,7 +287,7 @@ class ResponseParserTests: XCTestCase {
         let asyncExpectation = expectation(description: "builderCallback")
 
         var response = [String: Any]()
-        response["data"] = [["result":"result"]]
+        response["data"] = [["result": "result"]]
 
         var success = false
         var result: [String: Any]?
@@ -302,10 +302,10 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
-            let list = result?["data"] as? [[String:Any]]
+            let list = result?["data"] as? [[String: Any]]
             XCTAssertNotNil(list)
             XCTAssertEqual(list?[0]["result"] as? String, "result")
         }
@@ -337,7 +337,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.message, "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.")
@@ -364,7 +364,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["zip"] as? String, "zip")
@@ -396,7 +396,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.message, "message zip error")
@@ -425,7 +425,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error:Error?) in
+        waitForExpectations(timeout: 5) { (error: Error?) in
             XCTAssertTrue(requestError)
         }
     }

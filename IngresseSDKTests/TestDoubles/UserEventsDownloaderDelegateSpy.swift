@@ -16,7 +16,7 @@ class UserEventsDownloaderDelegateSpy: UserEventsDownloaderDelegate {
     var didFailDownloadEventsCalled: Bool = false
 
     // MARK: Spied methods
-    func didDownloadEvents(_ userEvents: [[String : Any]]) {
+    func didDownloadEvents(_ userEvents: [[String: Any]]) {
         didDownloadEventsCalled = true
         resultData = userEvents
         asyncExpectation?.fulfill()

@@ -52,7 +52,7 @@ public class Venue: NSObject, Codable {
         street = container.decodeKey(.street, ofType: String.self)
         zipCode = container.decodeKey(.zipCode, ofType: String.self)
         hidden = container.decodeKey(.hidden, ofType: Bool.self)
-        location = try container.decodeIfPresent([Double].self, forKey: .location) ?? [0.0 , 0.0]
+        location = try container.decodeIfPresent([Double].self, forKey: .location) ?? [0.0, 0.0]
         lat = try container.decodeIfPresent(Double.self, forKey: .lat)
         long = try container.decodeIfPresent(Double.self, forKey: .long)
     }

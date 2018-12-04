@@ -9,13 +9,13 @@ class AdvertisementTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["cover"] = [
-            "image":"coverImage",
-            "url":"coverUrl"
+            "image": "coverImage",
+            "url": "coverUrl"
         ]
         json["background"] = [
-            "image":"bgImage"
+            "image": "bgImage"
         ]
 
         // When

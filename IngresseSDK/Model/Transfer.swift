@@ -21,8 +21,8 @@ public class Transfer: NSObject, Codable {
         return history.first(where: { $0.status == "accepted" })?.creationDate ?? ""
     }
     
-    public var socialIdDict: [String:String] {
-        return socialId.reduce(into: [String:String]()) { $0[$1.network] = $1.id }
+    public var socialIdDict: [String: String] {
+        return socialId.reduce(into: [String: String]()) { $0[$1.network] = $1.id }
     }
 
     public class StatusChange: NSObject, Codable {

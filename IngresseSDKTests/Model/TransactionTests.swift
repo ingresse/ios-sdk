@@ -9,7 +9,7 @@ class TransactionTests: XCTestCase {
 
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = "1234"
         json["status"] = "status"
         json["transactionId"] = "transactionId"
@@ -30,13 +30,13 @@ class TransactionTests: XCTestCase {
         json["modificationdate"] = "modificationdate"
         json["bankbillet_url"] = "bankbillet_url"
         json["token"] = "token"
-        json["event"] = ["id":"1"]
-        json["session"] = ["id":"2"]
-        json["customer"] = ["id":3]
-        json["refund"] = ["operator":"4"]
+        json["event"] = ["id": "1"]
+        json["session"] = ["id": "2"]
+        json["customer"] = ["id": 3]
+        json["refund"] = ["operator": "4"]
         json["creditCard"] = [
-            "firstDigits":"1111",
-            "lastDigits":"9999"
+            "firstDigits": "1111",
+            "lastDigits": "9999"
         ]
 
         // When
@@ -49,19 +49,19 @@ class TransactionTests: XCTestCase {
         XCTAssertEqual(obj?.transactionId, "transactionId")
         XCTAssertEqual(obj?.operatorId, "operatorId")
         XCTAssertEqual(obj?.salesgroupId, 2)
-        XCTAssertEqual(obj?.app_id, 3)
+        XCTAssertEqual(obj?.appId, 3)
         XCTAssertEqual(obj?.paymenttype, "paymenttype")
         XCTAssertEqual(obj?.paymentoption, "paymentoption")
         XCTAssertEqual(obj?.paymentdetails, "paymentdetails")
         XCTAssertEqual(obj?.totalPaid, 11.1)
-        XCTAssertEqual(obj?.sum_up, 22.2)
+        XCTAssertEqual(obj?.sumUp, 22.2)
         XCTAssertEqual(obj?.paymentTax, 33.3)
         XCTAssertEqual(obj?.interest, 11)
         XCTAssertEqual(obj?.taxToCostumer, 22)
         XCTAssertEqual(obj?.installments, 10)
         XCTAssertEqual(obj?.creationdate, "creationdate")
         XCTAssertEqual(obj?.modificationdate, "modificationdate")
-        XCTAssertEqual(obj?.bankbillet_url, "bankbillet_url")
+        XCTAssertEqual(obj?.bankbilletUrl, "bankbillet_url")
         XCTAssertEqual(obj?.token, "token")
         XCTAssertEqual(obj?.event?.id, "1")
         XCTAssertEqual(obj?.session?.id, "2")
@@ -74,7 +74,7 @@ class TransactionTests: XCTestCase {
 
     func testBasketArray() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["basket"] = [
             ["id": 4],
             ["id": 5],
@@ -93,7 +93,7 @@ class TransactionTests: XCTestCase {
 
     func testBasketTickets() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["basket"] = [
             "tickets": [
                 ["id": 1],

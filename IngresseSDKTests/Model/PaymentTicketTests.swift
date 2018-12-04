@@ -6,7 +6,6 @@ import XCTest
 @testable import IngresseSDK
 
 class PaymentTicketTests: XCTestCase {
-
     func testEncodable() {
         // Given
         var holder = PaymentTicket.Holder()

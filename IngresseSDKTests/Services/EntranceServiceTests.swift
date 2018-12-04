@@ -24,7 +24,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let guestExpectation = expectation(description: "guestListCallback")
 
-        var guestListSuccessResponse = [String:Any]()
+        var guestListSuccessResponse = [String: Any]()
         guestListSuccessResponse["paginationInfo"] =
             ["currentPage": 1,
              "lastPage": 1,
@@ -39,10 +39,15 @@ class EntranceServiceTests: XCTestCase {
         delegate.asyncExpectation = guestExpectation
 
         // When
-        service.getGuestListOfEvent("12345", sessionId: "23456", from: 9999, userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
+        service.getGuestListOfEvent(
+            "12345",
+            sessionId: "23456",
+            from: 9999,
+            userToken: "12345-abcdefghijklmnopqrstuvxyz",
+            page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didSyncGuestsPageCalled)
             XCTAssertEqual(delegate.guestListSyncResult, [])
         }
@@ -52,7 +57,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let guestExpectation = expectation(description: "guestListCallback")
 
-        var guestListSuccessResponse = [String:Any]()
+        var guestListSuccessResponse = [String: Any]()
         guestListSuccessResponse["data"] = nil
 
         restClient.response = guestListSuccessResponse
@@ -65,7 +70,7 @@ class EntranceServiceTests: XCTestCase {
         service.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailSyncGuestListCalled)
             XCTAssertNil(delegate.guestListSyncResult)
         }
@@ -90,7 +95,7 @@ class EntranceServiceTests: XCTestCase {
         service.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailSyncGuestListCalled)
             XCTAssertNil(delegate.guestListSyncResult)
             let apiError = delegate.syncFailError
@@ -106,7 +111,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let checkinExpectation = expectation(description: "checkinTickets")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -130,7 +135,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertNotNil(result)
             XCTAssertNil(apiError)
         }
@@ -140,7 +145,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let checkinExpectation = expectation(description: "checkinTickets")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -164,7 +169,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertNil(result)
             XCTAssertNotNil(apiError)
         }
@@ -200,7 +205,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertNil(result)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -214,10 +219,10 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let infoExpectation = expectation(description: "validationInfo")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = [
-            ["code": "000", "status": 3, "lastUpdate": 999, "checked": 1, "owner": nil, "lastCheckin" : nil],
-            ["code": "111", "status": 4, "lastUpdate": 99, "checked": 0, "owner": nil, "lastCheckin" : nil]
+            ["code": "000", "status": 3, "lastUpdate": 999, "checked": 1, "owner": nil, "lastCheckin": nil],
+            ["code": "111", "status": 4, "lastUpdate": 99, "checked": 0, "owner": nil, "lastCheckin": nil]
         ]
 
         restClient.response = response
@@ -234,7 +239,7 @@ class EntranceServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.checked, 1)
@@ -250,7 +255,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let infoExpectation = expectation(description: "validationInfo")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -260,14 +265,20 @@ class EntranceServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (_) in }, onError: { (error) in
-            success = false
-            apiError = error
-            infoExpectation.fulfill()
+        service.getValidationInfoOfTicket(
+            code: "000",
+            eventId: "1234",
+            sessionId: "2345",
+            userToken: "12345-token",
+            onSuccess: { (_) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                infoExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -292,14 +303,20 @@ class EntranceServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getValidationInfoOfTicket(code: "000", eventId: "1234", sessionId: "2345", userToken: "12345-token", onSuccess: { (_) in }, onError: { (error) in
-            success = false
-            apiError = error
-            infoExpectation.fulfill()
+        service.getValidationInfoOfTicket(
+            code: "000",
+            eventId: "1234",
+            sessionId: "2345",
+            userToken: "12345-token",
+            onSuccess: { (_) in },
+            onError: { (error) in
+                success = false
+                apiError = error
+                infoExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -313,7 +330,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let transferHistoryExpectation = expectation(description: "transferHistory")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -330,7 +347,7 @@ class EntranceServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -340,7 +357,7 @@ class EntranceServiceTests: XCTestCase {
         // Given
         let transferHistoryExpectation = expectation(description: "transferHistory")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -357,7 +374,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -389,7 +406,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

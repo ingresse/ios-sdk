@@ -22,12 +22,12 @@ extension Date {
     /// - Parameter format: String format of desired output (default is "dd/MM/yyyy HH:mm")
     /// - Returns: Date converted to string
     func toString(format: DateFormat = .dateHourSpace) -> String {
-        let df = DateFormatter()
-        df.dateFormat = format.rawValue
-        df.timeZone = TimeZone(abbreviation: "GMT")
-        df.locale = Locale(identifier: "en_US_POSIX")
+        let formatter = DateFormatter()
+        formatter.dateFormat = format.rawValue
+        formatter.timeZone = TimeZone(abbreviation: "GMT")
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        return df.string(from: self)
+        return formatter.string(from: self)
     }
     
     /// Get week day string with 3 characters
@@ -50,11 +50,11 @@ extension String {
     /// - Parameter format: Current string format (default is "yyyy-MM-dd'T'HH:mm:ssZ")
     /// - Returns: Date converted from string (Current date returned in case of error)
     func toDate(format: DateFormat = .timestamp) -> Date {
-        let df = DateFormatter()
-        df.dateFormat = format.rawValue
+        let formatter = DateFormatter()
+        formatter.dateFormat = format.rawValue
         let posix = Locale(identifier: "en_US_POSIX")
-        df.locale = posix
+        formatter.locale = posix
         
-        return df.date(from: self) ?? Date()
+        return formatter.date(from: self) ?? Date()
     }
 }

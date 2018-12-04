@@ -16,7 +16,7 @@ class UpdatedUserTests: XCTestCase {
                     "verified": true,
                     "email": "email",
                     "cpf": "cpf",
-                    "name": "name"] as [String : Any]
+                    "name": "name"] as [String: Any]
 
         // When
         let obj = JSONDecoder().decodeDict(of: UpdatedUser.self, from: json)

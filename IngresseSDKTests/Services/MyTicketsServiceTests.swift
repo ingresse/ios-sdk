@@ -24,7 +24,7 @@ class MyTicketsServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "userWallet")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = [["id": 1]]
         response["paginationInfo"] = ["currentPage": 1, "lastPage": 10, "totalResults": 1000, "pageSize": 100]
 
@@ -38,7 +38,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didSyncItemsPageCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -54,7 +54,7 @@ class MyTicketsServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "userWallet")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -67,7 +67,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailSyncItemsCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -95,7 +95,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailSyncItemsCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -109,7 +109,7 @@ class MyTicketsServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "userTickets")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = [["id": 1]]
         response["paginationInfo"] = ["currentPage": 1, "lastPage": 10, "totalResults": 1000, "pageSize": 100]
 
@@ -123,7 +123,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didSyncTicketsPageCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -139,7 +139,7 @@ class MyTicketsServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "userTickets")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -152,7 +152,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailSyncTicketsCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -180,7 +180,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailSyncTicketsCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)

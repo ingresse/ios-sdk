@@ -9,7 +9,7 @@ class SessionDateTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["date"] = "date"
         json["time"] = "time"
         json["dateTime"] = "dateTime"

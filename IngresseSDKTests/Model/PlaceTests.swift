@@ -9,7 +9,7 @@ class PlaceTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["city"] = "city"
         json["country"] = "country"
         json["externalId"] = "externalId"

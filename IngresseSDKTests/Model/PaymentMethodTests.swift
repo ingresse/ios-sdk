@@ -13,10 +13,10 @@ class PaymentMethodTests: XCTestCase {
                     "value": 10,
                     "total": 10,
                     "taxValue": 10,
-                    "shippingCost": 10]] as [[String : Any]]
+                    "shippingCost": 10]] as [[String: Any]]
 
         let json = ["type": "paymentType",
-                    "installments": installment] as [String : Any]
+                    "installments": installment] as [String: Any]
 
         // When
         let obj = JSONDecoder().decodeDict(of: PaymentMethod.self, from: json)

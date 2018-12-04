@@ -63,7 +63,7 @@ public class SDKErrors: NSObject {
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
         "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."]
     
-    public func getErrorMessage(code:Int) -> String {
+    public func getErrorMessage(code: Int) -> String {
         if code == 0 {
             return errorDict["default_no_code"]!
         }
@@ -75,7 +75,7 @@ public class SDKErrors: NSObject {
         return error
     }
 
-    public func getErrorTitle(code:Int) -> String {
+    public func getErrorTitle(code: Int) -> String {
         guard let title = titles[code] else {
             return errorDict["default_title"]!
         }

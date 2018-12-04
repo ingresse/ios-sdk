@@ -34,8 +34,8 @@ public class MyTicketsService: BaseService {
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any],
+                let data = response["data"] as? [[String: Any]],
+                let paginationObj = response["paginationInfo"] as? [String: Any],
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj),
                 let items = JSONDecoder().decodeArray(of: [WalletItem].self, from: data)
                 else {
@@ -44,9 +44,9 @@ public class MyTicketsService: BaseService {
             }
 
             delegate.didSyncItemsPage(items, from: from, pagination: pagination)
-        }) { (error) in
+        }, onError: { (error) in
             delegate.didFailSyncItems(errorData: error)
-        }
+        })
     }
 
     /// Get all tickets user has
@@ -68,8 +68,8 @@ public class MyTicketsService: BaseService {
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any],
+                let data = response["data"] as? [[String: Any]],
+                let paginationObj = response["paginationInfo"] as? [String: Any],
                 let tickets = JSONDecoder().decodeArray(of: [UserTicket].self, from: data),
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)
                 else {
@@ -78,8 +78,8 @@ public class MyTicketsService: BaseService {
             }
             
             delegate.didSyncTicketsPage(eventId: eventId, tickets: tickets, pagination: pagination)
-        }) { (error) in
+        }, onError: { (error) in
             delegate.didFailSyncTickets(errorData: error)
-        }
+        })
     }
 }

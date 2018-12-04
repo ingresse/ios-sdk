@@ -23,7 +23,7 @@ class SearchServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "getFriends")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -40,7 +40,7 @@ class SearchServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -50,7 +50,7 @@ class SearchServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "getFriends")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -67,7 +67,7 @@ class SearchServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -99,7 +99,7 @@ class SearchServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -113,7 +113,7 @@ class SearchServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "getEvents")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["total"] = 10
         response["hits"] = [[:]]
 
@@ -133,7 +133,7 @@ class SearchServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertNotNil(totalResults)
@@ -145,7 +145,7 @@ class SearchServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "getEvents")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -162,7 +162,7 @@ class SearchServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -194,7 +194,7 @@ class SearchServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -208,7 +208,7 @@ class SearchServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "getEvents")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["hits"] = [[:]]
 
         restClient.response = response
@@ -222,10 +222,10 @@ class SearchServiceTests: XCTestCase {
             success = true
             result = events
             asyncExpectation.fulfill()
-        }) { (error) in }
+        }, onError: { (error) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -235,7 +235,7 @@ class SearchServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "getEvents")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -252,7 +252,7 @@ class SearchServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -284,7 +284,7 @@ class SearchServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

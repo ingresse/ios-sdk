@@ -7,15 +7,15 @@ import IngresseSDK
 class MockClient: RestClientInterface {
     // MARK: Configuration
     var error: APIError?
-    var response: [String:Any]?
+    var response: [String: Any]?
     var shouldFail: Bool = false
 
     // MARK: Mocked methods
     func POST(
         url: String,
-        parameters: [String : Any],
-        onSuccess: @escaping ([String : Any]) -> (),
-        onError: @escaping (APIError) -> ()) {
+        parameters: [String: Any],
+        onSuccess: @escaping ([String: Any]) -> Void,
+        onError: @escaping (APIError) -> Void) {
         shouldFail ? onError(error!) : onSuccess(response!)
     }
     
@@ -23,15 +23,15 @@ class MockClient: RestClientInterface {
         url: String,
         data: Data,
         JSONData: Bool,
-        onSuccess: @escaping ([String : Any]) -> Void,
+        onSuccess: @escaping ([String: Any]) -> Void,
         onError: @escaping (APIError) -> Void) {
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
     func GET(
         url: String,
-        onSuccess: @escaping ([String : Any]) -> (),
-        onError: @escaping (APIError) -> ()) {
+        onSuccess: @escaping ([String: Any]) -> Void,
+        onError: @escaping (APIError) -> Void) {
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 }
