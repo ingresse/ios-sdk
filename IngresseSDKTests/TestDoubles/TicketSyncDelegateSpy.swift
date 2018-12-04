@@ -8,6 +8,7 @@ import XCTest
 class TicketSyncDelegateSpy: TicketSyncDelegate {
     // MARK: Configuration
     var resultData: [UserTicket]?
+    var resultEventId: String?
     var resultPage: PaginationInfo?
     var syncError: APIError?
     var asyncExpectation: XCTestExpectation?
@@ -17,10 +18,11 @@ class TicketSyncDelegateSpy: TicketSyncDelegate {
     var didFailSyncTicketsCalled: Bool = false
 
     // MARK: Spied methods
-    func didSyncTicketsPage(tickets: [UserTicket], pagination: PaginationInfo) {
+    func didSyncTicketsPage(eventId: String, tickets: [UserTicket], pagination: PaginationInfo) {
         didSyncTicketsPageCalled = true
         resultData = tickets
         resultPage = pagination
+        resultEventId = eventId
         asyncExpectation?.fulfill()
     }
 
