@@ -9,7 +9,7 @@ class WalletItemTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = 1
         json["ownerId"] = 2
         json["title"] = "title"
@@ -19,9 +19,9 @@ class WalletItemTests: XCTestCase {
         json["tickets"] = 99
         json["transfered"] = 88
         json["description"] = "description"
-        json["venue"] = ["id":1]
-        json["sessions"] = ["data":[["id":2], ["id":3], ["id":4]]]
-        json["customTickets"] = [["name":"test1"], ["name":"test2"], ["name":"test3"]]
+        json["venue"] = ["id": 1]
+        json["sessions"] = ["data": [["id": 2], ["id": 3], ["id": 4]]]
+        json["customTickets"] = [["name": "test1"], ["name": "test2"], ["name": "test3"]]
 
         // When
         let obj = JSONDecoder().decodeDict(of: WalletItem.self, from: json)

@@ -10,7 +10,7 @@ public class AddressService: BaseService {
     ///   - zipCode: address zipcode
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getAddressBy(zipCode: String, onSuccess: @escaping (_ response: Address) -> Void, onError: @escaping (_ error: APIError) -> Void){
+    public func getAddressBy(zipCode: String, onSuccess: @escaping (_ response: Address) -> Void, onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
             .setHost(.cep)
@@ -21,9 +21,9 @@ public class AddressService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             let attributes = JSONDecoder().decodeDict(of: Address.self, from: response)!
             onSuccess(attributes)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Update address
@@ -49,7 +49,8 @@ public class AddressService: BaseService {
                               district: String,
                               city: String,
                               state: String,
-                              onSuccess: @escaping () -> Void, onError: @escaping (_ error: APIError) -> Void) {
+                              onSuccess: @escaping () -> Void,
+                              onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -57,13 +58,13 @@ public class AddressService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        let params = ["zip" : zip,
-                       "street" : street,
-                       "number" : number,
-                       "complement" : complement,
-                       "district" : district,
-                       "city" : city,
-                       "state" : state]
+        let params = ["zip": zip,
+                      "street": street,
+                      "number": number,
+                      "complement": complement,
+                      "district": district,
+                      "city": city,
+                      "state": state]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
@@ -89,8 +90,8 @@ public class AddressService: BaseService {
             }
 
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 }

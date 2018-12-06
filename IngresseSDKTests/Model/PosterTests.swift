@@ -9,7 +9,7 @@ class PosterTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["large"] = "large"
         json["medium"] = "medium"
         json["small"] = "small"

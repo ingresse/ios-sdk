@@ -9,14 +9,14 @@ public class IngresseUser: NSObject, Codable {
     
     public static var user: IngresseUser?
     
-    public static func login(loginData: [String:Any]) -> IngresseUser {
+    public static func login(loginData: [String: Any]) -> IngresseUser {
         let user = JSONDecoder().decodeDict(of: IngresseUser.self, from: loginData) ?? IngresseUser()
 
         IngresseUser.user = user
         return user
     }
     
-    public static func fillData(userData: [String:Any]) {
+    public static func fillData(userData: [String: Any]) {
         guard user != nil else {
             return
         }

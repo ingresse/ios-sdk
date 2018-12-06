@@ -29,7 +29,7 @@ class JSONDecoderTests: XCTestCase {
 
     func testDecodeDict() {
         // Given
-        let dict: [String:Any] = [
+        let dict: [String: Any] = [
             "id": 1,
             "price": 10.0,
             "hidden": true,
@@ -52,7 +52,7 @@ class JSONDecoderTests: XCTestCase {
 
     func testDecodeStringValues() {
         // Given
-        let dict: [String:Any] = [
+        let dict: [String: Any] = [
             "id": "1",
             "price": "10.0",
             "hidden": "true",

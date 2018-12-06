@@ -3,15 +3,21 @@
 //
 
 public class EventAttributes: NSObject, Codable {
-    public var accepted_apps: [String] = []
-    public var ticket_transfer_enabled: Bool = true
-    public var ticket_transfer_required: Bool = false
+    public var acceptedApps: [String] = []
+    public var transferEnabled: Bool = true
+    public var transferRequired: Bool = false
+
+    enum CodingKeys: String, CodingKey {
+        case acceptedApps = "accepted_apps"
+        case transferEnabled = "ticket_transfer_enabled"
+        case transferRequired = "ticket_transfer_required"
+    }
 
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
-        accepted_apps = container.decodeKey(.accepted_apps, ofType: [String].self)
-        ticket_transfer_enabled = container.decodeKey(.ticket_transfer_enabled, ofType: Bool.self)
-        ticket_transfer_required = container.decodeKey(.ticket_transfer_required, ofType: Bool.self)
+        acceptedApps = container.decodeKey(.acceptedApps, ofType: [String].self)
+        transferEnabled = container.decodeKey(.transferEnabled, ofType: Bool.self)
+        transferRequired = container.decodeKey(.transferRequired, ofType: Bool.self)
     }
 
     public static func fromJSON(_ json: [String: Any]) -> EventAttributes? {

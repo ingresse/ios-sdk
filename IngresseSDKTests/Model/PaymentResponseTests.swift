@@ -9,7 +9,7 @@ class PaymentResponseTests: XCTestCase {
 
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["boleto"] = "boleto"
         json["message"] = "message"
         json["status"] = "status"
@@ -31,7 +31,7 @@ class PaymentResponseTests: XCTestCase {
     }
 
     func testFromJSON() {
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["boleto"] = "boleto"
         json["message"] = "message"
         json["status"] = "status"

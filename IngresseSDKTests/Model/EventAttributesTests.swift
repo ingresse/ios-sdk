@@ -9,8 +9,8 @@ class EventAttributesTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
-        json["accepted_apps"] = ["site","android"]
+        var json = [String: Any]()
+        json["accepted_apps"] = ["site", "android"]
         json["ticket_transfer_enabled"] = false
         json["ticket_transfer_required"] = true
 
@@ -19,16 +19,16 @@ class EventAttributesTests: XCTestCase {
 
         // Then
         XCTAssertNotNil(obj)
-        XCTAssertEqual(obj?.accepted_apps[0], "site")
-        XCTAssertEqual(obj?.accepted_apps[1], "android")
-        XCTAssertEqual(obj?.ticket_transfer_enabled, false)
-        XCTAssertEqual(obj?.ticket_transfer_required, true)
+        XCTAssertEqual(obj?.acceptedApps[0], "site")
+        XCTAssertEqual(obj?.acceptedApps[1], "android")
+        XCTAssertEqual(obj?.transferEnabled, false)
+        XCTAssertEqual(obj?.transferRequired, true)
     }
 
     func testFromJSON() {
         // Given
-        var json = [String:Any]()
-        json["accepted_apps"] = ["site","android"]
+        var json = [String: Any]()
+        json["accepted_apps"] = ["site", "android"]
         json["ticket_transfer_enabled"] = false
         json["ticket_transfer_required"] = true
 
@@ -37,9 +37,9 @@ class EventAttributesTests: XCTestCase {
 
         // Then
         XCTAssertNotNil(obj)
-        XCTAssertEqual(obj?.accepted_apps[0], "site")
-        XCTAssertEqual(obj?.accepted_apps[1], "android")
-        XCTAssertEqual(obj?.ticket_transfer_enabled, false)
-        XCTAssertEqual(obj?.ticket_transfer_required, true)
+        XCTAssertEqual(obj?.acceptedApps[0], "site")
+        XCTAssertEqual(obj?.acceptedApps[1], "android")
+        XCTAssertEqual(obj?.transferEnabled, false)
+        XCTAssertEqual(obj?.transferRequired, true)
     }
 }

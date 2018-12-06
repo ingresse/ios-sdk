@@ -12,7 +12,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - url: request path
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func GET(url: String, onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func GET(url: String, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
 
         if let header = UserAgent.header {
@@ -31,7 +31,7 @@ public class RestClient: NSObject, RestClientInterface {
             }
             
             do {
-                try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
+                try ResponseParser.build(response, data: data, completion: { (responseData: [String: Any]) in
                     onSuccess(responseData)
                 })
             } catch IngresseException.apiError(let apiError) {
@@ -49,7 +49,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: post body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POST(url: String, parameters: [String:Any], onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func POST(url: String, parameters: [String: Any], onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
 
         let body = parameters.stringFromHttpParameters()
 
@@ -69,7 +69,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - data: post data
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POSTData(url: String, data: Data, JSONData: Bool, onSuccess: @escaping (_ responseData:[String:Any]) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+    public func POSTData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
         
@@ -95,7 +95,7 @@ public class RestClient: NSObject, RestClientInterface {
             }
             
             do {
-                try ResponseParser.build(response, data: data, completion: { (responseData:[String : Any]) in
+                try ResponseParser.build(response, data: data, completion: { (responseData: [String: Any]) in
                     onSuccess(responseData)
                 })
             } catch IngresseException.apiError(let apiError) {

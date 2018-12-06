@@ -9,7 +9,7 @@ class AddressTests: XCTestCase {
 
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["street"] = "street"
         json["district"] = "district"
         json["state"] = "state"

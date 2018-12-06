@@ -19,6 +19,17 @@ class DateHelperTests: XCTestCase {
         XCTAssertEqual(date, expected)
     }
     
+    func testStringToDateError() {
+        // Given
+        let strDate = ""
+
+        // When
+        let date = strDate.toDate(format: .dateHourSpace)
+
+        // Then
+        XCTAssertEqual(date.timeIntervalSinceNow, 0, accuracy: 1)
+    }
+
     func testGetWeekDay() {
         // Given
         let monday = DateComponents(
@@ -57,6 +68,13 @@ class DateHelperTests: XCTestCase {
             month: 01,
             day: 07).date
 
+        let formatter = DateFormatter()
+        formatter.dateFormat = DateFormat.timestamp.rawValue
+        let posix = Locale(identifier: "en_US_POSIX")
+        formatter.locale = posix
+
+        let invalid = formatter.date(from: "2018-11-04'T'00:00:01-03:00")
+
         // Then
         XCTAssertEqual(monday?.weekDay(), "SEG")
         XCTAssertEqual(tuesday?.weekDay(), "TER")
@@ -65,5 +83,6 @@ class DateHelperTests: XCTestCase {
         XCTAssertEqual(friday?.weekDay(), "SEX")
         XCTAssertEqual(saturday?.weekDay(), "SAB")
         XCTAssertEqual(sunday?.weekDay(), "DOM")
+        XCTAssertEqual(invalid?.weekDay(), nil)
     }
 }

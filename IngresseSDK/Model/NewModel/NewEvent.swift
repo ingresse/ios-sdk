@@ -19,7 +19,7 @@ public struct NewEvent: Decodable, Equatable {
     public var updatedAt: String = ""
 
     enum CodingKeys: String, CodingKey {
-        case _source
+        case source = "_source"
     }
 
     enum EventCodingKeys: String, CodingKey {
@@ -52,7 +52,7 @@ public struct NewEvent: Decodable, Equatable {
     public init(from decoder: Decoder) throws {
         guard
             let source = try? decoder.container(keyedBy: CodingKeys.self),
-            let container = try? source.nestedContainer(keyedBy: EventCodingKeys.self, forKey: ._source)
+            let container = try? source.nestedContainer(keyedBy: EventCodingKeys.self, forKey: .source)
         else { return }
 
         companyId = container.decodeKey(.companyId, ofType: Int.self)
@@ -72,4 +72,3 @@ public struct NewEvent: Decodable, Equatable {
         status = container.safeDecodeKey(.status, to: Status.self)
     }
 }
-

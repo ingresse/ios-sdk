@@ -6,10 +6,9 @@ import XCTest
 @testable import IngresseSDK
 
 class CompanyLogoTests: XCTestCase {
-    
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["small"] = "smallPoster"
         json["medium"] = "mediumPoster"
         json["large"] = "largePoster"

@@ -9,12 +9,12 @@ class UserTicketTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
-        json["receivedFrom"] = ["transferId":1]
-        json["transferedTo"] = ["transferId":2]
-        json["currentHolder"] = ["transferId":3]
-        json["eventVenue"] = ["id":4]
-        json["sessions"] = ["data":[["id":5], ["id":6], ["id":7]]]
+        var json = [String: Any]()
+        json["receivedFrom"] = ["transferId": 1]
+        json["transferedTo"] = ["transferId": 2]
+        json["currentHolder"] = ["transferId": 3]
+        json["eventVenue"] = ["id": 4]
+        json["sessions"] = ["data": [["id": 5], ["id": 6], ["id": 7]]]
         json["description"] = "test string"
         json["checked"] = true
 

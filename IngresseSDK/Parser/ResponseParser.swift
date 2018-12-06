@@ -18,14 +18,14 @@ public class ResponseParser: NSObject {
     ///   - data: byte representation of data
     ///   - completion: callback block
     /// - Throws: IngresseException
-    public static func build(_ response: URLResponse?, data: Data?, completion: (_ responseData: [String: Any])->Void) throws {
+    public static func build(_ response: URLResponse?, data: Data?, completion: (_ responseData: [String: Any]) -> Void) throws {
         if data == nil || response == nil {
             throw IngresseException.requestError
         }
 
         guard
             let objData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers),
-            let obj = objData as? [String:Any] else {
+            let obj = objData as? [String: Any] else {
             throw IngresseException.jsonParserError
         }
 
@@ -48,7 +48,7 @@ public class ResponseParser: NSObject {
 
             // API Error
             guard
-                let responseError = obj["responseError"] as? [String:Any],
+                let responseError = obj["responseError"] as? [String: Any],
                 let code = responseError["code"] as? Int,
                 let message = responseError["message"] as? String,
                 let category = responseError["category"] as? String
@@ -70,7 +70,7 @@ public class ResponseParser: NSObject {
         }
 
         // Events API Error
-        if let info = obj["info"] as? [String:Any],
+        if let info = obj["info"] as? [String: Any],
             let code = obj["code"] as? Int,
             let message = obj["message"] as? String {
 
@@ -84,31 +84,31 @@ public class ResponseParser: NSObject {
         }
 
         // Simple object
-        if let responseData = obj["responseData"] as? [String:Any] {
+        if let responseData = obj["responseData"] as? [String: Any] {
             completion(responseData)
             return
         }
 
         // List response
-        if let responseArray = obj["responseData"] as? [[String:Any]] {
+        if let responseArray = obj["responseData"] as? [[String: Any]] {
             completion(["data": responseArray])
             return
         }
 
         // Event API
-        if let eventResponse = obj["data"] as? [String:Any] {
+        if let eventResponse = obj["data"] as? [String: Any] {
             completion(eventResponse)
             return
         }
 
         // Event API List
-        if let _ = obj["data"] as? [[String:Any]] {
+        if obj["data"] as? [[String: Any]] != nil {
             completion(obj)
             return
         }
 
         // Address
-        if let _ = obj["zip"] as? String {
+        if obj["zip"] as? String != nil {
             completion(obj)
             return
         }

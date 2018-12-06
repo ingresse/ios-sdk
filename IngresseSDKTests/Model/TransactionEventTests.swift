@@ -9,7 +9,7 @@ class TransactionEventTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = "1"
         json["title"] = "title"
         json["type"] = "type"

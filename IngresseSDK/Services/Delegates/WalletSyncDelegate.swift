@@ -7,6 +7,6 @@
 //
 
 @objc public protocol WalletSyncDelegate {
-    func didSyncItemsPage(_ items: [WalletItem], pagination: PaginationInfo)
+    func didSyncItemsPage(_ items: [WalletItem], from: String, pagination: PaginationInfo)
     func didFailSyncItems(errorData: APIError)
 }

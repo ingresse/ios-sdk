@@ -9,7 +9,7 @@ class CompanyAppTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = 1
         json["name"] = "name"
         json["publicKey"] = "apiKey"

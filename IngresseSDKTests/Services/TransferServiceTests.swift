@@ -23,7 +23,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "recentTransfers")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = []
 
         restClient.response = response
@@ -40,7 +40,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -50,7 +50,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "recentTransfers")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -67,7 +67,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -99,7 +99,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -113,7 +113,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "pendingTransfers")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = [["id": 1]]
         response["paginationInfo"] = ["currentPage": 1, "lastPage": 10, "totalResults": 1000, "pageSize": 100]
 
@@ -127,7 +127,7 @@ class TransferServiceTests: XCTestCase {
         service.getPendingTransfers("1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didDownloadPendingTransfersCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -143,7 +143,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "pendingTransfers")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -156,7 +156,7 @@ class TransferServiceTests: XCTestCase {
         service.getPendingTransfers("1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailDownloadTransfersCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -184,7 +184,7 @@ class TransferServiceTests: XCTestCase {
         service.getPendingTransfers("1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(delegate.didFailDownloadTransfersCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -210,7 +210,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
         }
     }
@@ -238,7 +238,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -252,7 +252,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "transferTicket")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["id"] = 1
         response["status"] = "accepted"
         response["saleTicketId"] = 2
@@ -272,7 +272,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.id, 1)
@@ -286,7 +286,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "transferTicket")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -303,7 +303,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -335,7 +335,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -349,7 +349,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "returnTicket")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["saleTicketId"] = 1
 
         restClient.response = response
@@ -366,7 +366,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result, 1)
@@ -377,7 +377,7 @@ class TransferServiceTests: XCTestCase {
         // Given
         let asyncExpectation = expectation(description: "returnTicket")
 
-        var response = [String:Any]()
+        var response = [String: Any]()
         response["data"] = nil
 
         restClient.response = response
@@ -394,7 +394,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -426,7 +426,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error:Error?) in
+        waitForExpectations(timeout: 1) { (error: Error?) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

@@ -31,6 +31,7 @@ public class SDKErrors: NSObject {
         6011: "Boleto não pago.",
         6012: "Por favor, visite o site da Ingresse (ingresse.com) para comprar ingressos para esse evento.",
         6013: "Lamentamos, mas os ingressos para este setor esgotaram. Selecione outro tipo de ingresso e tente novamente.",
+        6014: "Você excedeu o limite de ingressos disponíveis por conta. Para mais informações, verifique a descrição do evento.",
         6034: "Ticket não está pendente. Verifique se a transferência foi cancelada.",
         6038: "Este ingresso já foi transferido. Atualize a sua carteira e verá para quem foi enviado o ingresso.",
         6039: "Este ingresso foi reembolsado. Atualize a sua carteira para ver somente os ingressos disponíveis.",
@@ -62,7 +63,7 @@ public class SDKErrors: NSObject {
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
         "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."]
     
-    public func getErrorMessage(code:Int) -> String {
+    public func getErrorMessage(code: Int) -> String {
         if code == 0 {
             return errorDict["default_no_code"]!
         }
@@ -74,7 +75,7 @@ public class SDKErrors: NSObject {
         return error
     }
 
-    public func getErrorTitle(code:Int) -> String {
+    public func getErrorTitle(code: Int) -> String {
         guard let title = titles[code] else {
             return errorDict["default_title"]!
         }

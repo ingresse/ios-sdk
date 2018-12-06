@@ -21,15 +21,15 @@ public class UserService: BaseService {
             .build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let data = response["data"] as? [[String:Any]] else {
+            guard let data = response["data"] as? [[String: Any]] else {
                 delegate.didFailDownloadEvents(errorData: APIError.getDefaultError())
                 return
             }
 
             delegate.didDownloadEvents(data)
-        }) { (error) in
+        }, onError: { (error) in
             delegate.didFailDownloadEvents(errorData: error)
-        }
+        })
     }
 
     /// Create user account
@@ -42,16 +42,16 @@ public class UserService: BaseService {
     ///   - newsletter: defines if user wants to receive our newsletter
     ///   - onSuccess: success callback with IngresseUser
     ///   - onError: fail callback with APIError
-    public func createAccount(name: String, phone: String, email: String, password: String, newsletter: Bool, onSuccess: @escaping (_ user: IngresseUser)->(), onError: @escaping (_ error: APIError)->()) {
+    public func createAccount(name: String, phone: String, cpf: String, email: String, password: String, newsletter: Bool, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("user")
             .addParameter(key: "method", value: "create")
             .build()
 
-        var params: [String:Any] = [:]
+        var params: [String: Any] = [:]
 
         var splitName = name.components(separatedBy: " ")
-        if (splitName.count > 1) {
+        if splitName.count > 1 {
             params["lastname"] = splitName.last
             splitName.removeLast()
         }
@@ -61,6 +61,7 @@ public class UserService: BaseService {
         params["phone"] = phone
         params["email"] = email
         params["emailConfirm"] = email
+        params["document"] = cpf
         params["password"] = password
         params["passCheck"] = password
         params["terms"] = true
@@ -91,13 +92,13 @@ public class UserService: BaseService {
 
             let data = response["data"] as! [String: Any]
 
-            let _ = IngresseUser.login(loginData: data)
+            _ = IngresseUser.login(loginData: data)
             IngresseUser.fillData(userData: data)
 
             onSuccess(IngresseUser.user!)
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Verify account with API
@@ -108,7 +109,7 @@ public class UserService: BaseService {
     ///   - accountkitCode: code sent by accountkit
     ///   - onSuccess: success callback
     ///   - onError: fail callback with APIError
-    public func verifyAccount(userId: Int, userToken: String, accountkitCode: String, onSuccess: @escaping ()->(), onError: @escaping (_ error: APIError)->()) {
+    public func verifyAccount(userId: Int, userToken: String, accountkitCode: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "method", value: "update")
@@ -119,11 +120,10 @@ public class UserService: BaseService {
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
-
 
     /// Update basic infos
     ///
@@ -138,24 +138,25 @@ public class UserService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func updateBasicInfos(userId: String,
-                              userToken: String,
-                              name: String,
-                              lastname: String,
-                              currentEmail: String,
-                              newEmail: String,
-                              phone: String,
-                              cpf: String,
-                              onSuccess: @escaping (_ user: UpdatedUser) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+                                 userToken: String,
+                                 name: String,
+                                 lastname: String,
+                                 currentEmail: String,
+                                 newEmail: String,
+                                 phone: String,
+                                 cpf: String,
+                                 onSuccess: @escaping (_ user: UpdatedUser) -> Void,
+                                 onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        var params = ["name" : name,
-                      "lastname" : lastname,
-                      "phone" : phone,
-                      "cpf" : cpf]
+        var params = ["name": name,
+                      "lastname": lastname,
+                      "phone": phone,
+                      "cpf": cpf]
 
         if !(currentEmail.elementsEqual(newEmail)) {
             params["email"] = newEmail
@@ -184,11 +185,11 @@ public class UserService: BaseService {
                 return
             }
 
-            let userUpdated = JSONDecoder().decodeDict(of: UpdatedUser.self, from: response["data"] as! [String : Any])!
+            let userUpdated = JSONDecoder().decodeDict(of: UpdatedUser.self, from: response["data"] as! [String: Any])!
             onSuccess(userUpdated)
-        }) { (error: APIError) in
+        }, onError: { (error: APIError) in
             onError(error)
-        }
+        })
     }
 
     /// Change user picture
@@ -200,9 +201,10 @@ public class UserService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func changePicture(userId: String,
-                       userToken: String,
-                       imageData: String,
-                       onSuccess: @escaping () -> Void, onError: @escaping (_ error: APIError) -> Void) {
+                              userToken: String,
+                              imageData: String,
+                              onSuccess: @escaping () -> Void,
+                              onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")
@@ -210,12 +212,12 @@ public class UserService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        let params = ["picture": String(format:"data:image/png;base64,%@", imageData)]
+        let params = ["picture": String(format: "data:image/png;base64,%@", imageData)]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 }

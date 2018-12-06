@@ -8,7 +8,7 @@ import XCTest
 class ErrorsTests: XCTestCase {
 
     var errors: SDKErrors?
-    var errorsDict: [String:String]!
+    var errorsDict: [String: String]!
 
     override func setUp() {
         super.setUp()

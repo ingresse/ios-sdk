@@ -5,20 +5,21 @@
 import XCTest
 @testable import IngresseSDK
 
-class SessionDateTests: XCTestCase {
-    
+class TicketDateTests: XCTestCase {
+
     func testDecode() {
         // Given
-        var json = [String: Any]()
-        json["date"] = "date"
-        json["time"] = "time"
-        json["dateTime"] = "dateTime"
+        let json = ["id": 0,
+                    "date": "date",
+                    "time": "time",
+                    "dateTime": "dateTime"] as [String: Any]
 
         // When
-        let obj = JSONDecoder().decodeDict(of: SessionDate.self, from: json)
+        let obj = JSONDecoder().decodeDict(of: TicketDate.self, from: json)
 
         // Then
         XCTAssertNotNil(obj)
+        XCTAssertEqual(obj?.id, 0)
         XCTAssertEqual(obj?.date, "date")
         XCTAssertEqual(obj?.time, "time")
         XCTAssertEqual(obj?.dateTime, "dateTime")

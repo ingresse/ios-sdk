@@ -20,5 +20,3 @@ public class CompanyLogo: NSObject, Decodable {
         large = container.decodeKey(.large, ofType: String.self)
     }
 }
-
-

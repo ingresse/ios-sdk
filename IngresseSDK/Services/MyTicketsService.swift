@@ -9,19 +9,33 @@ public class MyTicketsService: BaseService {
     /// - Parameters:
     ///   - userId: id of logged user
     ///   - userToken: token of logged user
+    ///   - from: past or future events
     ///   - page: page of request
+    ///   - pageSize: number of events per page
     ///   - delegate: callback interface
-    public func getUserWallet(userId: String, userToken: String, page: Int, delegate: WalletSyncDelegate) {
-        let url = URLBuilder(client: client)
+    public func getUserWallet(userId: String, userToken: String, from: String = "", page: Int, pageSize: Int = 50, delegate: WalletSyncDelegate) {
+        var builder = URLBuilder(client: client)
             .setPath("user/\(userId)/wallet")
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "page", value: String(page))
-            .build()
+            .addParameter(key: "pageSize", value: String(pageSize))
+
+        if from == "future" {
+            builder = builder.addParameter(key: "order", value: "ASC")
+            builder = builder.addParameter(key: "from", value: "yesterday")
+        }
+
+        if from == "past" {
+            builder = builder.addParameter(key: "order", value: "DESC")
+            builder = builder.addParameter(key: "to", value: "yesterday")
+        }
+
+        let url = builder.build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any],
+                let data = response["data"] as? [[String: Any]],
+                let paginationObj = response["paginationInfo"] as? [String: Any],
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj),
                 let items = JSONDecoder().decodeArray(of: [WalletItem].self, from: data)
                 else {
@@ -29,10 +43,10 @@ public class MyTicketsService: BaseService {
                     return
             }
 
-            delegate.didSyncItemsPage(items, pagination: pagination)
-        }) { (error) in
+            delegate.didSyncItemsPage(items, from: from, pagination: pagination)
+        }, onError: { (error) in
             delegate.didFailSyncItems(errorData: error)
-        }
+        })
     }
 
     /// Get all tickets user has
@@ -54,8 +68,8 @@ public class MyTicketsService: BaseService {
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
-                let data = response["data"] as? [[String:Any]],
-                let paginationObj = response["paginationInfo"] as? [String:Any],
+                let data = response["data"] as? [[String: Any]],
+                let paginationObj = response["paginationInfo"] as? [String: Any],
                 let tickets = JSONDecoder().decodeArray(of: [UserTicket].self, from: data),
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)
                 else {
@@ -63,9 +77,9 @@ public class MyTicketsService: BaseService {
                     return
             }
             
-            delegate.didSyncTicketsPage(tickets: tickets, pagination: pagination)
-        }) { (error) in
+            delegate.didSyncTicketsPage(eventId: eventId, tickets: tickets, pagination: pagination)
+        }, onError: { (error) in
             delegate.didFailSyncTickets(errorData: error)
-        }
+        })
     }
 }

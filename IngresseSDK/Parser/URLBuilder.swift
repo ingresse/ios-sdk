@@ -34,13 +34,12 @@ public enum Host: String {
 }
 
 public class URLBuilder: NSObject {
-    
     private var url: String = ""
     private var host: Host = .api
     private var environment: Environment = .prod
     private var path: String = ""
     private var apiKey: String = ""
-    private var parameters: [String:String] = [:]
+    private var parameters: [String: String] = [:]
     
     public init(client: IngresseClient) {
         self.environment = client.environment
@@ -53,7 +52,7 @@ public class URLBuilder: NSObject {
         return self
     }
 
-    public func setEnvironment(_ env: Environment)  -> URLBuilder {
+    public func setEnvironment(_ env: Environment) -> URLBuilder {
         self.environment = env
         
         return self

@@ -17,7 +17,7 @@ public struct Category: Decodable {
 }
 
 extension Category: Equatable {
-    static public func ==(lhs: Category, rhs: Category) -> Bool {
+    static public func == (lhs: Category, rhs: Category) -> Bool {
         return lhs.id == rhs.id
             && lhs.isPublic == rhs.isPublic
             && lhs.name == rhs.name

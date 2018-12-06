@@ -21,6 +21,26 @@ public class UserData: NSObject, Codable {
     public var pictures: [String: String] = [:]
     public var picture: String = ""
 
+    enum CodingKeys: String, CodingKey {
+        case name
+        case lastname
+        case email
+        case cpf = "document"
+        case state
+        case city
+        case district
+        case street
+        case zip
+        case complement
+        case phone
+        case number
+        case fbUserId
+        case verified
+        case type
+        case pictures
+        case picture
+    }
+
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         name = container.decodeKey(.name, ofType: String.self)

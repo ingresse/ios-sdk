@@ -9,7 +9,7 @@ class GuestTicketTests: XCTestCase {
     
     func testDecode() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = "999"
         json["transactionId"] = "transactionId"
         json["code"] = "00.0000.?00000?.000.00"

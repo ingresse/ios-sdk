@@ -4,7 +4,7 @@
 
 import UIKit
 
-public typealias errorHandler = (_ error: APIError) -> Void
+public typealias ErrorHandler = (_ error: APIError) -> Void
 
 public class APIError: NSObject {
     public var code: Int = 0
@@ -49,7 +49,7 @@ public class APIError: NSObject {
             return self
         }
         
-        func setResponse(_ response: [String:Any]) -> Builder {
+        func setResponse(_ response: [String: Any]) -> Builder {
             error.response = response
             
             return self

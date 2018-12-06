@@ -31,7 +31,7 @@ extension Response.Shop.Transaction {
     }
 
     enum PaymentMethodKeys: String, CodingKey {
-        case CartaoCredito
+        case creditCard = "CartaoCredito"
     }
 
     public init(from decoder: Decoder) throws {
@@ -45,11 +45,11 @@ extension Response.Shop.Transaction {
         guard let methods = try? container.nestedContainer(keyedBy: PaymentMethodKeys.self, forKey: .availablePaymentMethods)
             else { return }
 
-        creditCard = methods.safeDecodeKey(.CartaoCredito, to: PaymentMethod.self)
+        creditCard = methods.safeDecodeKey(.creditCard, to: PaymentMethod.self)
     }
 }
 
-extension Response.Shop.Payment {
+extension Response.Shop.Payment: Equatable {
     enum CodingKeys: String, CodingKey {
         case boleto
         case message

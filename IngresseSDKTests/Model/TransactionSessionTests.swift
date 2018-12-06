@@ -9,7 +9,7 @@ class TransactionSessionTests: XCTestCase {
     
     func testDecodeTimestamp() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = "1"
         json["dateTime"] = [
             "date": "01/01/2018",
@@ -30,7 +30,7 @@ class TransactionSessionTests: XCTestCase {
     
     func testDecodeDateTime() {
         // Given
-        var json = [String:Any]()
+        var json = [String: Any]()
         json["id"] = "2"
         json["dateTime"] = [
             "date": "02/01/2018",
