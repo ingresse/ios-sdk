@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IngresseSDK"
-  s.version      = "0.9.2"
+  s.version      = "1.0.0"
   s.summary      = "Ingresse's SDK."
 
   # This description is used to generate tags and improve search results.
@@ -51,11 +51,9 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Rubens Gondek" => "rubens.gondek@ingresse.com" }
-  # Or just: s.author    = "Rubens Gondek"
-  # s.authors            = { "Rubens Gondek" => "rubens.gondek@gmail.com" }
-  # s.social_media_url   = "http://twitter.com/Rubens Gondek"
-
+  s.authors            = {"Rubens Gondek" => "rubens.gondek@gmail.com",
+                          "Phillipi Unger Lino" => "phillipi.lino@ingresse.com",
+                          "Tahbata Mikulski Ali" => "tahbata.ali@ingresse.com"}
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  If this Pod runs only on iOS or OS X, then specify the platform and
