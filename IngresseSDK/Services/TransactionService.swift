@@ -3,51 +3,29 @@
 //
 
 public class TransactionService: BaseService {
-
-    /// Create transaction to get id for payment or reserve
+    /// Create Transaction
     ///
     /// - Parameters:
-    ///   - userToken: token of logged user
     ///   - userId: id of logged user
+    ///   - userToken: token of logged user
     ///   - eventId: id of selected event
-    ///   - passkey: passkey
-    ///   - sessionTickets: all tickets for transaction
+    ///   - tickets: tickets selected by user
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func createTransaction(userId: String,
-                                  userToken: String,
-                                  eventId: String,
-                                  passkey: String?,
-                                  sessionTickets: [ShopTicket],
-                                  onSuccess: @escaping (_ transaction: String) -> Void, onError: @escaping ErrorHandler) {
-
+    public func createTransaction(request: Request.Shop.Create, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setPath("shop/")
+            .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        var params: [String: Any] = ["eventId": eventId,
-                                     "userId": userId]
-
-        if passkey != nil && !passkey!.isEmpty {
-            params["passkey"] = passkey
-        }
-
-        var ticketIndex = 0
-        for ticket: ShopTicket in sessionTickets where ticket.quantity > 0 {
-            params["tickets[\(ticketIndex)][guestTypeId]"] = ticket.guestTypeId
-            params["tickets[\(ticketIndex)][quantity]"] = ticket.quantity
-            ticketIndex += 1
-        }
-
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
-            guard
-                let responseData = response["data"] as? [String: Any],
-                let transaction = responseData["transactionId"] as? String else {
+        let data = try? JSONEncoder().encode(request)
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
+            guard let newResponse = response["data"] as? [String: Any],
+                let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Transaction.self, from: newResponse) else {
                     onError(APIError.getDefaultError())
                     return
             }
-            onSuccess(transaction)
+            onSuccess(paymentResponse)
         }, onError: { (error) in
             onError(error)
         })
@@ -70,6 +48,26 @@ public class TransactionService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             let transaction = JSONDecoder().decodeDict(of: TransactionData.self, from: response)!
             onSuccess(transaction)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
+    /// cancel transaction
+    ///
+    /// - Parameters:
+    ///   - transactionId: transaction id
+    ///   - onSuccess: success callback with Transaction
+    ///   - onError: fail callback with APIError
+    public func cancelTransaction(_ transactionId: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)/cancel")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        client.restClient.POST(url: url, parameters: [:], onSuccess: { (response) in
+            onSuccess()
         }, onError: { (error) in
             onError(error)
         })
