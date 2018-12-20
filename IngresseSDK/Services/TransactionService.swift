@@ -53,7 +53,7 @@ public class TransactionService: BaseService {
         })
     }
 
-    /// cancel transaction
+    /// Cancel transaction
     ///
     /// - Parameters:
     ///   - transactionId: transaction id

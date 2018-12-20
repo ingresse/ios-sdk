@@ -1,8 +1,4 @@
 //
-//  AuthService.swift
-//  IngresseSDK
-//
-//  Created by Rubens Gondek on 1/20/17.
 //  Copyright © 2017 Gondek. All rights reserved.
 //
 
@@ -25,7 +21,6 @@ public class AuthService: BaseService {
                       "password": pass]
 
         client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
-
             guard let logged = response["status"] as? Bool,
                 logged else {
                     let error = APIError.Builder()
@@ -153,7 +148,14 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
-        let fieldsValue = fields ?? "id,name,lastname,document,email,zip,number,complement,city,state,street,district,phone,verified,fbUserId,type,pictures,picture"
+        let fieldsArray = [
+            "id", "name", "lastname",
+            "document", "email", "zip",
+            "number", " complement", "city",
+            "state", "street", "district",
+            "phone", "verified", "fbUserId",
+            "type", "pictures", "picture"]
+        let fieldsValue = fields ?? fieldsArray.joined(separator: ",")
 
         let url = URLBuilder(client: client)
             .setPath("user/\(userId)")

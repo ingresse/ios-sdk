@@ -49,11 +49,7 @@ public class EventService: BaseService {
         let url = builder.build()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else {
-                onError(APIError.getDefaultError())
-                return
-            }
-
+            guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else { return }
             onSuccess(event)
         }, onError: { (error) in
             onError(error)

@@ -17,8 +17,10 @@ class TransactionServiceTests: XCTestCase {
         client = IngresseClient(apiKey: "1234", userAgent: "", restClient: restClient)
         service = IngresseService(client: client).transaction
     }
-    
-    // MARK: - Transaction Details
+}
+
+// MARK: - Transaction Details
+extension TransactionServiceTests {
     func testGetTransactionDetails() {
         // Given
         let asyncExpectation = expectation(description: "transactionDetails")
@@ -46,7 +48,7 @@ class TransactionServiceTests: XCTestCase {
         }
     }
     
-    func testGetFriendsFail() {
+    func testGetTransactionDetailsFail() {
         // Given
         let asyncExpectation = expectation(description: "transactionDetails")
 
@@ -83,39 +85,37 @@ class TransactionServiceTests: XCTestCase {
         let asyncExpectation = expectation(description: "createTransaction")
 
         var response = [String: Any]()
-        response["data"] = ["transactionId": "transactionId"]
+        let card = ["CartaoCredito": ["paymentType": "credito"]]
+        response["data"] = [
+            "transactionId": "transactionId",
+            "availablePaymentMethods": card
+        ]
 
         restClient.response = response
         restClient.shouldFail = false
 
         var success = false
-        var result: String!
+        var result: Response.Shop.Transaction?
 
-        let sessionTickets = [ShopTicket(id: 0,
-                                         name: "name",
-                                         fullDescription: "fullDescription",
-                                         guestTypeId: 0,
-                                         status: "status",
-                                         typeName: "typeName",
-                                         price: 0.0,
-                                         tax: 0.0,
-                                         hidden: false,
-                                         quantity: 1,
-                                         maximum: 1,
-                                         minimum: 1)]
+        var ticket = PaymentTicket()
+        ticket.guestTypeId = "0"
+        ticket.quantity = 1
+        ticket.holder = []
+
+        let sessionTickets = [ticket]
+
+        var request = Request.Shop.Create()
+        request.userId = "userId"
+        request.eventId = "eventId"
+        request.passkey = "passkey"
+        request.tickets = sessionTickets
 
         // When
-        service.createTransaction(
-            userId: "userId",
-            userToken: "1234-token",
-            eventId: "eventId",
-            passkey: "passkey",
-            sessionTickets: sessionTickets,
-            onSuccess: { (transactionId) in
-                success = true
-                result = transactionId
-                asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        service.createTransaction(request: request, userToken: "1234-token", onSuccess: { (transaction) in
+            success = true
+            result = transaction
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
 
         // Then
         waitForExpectations(timeout: 1) { (error: Error?) in
@@ -137,31 +137,24 @@ class TransactionServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
-        let sessionTickets = [ShopTicket(id: 0,
-                                         name: "name",
-                                         fullDescription: "fullDescription",
-                                         guestTypeId: 0,
-                                         status: "status",
-                                         typeName: "typeName",
-                                         price: 0.0,
-                                         tax: 0.0,
-                                         hidden: false,
-                                         quantity: 1,
-                                         maximum: 1,
-                                         minimum: 1)]
+        var ticket = PaymentTicket()
+        ticket.guestTypeId = "0"
+        ticket.quantity = 1
+        ticket.holder = []
+
+        let sessionTickets = [ticket]
+
+        var request = Request.Shop.Create()
+        request.userId = "userId"
+        request.eventId = "eventId"
+        request.passkey = "passkey"
+        request.tickets = sessionTickets
 
         // When
-        service.createTransaction(
-            userId: "userId",
-            userToken: "1234-token",
-            eventId: "eventId",
-            passkey: "passkey",
-            sessionTickets: sessionTickets,
-            onSuccess: { (transactionId) in },
-            onError: { (error) in
-                success = false
-                apiError = error
-                asyncExpectation.fulfill()
+        service.createTransaction(request: request, userToken: "1234-token", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
         })
 
         // Then
@@ -189,18 +182,17 @@ class TransactionServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Shop.Create()
+        request.userId = "userId"
+        request.eventId = "eventId"
+        request.passkey = "passkey"
+        request.tickets = []
+
         // When
-        service.createTransaction(
-            userId: "userId",
-            userToken: "1234-token",
-            eventId: "eventId",
-            passkey: "passkey",
-            sessionTickets: [ShopTicket](),
-            onSuccess: { (transactionId) in },
-            onError: { (error) in
-                success = false
-                apiError = error
-                asyncExpectation.fulfill()
+        service.createTransaction(request: request, userToken: "1234-token", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
         })
 
         // Then
@@ -212,8 +204,10 @@ class TransactionServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Checkin Status
+// MARK: - Checkin Status
+extension TransactionServiceTests {
     func testGetCheckinStatus() {
         // Given
         let asyncExpectation = expectation(description: "checkinStatus")
@@ -288,6 +282,65 @@ class TransactionServiceTests: XCTestCase {
 
         // When
         service.getCheckinStatus("123456", userToken: "1234-token", onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
+}
+
+// MARK: - Cancel Transaction
+extension TransactionServiceTests {
+    func testCancelTransaction() {
+        // Given
+        let asyncExpectation = expectation(description: "cancelTransaction")
+
+        var response = [String: Any]()
+        response["data"] = []
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+
+        // When
+        service.cancelTransaction("transactionId", userToken: "1234-token", onSuccess: {
+            success = true
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssert(success)
+        }
+    }
+
+    func testCancelTransactionFail() {
+        // Given
+        let asyncExpectation = expectation(description: "cancelTransaction")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        // When
+        service.cancelTransaction("transactionId", userToken: "1234-token", onSuccess: {}, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()

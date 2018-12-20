@@ -246,4 +246,110 @@ class MyTicketsServiceTests: XCTestCase {
             XCTAssertEqual(delegate.syncError?.category, "category")
         }
     }
+
+    // MARK: - Number of Tickets
+    func testGetNumberOfTickets() {
+        // Given
+        let asyncExpectation = expectation(description: "userTickets")
+
+        var response = [String: Any]()
+        response["data"] = [["id": 1]]
+        response["paginationInfo"] = ["currentPage": 1, "lastPage": 10, "totalResults": 1000, "pageSize": 100]
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiResponse = 0
+
+        var request = Request.Wallet.NumberOfTickets()
+        request.userId = 1234
+        request.eventId = 2345
+        request.userToken = "1234-token"
+
+        // When
+        service.getWalletTicketsOf(request: request, onSuccess: { (number) in
+            success = true
+            apiResponse = number
+            asyncExpectation.fulfill()
+        }, onError: { (_) in })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssert(success)
+            XCTAssertEqual(apiResponse, 1000)
+        }
+    }
+
+    func testGetNumberOfTicketsWrongData() {
+        // Given
+        let asyncExpectation = expectation(description: "userTickets")
+
+        var response = [String: Any]()
+        response["data"] = nil
+
+        restClient.response = response
+        restClient.shouldFail = false
+
+        var success = false
+        var apiError: APIError?
+
+        var request = Request.Wallet.NumberOfTickets()
+        request.userId = 1234
+        request.eventId = 2345
+        request.userToken = "1234-token"
+
+        // When
+        service.getWalletTicketsOf(request: request, onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            let defaultError = APIError.getDefaultError()
+            XCTAssertEqual(apiError?.code, defaultError.code)
+            XCTAssertEqual(apiError?.message, defaultError.message)
+        }
+    }
+
+    func testGetNumberOfTicketsFail() {
+        // Given
+        let asyncExpectation = expectation(description: "userTickets")
+
+        let error = APIError()
+        error.code = 1
+        error.message = "message"
+        error.category = "category"
+
+        restClient.error = error
+        restClient.shouldFail = true
+
+        var success = false
+        var apiError: APIError?
+
+        var request = Request.Wallet.NumberOfTickets()
+        request.userId = 1234
+        request.eventId = 2345
+        request.userToken = "1234-token"
+
+        // When
+        service.getWalletTicketsOf(request: request, onSuccess: { (_) in }, onError: { (error) in
+            success = false
+            apiError = error
+            asyncExpectation.fulfill()
+        })
+
+        // Then
+        waitForExpectations(timeout: 1) { (error: Error?) in
+            XCTAssertFalse(success)
+            XCTAssertNotNil(apiError)
+            XCTAssertEqual(apiError?.code, 1)
+            XCTAssertEqual(apiError?.message, "message")
+            XCTAssertEqual(apiError?.category, "category")
+        }
+    }
 }

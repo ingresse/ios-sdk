@@ -83,7 +83,6 @@ public class MyTicketsService: BaseService {
         })
     }
 
-
     /// Get number of tickets for a given event
     ///
     /// - Parameters:

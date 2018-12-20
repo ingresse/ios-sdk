@@ -24,8 +24,10 @@ class AuthServiceTests: XCTestCase {
         // Set user nil
         IngresseUser.user = nil
     }
+}
 
-    // MARK: - Login
+// MARK: - Login
+extension AuthServiceTests {
     func testLogin() {
         // Given
         let loginExpectation = expectation(description: "loginCallback")
@@ -141,7 +143,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
+// MARK: - Logout
+extension AuthServiceTests {
     func testLogout() {
         // Given
         var data = [String: Any]()
@@ -169,8 +174,10 @@ class AuthServiceTests: XCTestCase {
         // Then
         XCTAssertNil(IngresseUser.user)
     }
+}
 
-    // MARK: - Company Login
+// MARK: - Company Login
+extension AuthServiceTests {
     func testCompanyLogin() {
         // Given
         let loginExpectation = expectation(description: "loginCallback")
@@ -315,8 +322,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Facebook Login
+// MARK: - Facebook Login
+extension AuthServiceTests {
     func testFacebookLogin() {
         // Given
         let loginExpectation = expectation(description: "loginCallback")
@@ -435,8 +444,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - User Data
+// MARK: - User Data
+extension AuthServiceTests {
     func testGetUserDataFail() {
         // Given
         let userDataExpectation = expectation(description: "userData")
@@ -468,8 +479,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Recover Password
+// MARK: - Recover Password
+extension AuthServiceTests {
     func testRecoverPassword() {
         // Given
         let recoverExpectation = expectation(description: "recoverPassword")
@@ -522,8 +535,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Validate Hash
+// MARK: - Validate Hash
+extension AuthServiceTests {
     func testValidateHash() {
         // Given
         let hashExpectation = expectation(description: "validateHash")
@@ -576,8 +591,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Update Password
+// MARK: - Update Password
+extension AuthServiceTests {
     func testUpdatePassword() {
         // Given
         let updatePasswordExpectation = expectation(description: "updatePassword")
@@ -630,8 +647,10 @@ class AuthServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Change Profile Password
+// MARK: - Change Profile Password
+extension AuthServiceTests {
     func testChangeProfilePassword() {
         // Given
         let asyncExpectation = expectation(description: "changeProfilePassword")

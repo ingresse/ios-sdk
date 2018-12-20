@@ -17,8 +17,10 @@ class EventServiceTests: XCTestCase {
         client = IngresseClient(apiKey: "1234", userAgent: "", restClient: restClient)
         service = IngresseService(client: client).event
     }
+}
 
-    // MARK: - Event Attributes
+// MARK: - Event Attributes
+extension EventServiceTests {
     func testGetEventAttributes() {
         // Given
         let asyncExpectation = expectation(description: "eventAttributes")
@@ -77,8 +79,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Advertisement
+// MARK: - Advertisement
+extension EventServiceTests {
     func testGetAdvertisement() {
         // Given
         let asyncExpectation = expectation(description: "advertisement")
@@ -169,8 +173,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Events
+// MARK: - Events
+extension EventServiceTests {
     func testGetEvents() {
         // Given
         let asyncExpectation = expectation(description: "events")
@@ -251,8 +257,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(delegate.syncError?.category, "category")
         }
     }
+}
 
-    // MARK: - Categories
+// MARK: - Categories
+extension EventServiceTests {
     func testGetCategories() {
         // Given
         let asyncExpectation = expectation(description: "categories")
@@ -350,8 +358,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
-    
-    // MARK: - Get Featured Events
+}
+
+// MARK: - Get Featured Events
+extension EventServiceTests {
     func testGetFeaturedEvents() {
         // Given
         let asyncExpectation = expectation(description: "featuredEvents")
@@ -445,8 +455,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Event Details
+// MARK: - Event Details
+extension EventServiceTests {
     func testGetEvent() {
         // Given
         let asyncExpectation = expectation(description: "event")
@@ -581,8 +593,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - RSVP Response
+// MARK: - RSVP Response
+extension EventServiceTests {
     func testRSVPResponse() {
         // Given
         let asyncExpectation = expectation(description: "rsvpResponse")
@@ -668,8 +682,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Get Session Details
+// MARK: - Get Session Details
+extension EventServiceTests {
     func testGetSessionDetails() {
         // Given
         let asyncExpectation = expectation(description: "session")
@@ -765,8 +781,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Get Event PassKey
+// MARK: - Get Event PassKey
+extension EventServiceTests {
     func testGetEventPasskey() {
         // Given
         let asyncExpectation = expectation(description: "session")
@@ -862,8 +880,10 @@ class EventServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Get Event Passports PassKey
+// MARK: - Get Event Passports PassKey
+extension EventServiceTests {
     func testGetEventPassportsPasskey() {
         // Given
         let asyncExpectation = expectation(description: "session")

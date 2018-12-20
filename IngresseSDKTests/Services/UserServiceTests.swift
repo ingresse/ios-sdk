@@ -17,8 +17,10 @@ class UserServiceTests: XCTestCase {
         client = IngresseClient(apiKey: "1234", userAgent: "", restClient: restClient)
         service = IngresseService(client: client).user
     }
+}
 
-    // MARK: - User Events
+// MARK: - User Events
+extension UserServiceTests {
     func testGetUserEvents() {
         // Given
         let asyncExpectation = expectation(description: "userEvents")
@@ -96,8 +98,10 @@ class UserServiceTests: XCTestCase {
             XCTAssertEqual(delegate.syncError?.category, "category")
         }
     }
-    
-    // MARK: - Verify Account
+}
+
+// MARK: - Verify Account
+extension UserServiceTests {
     func testVerifyAccount() {
         // Given
         let asyncExpectation = expectation(description: "verifyAccount")
@@ -150,8 +154,10 @@ class UserServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Create Account
+// MARK: - Create Account
+extension UserServiceTests {
     func testCreateAccount() {
         // Given
         let asyncExpectation = expectation(description: "createAccount")
@@ -169,14 +175,16 @@ class UserServiceTests: XCTestCase {
         var success = false
         var result: IngresseUser?
 
+        var request = Request.Auth.SignUp()
+        request.name = "name lastname"
+        request.phone = "phone"
+        request.document = "cpf"
+        request.email = "email"
+        request.password = "password"
+
         // When
         service.createAccount(
-            name: "name lastname",
-            phone: "phone",
-            cpf: "cpf",
-            email: "email",
-            password: "password",
-            newsletter: true,
+            request: request,
             onSuccess: { (user) in
                 success = true
                 result = user
@@ -207,14 +215,16 @@ class UserServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Auth.SignUp()
+        request.name = "name lastname"
+        request.phone = "phone"
+        request.document = "cpf"
+        request.email = "email"
+        request.password = "password"
+
         // When
         service.createAccount(
-            name: "name lastname",
-            phone: "phone",
-            cpf: "cpf",
-            email: "email",
-            password: "password",
-            newsletter: true,
+            request: request,
             onSuccess: { (_) in },
             onError: { (error) in
                 success = false
@@ -245,14 +255,16 @@ class UserServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Auth.SignUp()
+        request.name = "name lastname"
+        request.phone = "phone"
+        request.document = "cpf"
+        request.email = "email"
+        request.password = "password"
+
         // When
         service.createAccount(
-            name: "name lastname",
-            phone: "phone",
-            cpf: "cpf",
-            email: "email",
-            password: "password",
-            newsletter: true,
+            request: request,
             onSuccess: { (_) in },
             onError: { (error) in
                 success = false
@@ -284,14 +296,16 @@ class UserServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Auth.SignUp()
+        request.name = "name lastname"
+        request.phone = "phone"
+        request.document = "cpf"
+        request.email = "email"
+        request.password = "password"
+
         // When
         service.createAccount(
-            name: "name lastname",
-            phone: "phone",
-            cpf: "cpf",
-            email: "email",
-            password: "password",
-            newsletter: true,
+            request: request,
             onSuccess: { (_) in },
             onError: { (error) in
                 success = false
@@ -324,14 +338,16 @@ class UserServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Auth.SignUp()
+        request.name = "name lastname"
+        request.phone = "phone"
+        request.document = "cpf"
+        request.email = "email"
+        request.password = "password"
+
         // When
         service.createAccount(
-            name: "name lastname",
-            phone: "phone",
-            cpf: "cpf",
-            email: "email",
-            password: "password",
-            newsletter: true,
+            request: request,
             onSuccess: { (_) in },
             onError: { (error) in
                 success = false
@@ -348,8 +364,10 @@ class UserServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, "category")
         }
     }
+}
 
-    // MARK: - Update basic infos
+// MARK: - Update basic infos
+extension UserServiceTests {
     func testUpdateBasicInfos() {
         // Given
         let asyncExpectation = expectation(description: "updateBasicInfos")
@@ -542,8 +560,10 @@ class UserServiceTests: XCTestCase {
             XCTAssertEqual(apiError?.category, APIError.getDefaultError().category)
         }
     }
+}
 
-    // MARK: - Change picture
+// MARK: - Change picture
+extension UserServiceTests {
     func testChangePicture() {
         // Given
         let asyncExpectation = expectation(description: "changePicture")
