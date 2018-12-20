@@ -82,4 +82,32 @@ public class MyTicketsService: BaseService {
             delegate.didFailSyncTickets(errorData: error)
         })
     }
+
+    /// Get number of tickets for a given event
+    ///
+    /// - Parameters:
+    ///   - userId: id of logged user
+    ///   - eventId: id of requested event
+    ///   - userToken: token of logged user
+    public func getWalletTicketsOf(request: Request.Wallet.NumberOfTickets, onSuccess: @escaping (_ tickets: Int) -> Void, onError: @escaping (_ error: APIError) -> Void) {
+        let url = URLBuilder(client: client)
+            .setPath("user/\(request.userId)/tickets")
+            .addParameter(key: "eventId", value: request.eventId)
+            .addParameter(key: "usertoken", value: request.userToken)
+            .addParameter(key: "page", value: 1)
+            .addParameter(key: "pageSize", value: "1")
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let paginationObj = response["paginationInfo"] as? [String: Any],
+                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            onSuccess(pagination.totalResults)
+        }, onError: onError)
+    }
 }

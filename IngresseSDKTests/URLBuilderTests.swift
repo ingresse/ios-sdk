@@ -64,7 +64,7 @@ class URLBuilderTests: XCTestCase {
 
         // When
         let generated = builder
-            .setHost(.searchHml)
+            .setHost(.search)
             .setEnvironment(.hml)
             .build()
 

@@ -42,32 +42,18 @@ public class UserService: BaseService {
     ///   - newsletter: defines if user wants to receive our newsletter
     ///   - onSuccess: success callback with IngresseUser
     ///   - onError: fail callback with APIError
-    public func createAccount(name: String, phone: String, cpf: String, email: String, password: String, newsletter: Bool, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
+    public func createAccount(request: Request.Auth.SignUp, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("user")
             .addParameter(key: "method", value: "create")
             .build()
 
-        var params: [String: Any] = [:]
+        var requestWithCheck = request
+        requestWithCheck.emailConfirm = requestWithCheck.email
+        requestWithCheck.passCheck = requestWithCheck.password
 
-        var splitName = name.components(separatedBy: " ")
-        if splitName.count > 1 {
-            params["lastname"] = splitName.last
-            splitName.removeLast()
-        }
-
-        let firstName = splitName.joined(separator: " ")
-        params["name"] = firstName
-        params["phone"] = phone
-        params["email"] = email
-        params["emailConfirm"] = email
-        params["document"] = cpf
-        params["password"] = password
-        params["passCheck"] = password
-        params["terms"] = true
-        params["news"] = newsletter
-
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+        let data = try? JSONEncoder().encode(requestWithCheck)
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return

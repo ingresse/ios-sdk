@@ -19,7 +19,9 @@ class PaymentTicketTests: XCTestCase {
         // When
         let obj = try? JSONEncoder().encode(paymentTicket)
         let stringJson = String(data: obj!, encoding: .utf8)
-        let expected = "{\"guestTypeId\":\"\(paymentTicket.guestTypeId)\",\"quantity\":\(paymentTicket.quantity),\"holder\":[{\"email\":\"\(holder.email)\"}]}"
+        var expected = "{\"guestTypeId\":\"\(paymentTicket.guestTypeId)\""
+        expected += ",\"quantity\":\(paymentTicket.quantity)"
+        expected += ",\"holder\":[{\"email\":\"\(holder.email)\"}]}"
 
         // Then
         XCTAssertNotNil(obj)
