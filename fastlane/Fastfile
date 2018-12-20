@@ -86,6 +86,7 @@ platform :ios do
     commit_version_bump(
       message: "Increase version number",
       xcodeproj: "IngresseSDK.xcodeproj",
+      include: %w[IngresseSDK.podspec],
       force: true
     )
 
