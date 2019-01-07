@@ -11,7 +11,7 @@ class TicketTests: XCTestCase {
         let ticketDate = ["id": 0,
                     "date": "date",
                     "time": "time",
-                    "dateTime": "dateTime"] as [String: Any]
+                    "datetime": "dateTime"] as [String: Any]
 
         let json = ["id": 0,
                     "name": "name",

@@ -12,7 +12,7 @@ class TicketDateTests: XCTestCase {
         let json = ["id": 0,
                     "date": "date",
                     "time": "time",
-                    "dateTime": "dateTime"] as [String: Any]
+                    "datetime": "dateTime"] as [String: Any]
 
         // When
         let obj = JSONDecoder().decodeDict(of: TicketDate.self, from: json)
