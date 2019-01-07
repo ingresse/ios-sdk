@@ -6,13 +6,13 @@ public class TicketDate: NSObject, Codable {
     public var id: Int = -1
     public var date: String = ""
     public var time: String = ""
-    public var datetime: String = ""
+    public var dateTime: String = ""
     
     enum CodingKeys: String, CodingKey {
         case id
         case date
         case time
-        case datetime
+        case dateTime = "datetime"
     }
     
     public required init(from decoder: Decoder) throws {
@@ -20,6 +20,6 @@ public class TicketDate: NSObject, Codable {
         id = container.decodeKey(.id, ofType: Int.self)
         date = container.decodeKey(.date, ofType: String.self)
         time = container.decodeKey(.time, ofType: String.self)
-        datetime = container.decodeKey(.datetime, ofType: String.self)
+        dateTime = container.decodeKey(.dateTime, ofType: String.self)
     }
 }
