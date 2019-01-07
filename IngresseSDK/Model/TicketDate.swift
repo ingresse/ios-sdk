@@ -12,7 +12,7 @@ public class TicketDate: NSObject, Codable {
         case id
         case date
         case time
-        case dateTime
+        case dateTime = "datetime"
     }
     
     public required init(from decoder: Decoder) throws {
