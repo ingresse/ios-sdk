@@ -16,9 +16,9 @@ extension Request {
         public struct CreditCard: Encodable {
             public var number: String = ""
             public var holderName: String = ""
-            public var expiracyMonth: Int = 0
-            public var expiracyYear: Int = 0
-            public var cvv: Int = 0
+            public var expiracyMonth: String = ""
+            public var expiracyYear: String = ""
+            public var cvv: String = ""
             public var birthDate: String = ""
 
             public init() {}
