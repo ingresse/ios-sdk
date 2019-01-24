@@ -44,19 +44,23 @@ public class SearchService: BaseService {
     ///   - eventTitle: title from required event search
     ///   - onSuccess: success callback with NewEvent array
     ///   - onError: fail callback with APIError
-    public func getEvents(eventTitle: String,
+    public func getEvents(filters: [String: String],
                           onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int) -> Void,
                           onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
-        let url = URLBuilder(client: client)
+        var builder = URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
-            .addParameter(key: "title", value: eventTitle)
             .addParameter(key: "size", value: "20")
             .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "orderBy", value: "sessions.dateTime")
             .addParameter(key: "offset", value: "0")
-            .buildWithoutKeys()
+
+        for (key, value) in filters {
+            builder = builder.addParameter(key: key, value: value)
+        }
+
+        let url = builder.buildWithoutKeys()
 
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard
