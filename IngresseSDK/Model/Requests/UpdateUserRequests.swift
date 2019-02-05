@@ -14,6 +14,14 @@ extension Request {
             public var cpf: String?
             
             public init() {}
+            
+            private enum CodingKeys: String, CodingKey {
+                case name
+                case lastname
+                case email
+                case phone
+                case cpf
+            }
         }
         
         public struct BillingInfos: Encodable {
@@ -28,6 +36,16 @@ extension Request {
             public var state: String = ""
             
             public init() {}
+            
+            private enum CodingKeys: String, CodingKey {
+                case zip
+                case street
+                case number
+                case complement
+                case district
+                case city
+                case state
+            }
         }
     }
 }
