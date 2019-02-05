@@ -44,6 +44,8 @@ extension Request {
             public var document: String = ""
             public var postback: String = ""
             public var ingeprefsPayload: String = ""
+            public var source: String = "mobile"
+            public var hdim: String = ""
 
             public init() {}
         }
