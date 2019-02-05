@@ -386,18 +386,20 @@ extension UserServiceTests {
         restClient.response = response
         restClient.shouldFail = false
 
+        var request = Request.UpdateUser.BasicInfos()
+        request.userId = "userId"
+        request.userToken = "userToken"
+        request.name = "name"
+        request.lastname = "lastname"
+        request.email = "email"
+        request.phone = "phone"
+        request.cpf = "cpf"
+        
         var success = false
         var result: UpdatedUser?
 
         // When
-        service.updateBasicInfos(userId: "userId",
-                                 userToken: "userToken",
-                                 name: "name",
-                                 lastname: "lastname",
-                                 currentEmail: "currentEmail",
-                                 newEmail: "newEmail",
-                                 phone: "phone",
-                                 cpf: "cpf", onSuccess: { (user) in
+        service.updateBasicInfos(request: request, onSuccess: { (user) in
                                     success = true
                                     result = user
                                     asyncExpectation.fulfill()
@@ -412,6 +414,7 @@ extension UserServiceTests {
     }
 
     func testUpdateBasicInfosFail() {
+        // Given
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
         let error = APIError()
@@ -421,19 +424,21 @@ extension UserServiceTests {
 
         restClient.error = error
         restClient.shouldFail = true
+        
+        var request = Request.UpdateUser.BasicInfos()
+        request.userId = "userId"
+        request.userToken = "userToken"
+        request.name = "name"
+        request.lastname = "lastname"
+        request.email = "email"
+        request.phone = "phone"
+        request.cpf = "cpf"
 
         var success = false
         var apiError: APIError?
 
         // When
-        service.updateBasicInfos(userId: "userId",
-                                 userToken: "userToken",
-                                 name: "name",
-                                 lastname: "lastname",
-                                 currentEmail: "currentEmail",
-                                 newEmail: "newEmail",
-                                 phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
+        service.updateBasicInfos(request: request, onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
@@ -450,6 +455,7 @@ extension UserServiceTests {
     }
 
     func testUpdateBasicInfosWithWrongResponse() {
+        // Given
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
         var response = [String: Any]()
@@ -457,19 +463,21 @@ extension UserServiceTests {
 
         restClient.response = response
         restClient.shouldFail = false
+        
+        var request = Request.UpdateUser.BasicInfos()
+        request.userId = "userId"
+        request.userToken = "userToken"
+        request.name = "name"
+        request.lastname = "lastname"
+        request.email = "email"
+        request.phone = "phone"
+        request.cpf = "cpf"
 
         var success = false
         var apiError: APIError?
 
         // When
-        service.updateBasicInfos(userId: "userId",
-                                 userToken: "userToken",
-                                 name: "name",
-                                 lastname: "lastname",
-                                 currentEmail: "currentEmail",
-                                 newEmail: "newEmail",
-                                 phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
+        service.updateBasicInfos(request: request, onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
@@ -486,6 +494,7 @@ extension UserServiceTests {
     }
 
     func testUpdateBasicInfosWithStatusZero() {
+        // Given
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
         var response = [String: Any]()
@@ -495,19 +504,21 @@ extension UserServiceTests {
 
         restClient.response = response
         restClient.shouldFail = false
+        
+        var request = Request.UpdateUser.BasicInfos()
+        request.userId = "userId"
+        request.userToken = "userToken"
+        request.name = "name"
+        request.lastname = "lastname"
+        request.email = "email"
+        request.phone = "phone"
+        request.cpf = "cpf"
 
         var success = false
         var apiError: APIError?
 
         // When
-        service.updateBasicInfos(userId: "userId",
-                                 userToken: "userToken",
-                                 name: "name",
-                                 lastname: "lastname",
-                                 currentEmail: "currentEmail",
-                                 newEmail: "newEmail",
-                                 phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
+        service.updateBasicInfos(request: request, onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
@@ -524,6 +535,7 @@ extension UserServiceTests {
     }
 
     func testUpdateBasicInfosWithStatusZeroWrongMessage() {
+        // Given
         let asyncExpectation = expectation(description: "updateBasicInfos")
 
         var response = [String: Any]()
@@ -533,19 +545,21 @@ extension UserServiceTests {
 
         restClient.response = response
         restClient.shouldFail = false
+        
+        var request = Request.UpdateUser.BasicInfos()
+        request.userId = "userId"
+        request.userToken = "userToken"
+        request.name = "name"
+        request.lastname = "lastname"
+        request.email = "email"
+        request.phone = "phone"
+        request.cpf = "cpf"
 
         var success = false
         var apiError: APIError?
 
         // When
-        service.updateBasicInfos(userId: "userId",
-                                 userToken: "userToken",
-                                 name: "name",
-                                 lastname: "lastname",
-                                 currentEmail: "currentEmail",
-                                 newEmail: "newEmail",
-                                 phone: "phone",
-                                 cpf: "cpf", onSuccess: {_ in }, onError: { (error) in
+        service.updateBasicInfos(request: request, onSuccess: {_ in }, onError: { (error) in
                                         success = false
                                         apiError = error
                                         asyncExpectation.fulfill()
@@ -599,6 +613,7 @@ extension UserServiceTests {
     }
 
     func testChangePictureFail() {
+        // Given
         let asyncExpectation = expectation(description: "changePicture")
 
         let error = APIError()
