@@ -9,8 +9,7 @@ extension Request {
             public var userToken: String = ""
             public var name: String?
             public var lastname: String?
-            public var currentEmail: String?
-            public var newEmail: String?
+            public var email: String?
             public var phone: String?
             public var cpf: String?
             
