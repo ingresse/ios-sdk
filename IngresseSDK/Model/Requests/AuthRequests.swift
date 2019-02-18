@@ -16,6 +16,18 @@ extension Request {
             var passCheck: String = ""
             var terms: Bool = true
 
+            private enum CodingKeys: String, CodingKey {
+                case name
+                case phone
+                case email
+                case document = "cpf"
+                case password
+                case news
+                case emailConfirm
+                case passCheck
+                case terms
+            }
+
             public init() {}
         }
     }
