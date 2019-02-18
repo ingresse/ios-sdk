@@ -20,6 +20,7 @@
 		355C19D621764F89004ABEBB /* TicketGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355C19D521764F89004ABEBB /* TicketGroup.swift */; };
 		355C19D8217650AD004ABEBB /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355C19D7217650AD004ABEBB /* Ticket.swift */; };
 		355C19DA21765219004ABEBB /* TicketDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355C19D921765219004ABEBB /* TicketDate.swift */; };
+		3561965F21FA4C6A00EE6DA3 /* UpdateUserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3561965E21FA4C6A00EE6DA3 /* UpdateUserRequests.swift */; };
 		356BC97821B17871000F7A0A /* InstallmentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356BC97721B17871000F7A0A /* InstallmentsTests.swift */; };
 		356BC97A21B18684000F7A0A /* PaymentMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356BC97921B18684000F7A0A /* PaymentMethodTests.swift */; };
 		356BC97C21B187E6000F7A0A /* PaymentTicketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356BC97B21B187E6000F7A0A /* PaymentTicketTests.swift */; };
@@ -197,6 +198,7 @@
 		355C19D521764F89004ABEBB /* TicketGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketGroup.swift; sourceTree = "<group>"; };
 		355C19D7217650AD004ABEBB /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		355C19D921765219004ABEBB /* TicketDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDate.swift; sourceTree = "<group>"; };
+		3561965E21FA4C6A00EE6DA3 /* UpdateUserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserRequests.swift; sourceTree = "<group>"; };
 		356BC97721B17871000F7A0A /* InstallmentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallmentsTests.swift; sourceTree = "<group>"; };
 		356BC97921B18684000F7A0A /* PaymentMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTests.swift; sourceTree = "<group>"; };
 		356BC97B21B187E6000F7A0A /* PaymentTicketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTicketTests.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				62D6423421AC4C02002E1A39 /* ShopRequest.swift */,
 				62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */,
 				62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */,
+				3561965E21FA4C6A00EE6DA3 /* UpdateUserRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				355C19DA21765219004ABEBB /* TicketDate.swift in Sources */,
 				6231F24F20B744A900206D85 /* ElasticPagination.swift in Sources */,
 				355C19D8217650AD004ABEBB /* Ticket.swift in Sources */,
+				3561965F21FA4C6A00EE6DA3 /* UpdateUserRequests.swift in Sources */,
 				6231F24520B743FD00206D85 /* CoverAd.swift in Sources */,
 				0E9831B41F217135001211C6 /* UserService.swift in Sources */,
 				753173492162C2FA00F27024 /* UserAgent.swift in Sources */,

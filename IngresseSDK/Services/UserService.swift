@@ -123,32 +123,18 @@ public class UserService: BaseService {
     ///   - cpf: new user cpf
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func updateBasicInfos(userId: String,
-                                 userToken: String,
-                                 name: String,
-                                 lastname: String,
-                                 currentEmail: String,
-                                 newEmail: String,
-                                 phone: String,
-                                 cpf: String,
+    public func updateBasicInfos(request: Request.UpdateUser.BasicInfos,
                                  onSuccess: @escaping (_ user: UpdatedUser) -> Void,
                                  onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
-            .setPath("user/\(userId)")
-            .addParameter(key: "usertoken", value: userToken)
+            .setPath("user/\(request.userId)")
+            .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
-        var params = ["name": name,
-                      "lastname": lastname,
-                      "phone": phone,
-                      "cpf": cpf]
+        let data = try? JSONEncoder().encode(request)
 
-        if !(currentEmail.elementsEqual(newEmail)) {
-            params["email"] = newEmail
-        }
-
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return

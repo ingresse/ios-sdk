@@ -125,7 +125,7 @@ class SearchServiceTests: XCTestCase {
         var totalResults: Int?
 
         // When
-        service.getEvents(eventTitle: "title", onSuccess: { (events, total) in
+        service.getEvents(filters: ["title": "title"], onSuccess: { (events, total) in
             success = true
             result = events
             totalResults = total
@@ -155,7 +155,7 @@ class SearchServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getEvents(eventTitle: "title", onSuccess: { (_, _) in }, onError: { (error) in
+        service.getEvents(filters: ["title": "title"], onSuccess: { (_, _) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -187,7 +187,7 @@ class SearchServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getEvents(eventTitle: "title", onSuccess: { (_, _) in }, onError: { (error) in
+        service.getEvents(filters: ["title": "title"], onSuccess: { (_, _) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
