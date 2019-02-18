@@ -1,4 +1,4 @@
-# ios-sdk
+# ios-sdk <a href="https://cocoapods.org/pods/IngresseSDK"><img src="https://img.shields.io/cocoapods/v/IngresseSDK.svg?style=flat"></a>
 Ingresse iOS SDK
 
 ## Installation guide
