@@ -83,8 +83,10 @@ public class AuthService: BaseService {
             self.getUserData(
                 userId: String(user.userId),
                 userToken: user.token,
-                onSuccess: { (user) in onSuccess(user) },
-                onError: { (error) in onError(error) })
+                onSuccess: { (userData) in
+                    userData.authToken = user.authToken
+                    onSuccess(userData)
+            }, onError: { (error) in onError(error) })
 
         }, onError: { (error: APIError) in
             onError(error)
@@ -131,8 +133,10 @@ public class AuthService: BaseService {
             self.getUserData(
                 userId: String(user.userId),
                 userToken: user.token,
-                onSuccess: { (user) in onSuccess(user) },
-                onError: { (error) in onError(error) })
+                onSuccess: { (userData) in
+                    userData.authToken = user.authToken
+                    onSuccess(userData)
+            }, onError: { (error) in onError(error) })
 
         }, onError: { (error: APIError) in
             onError(error)
