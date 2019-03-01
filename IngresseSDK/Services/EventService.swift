@@ -298,4 +298,34 @@ public class EventService: BaseService {
             onError(error)
         })
     }
+    
+    public func getEventsByProducer(request: Request.Event.Producer,
+                                    delegate: ProducerEventSyncDelegate) {
+        
+        let url = URLBuilder(client: client)
+            .setHost(.events)
+            .setPath("search/producer")
+            .addParameter(key: "orderBy", value: request.orderBy)
+            .addParameter(key: "size", value: request.size)
+            .addParameter(key: "to", value: request.to)
+            .addParameter(key: "from", value: request.from)
+            .addParameter(key: "offset", value: request.offset)
+            .buildWithoutKeys()
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let total = response["total"] as? Int,
+                let hits = response["hits"] as? [[String: Any]],
+                let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)
+                else {
+                    delegate.didFail(error: APIError.getDefaultError())
+                    return
+            }
+            
+            let newOffset = request.offset+request.size
+            delegate.didSyncEvents(events, offset: newOffset, total: total)
+        }, onError: { (error) in
+            delegate.didFail(error: error)
+        })
+    }
 }

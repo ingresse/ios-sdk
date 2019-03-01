@@ -20,7 +20,7 @@ public class RestClient: NSObject, RestClientInterface {
         }
         
         if let auth = UserAgent.authorization {
-            request.addValue(auth, forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
         }
 
         session.dataTask(with: request) { (data, response, error) in
@@ -86,7 +86,7 @@ public class RestClient: NSObject, RestClientInterface {
         }
 
         if let auth = UserAgent.authorization {
-            request.addValue(auth, forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
         }
 
         request.httpBody = data
