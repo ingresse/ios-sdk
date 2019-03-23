@@ -172,6 +172,7 @@
 		759406262100E98F00BA1BFB /* TransactionBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759406252100E98F00BA1BFB /* TransactionBasket.swift */; };
 		75D531FB20EF9E880046CC7E /* CheckinSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D531FA20EF9E880046CC7E /* CheckinSession.swift */; };
 		75D531FD20EFA26A0046CC7E /* CheckinStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D531FC20EFA26A0046CC7E /* CheckinStatus.swift */; };
+		A53BEF152246ED8500155109 /* EventsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BEF142246ED8500155109 /* EventsResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -353,6 +354,7 @@
 		759406252100E98F00BA1BFB /* TransactionBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionBasket.swift; sourceTree = "<group>"; };
 		75D531FA20EF9E880046CC7E /* CheckinSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSession.swift; sourceTree = "<group>"; };
 		75D531FC20EFA26A0046CC7E /* CheckinStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinStatus.swift; sourceTree = "<group>"; };
+		A53BEF142246ED8500155109 /* EventsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -696,6 +698,7 @@
 			children = (
 				62D6423A21AC61A6002E1A39 /* Response.swift */,
 				62D6423C21AC61C4002E1A39 /* ShopResponse.swift */,
+				A53BEF142246ED8500155109 /* EventsResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				62A708B921068E1F0027F05E /* Place.swift in Sources */,
 				6245263C1EC2325D007B6584 /* URLBuilder.swift in Sources */,
 				627D85801FD5AD1300C98171 /* PaymentCard.swift in Sources */,
+				A53BEF152246ED8500155109 /* EventsResponse.swift in Sources */,
 				62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */,
 				624526281EC2324F007B6584 /* Event.swift in Sources */,
 				62D6423D21AC61C4002E1A39 /* ShopResponse.swift in Sources */,

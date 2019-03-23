@@ -112,7 +112,12 @@ public class ResponseParser: NSObject {
             completion(obj)
             return
         }
-
+        
+        if let responseEspecial = obj as? [String: [String: String]] {
+            completion(responseEspecial)
+            return
+        }
+        
         throw IngresseException.jsonParserError
     }
 }
