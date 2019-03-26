@@ -29,6 +29,18 @@ public class EventService: BaseService {
         })
     }
     
+    public func getSpecialEvents(onSuccess: @escaping (_ specialEvents: [String: Response.Events.SpecialEvent]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        
+        let url = "https://35fd0qp7if.execute-api.us-east-1.amazonaws.com/beta"
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            let specialEvents = JSONDecoder().decodeDict(of: [String: Response.Events.SpecialEvent].self, from: response)!
+            onSuccess(specialEvents)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+    
     /// Get event details
     ///
     /// - Parameters:
