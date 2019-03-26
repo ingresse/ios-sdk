@@ -4,7 +4,7 @@
 
 extension Response {
     public struct Events {
-        public struct EspecialEvent: Decodable {
+        public struct SpecialEvent: Decodable {
             public var type: String? = ""
             public var btntext: String? = ""
             public var url: String? = ""
