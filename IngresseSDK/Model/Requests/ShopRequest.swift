@@ -24,6 +24,12 @@ extension Request {
             public init() {}
         }
 
+        public struct Wallet: Encodable {
+            public var id: String = ""
+
+            public init() {}
+        }
+
         public struct Free: Encodable {
             public var userId: String = ""
             public var eventId: String = ""
@@ -43,6 +49,18 @@ extension Request {
             public var paymentMethod: String = ""
             public var document: String = ""
             public var postback: String = ""
+            public var ingeprefsPayload: String = ""
+            public var source: String = "mobile"
+            public var hdim: String = ""
+
+            public init() {}
+        }
+
+        public struct PayPalPayment: Encodable {
+            public var userId: String = ""
+            public var transactionId: String = ""
+            public var wallet: Wallet?
+            public var paymentMethod: String = "paypal"
             public var ingeprefsPayload: String = ""
             public var source: String = "mobile"
             public var hdim: String = ""
