@@ -330,4 +330,38 @@ public class EventService: BaseService {
             request.delegate?.didFail(error: error)
         })
     }
+
+    public func addUserToRSVP(request: Request.Event.AddToRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(request.eventId)/rsvp")
+            .addParameter(key: "usertoken", value: request.userToken)
+            .build()
+
+        client.restClient.POST(url: url, parameters: [:], onSuccess: { (response) in
+            guard let success = response["success"] as? Bool else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(success)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
+    public func removeUserToRSVP(request: Request.Event.RemoveToRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(request.eventId)/rsvp")
+            .addParameter(key: "usertoken", value: request.userToken)
+            .build()
+
+        client.restClient.DELETE(url: url, parameters: [:], onSuccess: { (response) in
+            guard let success = response["success"] as? Bool else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(success)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
 }
