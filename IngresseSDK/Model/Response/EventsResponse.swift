@@ -9,5 +9,17 @@ extension Response {
             public var btntext: String? = ""
             public var url: String? = ""
         }
+
+        public struct RSVP: Decodable {
+            public var data: [RSVPUser]? = []
+            public var paginationInfo: PaginationInfo? = nil
+        }
+
+        public struct RSVPUser: Decodable {
+            public var email: String? = ""
+            public var id: Int? = -1
+            public var name: String? = ""
+            public var picture: String? = ""
+        }
     }
 }

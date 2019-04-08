@@ -310,4 +310,24 @@ public class EventService: BaseService {
             onError(error)
         })
     }
+
+    public func getRSVPList(request: Request.Event.RSVP) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(request.eventId)/rsvp")
+            .addParameter(key: "usertoken", value: request.userToken)
+            .addParameter(key: "page", value: request.page)
+            .addParameter(key: "pageSize", value: request.pageSize)
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let success = response["success"] as? [String: Any],
+                let rsvpResponse = JSONDecoder().decodeDict(of: Response.Events.RSVP.self, from: success) else {
+                    request.delegate?.didFail(error: APIError.getDefaultError())
+                    return
+            }
+            request.delegate?.didSyncRSVPUsers(rsvpResponse)
+        }, onError: { (error) in
+            request.delegate?.didFail(error: error)
+        })
+    }
 }

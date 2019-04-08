@@ -163,6 +163,8 @@
 		62EDCFE9210BC845001A6C7C /* EventDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE8210BC845001A6C7C /* EventDateTests.swift */; };
 		62F7D1BA21CBCFE2000F51FE /* WalletRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */; };
 		62F7D1BC21CBD53B000F51FE /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */; };
+		69114410225794130092E250 /* RSVPSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911440F225794130092E250 /* RSVPSyncDelegate.swift */; };
+		69D94DDE22566BD700F0136E /* EventRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D94DDD22566BD700F0136E /* EventRequests.swift */; };
 		750A814420E183F7004881C8 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814320E183F7004881C8 /* CompanyData.swift */; };
 		750A814620E186D0004881C8 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814520E186D0004881C8 /* Company.swift */; };
 		750A814820E1875D004881C8 /* CompanyLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814720E1875D004881C8 /* CompanyLogo.swift */; };
@@ -345,6 +347,8 @@
 		62EDCFE8210BC845001A6C7C /* EventDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateTests.swift; sourceTree = "<group>"; };
 		62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRequests.swift; sourceTree = "<group>"; };
 		62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
+		6911440F225794130092E250 /* RSVPSyncDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSVPSyncDelegate.swift; sourceTree = "<group>"; };
+		69D94DDD22566BD700F0136E /* EventRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRequests.swift; sourceTree = "<group>"; };
 		750A814320E183F7004881C8 /* CompanyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		750A814520E186D0004881C8 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		750A814720E1875D004881C8 /* CompanyLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyLogo.swift; sourceTree = "<group>"; };
@@ -384,6 +388,7 @@
 				62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */,
 				62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */,
 				3561965E21FA4C6A00EE6DA3 /* UpdateUserRequests.swift */,
+				69D94DDD22566BD700F0136E /* EventRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -651,6 +656,7 @@
 				6239BA171EC622A500C7BD16 /* GuestListSyncDelegate.swift */,
 				624526321EC23255007B6584 /* TicketSyncDelegate.swift */,
 				6280CABF2108E6BE0075FACB /* UserEventsDownloaderDelegate.swift */,
+				6911440F225794130092E250 /* RSVPSyncDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -863,6 +869,7 @@
 				352632392118B643003615F1 /* PaymentService.swift in Sources */,
 				624526331EC23255007B6584 /* AuthService.swift in Sources */,
 				62BFE06F1F72A82B007150ED /* TransferTicket.swift in Sources */,
+				69114410225794130092E250 /* RSVPSyncDelegate.swift in Sources */,
 				62E134E11F20FBA70007B590 /* PaymentType.swift in Sources */,
 				6245261F1EC2323E007B6584 /* IngresseClient.swift in Sources */,
 				627485581F054776009AE812 /* TransactionService.swift in Sources */,
@@ -900,6 +907,7 @@
 				623702311F72D413006A1335 /* Advertisement.swift in Sources */,
 				6294D6EC1F728DD80064EBFA /* SearchService.swift in Sources */,
 				6246D6B41FD708480012FAD9 /* EventDate.swift in Sources */,
+				69D94DDE22566BD700F0136E /* EventRequests.swift in Sources */,
 				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
 				3527276E21A43DAA003BF44F /* PaymentMethod.swift in Sources */,
 				62A708B921068E1F0027F05E /* Place.swift in Sources */,

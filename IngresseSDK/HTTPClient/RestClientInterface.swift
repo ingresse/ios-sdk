@@ -17,4 +17,15 @@
     func GET(url: String,
              onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
              onError: @escaping ErrorHandler)
+
+    func DELETE(url: String,
+                parameters: [String: Any],
+                onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                onError: @escaping ErrorHandler)
+
+    func DELETEData(url: String,
+                    data: Data?,
+                    JSONData: Bool,
+                    onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                    onError: @escaping ErrorHandler)
 }
