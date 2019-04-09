@@ -4,4 +4,5 @@
 
 public class UserAgent {
     static var header: String!
+    static var authorization: String!
 }

@@ -19,6 +19,10 @@ public class RestClient: NSObject, RestClientInterface {
             request.addValue(header, forHTTPHeaderField: "User-Agent")
         }
         
+        if let auth = UserAgent.authorization {
+            request.addValue(auth, forHTTPHeaderField: "Authorization")
+        }
+
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
                 let errorData = APIError.Builder()
@@ -79,6 +83,10 @@ public class RestClient: NSObject, RestClientInterface {
         
         if JSONData {
             request.addValue("application/json", forHTTPHeaderField: "content-type")
+        }
+
+        if let auth = UserAgent.authorization {
+            request.addValue(auth, forHTTPHeaderField: "Authorization")
         }
 
         request.httpBody = data

@@ -5,6 +5,7 @@
 public class IngresseUser: NSObject, Codable {
     public var userId: Int = 0
     public var token: String = ""
+    public var authToken: String = ""
     public var data: UserData!
     
     public static var user: IngresseUser?
