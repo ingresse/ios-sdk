@@ -311,7 +311,7 @@ public class EventService: BaseService {
         })
     }
 
-    public func getRSVPList(request: Request.Event.RSVP) {
+    public func getRSVPList(request: Request.Event.RSVP, delegate: RSVPSyncDelegate) {
         let url = URLBuilder(client: client)
             .setPath("event/\(request.eventId)/rsvp")
             .addParameter(key: "usertoken", value: request.userToken)
@@ -322,12 +322,12 @@ public class EventService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard let success = response["success"] as? [String: Any],
                 let rsvpResponse = JSONDecoder().decodeDict(of: Response.Events.RSVP.self, from: success) else {
-                    request.delegate?.didFail(error: APIError.getDefaultError())
+                    delegate.didFail(error: APIError.getDefaultError())
                     return
             }
-            request.delegate?.didSyncRSVPUsers(rsvpResponse)
+            delegate.didSyncRSVPUsers(rsvpResponse)
         }, onError: { (error) in
-            request.delegate?.didFail(error: error)
+            delegate.didFail(error: error)
         })
     }
 
@@ -348,7 +348,7 @@ public class EventService: BaseService {
         })
     }
 
-    public func removeUserToRSVP(request: Request.Event.RemoveToRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func removeUserFromRSVP(request: Request.Event.RemoveFromRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         let url = URLBuilder(client: client)
             .setPath("event/\(request.eventId)/rsvp")
             .addParameter(key: "usertoken", value: request.userToken)

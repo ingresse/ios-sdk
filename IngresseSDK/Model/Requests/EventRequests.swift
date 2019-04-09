@@ -9,7 +9,6 @@ extension Request {
             public var userToken: String = ""
             public var page: Int = 1
             public var pageSize: Int = 50
-            public var delegate: RSVPSyncDelegate?
             
             public init() {}
         }
@@ -21,7 +20,7 @@ extension Request {
             public init() {}
         }
 
-        public struct RemoveToRSVP {
+        public struct RemoveFromRSVP {
             public var eventId: String = ""
             public var userToken: String = ""
 
