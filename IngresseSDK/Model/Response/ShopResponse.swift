@@ -49,7 +49,7 @@ extension Response.Shop.Transaction {
     }
 }
 
-extension Response.Shop.Payment: Equatable {
+extension Response.Shop.Payment {
     enum CodingKeys: String, CodingKey {
         case boleto
         case message
