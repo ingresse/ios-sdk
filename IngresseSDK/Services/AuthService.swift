@@ -294,4 +294,27 @@ public class AuthService: BaseService {
             onError(error)
         })
     }
+    
+    /// Renew User Auth Token
+    ///
+    /// - Parameters:
+    ///   - userToken: Logged user's token
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func renewAuthToken(userToken: String, onSuccess: @escaping (String) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("/login/renew-token")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { response in
+            guard let authToken = response["authToken"] as? String else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(authToken)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
 }
