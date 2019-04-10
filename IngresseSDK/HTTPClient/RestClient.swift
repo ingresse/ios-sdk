@@ -114,9 +114,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func DELETE(url: String, parameters: [String: Any], onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
-
         let body = parameters.stringFromHttpParameters()
-
         if let data = body.data(using: .utf8) {
             DELETEData(url: url,
                      data: data,
