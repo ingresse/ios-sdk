@@ -163,6 +163,8 @@
 		62EDCFE9210BC845001A6C7C /* EventDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EDCFE8210BC845001A6C7C /* EventDateTests.swift */; };
 		62F7D1BA21CBCFE2000F51FE /* WalletRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */; };
 		62F7D1BC21CBD53B000F51FE /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */; };
+		692A1A4C2280680100D9CDD1 /* SecurityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A1A4B2280680100D9CDD1 /* SecurityService.swift */; };
+		692A1A4E228069B600D9CDD1 /* SecurityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */; };
 		750A814420E183F7004881C8 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814320E183F7004881C8 /* CompanyData.swift */; };
 		750A814620E186D0004881C8 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814520E186D0004881C8 /* Company.swift */; };
 		750A814820E1875D004881C8 /* CompanyLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814720E1875D004881C8 /* CompanyLogo.swift */; };
@@ -345,6 +347,8 @@
 		62EDCFE8210BC845001A6C7C /* EventDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateTests.swift; sourceTree = "<group>"; };
 		62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRequests.swift; sourceTree = "<group>"; };
 		62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
+		692A1A4B2280680100D9CDD1 /* SecurityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityService.swift; sourceTree = "<group>"; };
+		692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityResponse.swift; sourceTree = "<group>"; };
 		750A814320E183F7004881C8 /* CompanyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		750A814520E186D0004881C8 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		750A814720E1875D004881C8 /* CompanyLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyLogo.swift; sourceTree = "<group>"; };
@@ -556,6 +560,7 @@
 				0E9831B31F217135001211C6 /* UserService.swift */,
 				352A167B2110A80900814AF9 /* AddressService.swift */,
 				352632382118B643003615F1 /* PaymentService.swift */,
+				692A1A4B2280680100D9CDD1 /* SecurityService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -699,6 +704,7 @@
 				62D6423A21AC61A6002E1A39 /* Response.swift */,
 				62D6423C21AC61C4002E1A39 /* ShopResponse.swift */,
 				A53BEF142246ED8500155109 /* EventsResponse.swift */,
+				692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 624525ED1EC23217007B6584;
@@ -852,6 +859,7 @@
 				3527277021A43DCB003BF44F /* Installment.swift in Sources */,
 				62D6423721AC4C1D002E1A39 /* Request.swift in Sources */,
 				624526351EC23255007B6584 /* MyTicketsService.swift in Sources */,
+				692A1A4E228069B600D9CDD1 /* SecurityResponse.swift in Sources */,
 				62E6EDE21F1FE02300F0B1E8 /* WalletItem.swift in Sources */,
 				35263231211883F1003615F1 /* ShopTicket.swift in Sources */,
 				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
@@ -898,6 +906,7 @@
 				75D531FD20EFA26A0046CC7E /* CheckinStatus.swift in Sources */,
 				6294D6EA1F7280E80064EBFA /* PendingTransfer.swift in Sources */,
 				623702311F72D413006A1335 /* Advertisement.swift in Sources */,
+				692A1A4C2280680100D9CDD1 /* SecurityService.swift in Sources */,
 				6294D6EC1F728DD80064EBFA /* SearchService.swift in Sources */,
 				6246D6B41FD708480012FAD9 /* EventDate.swift in Sources */,
 				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
