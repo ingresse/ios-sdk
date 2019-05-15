@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IngresseSDK"
-  s.version      = "1.3.2"
+  s.version      = "1.4.0"
   s.summary      = "Ingresse's SDK."
 
   # This description is used to generate tags and improve search results.
@@ -61,6 +61,7 @@ Pod::Spec.new do |s|
   #
 
   s.platform     = :ios
+  s.swift_version = '5.0'
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
