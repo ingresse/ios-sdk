@@ -7,12 +7,12 @@ import UIKit
 public typealias ErrorHandler = (_ error: APIError) -> Void
 
 public class APIError: NSObject {
-    public var code: Int = 0
-    public var title: String = ""
-    public var message: String = ""
-    public var category: String = ""
-    public var error: String = ""
-    public var response: [String: Any] = [:]
+    @objc public var code: Int = 0
+    @objc public var title: String = ""
+    @objc public var message: String = ""
+    @objc public var category: String = ""
+    @objc public var error: String = ""
+    @objc public var response: [String: Any] = [:]
     
     static public func getDefaultError() -> APIError {
         let error = APIError.Builder()

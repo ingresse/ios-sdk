@@ -3,42 +3,42 @@
 //
 
 public class TransactionData: NSObject, Decodable {
-    public var id: String = ""
-    public var status: String = ""
-    public var transactionId: String = ""
+    @objc public var id: String = ""
+    @objc public var status: String = ""
+    @objc public var transactionId: String = ""
 
-    public var operatorId: String = ""
-    public var salesgroupId: Int = 0
+    @objc public var operatorId: String = ""
+    @objc public var salesgroupId: Int = 0
 
-    public var appId: Int = -1
-    public var paymenttype: String = ""
-    public var paymentoption: String = ""
-    public var paymentdetails: String = ""
-    public var creditCard: PaymentCard?
+    @objc public var appId: Int = -1
+    @objc public var paymenttype: String = ""
+    @objc public var paymentoption: String = ""
+    @objc public var paymentdetails: String = ""
+    @objc public var creditCard: PaymentCard?
 
-    public var totalPaid: Double = 0
-    public var sumUp: Double = 0
-    public var paymentTax: Double = 0
+    @objc public var totalPaid: Double = 0
+    @objc public var sumUp: Double = 0
+    @objc public var paymentTax: Double = 0
 
-    public var interest: Int = 0
-    public var taxToCostumer: Int = 0
-    public var installments: Int = 0
+    @objc public var interest: Int = 0
+    @objc public var taxToCostumer: Int = 0
+    @objc public var installments: Int = 0
 
-    public var creationdate: String = ""
-    public var modificationdate: String = ""
+    @objc public var creationdate: String = ""
+    @objc public var modificationdate: String = ""
 
-    public var customer: User?
-    public var event: TransactionEvent?
-    public var session: TransactionSession?
+    @objc public var customer: User?
+    @objc public var event: TransactionEvent?
+    @objc public var session: TransactionSession?
 
-    public var bankbilletUrl: String = ""
+    @objc public var bankbilletUrl: String = ""
 
-    public var token: String = ""
+    @objc public var token: String = ""
 
-    public var basket: TransactionBasket?
+    @objc public var basket: TransactionBasket?
 
-    public var refund: Refund?
-    public var hasRefund: Bool {
+    @objc public var refund: Refund?
+    @objc public var hasRefund: Bool {
         return refund != nil
     }
 
@@ -108,7 +108,7 @@ public class TransactionData: NSObject, Decodable {
         basket = jsonBasket ?? arrayBasket
     }
 
-    public static func fromJSON(_ json: [String: Any]) -> TransactionData? {
+    @objc public static func fromJSON(_ json: [String: Any]) -> TransactionData? {
         return JSONDecoder().decodeDict(of: TransactionData.self, from: json)
     }
 }

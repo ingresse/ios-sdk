@@ -11,7 +11,7 @@ public class AuthService: BaseService {
     ///   - pass: password
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> Void, onError: @escaping ErrorHandler) {
+    @objc public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> Void, onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
             .setPath("company-login")

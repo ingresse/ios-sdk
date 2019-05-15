@@ -11,6 +11,7 @@ class IngresseUserTests: XCTestCase {
         var json = [String: Any]()
         json["userId"] = 999
         json["token"] = "userToken"
+        json["authToken"] = "authToken"
 
         // When
         let user = IngresseUser.login(loginData: json)
@@ -19,6 +20,7 @@ class IngresseUserTests: XCTestCase {
         XCTAssertNotNil(IngresseUser.user)
         XCTAssertEqual(user.userId, 999)
         XCTAssertEqual(user.token, "userToken")
+        XCTAssertEqual(user.authToken, "authToken")
     }
     
     func testLoginWrongData() {
@@ -54,6 +56,7 @@ class IngresseUserTests: XCTestCase {
         var json = [String: Any]()
         json["userId"] = 999
         json["token"] = "userToken"
+        json["authToken"] = "authToken"
         _ = IngresseUser.login(loginData: json)
 
         var data = [String: Any]()
@@ -80,6 +83,7 @@ class IngresseUserTests: XCTestCase {
         XCTAssertNotNil(user)
         XCTAssertEqual(user?.userId, 999)
         XCTAssertEqual(user?.token, "userToken")
+        XCTAssertEqual(user?.authToken, "authToken")
 
         let userData = user?.data
         XCTAssertNotNil(userData)

@@ -38,7 +38,7 @@ public class TransactionService: BaseService {
     ///   - userToken: user Token
     ///   - onSuccess: success callback with Transaction
     ///   - onError: fail callback with APIError
-    public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: TransactionData) -> Void, onError: @escaping ErrorHandler) {
+    @objc public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: TransactionData) -> Void, onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
             .setPath("sale/\(transactionId)")

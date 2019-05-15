@@ -3,9 +3,9 @@
 //
 
 public class CompanyLogo: NSObject, Decodable {
-    public var small: String = ""
-    public var medium: String = ""
-    public var large: String = ""
+    @objc public var small: String = ""
+    @objc public var medium: String = ""
+    @objc public var large: String = ""
     
     enum CodingKeys: String, CodingKey {
         case small
