@@ -3,18 +3,18 @@
 //
 
 public class TransactionEvent: NSObject, Codable {
-    public var id: String = ""
-    public var title: String = ""
-    public var type: String = ""
-    public var status: String = ""
-    public var link: String = ""
-    public var poster: String = ""
-    public var venue: Venue?
-    public var saleEnabled: Bool = false
-    public var taxToCostumer: Int = 0
+    @objc public var id: String = ""
+    @objc public var title: String = ""
+    @objc public var type: String = ""
+    @objc public var status: String = ""
+    @objc public var link: String = ""
+    @objc public var poster: String = ""
+    @objc public var venue: Venue?
+    @objc public var saleEnabled: Bool = false
+    @objc public var taxToCostumer: Int = 0
 
     public class Venue: NSObject, Codable {
-        public var name: String = ""
+        @objc public var name: String = ""
     }
 
     public required init(from decoder: Decoder) throws {

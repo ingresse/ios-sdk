@@ -3,20 +3,20 @@
 //
 
 public class TransactionTicket: NSObject, Codable {
-    public var id: Int = 0
-    public var code: String = ""
-    public var name: String = ""
-    public var checked: Bool = false
-    public var lastUpdate: Int = 0
-    public var transferred: Bool = false
-    public var ticket: String = ""
-    public var type: String = ""
-    public var ticketId: Int = 0
-    public var typeId: Int = 0
-    public var price: String = ""
-    public var tax: String = ""
-    public var percentTax: Int = 0
-    public var sessions: [BasketSessions] = []
+    @objc public var id: Int = 0
+    @objc public var code: String = ""
+    @objc public var name: String = ""
+    @objc public var checked: Bool = false
+    @objc public var lastUpdate: Int = 0
+    @objc public var transferred: Bool = false
+    @objc public var ticket: String = ""
+    @objc public var type: String = ""
+    @objc public var ticketId: Int = 0
+    @objc public var typeId: Int = 0
+    @objc public var price: String = ""
+    @objc public var tax: String = ""
+    @objc public var percentTax: Int = 0
+    @objc public var sessions: [BasketSessions] = []
 
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }

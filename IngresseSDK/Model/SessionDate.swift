@@ -3,9 +3,9 @@
 //
 
 public class SessionDate: NSObject, Codable {
-    public var date: String = ""
-    public var time: String = ""
-    public var dateTime: String = ""
+    @objc public var date: String = ""
+    @objc public var time: String = ""
+    @objc public var dateTime: String = ""
 
     enum CodingKeys: String, CodingKey {
         case date

@@ -3,6 +3,6 @@
 //
 
 public class BasketSessions: NSObject, Codable {
-    public var id: Int = 0
-    public var dateTime: SessionDate?
+    @objc public var id: Int = 0
+    @objc public var dateTime: SessionDate?
 }

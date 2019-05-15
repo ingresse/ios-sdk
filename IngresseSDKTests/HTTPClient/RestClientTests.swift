@@ -40,7 +40,7 @@ class RestClientTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["id"] as? Int, 1)
@@ -111,7 +111,7 @@ class RestClientTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -147,7 +147,7 @@ class RestClientTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -186,7 +186,7 @@ class RestClientTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["id"] as? Int, 1)
@@ -261,7 +261,7 @@ class RestClientTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -299,7 +299,7 @@ class RestClientTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -338,7 +338,7 @@ class RestClientTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["id"] as? Int, 1)
@@ -379,7 +379,7 @@ class RestClientTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["id"] as? Int, 1)

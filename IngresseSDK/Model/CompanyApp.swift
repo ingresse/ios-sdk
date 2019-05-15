@@ -3,9 +3,9 @@
 //
 
 public class CompanyApp: NSObject, Codable {
-    public var id: Int = -1
-    public var name: String = ""
-    public var publicKey: String = ""
+    @objc public var id: Int = -1
+    @objc public var name: String = ""
+    @objc public var publicKey: String = ""
     
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }

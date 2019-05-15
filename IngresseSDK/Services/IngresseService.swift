@@ -21,7 +21,7 @@ public class IngresseService: NSObject {
         return AddressService(self.client)
         }()
 
-    public lazy var auth: AuthService = {
+    @objc public lazy var auth: AuthService = {
         [unowned self] in
         return AuthService(self.client)
         }()
@@ -46,7 +46,7 @@ public class IngresseService: NSObject {
         return MyTicketsService(self.client)
         }()
     
-    public lazy var transaction: TransactionService = {
+    @objc public lazy var transaction: TransactionService = {
         [unowned self] in
         return TransactionService(self.client)
         }()

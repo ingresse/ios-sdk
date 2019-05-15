@@ -3,18 +3,18 @@
 //
 
 public class TransactionSession: NSObject, Codable {
-    public var id: String = ""
-    public var dateTime: DateTime?
+    @objc public var id: String = ""
+    @objc public var dateTime: DateTime?
 }
 
 public class DateTime: NSObject, Codable {
-    public var date: String = ""
-    public var time: String = ""
+    @objc public var date: String = ""
+    @objc public var time: String = ""
 
     var tms: String?
     var dateTime: String = ""
 
-    public var timestamp: String {
+    @objc public var timestamp: String {
         return tms ?? dateTime
     }
 

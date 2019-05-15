@@ -3,16 +3,16 @@
 //
 
 public class User: NSObject, Decodable {
-    public var id: Int = 0
-    public var name: String = ""
-    public var email: String = ""
-    public var type: String = ""
-    public var username: String = ""
-    public var phone: String = ""
-    public var cellphone: String = ""
-    public var pictures: [String: String] = [:]
-    public var picture: String = ""
-    public var social: [SocialAccount] = []
+    @objc public var id: Int = 0
+    @objc public var name: String = ""
+    @objc public var email: String = ""
+    @objc public var type: String = ""
+    @objc public var username: String = ""
+    @objc public var phone: String = ""
+    @objc public var cellphone: String = ""
+    @objc public var pictures: [String: String] = [:]
+    @objc public var picture: String = ""
+    @objc public var social: [SocialAccount] = []
 
     enum CodingKeys: String, CodingKey {
         case id
