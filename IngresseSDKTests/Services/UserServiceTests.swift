@@ -166,7 +166,8 @@ extension UserServiceTests {
         response["status"] = 1
         response["data"] = [
             "userId": 1,
-            "token": "1-token"
+            "token": "1-token",
+            "authToken": "1-authToken"
         ]
 
         restClient.response = response

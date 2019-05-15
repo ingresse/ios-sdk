@@ -3,9 +3,9 @@
 //
 
 public class Refund: NSObject, Codable {
-    public var operatorId: String = ""
-    public var reason: String = ""
-    public var date: String = ""
+    @objc public var operatorId: String = ""
+    @objc public var reason: String = ""
+    @objc public var date: String = ""
 
     enum CodingKeys: String, CodingKey {
         case operatorId = "operator"

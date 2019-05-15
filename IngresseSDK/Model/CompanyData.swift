@@ -3,11 +3,11 @@
 //
 
 public class CompanyData: NSObject, Decodable {
-    public var userId: Int = -1
-    public var token: String = ""
-    public var authToken: String = ""
-    public var company: Company?
-    public var application: CompanyApp?
+    @objc public var userId: Int = -1
+    @objc public var token: String = ""
+    @objc public var authToken: String = ""
+    @objc public var company: Company?
+    @objc public var application: CompanyApp?
 
     enum CodingKeys: String, CodingKey {
         case userId

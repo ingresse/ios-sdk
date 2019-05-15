@@ -3,10 +3,10 @@
 //
 
 public class PaymentType: NSObject {
-    public static let bankBillet = "bankBillet"
-    public static let creditCard = "creditCard"
-    public static let debitCard = "debitCard"
-    public static let money = "money"
-    public static let other = "other"
-    public static let free = "free"
+    @objc public static let bankBillet = "bankBillet"
+    @objc public static let creditCard = "creditCard"
+    @objc public static let debitCard = "debitCard"
+    @objc public static let money = "money"
+    @objc public static let other = "other"
+    @objc public static let free = "free"
 }

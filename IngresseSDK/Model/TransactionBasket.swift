@@ -3,5 +3,5 @@
 //
 
 public class TransactionBasket: NSObject, Decodable {
-    public var tickets: [TransactionTicket] = []
+    @objc public var tickets: [TransactionTicket] = []
 }

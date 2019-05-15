@@ -25,7 +25,7 @@ class ResponseParserTests: XCTestCase {
         }
         
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
         }
     }
@@ -47,7 +47,7 @@ class ResponseParserTests: XCTestCase {
         }
         
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
         }
     }
@@ -69,7 +69,7 @@ class ResponseParserTests: XCTestCase {
         }
         
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
         }
     }
@@ -104,7 +104,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -139,7 +139,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
         }
     }
@@ -166,7 +166,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
         }
     }
@@ -192,7 +192,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["result"] as? String, "result")
@@ -219,7 +219,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             let list = result?["data"] as? [[String: Any]]
@@ -248,7 +248,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["status"] as? Int, 1)
@@ -275,7 +275,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["result"] as? String, "result")
@@ -302,7 +302,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             let list = result?["data"] as? [[String: Any]]
@@ -337,7 +337,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.message, "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.")
@@ -364,7 +364,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?["zip"] as? String, "zip")
@@ -396,7 +396,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.message, "message zip error")
@@ -425,7 +425,7 @@ class ResponseParserTests: XCTestCase {
         }
 
         // Then
-        waitForExpectations(timeout: 5) { (error: Error?) in
+        waitForExpectations(timeout: 5) { (_) in
             XCTAssertTrue(requestError)
         }
     }

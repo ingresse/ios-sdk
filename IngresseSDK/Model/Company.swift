@@ -3,9 +3,9 @@
 //
 
 public class Company: NSObject, Decodable {
-    public var id: Int = -1
-    public var name: String = ""
-    public var logo: CompanyLogo?
+    @objc public var id: Int = -1
+    @objc public var name: String = ""
+    @objc public var logo: CompanyLogo?
 
     enum CodingKeys: String, CodingKey {
         case id
