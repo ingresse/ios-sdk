@@ -5,11 +5,11 @@
 import UIKit
 
 public class TicketGroup: NSObject, Decodable {
-    public var id: Int = -1
-    public var name: String = ""
-    public var desc: String = ""
-    public var status: String = ""
-    public var tickets: [TicketItem] = [TicketItem]()
+    @objc public var id: Int = -1
+    @objc public var name: String = ""
+    @objc public var desc: String = ""
+    @objc public var status: String = ""
+    @objc public var tickets: [TicketItem] = [TicketItem]()
     
     enum CodingKeys: String, CodingKey {
         case id

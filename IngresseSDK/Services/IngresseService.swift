@@ -31,7 +31,7 @@ public class IngresseService: NSObject {
         return UserService(self.client)
         }()
     
-    public lazy var event: EventService = {
+    @objc public lazy var event: EventService = {
         [unowned self] in
         return EventService(self.client)
         }()

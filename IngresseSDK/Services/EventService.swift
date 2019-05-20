@@ -232,7 +232,7 @@ public class EventService: BaseService {
     ///   - sessionId: id from current session
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    @objc  public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         let url = URLBuilder(client: client)
             .setPath("event/\(eventId)/session/\(sessionId)/tickets")
             .build()
