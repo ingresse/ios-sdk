@@ -45,7 +45,7 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getEventDetails(eventId: String, slug: String = "", onSuccess: @escaping (_ details: Event) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    @objc public func getEventDetails(eventId: String, slug: String = "", onSuccess: @escaping (_ details: Event) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
 
         var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)")
