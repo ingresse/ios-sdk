@@ -155,7 +155,7 @@ public class AuthService: BaseService {
         let fieldsArray = [
             "id", "name", "lastname",
             "document", "email", "zip",
-            "number", " complement", "city",
+            "number", "complement", "city",
             "state", "street", "district",
             "phone", "verified", "fbUserId",
             "type", "pictures", "picture"]
