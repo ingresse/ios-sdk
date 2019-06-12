@@ -53,7 +53,7 @@ public class UserService: BaseService {
         requestWithCheck.passCheck = requestWithCheck.password
 
         let data = try? JSONEncoder().encode(requestWithCheck)
-        client.restClient.POSTData(url: url, data: data, customHeader: nil, JSONData: true, onSuccess: { (response) in
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
@@ -104,7 +104,7 @@ public class UserService: BaseService {
 
         let params = ["accountkitCode": accountkitCode]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -134,7 +134,7 @@ public class UserService: BaseService {
 
         let data = try? JSONEncoder().encode(request)
 
-        client.restClient.POSTData(url: url, data: data, customHeader: nil, JSONData: true, onSuccess: { (response) in
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
@@ -186,7 +186,7 @@ public class UserService: BaseService {
 
         let params = ["picture": String(format: "data:image/png;base64,%@", imageData)]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
             onSuccess()
         }, onError: { (error) in
             onError(error)

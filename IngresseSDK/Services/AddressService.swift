@@ -66,7 +66,7 @@ public class AddressService: BaseService {
                       "city": city,
                       "state": state]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return

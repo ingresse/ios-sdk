@@ -53,7 +53,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: post body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POST(url: String, parameters: [String: Any], customHeader: [String:Any]?, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func POST(url: String, parameters: [String: Any], customHeader: [String: Any]?, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
 
         let body = parameters.stringFromHttpParameters()
 

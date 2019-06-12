@@ -20,7 +20,7 @@ public class AuthService: BaseService {
         let params = ["email": email,
                       "password": pass]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
             guard let logged = response["status"] as? Bool,
                 logged else {
                     let error = APIError.Builder()
@@ -60,7 +60,7 @@ public class AuthService: BaseService {
         let params = ["email": email,
                       "password": pass]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
 
             guard let logged = response["status"] as? Bool,
                 logged else {
@@ -110,7 +110,7 @@ public class AuthService: BaseService {
                       "fbToken": fbToken,
                       "fbUserId": fbUserId]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
 
             guard let logged = response["status"] as? Bool,
                 logged else {
@@ -195,7 +195,7 @@ public class AuthService: BaseService {
 
         let params = ["email": email]
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -217,7 +217,7 @@ public class AuthService: BaseService {
         var params = ["email": email]
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -241,7 +241,7 @@ public class AuthService: BaseService {
         params["password"] = password
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -266,7 +266,7 @@ public class AuthService: BaseService {
         var params = ["password": currentPassword]
         params["newPassword"] = newPassword
 
-        client.restClient.POST(url: url, parameters: params, customHeader: nil, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return

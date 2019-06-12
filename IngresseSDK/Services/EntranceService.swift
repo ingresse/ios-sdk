@@ -73,7 +73,7 @@ public class EntranceService: BaseService {
             postParams["tickets[\(index)][sessionId]"] = sessionId
         }
         
-        client.restClient.POST(url: url, parameters: postParams, customHeader: nil, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let tickets = JSONDecoder().decodeArray(of: [CheckinTicket].self, from: data)
@@ -112,7 +112,7 @@ public class EntranceService: BaseService {
         postParams["tickets[0][ticketTimestamp]"] = "\(Int(Date().timeIntervalSince1970)*1000)"
         postParams["tickets[0][sessionId]"] = sessionId
         
-        client.restClient.POST(url: url, parameters: postParams, customHeader: nil, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let ticketData = data.first,
