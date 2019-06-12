@@ -87,7 +87,7 @@ public class TransfersService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.POST(url: url, parameters: ["action": action], onSuccess: { (_) in
+        client.restClient.POST(url: url, parameters: ["action": action], customHeader: nil, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -109,7 +109,7 @@ public class TransfersService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.POST(url: url, parameters: ["user": userID], onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: ["user": userID], customHeader: nil, onSuccess: { (response) in
             guard let transfer = JSONDecoder().decodeDict(of: NewTransfer.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return
@@ -134,7 +134,7 @@ public class TransfersService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.POST(url: url, parameters: ["isReturn": "true"], onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: ["isReturn": "true"], customHeader: nil, onSuccess: { (response) in
             guard let id = response["saleTicketId"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
