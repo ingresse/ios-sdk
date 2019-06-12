@@ -66,7 +66,7 @@ public class TransactionService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        client.restClient.POST(url: url, parameters: [:], onSuccess: { (response) in
+        client.restClient.POST(url: url, onSuccess: { (response) in
             onSuccess()
         }, onError: { (error) in
             onError(error)

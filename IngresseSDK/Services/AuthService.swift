@@ -324,7 +324,7 @@ public class AuthService: BaseService {
             .build()
 
         let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
-        client.restClient.POST(url: url, parameters: [:], customHeader: header, onSuccess: { response in
+        client.restClient.POST(url: url, customHeader: header, onSuccess: { response in
             guard let twoFactorResponse = JSONDecoder().decodeDict(of: Response.Auth.TwoFactor.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return

@@ -32,7 +32,7 @@ extension RestClientInterface {
     }
 
     func POST(url: String,
-              parameters: [String: Any],
+              parameters: [String: Any] = [:],
               customHeader: [String: Any]? = nil,
               onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
               onError: @escaping ErrorHandler) {
