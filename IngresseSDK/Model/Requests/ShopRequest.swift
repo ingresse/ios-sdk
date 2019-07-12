@@ -37,6 +37,7 @@ extension Request {
 
         public struct Payment: Encodable {
             public var userId: String = ""
+            public var eventId: String = ""
             public var transactionId: String = ""
             public var creditcard: CreditCard?
             public var installments: Int = 0
