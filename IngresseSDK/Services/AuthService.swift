@@ -317,4 +317,21 @@ public class AuthService: BaseService {
             onError(error)
         })
     }
+
+    public func createTwoFactorToken(deviceId: String, otpCode: String, onSuccess: @escaping (Response.Auth.TwoFactor) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("two-step")
+            .build()
+
+        let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
+        client.restClient.POST(url: url, customHeader: header, onSuccess: { response in
+            guard let twoFactorResponse = JSONDecoder().decodeDict(of: Response.Auth.TwoFactor.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(twoFactorResponse)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
 }
