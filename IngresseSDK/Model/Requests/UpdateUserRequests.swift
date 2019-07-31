@@ -47,5 +47,22 @@ extension Request {
                 case state
             }
         }
+
+        public struct UserCardInsertion: Encodable {
+            public var userToken: String = ""
+            public var cvv: String = ""
+            public var expiration: String = ""
+            public var holder: String = ""
+            public var number: String = ""
+
+            public init() {}
+
+            private enum CodingKeys: String, CodingKey {
+                case cvv
+                case expiration
+                case holder
+                case number
+            }
+        }
     }
 }

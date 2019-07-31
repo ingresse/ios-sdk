@@ -191,4 +191,55 @@ public class UserService: BaseService {
             onError(error)
         })
     }
+
+    /// Get user wallet infos
+    ///
+    /// - Parameters:
+    ///   - userToken: logged user token
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func getUserWalletInfos(userToken: String,
+                                 onSuccess: @escaping (_ walletInfo: UserWalletInfo) -> Void,
+                                 onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+        .setPath("wallet")
+        .addParameter(key: "usertoken", value: userToken)
+        .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard
+                let data = response["wallet"] as? [String: Any],
+                let wallet = JSONDecoder().decodeDict(of: UserWalletInfo.self, from: data)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            onSuccess(wallet)
+        }, onError:  { (error) in
+            onError(error)
+        })
+    }
+
+    /// Inser new card in user wallet
+    ///
+    /// - Parameters:
+    ///   - userToken: logged user token
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func insertWalletCreditCard(_ request: Request.UpdateUser.UserCardInsertion,
+                                       onSuccess: @escaping () -> Void,
+                                       onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("wallet")
+            .addParameter(key: "usertoken", value: request.userToken)
+            .build()
+
+        let data = try? JSONEncoder().encode(request)
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
+            onSuccess()
+        }, onError:  { (error) in
+            onError(error)
+        })
+    }
 }
