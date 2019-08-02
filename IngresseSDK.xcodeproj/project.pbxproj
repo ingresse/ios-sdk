@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
+		2F31EB9422F4A9FF001B6F6E /* UserCardRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */; };
+		2F31EB9622F4AF70001B6F6E /* UserCardWalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */; };
 		2F7D2F8B22EFA1AA00DD8E17 /* UserWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */; };
 		2F7D2F8D22EFAC2B00DD8E17 /* WalletInfoPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */; };
 		2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */; };
@@ -195,6 +197,8 @@
 
 /* Begin PBXFileReference section */
 		0E9831B31F217135001211C6 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardRequests.swift; sourceTree = "<group>"; };
+		2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardWalletService.swift; sourceTree = "<group>"; };
 		2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletInfo.swift; sourceTree = "<group>"; };
 		2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoPaypal.swift; sourceTree = "<group>"; };
 		2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoCreditCard.swift; sourceTree = "<group>"; };
@@ -401,6 +405,7 @@
 				62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */,
 				3561965E21FA4C6A00EE6DA3 /* UpdateUserRequests.swift */,
 				A5982B152228BBC7004DEFC7 /* EventRequests.swift */,
+				2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -577,6 +582,7 @@
 				352A167B2110A80900814AF9 /* AddressService.swift */,
 				352632382118B643003615F1 /* PaymentService.swift */,
 				692A1A4B2280680100D9CDD1 /* SecurityService.swift */,
+				2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -900,6 +906,7 @@
 				75D531FB20EF9E880046CC7E /* CheckinSession.swift in Sources */,
 				6246D6B81FD71AA20012FAD9 /* Highlight.swift in Sources */,
 				62AB232D204D8AC50014B91A /* JSONHelper.swift in Sources */,
+				2F31EB9622F4AF70001B6F6E /* UserCardWalletService.swift in Sources */,
 				355C19DA21765219004ABEBB /* TicketDate.swift in Sources */,
 				6231F24F20B744A900206D85 /* ElasticPagination.swift in Sources */,
 				355C19D8217650AD004ABEBB /* Ticket.swift in Sources */,
@@ -953,6 +960,7 @@
 				355C19D621764F89004ABEBB /* TicketGroup.swift in Sources */,
 				6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */,
 				62F7D1BC21CBD53B000F51FE /* AuthRequests.swift in Sources */,
+				2F31EB9422F4A9FF001B6F6E /* UserCardRequests.swift in Sources */,
 				6246D6B61FD7086E0012FAD9 /* Planner.swift in Sources */,
 				352A167E2110B1F300814AF9 /* Address.swift in Sources */,
 				627485651F054ACF009AE812 /* Refund.swift in Sources */,
