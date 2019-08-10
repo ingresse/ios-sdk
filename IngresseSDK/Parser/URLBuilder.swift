@@ -5,6 +5,8 @@
 public enum Environment: String {
     case prod = ""
     case hml = "hml-"
+    case hmlA = "hmla-"
+    case hmlB = "hmlb-"
     case test = "test-"
     case stg = "stg-"
     case undefined = "undefined-"
@@ -15,6 +17,10 @@ public enum Environment: String {
             self = .prod
         case "hml":
             self = .hml
+        case "hmla":
+            self = .hmlA
+        case "hmlb":
+            self = .hmlB
         case "test":
             self = .test
         case "stg":

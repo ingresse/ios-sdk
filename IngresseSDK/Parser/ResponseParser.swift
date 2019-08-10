@@ -6,6 +6,7 @@ public enum IngresseException: Error {
     case apiError(error: APIError)
     case genericError
     case requestError
+    case httpError(status: Int)
     case jsonParserError
 }
 
@@ -19,8 +20,13 @@ public class ResponseParser: NSObject {
     ///   - completion: callback block
     /// - Throws: IngresseException
     public static func build(_ response: URLResponse?, data: Data?, completion: (_ responseData: [String: Any]) -> Void) throws {
-        if data == nil || response == nil {
+        guard data != nil && response != nil,
+            let httpResponse = response as? HTTPURLResponse else {
             throw IngresseException.requestError
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw IngresseException.httpError(status: httpResponse.statusCode)
         }
 
         guard

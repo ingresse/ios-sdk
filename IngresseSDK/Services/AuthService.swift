@@ -317,4 +317,30 @@ public class AuthService: BaseService {
             onError(error)
         })
     }
+
+    /// Get Two Factor token for user
+    ///
+    /// - Parameters:
+    ///   - deviceId: unique id of user's device
+    ///   - otpCode: one time password, sent via sms
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func createTwoFactorToken(userToken: String, deviceId: String, otpCode: String, onSuccess: @escaping (Response.Auth.TwoFactor) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setEnvironment(.hmlB)
+            .setPath("two-factor")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
+        client.restClient.POST(url: url, customHeader: header, onSuccess: { response in
+            guard let twoFactorResponse = JSONDecoder().decodeDict(of: Response.Auth.TwoFactor.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(twoFactorResponse)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
 }

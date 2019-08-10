@@ -40,9 +40,15 @@ public class RestClient: NSObject, RestClientInterface {
                 })
             } catch IngresseException.apiError(let apiError) {
                 onError(apiError)
+            } catch IngresseException.httpError(let status) {
+                let errorData = APIError.Builder()
+                    .setHttpStatus(status)
+                    .build()
+
+                onError(errorData)
             } catch {
                 onError(APIError.getDefaultError())
-            }
+            } 
         }.resume()
     }
     
@@ -108,6 +114,12 @@ public class RestClient: NSObject, RestClientInterface {
                 })
             } catch IngresseException.apiError(let apiError) {
                 onError(apiError)
+            } catch IngresseException.httpError(let status) {
+                let errorData = APIError.Builder()
+                    .setHttpStatus(status)
+                    .build()
+
+                onError(errorData)
             } catch {
                 onError(APIError.getDefaultError())
             }
