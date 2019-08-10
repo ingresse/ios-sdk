@@ -5,6 +5,8 @@
 public enum Environment: String {
     case prod = ""
     case hml = "hml-"
+    case hmlA = "hmla-"
+    case hmlB = "hmlb-"
     case test = "test-"
     case stg = "stg-"
     case undefined = "undefined-"
@@ -15,6 +17,10 @@ public enum Environment: String {
             self = .prod
         case "hml":
             self = .hml
+        case "hmla":
+            self = .hmlA
+        case "hmlb":
+            self = .hmlB
         case "test":
             self = .test
         case "stg":
@@ -110,7 +116,7 @@ public class URLBuilder: NSObject {
     }
 
     public func getHostUrl() -> String {
-        if environment == .hml && host == .search {
+        if [.hml, .hmlA, .hmlB].contains(environment) && host == .search {
             return "https://\(environment.rawValue)\(Host.searchHml.rawValue)"
         }
         return "https://\(environment.rawValue)\(host.rawValue)"

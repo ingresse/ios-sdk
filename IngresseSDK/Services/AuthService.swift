@@ -318,9 +318,17 @@ public class AuthService: BaseService {
         })
     }
 
-    public func createTwoFactorToken(deviceId: String, otpCode: String, onSuccess: @escaping (Response.Auth.TwoFactor) -> Void, onError: @escaping ErrorHandler) {
+    /// Get Two Factor token for user
+    ///
+    /// - Parameters:
+    ///   - deviceId: unique id of user's device
+    ///   - otpCode: one time password, sent via sms
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func createTwoFactorToken(userToken: String, deviceId: String, otpCode: String, onSuccess: @escaping (Response.Auth.TwoFactor) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setPath("two-step")
+            .setPath("two-factor")
+            .addParameter(key: "usertoken", value: userToken)
             .build()
 
         let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
