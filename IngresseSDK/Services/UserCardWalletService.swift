@@ -47,16 +47,16 @@ public class UserCardWalletService: BaseService {
                            onSuccess: @escaping () -> Void,
                            onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setPath("wallet")
+            .setPath("wallet/creditCard")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
-        }, onError:  { (error) in
+        }) { (error) in
             onError(error)
-        })
+        }
     }
 
     /// Change the default card from user wallet

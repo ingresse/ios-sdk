@@ -42,7 +42,7 @@ public enum Host: String {
 public class URLBuilder: NSObject {
     private var url: String = ""
     private var host: Host = .api
-    private var environment: Environment = .prod
+    private var environment: Environment = .hmla
     private var path: String = ""
     private var apiKey: String = ""
     private var parameters: [String: String] = [:]

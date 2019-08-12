@@ -10,7 +10,8 @@ extension Request {
             public var expiration: String = ""
             public var holder: String = ""
             public var number: String = ""
-
+            public var document: String = ""
+            
             public init() {}
 
             private enum CodingKeys: String, CodingKey {
@@ -18,6 +19,7 @@ extension Request {
                 case expiration
                 case holder
                 case number
+                case document
             }
         }
 
