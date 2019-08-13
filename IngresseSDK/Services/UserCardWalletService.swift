@@ -44,10 +44,10 @@ public class UserCardWalletService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func insertCard(_ request: Request.UserCardWallet.Insertion,
-                           onSuccess: @escaping () -> Void,
+                           onSuccess: @escaping (_ card: WalletInfoCreditCard) -> Void,
                            onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setPath("wallet/creditCard")
+            .setPath("wallet/creditcard")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
@@ -56,7 +56,7 @@ public class UserCardWalletService: BaseService {
             onSuccess()
         }) { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Change the default card from user wallet
@@ -98,9 +98,15 @@ public class UserCardWalletService: BaseService {
             .setPath("wallet")
             .addParameter(key: "usertoken", value: userToken)
             .build()
+<<<<<<< HEAD
 
         let params = ["token": token]
 
+=======
+        
+        let params = ["uuid": token]
+        
+>>>>>>> Change response from api
         client.restClient.DELETE(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }) { (error) in
