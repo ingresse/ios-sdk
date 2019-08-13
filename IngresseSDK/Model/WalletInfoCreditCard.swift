@@ -12,6 +12,7 @@ public class WalletInfoCreditCard: NSObject, Decodable {
     public var holder: WalletInfoHolder?
     public var lastFour: String = ""
     public var token: String = ""
+    public var id: String = ""
     
     enum CodingKeys: String, CodingKey {
         case brand
@@ -21,12 +22,14 @@ public class WalletInfoCreditCard: NSObject, Decodable {
         case holder
         case lastFour
         case token
+        case id
     }
 
     public required init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
 
         token = container.decodeKey(.token, ofType: String.self)
+        id = container.decodeKey(.id, ofType: String.self)
         holder = container.decodeKey(.holder, ofType: WalletInfoHolder.self)
         firstSix = container.decodeKey(.firstSix, ofType: String.self)
         lastFour = container.decodeKey(.lastFour, ofType: String.self)

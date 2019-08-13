@@ -32,7 +32,12 @@ public class ResponseParser: NSObject {
         guard
             let objData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers),
             let obj = objData as? [String: Any] else {
-            throw IngresseException.jsonParserError
+                let httpResponse = response as? HTTPURLResponse
+                if httpResponse?.statusCode == 200 {
+                    completion(["status": true])
+                    return
+                }
+                throw IngresseException.jsonParserError
         }
 
         // Address error

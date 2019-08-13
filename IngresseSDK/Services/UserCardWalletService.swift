@@ -91,22 +91,17 @@ public class UserCardWalletService: BaseService {
     ///   - token: uuid from card
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func deleteCard(userToken: String, token: String,
+    public func deleteCard(userToken: String, uuid: String,
                            onSuccess: @escaping () -> Void,
                            onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setPath("wallet")
+            .setPath("wallet/creditcard/\(uuid)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
-<<<<<<< HEAD
-
+            
         let params = ["token": token]
-
-=======
-        
         let params = ["uuid": token]
         
->>>>>>> Change response from api
         client.restClient.DELETE(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }) { (error) in
