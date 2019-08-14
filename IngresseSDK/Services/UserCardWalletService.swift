@@ -67,7 +67,7 @@ public class UserCardWalletService: BaseService {
     ///   - cardDefault: true or false
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func changeDefaultCard(_ request: Request.UserCardWallet.Edition,
+    public func changeDefaultCard(_ request: Request.UserCardWallet.Managment,
                                   onSuccess: @escaping () -> Void,
                                   onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)

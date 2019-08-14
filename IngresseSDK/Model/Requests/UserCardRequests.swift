@@ -23,7 +23,7 @@ extension Request {
             }
         }
 
-        public struct Edition: Encodable {
+        public struct Managment: Encodable {
             public var userToken: String = ""
             public var token: String = ""
             public var cardDefault: Bool = true
