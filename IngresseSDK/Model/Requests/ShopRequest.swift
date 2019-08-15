@@ -19,7 +19,7 @@ extension Request {
             public var expiracyMonth: String = ""
             public var expiracyYear: String = ""
             public var cvv: String = ""
-            public var birthDate: String = ""
+            public var save: Bool = false
 
             public init() {}
         }
@@ -47,7 +47,6 @@ extension Request {
             public var ingeprefsPayload: String = ""
             public var source: String = "mobile"
             public var hdim: String = ""
-            public var save: Bool = false
 
             public init() {}
         }
