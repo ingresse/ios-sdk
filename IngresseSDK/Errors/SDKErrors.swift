@@ -57,6 +57,7 @@ public class SDKErrors: NSObject {
         6062: "O token fornecido é inválido. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
         6063: "Esse email já está em uso.",
         6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido."]
+        6074: "Cartão já cadastrado. Verifique seus cartões salvos."]
 
     let titles = [
         -1: "Login incorreto",
