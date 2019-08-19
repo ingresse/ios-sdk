@@ -24,6 +24,12 @@ extension Request {
             public init() {}
         }
 
+        public struct ShopWallet: Encodable {
+            public var id: String = ""
+
+            public init() {}
+        }
+
         public struct Free: Encodable {
             public var userId: String = ""
             public var eventId: String = ""
@@ -42,9 +48,10 @@ extension Request {
             public var creditcard: CreditCard?
             public var installments: Int = 0
             public var paymentMethod: String = ""
-            public var document: String = ""
+            public var document: String?
             public var postback: String = ""
             public var ingeprefsPayload: String = ""
+            public var wallet: ShopWallet?
             public var source: String = "mobile"
             public var hdim: String = ""
 
