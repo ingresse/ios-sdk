@@ -7,7 +7,7 @@ public class IngresseClient: NSObject {
     var apiKey: String
     var restClient: RestClientInterface
     
-    public init(apiKey: String, userAgent: String, authorization: String = "", env: Environment = .hmla, restClient: RestClientInterface? = nil) {
+    public init(apiKey: String, userAgent: String, authorization: String = "", env: Environment = .prod, restClient: RestClientInterface? = nil) {
         self.apiKey = apiKey
         self.restClient = restClient ?? RestClient()
         self.environment = env
