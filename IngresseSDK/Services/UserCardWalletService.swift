@@ -71,7 +71,7 @@ public class UserCardWalletService: BaseService {
                                   onSuccess: @escaping () -> Void,
                                   onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setPath("wallet")
+            .setPath("wallet/creditcard/\(request.token)")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 

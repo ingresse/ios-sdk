@@ -171,6 +171,7 @@
 		692A1A4C2280680100D9CDD1 /* SecurityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A1A4B2280680100D9CDD1 /* SecurityService.swift */; };
 		692A1A4E228069B600D9CDD1 /* SecurityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */; };
 		69DDDDED22B012D800051883 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DDDDEC22B012D800051883 /* AuthResponse.swift */; };
+		694A2D2C23102C050024E2E3 /* WalletInfoHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A2D2B23102C050024E2E3 /* WalletInfoHolder.swift */; };
 		750A814420E183F7004881C8 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814320E183F7004881C8 /* CompanyData.swift */; };
 		750A814620E186D0004881C8 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814520E186D0004881C8 /* Company.swift */; };
 		750A814820E1875D004881C8 /* CompanyLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814720E1875D004881C8 /* CompanyLogo.swift */; };
@@ -363,6 +364,7 @@
 		692A1A4B2280680100D9CDD1 /* SecurityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityService.swift; sourceTree = "<group>"; };
 		692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityResponse.swift; sourceTree = "<group>"; };
 		69DDDDEC22B012D800051883 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		694A2D2B23102C050024E2E3 /* WalletInfoHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletInfoHolder.swift; sourceTree = "<group>"; };
 		750A814320E183F7004881C8 /* CompanyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		750A814520E186D0004881C8 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		750A814720E1875D004881C8 /* CompanyLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyLogo.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 		624526221EC2324F007B6584 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				694A2D2B23102C050024E2E3 /* WalletInfoHolder.swift */,
 				62D6423821AC6193002E1A39 /* Response */,
 				352A26B321A590F80037E187 /* Requests */,
 				62EDCFE0210BB725001A6C7C /* SessionDate.swift */,
@@ -928,6 +931,7 @@
 				6231F25020B744A900206D85 /* NewEvent.swift in Sources */,
 				352A167C2110A80900814AF9 /* AddressService.swift in Sources */,
 				759406262100E98F00BA1BFB /* TransactionBasket.swift in Sources */,
+				694A2D2C23102C050024E2E3 /* WalletInfoHolder.swift in Sources */,
 				629BCF931EDF2F230043CBDE /* CheckinTicket.swift in Sources */,
 				750A814420E183F7004881C8 /* CompanyData.swift in Sources */,
 				62D6423521AC4C02002E1A39 /* ShopRequest.swift in Sources */,
