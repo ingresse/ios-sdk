@@ -40,7 +40,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -67,7 +67,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -99,7 +99,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -127,7 +127,7 @@ class TransferServiceTests: XCTestCase {
         service.getPendingTransfers("1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didDownloadPendingTransfersCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -156,7 +156,7 @@ class TransferServiceTests: XCTestCase {
         service.getPendingTransfers("1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailDownloadTransfersCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -184,7 +184,7 @@ class TransferServiceTests: XCTestCase {
         service.getPendingTransfers("1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailDownloadTransfersCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -210,7 +210,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
         }
     }
@@ -238,7 +238,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -272,7 +272,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.id, 1)
@@ -303,7 +303,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -335,7 +335,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -366,7 +366,7 @@ class TransferServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result, 1)
@@ -394,7 +394,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -426,7 +426,7 @@ class TransferServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

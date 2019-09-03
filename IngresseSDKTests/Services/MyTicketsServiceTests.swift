@@ -38,7 +38,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncItemsPageCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -68,7 +68,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", from: "future", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncItemsPageCalled)
             guard let url = self.restClient.urlCalled else {
                 XCTFail("Invalid URL")
@@ -97,7 +97,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", from: "past", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncItemsPageCalled)
             guard let url = self.restClient.urlCalled else {
                 XCTFail("Invalid URL")
@@ -125,7 +125,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailSyncItemsCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -153,7 +153,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserWallet(userId: "1234", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailSyncItemsCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -181,7 +181,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncTicketsPageCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -210,7 +210,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailSyncTicketsCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -238,7 +238,7 @@ class MyTicketsServiceTests: XCTestCase {
         service.getUserTickets(userId: "1234", eventId: "2345", userToken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailSyncTicketsCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -275,7 +275,7 @@ class MyTicketsServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertEqual(apiResponse, 1000)
         }
@@ -307,7 +307,7 @@ class MyTicketsServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -344,7 +344,7 @@ class MyTicketsServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

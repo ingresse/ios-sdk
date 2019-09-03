@@ -39,10 +39,10 @@ class AddressServiceTests: XCTestCase {
             success = true
             result = address
             asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.street, "street")
@@ -67,14 +67,14 @@ class AddressServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.getAddressBy(zipCode: "zipcode", onSuccess: { (address) in }, onError: { (error) in
+        service.getAddressBy(zipCode: "zipcode", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -109,10 +109,10 @@ class AddressServiceTests: XCTestCase {
                               state: "state", onSuccess: {
                                 success = true
                                 asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
         }
     }
@@ -147,7 +147,7 @@ class AddressServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -184,7 +184,7 @@ class AddressServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
@@ -223,7 +223,7 @@ class AddressServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 0)
@@ -262,7 +262,7 @@ class AddressServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)

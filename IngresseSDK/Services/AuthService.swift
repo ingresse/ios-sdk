@@ -195,7 +195,7 @@ public class AuthService: BaseService {
 
         let params = ["email": email]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -217,7 +217,7 @@ public class AuthService: BaseService {
         var params = ["email": email]
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -241,7 +241,7 @@ public class AuthService: BaseService {
         params["password"] = password
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)

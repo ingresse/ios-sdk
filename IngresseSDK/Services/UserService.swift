@@ -162,7 +162,7 @@ public class UserService: BaseService {
 
         let params = ["picture": String(format: "data:image/png;base64,%@", imageData)]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)

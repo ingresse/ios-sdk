@@ -16,7 +16,7 @@ class ResponseParserTests: XCTestCase {
         
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: nil) { (response: [String: Any]) in }
+            try ResponseParser.build(URLResponse(), data: nil) { (_) in }
         } catch IngresseException.requestError {
             requestError = true
             builderExpectation.fulfill()
@@ -38,7 +38,7 @@ class ResponseParserTests: XCTestCase {
         
         // When
         do {
-            try ResponseParser.build(nil, data: Data()) { (response: [String: Any]) in }
+            try ResponseParser.build(nil, data: Data()) { (_) in }
         } catch IngresseException.requestError {
             requestError = true
             builderExpectation.fulfill()
@@ -57,10 +57,11 @@ class ResponseParserTests: XCTestCase {
         let builderExpectation = expectation(description: "builderCallback")
         
         var requestError = false
+        let response = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
         
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: Data()) { (response: [String: Any]) in }
+            try ResponseParser.build(response, data: Data()) { (_) in }
         } catch IngresseException.jsonParserError {
             requestError = true
             builderExpectation.fulfill()
@@ -87,6 +88,8 @@ class ResponseParserTests: XCTestCase {
             "category": "category"
         ]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var requestError = false
         var apiError: APIError?
 
@@ -94,7 +97,7 @@ class ResponseParserTests: XCTestCase {
 
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+            try ResponseParser.build(urlResponse, data: data) { (_) in }
         } catch IngresseException.apiError(let error) {
             requestError = true
             apiError = error
@@ -124,13 +127,15 @@ class ResponseParserTests: XCTestCase {
             "category": "category"
         ]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var requestError = false
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+            try ResponseParser.build(urlResponse, data: data) { (_) in }
         } catch IngresseException.jsonParserError {
             requestError = true
             builderExpectation.fulfill()
@@ -151,13 +156,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = "Invalid String"
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var requestError = false
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+            try ResponseParser.build(urlResponse, data: data) { (_) in }
         } catch IngresseException.genericError {
             requestError = true
             builderExpectation.fulfill()
@@ -179,13 +186,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = ["result": "result"]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var success = false
         var result: [String: Any]?
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
-        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+        try? ResponseParser.build(urlResponse, data: data) { (responseData) in
             success = true
             result = responseData
             asyncExpectation.fulfill()
@@ -206,13 +215,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = [["result": "result"]]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var success = false
         var result: [String: Any]?
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
-        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+        try? ResponseParser.build(urlResponse, data: data) { (responseData) in
             success = true
             result = responseData
             asyncExpectation.fulfill()
@@ -235,13 +246,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = 1
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var success = false
         var result: [String: Any]?
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
-        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+        try? ResponseParser.build(urlResponse, data: data) { (responseData) in
             success = true
             result = responseData
             asyncExpectation.fulfill()
@@ -262,13 +275,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["data"] = ["result": "result"]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var success = false
         var result: [String: Any]?
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
-        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+        try? ResponseParser.build(urlResponse, data: data) { (responseData) in
             success = true
             result = responseData
             asyncExpectation.fulfill()
@@ -289,13 +304,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["data"] = [["result": "result"]]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var success = false
         var result: [String: Any]?
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
-        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+        try? ResponseParser.build(urlResponse, data: data) { (responseData) in
             success = true
             result = responseData
             asyncExpectation.fulfill()
@@ -320,6 +337,8 @@ class ResponseParserTests: XCTestCase {
         response["code"] = 0
         response["message"] = "error"
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var requestError = false
         var apiError: APIError?
 
@@ -327,7 +346,7 @@ class ResponseParserTests: XCTestCase {
 
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+            try ResponseParser.build(urlResponse, data: data) { (_) in }
         } catch IngresseException.apiError(let error) {
             requestError = true
             apiError = error
@@ -351,13 +370,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["zip"] = "zip"
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var success = false
         var result: [String: Any]?
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
-        try? ResponseParser.build(URLResponse(), data: data) { (responseData) in
+        try? ResponseParser.build(urlResponse, data: data) { (responseData) in
             success = true
             result = responseData
             asyncExpectation.fulfill()
@@ -379,6 +400,8 @@ class ResponseParserTests: XCTestCase {
         response["error"] = true
         response["message"] = "message zip error"
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var requestError = false
         var apiError: APIError?
 
@@ -386,7 +409,7 @@ class ResponseParserTests: XCTestCase {
 
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+            try ResponseParser.build(urlResponse, data: data) { (_) in }
         } catch IngresseException.apiError(let error) {
             requestError = true
             apiError = error
@@ -410,13 +433,15 @@ class ResponseParserTests: XCTestCase {
         var response = [String: Any]()
         response["response"] = "Invalid Response"
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         var requestError = false
 
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         // When
         do {
-            try ResponseParser.build(URLResponse(), data: data) { (_) in }
+            try ResponseParser.build(urlResponse, data: data) { (_) in }
         } catch IngresseException.jsonParserError {
             requestError = true
             asyncExpectation.fulfill()

@@ -43,13 +43,13 @@ extension AuthServiceTests {
         var logged = false
 
         // When
-        service.loginWithEmail("email@test.com", andPassword: "password", onSuccess: { (user) in
+        service.loginWithEmail("email@test.com", andPassword: "password", onSuccess: { (_) in
             logged = true
             loginExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertTrue(logged)
         }
     }
@@ -103,7 +103,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertFalse(logged)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -215,7 +215,7 @@ extension AuthServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertTrue(logged)
             XCTAssertNotNil(data)
             XCTAssertEqual(data?.count, 2)
@@ -244,7 +244,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertFalse(logged)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, -1)
@@ -282,7 +282,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertFalse(logged)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -314,7 +314,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertFalse(logged)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -347,7 +347,7 @@ extension AuthServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertTrue(logged)
         }
     }
@@ -404,7 +404,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertFalse(logged)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -471,7 +471,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 15) { (error: Error?) in
+        waitForExpectations(timeout: 15) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -671,10 +671,10 @@ extension AuthServiceTests {
                                       userId: "userId", onSuccess: {
                                         success = true
                                         asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
         }
     }
@@ -704,7 +704,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -736,7 +736,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
@@ -770,7 +770,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 0)
@@ -804,7 +804,7 @@ extension AuthServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)

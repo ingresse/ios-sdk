@@ -12,21 +12,21 @@ class MockClient: RestClientInterface {
     var urlCalled: String?
 
     // MARK: Mocked methods
-    func POST(
-        url: String,
-        parameters: [String: Any],
-        onSuccess: @escaping ([String: Any]) -> Void,
-        onError: @escaping (APIError) -> Void) {
+    func POST(url: String,
+              parameters: [String: Any],
+              customHeader: [String: Any]?,
+              onSuccess: @escaping ([String: Any]) -> Void,
+              onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }
     
-    func POSTData(
-        url: String,
-        data: Data?,
-        JSONData: Bool,
-        onSuccess: @escaping ([String: Any]) -> Void,
-        onError: @escaping (APIError) -> Void) {
+    func POSTData(url: String,
+                  data: Data?,
+                  customHeader: [String: Any]?,
+                  JSONData: Bool,
+                  onSuccess: @escaping ([String: Any]) -> Void,
+                  onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }
