@@ -17,6 +17,7 @@ public class SDKErrors: NSObject {
         1033: "Verifique se preencheu o campo de CPF e tente novamente.",
         1061: "Acesse a área de \"Meus Dados\" por um navegador desktop ou mobile e preencha as informações que faltam.",
         1109: "Este telefone já foi utilizado para validar uma conta Ingresse. Insira outro número ou entre em contato com nosso suporte.",
+        1192: "Este número de telefone já está ativo em outra conta.",
         2006: "Por favor, refaça a operação de login e tente novamente. Caso o erro persista, atualize o aplicativo.",
         2012: "Verifique em seu aparelho se as configurações de data e hora estão em \"ajuste automático\" e tente novamente.",
         3027: "Por favor, refaça a operação de login e tente novamente.",
