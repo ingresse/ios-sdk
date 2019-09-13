@@ -168,4 +168,30 @@ public class UserService: BaseService {
             onError(error)
         })
     }
+
+    /// Verify account with API
+    ///
+    /// - Parameters:
+    ///   - userId: id of logged user
+    ///   - userToken: token of logged user
+    ///   - accountkitCode: code sent by accountkit
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback with APIError
+    public func verifyAccount(userId: Int, userToken: String, accountkitCode: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("user/\(userId)")
+            .addParameter(key: "method", value: "update")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let params = ["accountkitCode": accountkitCode]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+            onSuccess()
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
+
 }
