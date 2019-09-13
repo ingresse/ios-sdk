@@ -200,31 +200,6 @@ public class EventService: BaseService {
         })
     }
 
-    /// Get event details
-    ///
-    /// - Parameters:
-    ///   - eventId: id of the event
-    public func rsvpResponse(eventId: String, userToken: String, willGo: Bool, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-
-        let url = URLBuilder(client: client)
-            .setPath("event/\(eventId)/rsvp")
-            .addParameter(key: "usertoken", value: userToken)
-            .addParameter(key: "method", value: willGo ? "add" : "remove")
-            .build()
-
-        client.restClient.GET(url: url, onSuccess: { (response) in
-            guard let status = response["status"] as? Int,
-                status == 1 else {
-                    onError(APIError.getDefaultError())
-                    return
-            }
-
-            onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
-    }
-    
     /// Get session details
     ///
     /// - Parameters:
@@ -338,6 +313,74 @@ public class EventService: BaseService {
             delegate.didSyncEvents(events, offset: newOffset, total: total)
         }, onError: { (error) in
             delegate.didFail(error: error)
+        })
+    }
+
+    /// Get RSVP list from event
+    ///
+    /// - Parameters:
+    ///   - eventId: id of event to get rsvp list
+    ///   - onSuccess: success callback
+    ///   - onError: error callback
+    public func getRSVPList(eventId: String, onSuccess: @escaping (_ success: Response.Events.RSVP) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/rsvp")
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let rsvpResponse = JSONDecoder().decodeDict(of: Response.Events.RSVP.self, from: response) else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            onSuccess(rsvpResponse)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
+    /// Add user to event rsvp list
+    ///
+    /// - Parameters:
+    ///   - request: struct with all needed parameters
+    ///   - onSuccess: success callback
+    ///   - onError: error callback
+    public func addUserToRSVP(request: Request.Event.AddToRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(request.eventId)/rsvp")
+            .addParameter(key: "usertoken", value: request.userToken)
+            .build()
+
+        client.restClient.POST(url: url, parameters: [:], onSuccess: { (response) in
+            guard let success = response["success"] as? Bool else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(success)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
+    /// Remove user from event rsvp list
+    ///
+    /// - Parameters:
+    ///   - request: struct with all needed parameters
+    ///   - onSuccess: success callback
+    ///   - onError: error callback
+    public func removeUserFromRSVP(request: Request.Event.RemoveFromRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        let url = URLBuilder(client: client)
+            .setPath("event/\(request.eventId)/rsvp")
+            .addParameter(key: "usertoken", value: request.userToken)
+            .build()
+
+        client.restClient.DELETE(url: url, parameters: [:], onSuccess: { (response) in
+            guard let success = response["success"] as? Bool else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(success)
+        }, onError: { (error) in
+            onError(error)
         })
     }
 }
