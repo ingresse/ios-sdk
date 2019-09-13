@@ -18,6 +18,14 @@ public class SDKErrors: NSObject {
         1061: "Acesse a área de \"Meus Dados\" por um navegador desktop ou mobile e preencha as informações que faltam.",
         1109: "Este telefone já foi utilizado para criar ou validar uma conta Ingresse. Insira outro telefone ou entre em contato com nosso suporte pela opção ajuda.",
         1192: "Este número de telefone já está ativo em outra conta.",
+        1109: "Este telefone já foi utilizado para validar uma conta Ingresse. Insira outro número ou entre em contato com nosso suporte.",
+        1139: "O campo EMAIL é necessário.",
+        1141: "O campo SENHA é necessário.",
+        1142: "O campo EMAIL é inválido.",
+        1143: "O campo NOME é necessário.",
+        1145: "O campo TELEFONE é necessário.",
+        1144: "A senha deve conter 8 caracteres e ao menos uma letra.",
+        1146: "O campo TELEFONE é inválido.",
         2006: "Por favor, refaça a operação de login e tente novamente. Caso o erro persista, atualize o aplicativo.",
         2012: "Verifique em seu aparelho se as configurações de data e hora estão em \"ajuste automático\" e tente novamente.",
         3027: "Por favor, refaça a operação de login e tente novamente.",
@@ -46,7 +54,10 @@ public class SDKErrors: NSObject {
         6042: "Verifique o endereço de e-mail inserido e tente novamente.",
         6044: "Você excedeu o limite de ingressos disponíveis por conta. Para mais informações, verifique a descrição do evento.",
         6045: "Não é possível transferir um ingresso para a conta que realizou a compra.",
-        6052: "Para comprar ingressos você precisa possuir uma conta Ingresse. Acesse ingresse.com e cadastre-se."]
+        6052: "Para comprar ingressos você precisa possuir uma conta Ingresse. Acesse ingresse.com e cadastre-se.",
+        6062: "O token fornecido é inválido. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
+        6063: "Esse email já está em uso.",
+        6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido."]
 
     let titles = [
         -1: "Login incorreto",
