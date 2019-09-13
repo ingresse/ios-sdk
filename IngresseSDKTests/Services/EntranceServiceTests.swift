@@ -47,7 +47,7 @@ class EntranceServiceTests: XCTestCase {
             page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncGuestsPageCalled)
             XCTAssertEqual(delegate.guestListSyncResult, [])
         }
@@ -70,7 +70,7 @@ class EntranceServiceTests: XCTestCase {
         service.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailSyncGuestListCalled)
             XCTAssertNil(delegate.guestListSyncResult)
         }
@@ -95,7 +95,7 @@ class EntranceServiceTests: XCTestCase {
         service.getGuestListOfEvent("12345", sessionId: "23456", userToken: "12345-abcdefghijklmnopqrstuvxyz", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailSyncGuestListCalled)
             XCTAssertNil(delegate.guestListSyncResult)
             let apiError = delegate.syncFailError
@@ -135,7 +135,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertNotNil(result)
             XCTAssertNil(apiError)
         }
@@ -169,7 +169,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertNil(result)
             XCTAssertNotNil(apiError)
         }
@@ -205,7 +205,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertNil(result)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -239,7 +239,7 @@ class EntranceServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.checked, 1)
@@ -278,7 +278,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -316,7 +316,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -347,7 +347,7 @@ class EntranceServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -374,7 +374,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -406,7 +406,7 @@ class EntranceServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

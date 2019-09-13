@@ -195,7 +195,7 @@ public class AuthService: BaseService {
 
         let params = ["email": email]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -217,7 +217,7 @@ public class AuthService: BaseService {
         var params = ["email": email]
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -241,7 +241,7 @@ public class AuthService: BaseService {
         params["password"] = password
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -313,6 +313,31 @@ public class AuthService: BaseService {
                 return
             }
             onSuccess(authToken)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
+    /// Get Two Factor token for user
+    ///
+    /// - Parameters:
+    ///   - deviceId: unique id of user's device
+    ///   - otpCode: one time password, sent via sms
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func createTwoFactorToken(userToken: String, deviceId: String, otpCode: String, onSuccess: @escaping (Response.Auth.TwoFactor) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("two-factor")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
+        client.restClient.POST(url: url, customHeader: header, onSuccess: { response in
+            guard let twoFactorResponse = JSONDecoder().decodeDict(of: Response.Auth.TwoFactor.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+            onSuccess(twoFactorResponse)
         }, onError: { (error) in
             onError(error)
         })

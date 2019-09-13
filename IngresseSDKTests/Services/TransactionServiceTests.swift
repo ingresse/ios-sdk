@@ -42,7 +42,7 @@ extension TransactionServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -71,7 +71,7 @@ extension TransactionServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -118,7 +118,7 @@ extension TransactionServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -158,7 +158,7 @@ extension TransactionServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -196,7 +196,7 @@ extension TransactionServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -229,7 +229,7 @@ extension TransactionServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -256,7 +256,7 @@ extension TransactionServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -288,7 +288,7 @@ extension TransactionServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -319,7 +319,7 @@ extension TransactionServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
         }
     }
@@ -347,7 +347,7 @@ extension TransactionServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

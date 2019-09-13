@@ -52,7 +52,7 @@ class PaymentServiceTests: XCTestCase {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 2) { (error: Error?) in
+        waitForExpectations(timeout: 2) { (_) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.boleto, "boleto")
@@ -95,7 +95,7 @@ class PaymentServiceTests: XCTestCase {
         })
 
         // Then
-        waitForExpectations(timeout: 2) { (error: Error?) in
+        waitForExpectations(timeout: 2) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -126,14 +126,14 @@ class PaymentServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.doReserve(request: request, userToken: "userToken", onSuccess: { (response) in }, onError: { (error) in
+        service.doReserve(request: request, userToken: "userToken", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -177,10 +177,10 @@ class PaymentServiceTests: XCTestCase {
             success = true
             result = response
             asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.boleto, "boleto")
@@ -221,14 +221,14 @@ class PaymentServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.doPayment(request: request, userToken: "userToken", onSuccess: { (response) in }, onError: { (error) in
+        service.doPayment(request: request, userToken: "userToken", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -263,14 +263,14 @@ class PaymentServiceTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        service.doPayment(request: request, userToken: "userToken", onSuccess: { (response) in }, onError: { (error) in
+        service.doPayment(request: request, userToken: "userToken", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 2) { (error: Error?) in
+        waitForExpectations(timeout: 2) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

@@ -40,9 +40,15 @@ public class RestClient: NSObject, RestClientInterface {
                 })
             } catch IngresseException.apiError(let apiError) {
                 onError(apiError)
+            } catch IngresseException.httpError(let status) {
+                let errorData = APIError.Builder()
+                    .setHttpStatus(status)
+                    .build()
+
+                onError(errorData)
             } catch {
                 onError(APIError.getDefaultError())
-            }
+            } 
         }.resume()
     }
     
@@ -53,13 +59,14 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: post body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POST(url: String, parameters: [String: Any], onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func POST(url: String, parameters: [String: Any], customHeader: [String: Any]?, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
 
         let body = parameters.stringFromHttpParameters()
 
         if let data = body.data(using: .utf8) {
             POSTData(url: url,
                      data: data,
+                     customHeader: customHeader,
                      JSONData: false,
                      onSuccess: onSuccess,
                      onError: onError)
@@ -73,7 +80,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - data: post data
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POSTData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func POSTData(url: String, data: Data?, customHeader: [String: Any]?, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "POST"
         
@@ -81,6 +88,13 @@ public class RestClient: NSObject, RestClientInterface {
             request.addValue(header, forHTTPHeaderField: "User-Agent")
         }
         
+        if let newHeaders = customHeader {
+            newHeaders.keys.forEach { key in
+                guard let stringValue = newHeaders[key] as? String else { return }
+                request.addValue(stringValue, forHTTPHeaderField: key)
+            }
+        }
+
         if JSONData {
             request.addValue("application/json", forHTTPHeaderField: "content-type")
         }
@@ -108,6 +122,12 @@ public class RestClient: NSObject, RestClientInterface {
                 })
             } catch IngresseException.apiError(let apiError) {
                 onError(apiError)
+            } catch IngresseException.httpError(let status) {
+                let errorData = APIError.Builder()
+                    .setHttpStatus(status)
+                    .build()
+
+                onError(errorData)
             } catch {
                 onError(APIError.getDefaultError())
             }

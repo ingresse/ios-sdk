@@ -21,11 +21,13 @@ class RestClientTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = ["id": 1, "name": "name"]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         session.data = data
         session.error = nil
-        session.response = URLResponse()
+        session.response = urlResponse
 
         client.session = session
 
@@ -92,11 +94,13 @@ class RestClientTests: XCTestCase {
             "category": "category"
         ]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         session.data = data
         session.error = nil
-        session.response = URLResponse()
+        session.response = urlResponse
 
         client.session = session
 
@@ -165,11 +169,13 @@ class RestClientTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = ["id": 1, "name": "name"]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         session.data = data
         session.error = nil
-        session.response = URLResponse()
+        session.response = urlResponse
 
         client.session = session
 
@@ -240,11 +246,13 @@ class RestClientTests: XCTestCase {
             "category": "category"
         ]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         session.data = data
         session.error = nil
-        session.response = URLResponse()
+        session.response = urlResponse
 
         client.session = session
 
@@ -317,11 +325,13 @@ class RestClientTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = ["id": 1, "name": "name"]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         let responseData = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         session.data = responseData
         session.error = nil
-        session.response = URLResponse()
+        session.response = urlResponse
 
         client.session = session
 
@@ -358,11 +368,13 @@ class RestClientTests: XCTestCase {
         var response = [String: Any]()
         response["responseData"] = ["id": 1, "name": "name"]
 
+        let urlResponse = HTTPURLResponse(url: URL(string: "ingresse.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)
+
         let responseData = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
 
         session.data = responseData
         session.error = nil
-        session.response = URLResponse()
+        session.response = urlResponse
 
         client.session = session
 

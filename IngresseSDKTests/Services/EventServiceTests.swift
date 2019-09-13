@@ -42,7 +42,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -71,7 +71,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -106,7 +106,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -133,7 +133,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -165,7 +165,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -195,7 +195,7 @@ extension EventServiceTests {
         service.getEvents(from: "state", ofCategories: [0], andSearchTerm: "search", page: ElasticPagination(), delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncEventsCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertNotNil(delegate.resultPage)
@@ -221,7 +221,7 @@ extension EventServiceTests {
         service.getEvents(from: "state", ofCategories: [0], andSearchTerm: "search", page: ElasticPagination(), delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -249,7 +249,7 @@ extension EventServiceTests {
         service.getEvents(from: "state", ofCategories: [0], andSearchTerm: "search", page: ElasticPagination(), delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
@@ -287,7 +287,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?[0].id, 1)
@@ -318,7 +318,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -350,7 +350,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -386,7 +386,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?[0].banner, "banner")
@@ -415,7 +415,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -447,7 +447,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -488,7 +488,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -523,7 +523,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
             let url = self.restClient.urlCalled ?? ""
@@ -553,7 +553,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(apiEvent)
             XCTAssertEqual(apiEvent?.id, 0)
@@ -585,7 +585,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -616,7 +616,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
         }
     }
@@ -642,7 +642,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -674,7 +674,7 @@ extension EventServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -714,7 +714,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -734,14 +734,14 @@ extension EventServiceTests {
         var success = false
 
         // When
-        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (response) in }, onError: { (error) in
+        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -766,14 +766,14 @@ extension EventServiceTests {
         var apiError: APIError?
 
         // When
-        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (response) in }, onError: { (error) in
+        service.getSessionDetails(eventId: "1234", sessionId: "4321", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -813,7 +813,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -833,14 +833,14 @@ extension EventServiceTests {
         var success = false
 
         // When
-        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -865,14 +865,14 @@ extension EventServiceTests {
         var apiError: APIError?
 
         // When
-        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+        service.getEventPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -912,7 +912,7 @@ extension EventServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
         }
@@ -932,14 +932,14 @@ extension EventServiceTests {
         var success = false
 
         // When
-        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -964,14 +964,14 @@ extension EventServiceTests {
         var apiError: APIError?
 
         // When
-        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (response) in }, onError: { (error) in
+        service.getEventPassportsPassKey(eventId: "1234", passkeyCode: "passkey", onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)

@@ -7,6 +7,10 @@ import UIKit
 public class SDKErrors: NSObject {
     static let shared = SDKErrors()
 
+    let httpStatusErrors = [
+        401: "Acesso não autorizado. Verifique suas credenciais e tente novamente.",
+        429: "Número muito alto de requisições, aguarde um momento e tente novamente"]
+
     let errors = [
         -1: "Verifique suas informações e tente novamente.",
         56: "Senha atual incorreta.",
@@ -73,6 +77,18 @@ public class SDKErrors: NSObject {
             return String(format: errorDict["default_message"]!, arguments: [code])
         }
         
+        return error
+    }
+
+    public func getHttpErrorMessage(code: Int) -> String {
+        if code == 0 {
+            return errorDict["default_no_code"]!
+        }
+
+        guard let error = httpStatusErrors[code] else {
+            return String(format: errorDict["default_message"]!, arguments: [code])
+        }
+
         return error
     }
 

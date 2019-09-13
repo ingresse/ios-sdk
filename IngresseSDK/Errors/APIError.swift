@@ -8,6 +8,7 @@ public typealias ErrorHandler = (_ error: APIError) -> Void
 
 public class APIError: NSObject {
     @objc public var code: Int = 0
+    @objc public var httpStatus: Int = 0
     @objc public var title: String = ""
     @objc public var message: String = ""
     @objc public var category: String = ""
@@ -34,6 +35,15 @@ public class APIError: NSObject {
             error.title = SDKErrors.shared.getErrorTitle(code: code)
             error.message = SDKErrors.shared.getErrorMessage(code: code)
             
+            return self
+        }
+
+        func setHttpStatus(_ code: Int) -> Builder {
+            error.httpStatus = code
+            error.code = code
+            error.title = SDKErrors.shared.getErrorTitle(code: code)
+            error.message = SDKErrors.shared.getHttpErrorMessage(code: code)
+
             return self
         }
         

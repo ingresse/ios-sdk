@@ -38,7 +38,7 @@ extension UserServiceTests {
         service.getEvents(fromUsertoken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didDownloadEventsCalled)
             XCTAssertNotNil(delegate.resultData)
             XCTAssertEqual(delegate.resultData?[0]["id"] as? Int, 1)
@@ -62,7 +62,7 @@ extension UserServiceTests {
         service.getEvents(fromUsertoken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailDownloadEventsCalled)
             XCTAssertNotNil(delegate.syncError)
             let defaultError = APIError.getDefaultError()
@@ -90,68 +90,12 @@ extension UserServiceTests {
         service.getEvents(fromUsertoken: "1234-token", page: 1, delegate: delegate)
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didFailDownloadEventsCalled)
             XCTAssertNotNil(delegate.syncError)
             XCTAssertEqual(delegate.syncError?.code, 1)
             XCTAssertEqual(delegate.syncError?.message, "message")
             XCTAssertEqual(delegate.syncError?.category, "category")
-        }
-    }
-}
-
-// MARK: - Verify Account
-extension UserServiceTests {
-    func testVerifyAccount() {
-        // Given
-        let asyncExpectation = expectation(description: "verifyAccount")
-
-        restClient.response = [:]
-        restClient.shouldFail = false
-
-        var success = false
-
-        // When
-        service.verifyAccount(userId: 1234, userToken: "1234-token", accountkitCode: "accountkitCode", onSuccess: {
-            success = true
-            asyncExpectation.fulfill()
-        }, onError: { (_) in })
-
-        // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
-            XCTAssertTrue(success)
-        }
-    }
-    
-    func testVerifyAccountFail() {
-        // Given
-        let asyncExpectation = expectation(description: "verifyAccount")
-
-        let error = APIError()
-        error.code = 1
-        error.message = "message"
-        error.category = "category"
-
-        restClient.error = error
-        restClient.shouldFail = true
-
-        var success = false
-        var apiError: APIError?
-
-        // When
-        service.verifyAccount(userId: 1234, userToken: "1234-token", accountkitCode: "accountkitCode", onSuccess: {}, onError: { (error) in
-            success = false
-            apiError = error
-            asyncExpectation.fulfill()
-        })
-
-        // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
-            XCTAssertFalse(success)
-            XCTAssertNotNil(apiError)
-            XCTAssertEqual(apiError?.code, 1)
-            XCTAssertEqual(apiError?.message, "message")
-            XCTAssertEqual(apiError?.category, "category")
         }
     }
 }
@@ -193,7 +137,7 @@ extension UserServiceTests {
         }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.userId, 1)
@@ -234,7 +178,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -274,7 +218,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             let defaultError = APIError.getDefaultError()
@@ -315,7 +259,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 0)
@@ -357,7 +301,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -404,10 +348,10 @@ extension UserServiceTests {
                                     success = true
                                     result = user
                                     asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
             XCTAssertNotNil(result)
             XCTAssertEqual(result?.cpf, "cpf")
@@ -446,7 +390,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
@@ -485,7 +429,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
@@ -526,7 +470,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 0)
@@ -567,7 +511,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, APIError.getDefaultError().code)
@@ -605,10 +549,10 @@ extension UserServiceTests {
                               imageData: "imageData", onSuccess: {
                                 success = true
                                 asyncExpectation.fulfill()
-        }, onError: { (error) in })
+        }, onError: { (_) in })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertTrue(success)
         }
     }
@@ -638,7 +582,7 @@ extension UserServiceTests {
         })
 
         // Then
-        waitForExpectations(timeout: 1) { (error: Error?) in
+        waitForExpectations(timeout: 1) { (_) in
             XCTAssertFalse(success)
             XCTAssertNotNil(apiError)
             XCTAssertEqual(apiError?.code, 1)
