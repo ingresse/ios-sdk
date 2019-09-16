@@ -159,7 +159,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - data: delete data
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func DELETEData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func DELETEData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "DELETE"
 
@@ -169,6 +169,10 @@ public class RestClient: NSObject, RestClientInterface {
 
         if JSONData {
             request.addValue("application/json", forHTTPHeaderField: "content-type")
+        }
+
+        if let auth = UserAgent.authorization {
+            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
         }
 
         request.httpBody = data
