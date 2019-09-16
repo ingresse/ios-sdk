@@ -38,8 +38,8 @@ public class AuthService: BaseService {
                 onError(APIError.getDefaultError())
                 return
             }
-            onSuccess(companyArray)
 
+            onSuccess(companyArray)
         }, onError: { (error: APIError) in
             onError(error)
         })
