@@ -18,7 +18,6 @@ public class SDKErrors: NSObject {
         1061: "Acesse a área de \"Meus Dados\" por um navegador desktop ou mobile e preencha as informações que faltam.",
         1109: "Este telefone já foi utilizado para criar ou validar uma conta Ingresse. Insira outro telefone ou entre em contato com nosso suporte pela opção ajuda.",
         1192: "Este número de telefone já está ativo em outra conta.",
-        1109: "Este telefone já foi utilizado para validar uma conta Ingresse. Insira outro número ou entre em contato com nosso suporte.",
         1139: "O campo EMAIL é necessário.",
         1141: "O campo SENHA é necessário.",
         1142: "O campo EMAIL é inválido.",
