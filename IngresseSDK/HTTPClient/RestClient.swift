@@ -60,14 +60,11 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func POST(url: String, parameters: [String: Any], customHeader: [String: Any]?, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
-
-        let body = parameters.stringFromHttpParameters()
-
-        if let data = body.data(using: .utf8) {
+        if let data = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
             POSTData(url: url,
                      data: data,
                      customHeader: customHeader,
-                     JSONData: false,
+                     JSONData: true,
                      onSuccess: onSuccess,
                      onError: onError)
         }
