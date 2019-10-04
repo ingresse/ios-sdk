@@ -14,5 +14,19 @@ extension Request {
             
             public init() {}
         }
+
+        public struct AddToRSVP {
+            public var eventId: String = ""
+            public var userToken: String = ""
+
+            public init() {}
+        }
+
+        public struct RemoveFromRSVP {
+            public var eventId: String = ""
+            public var userToken: String = ""
+
+            public init() {}
+        }
     }
 }
