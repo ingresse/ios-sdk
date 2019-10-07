@@ -60,14 +60,11 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func POST(url: String, parameters: [String: Any], customHeader: [String: Any]?, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
-
-        let body = parameters.stringFromHttpParameters()
-
-        if let data = body.data(using: .utf8) {
+        if let data = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
             POSTData(url: url,
                      data: data,
                      customHeader: customHeader,
-                     JSONData: false,
+                     JSONData: true,
                      onSuccess: onSuccess,
                      onError: onError)
         }
@@ -128,6 +125,72 @@ public class RestClient: NSObject, RestClientInterface {
                     .build()
 
                 onError(errorData)
+            } catch {
+                onError(APIError.getDefaultError())
+            }
+        }.resume()
+    }
+
+    /// REST DELETE Method using NSURLConnection
+    ///
+    /// - Parameters:
+    ///   - url: request path
+    ///   - parameters: delete body parameters
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func DELETE(url: String, parameters: [String: Any], onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+        let body = parameters.stringFromHttpParameters()
+        if let data = body.data(using: .utf8) {
+            DELETEData(url: url,
+                       data: data,
+                       JSONData: false,
+                       onSuccess: onSuccess,
+                       onError: onError)
+        }
+    }
+
+    /// REST DELETE Method using NSURLConnection
+    ///
+    /// - Parameters:
+    ///   - url: request path
+    ///   - data: delete data
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func DELETEData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
+        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
+        request.httpMethod = "DELETE"
+
+        if let header = UserAgent.header {
+            request.addValue(header, forHTTPHeaderField: "User-Agent")
+        }
+
+        if JSONData {
+            request.addValue("application/json", forHTTPHeaderField: "content-type")
+        }
+
+        if let auth = UserAgent.authorization {
+            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
+        }
+
+        request.httpBody = data
+
+        session.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                let errorData = APIError.Builder()
+                    .setCode(0)
+                    .setError(error!.localizedDescription)
+                    .build()
+
+                onError(errorData)
+                return
+            }
+
+            do {
+                try ResponseParser.build(response, data: data, completion: { (responseData: [String: Any]) in
+                    onSuccess(responseData)
+                })
+            } catch IngresseException.apiError(let apiError) {
+                onError(apiError)
             } catch {
                 onError(APIError.getDefaultError())
             }
