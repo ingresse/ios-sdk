@@ -224,6 +224,84 @@ public class AuthService: BaseService {
         })
     }
 
+    /// Validate Incomplete User Token
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request activate account
+    ///   - token: token received from email
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func validateIncompleteUserToken(_ token: String, email: String, onSuccess: @escaping (String) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("activate-user-validate")
+            .build()
+
+        var params = ["email": email]
+        params["token"] = token
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+            guard let status = response["status"] as? String else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            onSuccess(status)
+        }, onError: { (error: APIError) in
+            onError(error)
+        })
+    }
+
+    /// Activate User
+    ///
+    /// - Parameters:
+    ///   - email: email of user to request activate
+    ///   - password: password to update
+    ///   - token: token received from email
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func activateUser(email: String, password: String, token: String, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("activate-user")
+            .build()
+
+        var params = ["email": email]
+        params["password"] = password
+        params["token"] = token
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: {(response) in
+            guard let status = response["status"] as? Int else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            if status == 0 {
+                guard let message = response["message"] as? [String] else {
+                    onError(APIError.getDefaultError())
+                    return
+                }
+
+                let error = APIError.Builder()
+                    .setCode(0)
+                    .setTitle("Verifique suas informações")
+                    .setMessage(message.joined(separator: "\n"))
+                    .setResponse(response)
+                    .build()
+
+                onError(error)
+                return
+            }
+
+            let data = response["data"] as! [String: Any]
+
+            _ = IngresseUser.login(loginData: data)
+            IngresseUser.fillData(userData: data)
+
+            onSuccess(IngresseUser.user!)
+        }, onError: { (error: APIError) in
+            onError(error)
+        })
+    }
+
     /// Update user password
     ///
     /// - Parameters:
