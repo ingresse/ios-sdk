@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IngresseSDK"
-  s.version      = "1.6.3"
+  s.version      = "1.6.4"
   s.summary      = "Ingresse's SDK."
 
   # This description is used to generate tags and improve search results.
