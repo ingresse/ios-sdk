@@ -10,6 +10,7 @@ extension Request {
             public var email: String = ""
             public var document: String = ""
             public var password: String = ""
+            public var token: String?
             public var news: Bool = true
 
             var emailConfirm: String = ""
@@ -22,6 +23,7 @@ extension Request {
                 case email
                 case document = "cpf"
                 case password
+                case token
                 case news
                 case emailConfirm
                 case passCheck

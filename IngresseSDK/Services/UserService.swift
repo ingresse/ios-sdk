@@ -45,7 +45,6 @@ public class UserService: BaseService {
     public func createAccount(request: Request.Auth.SignUp, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("user")
-            .addParameter(key: "method", value: "create")
             .build()
 
         var requestWithCheck = request
