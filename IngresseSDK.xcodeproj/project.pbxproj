@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
+		2FEAF87E235A20CF0080D1BA /* PhoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEAF87D235A20CF0080D1BA /* PhoneService.swift */; };
+		2FEAF888235A4DE10080D1BA /* PhoneDDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */; };
 		35263231211883F1003615F1 /* ShopTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35263230211883F1003615F1 /* ShopTicket.swift */; };
 		352632392118B643003615F1 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352632382118B643003615F1 /* PaymentService.swift */; };
 		3527276E21A43DAA003BF44F /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3527276D21A43DAA003BF44F /* PaymentMethod.swift */; };
@@ -192,6 +194,8 @@
 
 /* Begin PBXFileReference section */
 		0E9831B31F217135001211C6 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		2FEAF87D235A20CF0080D1BA /* PhoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneService.swift; sourceTree = "<group>"; };
+		2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDDI.swift; sourceTree = "<group>"; };
 		35263230211883F1003615F1 /* ShopTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTicket.swift; sourceTree = "<group>"; };
 		352632382118B643003615F1 /* PaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
 		3527276D21A43DAA003BF44F /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
@@ -496,6 +500,7 @@
 				62D6423821AC6193002E1A39 /* Response */,
 				352A26B321A590F80037E187 /* Requests */,
 				62EDCFE0210BB725001A6C7C /* SessionDate.swift */,
+				2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */,
 				623702301F72D413006A1335 /* Advertisement.swift */,
 				6231F24620B7442200206D85 /* BackgroundAd.swift */,
 				6231F24820B7449900206D85 /* Category.swift */,
@@ -568,6 +573,7 @@
 				352A167B2110A80900814AF9 /* AddressService.swift */,
 				352632382118B643003615F1 /* PaymentService.swift */,
 				692A1A4B2280680100D9CDD1 /* SecurityService.swift */,
+				2FEAF87D235A20CF0080D1BA /* PhoneService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -902,6 +908,7 @@
 				6231F24A20B7449900206D85 /* Category.swift in Sources */,
 				621F43C61FA3BCD900B10323 /* NewTransfer.swift in Sources */,
 				624526211EC2323E007B6584 /* RestClientInterface.swift in Sources */,
+				2FEAF888235A4DE10080D1BA /* PhoneDDI.swift in Sources */,
 				35376BF0215041270072C21E /* UpdatedUser.swift in Sources */,
 				6294D6EE1F72944F0064EBFA /* User.swift in Sources */,
 				6294D6E81F7279F90064EBFA /* BaseService.swift in Sources */,
@@ -949,6 +956,7 @@
 				627485691F056CD1009AE812 /* TransactionEvent.swift in Sources */,
 				627485671F054AF1009AE812 /* TransactionTicket.swift in Sources */,
 				62A708B721068CDE0027F05E /* Attributes.swift in Sources */,
+				2FEAF87E235A20CF0080D1BA /* PhoneService.swift in Sources */,
 				6284F8601ED7601E00E5FECF /* CheckinSyncDelegate.swift in Sources */,
 				6280CAC02108E6BE0075FACB /* UserEventsDownloaderDelegate.swift in Sources */,
 				6246D6B21FD6F56A0012FAD9 /* WalletSyncDelegate.swift in Sources */,
