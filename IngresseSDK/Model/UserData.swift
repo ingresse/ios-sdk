@@ -13,6 +13,7 @@ public class UserData: NSObject, Codable {
     public var street: String = ""
     public var zip: String = ""
     public var complement: String = ""
+    public var ddi: String = ""
     public var phone: String = ""
     public var number: String = ""
     public var fbUserId: String = ""
@@ -32,6 +33,7 @@ public class UserData: NSObject, Codable {
         case street
         case zip
         case complement
+        case ddi
         case phone
         case number
         case fbUserId
@@ -53,6 +55,7 @@ public class UserData: NSObject, Codable {
         street = container.decodeKey(.street, ofType: String.self)
         zip = container.decodeKey(.zip, ofType: String.self)
         complement = container.decodeKey(.complement, ofType: String.self)
+        ddi = container.decodeKey(.ddi, ofType: String.self)
         phone = container.decodeKey(.phone, ofType: String.self)
         number = container.decodeKey(.number, ofType: String.self)
         fbUserId = container.decodeKey(.fbUserId, ofType: String.self)

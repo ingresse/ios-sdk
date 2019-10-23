@@ -153,12 +153,10 @@ public class AuthService: BaseService {
     ///   - onError: Fail callback
     public func getUserData(userId: String, userToken: String, fields: String? = nil, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
         let fieldsArray = [
-            "id", "name", "lastname",
-            "document", "email", "zip",
-            "number", "complement", "city",
-            "state", "street", "district",
-            "phone", "verified", "fbUserId",
-            "type", "pictures", "picture"]
+            "id", "name", "lastname", "document", "email",
+            "zip", "number", "complement", "city", "state",
+            "street", "district", "ddi", "phone", "verified",
+            "fbUserId", "type", "pictures", "picture"]
         let fieldsValue = fields ?? fieldsArray.joined(separator: ",")
 
         let url = URLBuilder(client: client)

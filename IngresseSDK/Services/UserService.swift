@@ -94,6 +94,7 @@ public class UserService: BaseService {
     ///   - name: new user name
     ///   - lastname: new user lastname
     ///   - email: new user email
+    ///   - ddi: new user ddi
     ///   - phone: new user phone
     ///   - cpf: new user cpf
     ///   - onSuccess: success callback
