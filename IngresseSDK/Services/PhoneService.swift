@@ -7,7 +7,7 @@ public class PhoneService: BaseService {
     /// Get country's list with DDI
     ///
     /// - Parameters:
-    ///     - onSuccess: success callback with User array
+    ///     - onSuccess: success callback with DDI list
     ///     - onError: fail callback with APIError
     public func getDDIList(onSuccess: @escaping (_ response: [PhoneDDI]) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
