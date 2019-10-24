@@ -4,12 +4,13 @@
 
 public class PhoneService: BaseService {
 
-    /// Get
+    /// Get country's list with DDI
     ///
-    ///
+    /// - Parameters:
+    ///     - onSuccess: success callback with User array
+    ///     - onError: fail callback with APIError
     public func getDDIList(onSuccess: @escaping (_ response: [PhoneDDI]) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
-            .setEnvironment(.hmlA)
             .setPath("country")
             .build()
 
@@ -24,7 +25,7 @@ public class PhoneService: BaseService {
 
             onSuccess(ddiList)
         }, onError: { (error) in
-                onError(error)
+            onError(error)
         })
     }
 }
