@@ -4,7 +4,7 @@
 
 import Foundation
 
-public class BackgroundAd: NSObject, Decodable {
+public class BackgroundAd: NSObject, Codable {
     public var image: String = ""
 
     enum CodingKeys: String, CodingKey {
