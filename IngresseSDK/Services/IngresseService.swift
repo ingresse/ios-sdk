@@ -65,4 +65,9 @@ public class IngresseService: NSObject {
         [unowned self] in
         return SecurityService(self.client)
         }()
+
+    public lazy var phone: PhoneService = {
+        [unowned self] in
+        return PhoneService(self.client)
+        }()
 }

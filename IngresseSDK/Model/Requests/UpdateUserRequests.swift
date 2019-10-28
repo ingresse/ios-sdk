@@ -10,6 +10,7 @@ extension Request {
             public var name: String?
             public var lastname: String?
             public var email: String?
+            public var ddi: String?
             public var phone: String?
             public var cpf: String?
             
@@ -19,6 +20,7 @@ extension Request {
                 case name
                 case lastname
                 case email
+                case ddi
                 case phone
                 case cpf
             }
