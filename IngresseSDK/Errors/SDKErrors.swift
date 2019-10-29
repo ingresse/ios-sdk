@@ -57,7 +57,7 @@ public class SDKErrors: NSObject {
         6052: "Para comprar ingressos você precisa possuir uma conta Ingresse. Acesse ingresse.com e cadastre-se.",
         6062: "O token fornecido é inválido. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
         6063: "Esse email já está em uso.",
-        6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido."]
+        6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
         6073: "Você só pode adicionar 3 cartões na sua conta. Se quer adicionar outro cartão é necessário excluir qualquer um dos outros que já estão cadastrados.",
         6074: "Cartão já cadastrado. Verifique seus cartões salvos."]
 

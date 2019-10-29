@@ -52,9 +52,14 @@ public class UserCardWalletService: BaseService {
             .build()
 
         let data = try? JSONEncoder().encode(request)
-        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
-            onSuccess()
-        }) { (error) in
+        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
+            guard let data = JSONDecoder().decodeDict(of: WalletInfoCreditCard.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            onSuccess(data)
+        }, onError: { (error) in
             onError(error)
         })
     }
@@ -98,11 +103,8 @@ public class UserCardWalletService: BaseService {
             .setPath("wallet/creditcard/\(uuid)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
-            
-        let params = ["token": token]
-        let params = ["uuid": token]
         
-        client.restClient.DELETE(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.DELETE(url: url, parameters: [:], onSuccess: { (_) in
             onSuccess()
         }) { (error) in
             onError(error)
