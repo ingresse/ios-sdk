@@ -19,7 +19,13 @@ extension Request {
             public var expiracyMonth: String = ""
             public var expiracyYear: String = ""
             public var cvv: String = ""
-            public var birthDate: String = ""
+            public var save: Bool = false
+
+            public init() {}
+        }
+
+        public struct ShopWallet: Encodable {
+            public var id: String = ""
 
             public init() {}
         }
@@ -42,9 +48,10 @@ extension Request {
             public var creditcard: CreditCard?
             public var installments: Int = 0
             public var paymentMethod: String = ""
-            public var document: String = ""
+            public var document: String?
             public var postback: String = ""
             public var ingeprefsPayload: String = ""
+            public var wallet: ShopWallet?
             public var source: String = "mobile"
             public var hdim: String = ""
 

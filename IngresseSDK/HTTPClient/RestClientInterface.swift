@@ -20,6 +20,17 @@
              onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
              onError: @escaping ErrorHandler)
 
+    func PUT(url: String,
+             parameters: [String: Any],
+             onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+             onError: @escaping ErrorHandler)
+
+    func PUTData(url: String,
+                 data: Data?,
+                 JSONData: Bool,
+                 onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                 onError: @escaping ErrorHandler)
+
     func DELETE(url: String,
                 parameters: [String: Any],
                 onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
