@@ -165,6 +165,7 @@
 		62F7D1BC21CBD53B000F51FE /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */; };
 		692A1A4C2280680100D9CDD1 /* SecurityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A1A4B2280680100D9CDD1 /* SecurityService.swift */; };
 		692A1A4E228069B600D9CDD1 /* SecurityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */; };
+		69AE6D6D2368C58400C8FE22 /* DeclinedReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AE6D6C2368C58400C8FE22 /* DeclinedReason.swift */; };
 		69DDDDED22B012D800051883 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DDDDEC22B012D800051883 /* AuthResponse.swift */; };
 		750A814420E183F7004881C8 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814320E183F7004881C8 /* CompanyData.swift */; };
 		750A814620E186D0004881C8 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A814520E186D0004881C8 /* Company.swift */; };
@@ -352,6 +353,7 @@
 		62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		692A1A4B2280680100D9CDD1 /* SecurityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityService.swift; sourceTree = "<group>"; };
 		692A1A4D228069B600D9CDD1 /* SecurityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityResponse.swift; sourceTree = "<group>"; };
+		69AE6D6C2368C58400C8FE22 /* DeclinedReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclinedReason.swift; sourceTree = "<group>"; };
 		69DDDDEC22B012D800051883 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		750A814320E183F7004881C8 /* CompanyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		750A814520E186D0004881C8 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				3527276D21A43DAA003BF44F /* PaymentMethod.swift */,
 				3527276F21A43DCB003BF44F /* Installment.swift */,
 				352A26B121A5900B0037E187 /* PaymentTicket.swift */,
+				69AE6D6C2368C58400C8FE22 /* DeclinedReason.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -879,6 +882,7 @@
 				750A814620E186D0004881C8 /* Company.swift in Sources */,
 				624526151EC2322C007B6584 /* SDKErrors.swift in Sources */,
 				352632392118B643003615F1 /* PaymentService.swift in Sources */,
+				69AE6D6D2368C58400C8FE22 /* DeclinedReason.swift in Sources */,
 				624526331EC23255007B6584 /* AuthService.swift in Sources */,
 				62BFE06F1F72A82B007150ED /* TransferTicket.swift in Sources */,
 				62E134E11F20FBA70007B590 /* PaymentType.swift in Sources */,
