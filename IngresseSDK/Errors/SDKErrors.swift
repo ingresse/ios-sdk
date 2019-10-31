@@ -15,6 +15,7 @@ public class SDKErrors: NSObject {
         -1: "Verifique suas informações e tente novamente.",
         56: "Senha atual incorreta.",
         1033: "Verifique se preencheu o campo de CPF e tente novamente.",
+        1060: "Por favor, verifique se você digitou um CPF válido.",
         1061: "Acesse a área de \"Meus Dados\" por um navegador desktop ou mobile e preencha as informações que faltam.",
         1109: "Este telefone já foi utilizado para criar ou validar uma conta Ingresse. Insira outro telefone ou entre em contato com nosso suporte pela opção ajuda.",
         1192: "Este número de telefone já está ativo em outra conta.",
@@ -56,12 +57,16 @@ public class SDKErrors: NSObject {
         6052: "Para comprar ingressos você precisa possuir uma conta Ingresse. Acesse ingresse.com e cadastre-se.",
         6062: "O token fornecido é inválido. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
         6063: "Esse email já está em uso.",
-        6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido."]
+        6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
+        6073: "Você só pode adicionar 3 cartões na sua conta. Se quer adicionar outro cartão é necessário excluir qualquer um dos outros que já estão cadastrados.",
+        6074: "Cartão já cadastrado. Verifique seus cartões salvos."]
 
     let titles = [
         -1: "Login incorreto",
         1033: "CPF obrigatório",
-        1061: "Cadastro incompleto",
+        1060: "CPF inválido",
+        1061: "CPF inválido",
+        1109: "Erro ao validar conta",
         2006: "Ops! Algo deu errado",
         2012: "Sessão expirada",
         3027: "Evento não encontrado",

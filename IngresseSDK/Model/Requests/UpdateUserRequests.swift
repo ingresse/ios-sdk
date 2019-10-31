@@ -10,6 +10,7 @@ extension Request {
             public var name: String?
             public var lastname: String?
             public var email: String?
+            public var ddi: String?
             public var phone: String?
             public var cpf: String?
             
@@ -19,6 +20,7 @@ extension Request {
                 case name
                 case lastname
                 case email
+                case ddi
                 case phone
                 case cpf
             }
@@ -45,6 +47,23 @@ extension Request {
                 case district
                 case city
                 case state
+            }
+        }
+
+        public struct UserCardInsertion: Encodable {
+            public var userToken: String = ""
+            public var cvv: String = ""
+            public var expiration: String = ""
+            public var holder: String = ""
+            public var number: String = ""
+
+            public init() {}
+
+            private enum CodingKeys: String, CodingKey {
+                case cvv
+                case expiration
+                case holder
+                case number
             }
         }
     }

@@ -31,7 +31,12 @@ public class IngresseService: NSObject {
         return UserService(self.client)
         }()
     
-    @objc public lazy var event: EventService = {
+    public lazy var userCardWallet: UserCardWalletService = {
+        [unowned self] in
+        return UserCardWalletService(self.client)
+        }()
+
+    public lazy var event: EventService = {
         [unowned self] in
         return EventService(self.client)
         }()
@@ -64,5 +69,10 @@ public class IngresseService: NSObject {
     public lazy var security: SecurityService = {
         [unowned self] in
         return SecurityService(self.client)
+        }()
+
+    public lazy var phone: PhoneService = {
+        [unowned self] in
+        return PhoneService(self.client)
         }()
 }

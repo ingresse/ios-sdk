@@ -6,6 +6,7 @@ extension Request {
     public struct Auth {
         public struct SignUp: Encodable {
             public var name: String = ""
+            public var ddi: String = ""
             public var phone: String = ""
             public var email: String = ""
             public var document: String = ""
@@ -19,6 +20,7 @@ extension Request {
 
             private enum CodingKeys: String, CodingKey {
                 case name
+                case ddi
                 case phone
                 case email
                 case document = "cpf"
