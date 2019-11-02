@@ -65,13 +65,17 @@ public class EntranceService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        var postParams = [String: String]()
+        var postParams = [String: [[String:String]]]()
+        var tickets = [[String:String]]()
         for index in 0..<ticketCodes.count {
-            postParams["tickets[\(index)][ticketCode]"] = ticketCodes[index]
-            postParams["tickets[\(index)][ticketStatus]"] = ticketStatus[index]
-            postParams["tickets[\(index)][ticketTimestamp]"] = ticketTimestamps[index]
-            postParams["tickets[\(index)][sessionId]"] = sessionId
+            var ticket = [String: String]()
+            ticket["ticketCode"] = ticketCodes[index]
+            ticket["ticketStatus"] = ticketStatus[index]
+            ticket["ticketTimestamp"] = ticketTimestamps[index]
+            ticket["sessionId"] = sessionId
+            tickets.append(ticket)
         }
+        postParams["tickets"] = tickets
         
         client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
             guard
