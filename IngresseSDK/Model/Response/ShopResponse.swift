@@ -18,6 +18,7 @@ extension Response {
             public var tax: Double = 0
             public var total: Double = 0
             public var transactionId: String = ""
+            public var declinedReason: DeclinedReason?
         }
     }
 }
@@ -57,6 +58,7 @@ extension Response.Shop.Payment {
         case tax
         case total
         case transactionId
+        case declinedReason
     }
 
     public init(from decoder: Decoder) throws {
@@ -68,6 +70,7 @@ extension Response.Shop.Payment {
         tax = container.decodeKey(.tax, ofType: Double.self)
         total = container.decodeKey(.total, ofType: Double.self)
         transactionId = container.decodeKey(.transactionId, ofType: String.self)
+        declinedReason = try container.decodeIfPresent(DeclinedReason.self, forKey: .declinedReason)
     }
 
     public static func fromJSON(_ json: [String: Any]) -> Response.Shop.Payment? {
