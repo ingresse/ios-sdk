@@ -14,6 +14,7 @@ public class WalletItem: NSObject, Codable {
     public var transfered: Int = 0
     public var sessions: [Session] = []
     public var customTickets: [CustomTicket] = []
+    public var advertisement: Advertisement?
     public var venue: Venue?
 
     enum CodingKeys: String, CodingKey {
@@ -28,11 +29,16 @@ public class WalletItem: NSObject, Codable {
         case transfered
         case sessions
         case customTickets
+        case advertisement
         case venue
     }
 
     enum SessionCodingKeys: String, CodingKey {
         case data
+    }
+
+    enum AdvertisementCodingKeys: String, CodingKey {
+        case mobile
     }
 
     public required init(from decoder: Decoder) throws {
@@ -55,5 +61,12 @@ public class WalletItem: NSObject, Codable {
             else { return }
 
         sessions = sessionData.decodeKey(.data, ofType: [Session].self)
+
+        guard
+        let ads = try? container.nestedContainer(keyedBy: AdvertisementCodingKeys.self, forKey: .advertisement)
+        else { return }
+
+        advertisement = ads.decodeKey(.mobile, ofType: Advertisement.self)
+        advertisement?.eventId = id
     }
 }

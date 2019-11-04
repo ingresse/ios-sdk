@@ -2,7 +2,7 @@
 //  Copyright © 2018 Ingresse. All rights reserved.
 //
 
-public class CoverAd: NSObject, Decodable {
+public class CoverAd: NSObject, Codable {
     public var image: String = ""
     public var url: String = ""
 
