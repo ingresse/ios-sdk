@@ -8,6 +8,7 @@ public class User: NSObject, Decodable {
     @objc public var email: String = ""
     @objc public var type: String = ""
     @objc public var username: String = ""
+    @objc public var ddi: String = ""
     @objc public var phone: String = ""
     @objc public var cellphone: String = ""
     @objc public var pictures: [String: String] = [:]
@@ -20,6 +21,7 @@ public class User: NSObject, Decodable {
         case email
         case type
         case username
+        case ddi
         case phone
         case cellphone
         case pictures
@@ -37,6 +39,7 @@ public class User: NSObject, Decodable {
         email = container.decodeKey(.email, ofType: String.self)
         type = container.decodeKey(.type, ofType: String.self)
         username = container.decodeKey(.username, ofType: String.self)
+        ddi = container.decodeKey(.ddi, ofType: String.self)
         phone = container.decodeKey(.phone, ofType: String.self)
         cellphone = container.decodeKey(.cellphone, ofType: String.self)
         pictures = container.decodeKey(.pictures, ofType: [String: String].self)
