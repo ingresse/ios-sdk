@@ -12,4 +12,4 @@ jobs:
     - name: Install SwiftLint
       run: brew install swiftlint
     - name: Fastlane test
-      run: fastlane tests
+      run: fastlane test
