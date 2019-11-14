@@ -27,7 +27,6 @@ platform :ios do
     slather(build_directory: "DerivedData",
       scheme: "IngresseSDK",
       proj: "IngresseSDK.xcodeproj",
-      circleci: true,
       coveralls: true,
       simple_output: true)
   end
