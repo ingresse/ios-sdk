@@ -45,6 +45,7 @@ public class SearchService: BaseService {
     ///   - onSuccess: success callback with NewEvent array
     ///   - onError: fail callback with APIError
     public func getEvents(filters: [String: String],
+                          sortByDate: Bool,
                           onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int) -> Void,
                           onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
@@ -53,8 +54,9 @@ public class SearchService: BaseService {
             .setPath("1")
             .addParameter(key: "size", value: "20")
             .addParameter(key: "from", value: "now-6h")
-            .addParameter(key: "orderBy", value: "sessions.dateTime")
             .addParameter(key: "offset", value: "0")
+
+        if sortByDate { builder = builder.addParameter(key: "orderBy", value: "sessions.dateTime") }
 
         for (key, value) in filters {
             builder = builder.addParameter(key: key, value: value)
