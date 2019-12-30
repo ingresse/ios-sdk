@@ -7,6 +7,17 @@ public class DeclinedReason: NSObject, Codable {
     @objc public var declinedBy: String?
     @objc public var code: String?
     @objc public var createdAt: String?
+    
+    @objc public var checkDeclinedBy: String {
+        switch (declinedBy!) {
+            case "acquirer":
+                return "Adquirente"
+            case "antifraud":
+                return "Antifraude"
+            default:
+                return declinedBy ?? ""
+        }
+    }
 
     enum CodingKeys: String, CodingKey {
         case message
