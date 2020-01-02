@@ -46,7 +46,7 @@ public class TransactionData: NSObject, Decodable {
     }
     
     @objc public var hasDeclined: Bool {
-        return status == "declined"
+        return status == "declined" || status == "error"
     }
 
     enum CodingKeys: String, CodingKey {
