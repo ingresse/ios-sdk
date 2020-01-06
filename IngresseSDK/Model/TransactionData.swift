@@ -36,10 +36,17 @@ public class TransactionData: NSObject, Decodable {
     @objc public var token: String = ""
 
     @objc public var basket: TransactionBasket?
+    
+    @objc public var declinedReason: DeclinedReason?
+    @objc public var payment: PaymentTransaction?
 
     @objc public var refund: Refund?
     @objc public var hasRefund: Bool {
         return refund != nil
+    }
+    
+    @objc public var hasDeclined: Bool {
+        return status == "declined" || status == "error"
     }
 
     enum CodingKeys: String, CodingKey {
@@ -68,6 +75,7 @@ public class TransactionData: NSObject, Decodable {
         case token
         case basket
         case refund
+        case payment
     }
 
     public required init(from decoder: Decoder) throws {
@@ -106,6 +114,9 @@ public class TransactionData: NSObject, Decodable {
         arrayBasket?.tickets = tickets
 
         basket = jsonBasket ?? arrayBasket
+        
+        payment = try container.decodeIfPresent(PaymentTransaction.self, forKey: .payment)
+        declinedReason = payment?.declinedReason
     }
 
     @objc public static func fromJSON(_ json: [String: Any]) -> TransactionData? {
