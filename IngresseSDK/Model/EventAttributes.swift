@@ -7,6 +7,7 @@ public class EventAttributes: NSObject, Codable {
     public var transferEnabled: Bool = true
     public var transferRequired: Bool = false
     public var creditCardTokenEnabled: Bool = false
+    public var eventDisclaimer: Disclaimer?
     public var passportAtBottom: Bool = false
     public var passportCollapsed: Bool = false
     public var passportLabel: String = ""
@@ -19,6 +20,7 @@ public class EventAttributes: NSObject, Codable {
         case passportAtBottom = "passport_at_bottom"
         case passportCollapsed = "passport_collapsed"
         case passportLabel = "passport_label"
+        case eventDisclaimer = "event_disclaimer"
     }
 
     public required init(from decoder: Decoder) throws {
@@ -30,6 +32,7 @@ public class EventAttributes: NSObject, Codable {
         passportAtBottom = container.decodeKey(.passportAtBottom, ofType: Bool.self)
         passportCollapsed = container.decodeKey(.passportCollapsed, ofType: Bool.self)
         passportLabel = container.decodeKey(.passportLabel, ofType: String.self)
+        eventDisclaimer = container.safeDecodeKey(.eventDisclaimer, to: Disclaimer.self)
     }
 
     public static func fromJSON(_ json: [String: Any]) -> EventAttributes? {
