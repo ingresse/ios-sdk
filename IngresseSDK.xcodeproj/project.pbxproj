@@ -10,6 +10,8 @@
 		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
 		2F31EB9422F4A9FF001B6F6E /* UserCardRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */; };
 		2F31EB9622F4AF70001B6F6E /* UserCardWalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */; };
+		2F74E12523C65D24004176E5 /* PaymentTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F74E12423C65D24004176E5 /* PaymentTransaction.swift */; };
+		2F74E12923C665AF004176E5 /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F74E12823C665AF004176E5 /* Disclaimer.swift */; };
 		2F7D2F8B22EFA1AA00DD8E17 /* UserWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */; };
 		2F7D2F8D22EFAC2B00DD8E17 /* WalletInfoPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */; };
 		2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */; };
@@ -203,6 +205,8 @@
 		0E9831B31F217135001211C6 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardRequests.swift; sourceTree = "<group>"; };
 		2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardWalletService.swift; sourceTree = "<group>"; };
+		2F74E12423C65D24004176E5 /* PaymentTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTransaction.swift; sourceTree = "<group>"; };
+		2F74E12823C665AF004176E5 /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletInfo.swift; sourceTree = "<group>"; };
 		2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoPaypal.swift; sourceTree = "<group>"; };
 		2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoCreditCard.swift; sourceTree = "<group>"; };
@@ -512,6 +516,7 @@
 		624526221EC2324F007B6584 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2F74E12423C65D24004176E5 /* PaymentTransaction.swift */,
 				694A2D2B23102C050024E2E3 /* WalletInfoHolder.swift */,
 				62D6423821AC6193002E1A39 /* Response */,
 				352A26B321A590F80037E187 /* Requests */,
@@ -572,6 +577,7 @@
 				2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */,
 				2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */,
 				69AE6D6C2368C58400C8FE22 /* DeclinedReason.swift */,
+				2F74E12823C665AF004176E5 /* Disclaimer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -946,12 +952,14 @@
 				629BCF931EDF2F230043CBDE /* CheckinTicket.swift in Sources */,
 				750A814420E183F7004881C8 /* CompanyData.swift in Sources */,
 				62D6423521AC4C02002E1A39 /* ShopRequest.swift in Sources */,
+				2F74E12923C665AF004176E5 /* Disclaimer.swift in Sources */,
 				62A708BB21068E3F0027F05E /* Poster.swift in Sources */,
 				75D531FD20EFA26A0046CC7E /* CheckinStatus.swift in Sources */,
 				6294D6EA1F7280E80064EBFA /* PendingTransfer.swift in Sources */,
 				623702311F72D413006A1335 /* Advertisement.swift in Sources */,
 				2F7D2F8D22EFAC2B00DD8E17 /* WalletInfoPaypal.swift in Sources */,
 				692A1A4C2280680100D9CDD1 /* SecurityService.swift in Sources */,
+				2F74E12523C65D24004176E5 /* PaymentTransaction.swift in Sources */,
 				6294D6EC1F728DD80064EBFA /* SearchService.swift in Sources */,
 				A5982B162228BBC7004DEFC7 /* EventRequests.swift in Sources */,
 				6246D6B41FD708480012FAD9 /* EventDate.swift in Sources */,
