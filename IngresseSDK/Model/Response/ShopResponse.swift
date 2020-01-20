@@ -9,6 +9,7 @@ extension Response {
             public var status: String = ""
             public var creditCard: PaymentMethod?
             public var message: String = ""
+            public var insurance: Insurance?
         }
 
         public struct Payment: Codable {
@@ -29,6 +30,7 @@ extension Response.Shop.Transaction {
         case status
         case availablePaymentMethods
         case message
+        case insurance
     }
 
     enum PaymentMethodKeys: String, CodingKey {
@@ -47,6 +49,7 @@ extension Response.Shop.Transaction {
             else { return }
 
         creditCard = methods.safeDecodeKey(.creditCard, to: PaymentMethod.self)
+        insurance = container.safeDecodeKey(.insurance, to: Insurance.self)
     }
 }
 
