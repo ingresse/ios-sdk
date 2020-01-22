@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane ios to_dev
 ```
 Push to Dev branch
+### ios release
+```
+fastlane ios release
+```
+Release new version
 ### ios tests
 ```
 fastlane ios tests
