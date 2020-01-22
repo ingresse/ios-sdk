@@ -49,7 +49,7 @@ platform :ios do
   lane :release do |options|
     version = options[:version]
 
-    if version == ""
+    if version == "" || version == "null"
       UI.user_error!("Versão inválida, insira o parâmetro de versão usando version:\"<versão>\"")
     end
 
