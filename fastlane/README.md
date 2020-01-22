@@ -16,9 +16,19 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios to_dev
+```
+fastlane ios to_dev
+```
+Push to Dev branch
 ### ios tests
 ```
 fastlane ios tests
+```
+Run Tests with coverage
+### ios test
+```
+fastlane ios test
 ```
 Run Tests
 ### ios increment_major

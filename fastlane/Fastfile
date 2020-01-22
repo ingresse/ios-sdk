@@ -19,6 +19,28 @@ platform :ios do
     setup_circle_ci
   end
 
+  desc "Push to Dev branch"
+  lane :to_dev do
+    # Update local
+    sh "git remote update"
+    branch = git_branch()
+
+    # Get most recent development branch
+    sh "git checkout development"
+    sh "git reset origin/development --hard"
+
+    # Merge new branch
+    sh "git merge --no-ff " + branch
+
+    # Push to origin
+    if UI.confirm("Push to origin?")
+      sh "git push origin development"
+    end
+
+    # Return to branch
+    sh "git checkout " + branch
+  end
+
   desc "Run Tests with coverage"
   lane :tests do
     scan(scheme: "IngresseSDK",
