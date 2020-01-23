@@ -53,6 +53,30 @@ public class TransactionService: BaseService {
         })
     }
 
+    /// Update a transaction
+    ///
+    /// - Parameters:
+    ///     - transactinId: transaction id
+    ///     - insured: ticket insurance hired or not
+    ///     - userToken: user token
+    ///     - onSuccess: empty success callback
+    ///     - onError: fail callback with APIError
+    public func updateTransaction(_ transactionId: String, insured: Bool, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let params = ["insured": insured]
+
+        client.restClient.PUT(url: url, parameters: params, onSuccess: { (_) in
+            onSuccess()
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
     /// Cancel transaction
     ///
     /// - Parameters:
