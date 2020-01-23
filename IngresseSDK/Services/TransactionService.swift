@@ -73,6 +73,32 @@ public class TransactionService: BaseService {
         })
     }
 
+    /// Get payment methods from some transaction
+    ///
+    /// - Parameters:
+    ///     - transactionId: transaction id
+    ///     - onSuccess: success callback with payment methods
+    ///     - onError: fail callback with APIError
+    public func getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
+
+        let url = URLBuilder(client: client)
+        .setPath("shop/\(transactionId)/payment-methods")
+        .addParameter(key: "usertoken", value: userToken)
+        .build()
+
+        client.restClient.POST(url: url, onSuccess: { (response) in
+            guard let methods = JSONDecoder().decodeDict(of: Response.Shop.Methods.self, from: response)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            onSuccess(methods)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
     /// Get status from user tickets
     ///
     /// - Parameters:
