@@ -33,7 +33,7 @@ public class ResponseParser: NSObject {
             let objData = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers),
             let obj = objData as? [String: Any] else {
                 let httpResponse = response as? HTTPURLResponse
-                if httpResponse?.statusCode == 200 {
+                if httpResponse?.statusCode == 200 || httpResponse?.statusCode == 204 {
                     completion(["status": true])
                     return
                 }

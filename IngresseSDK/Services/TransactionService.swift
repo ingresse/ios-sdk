@@ -110,7 +110,7 @@ public class TransactionService: BaseService {
         .addParameter(key: "usertoken", value: userToken)
         .build()
 
-        client.restClient.POST(url: url, onSuccess: { (response) in
+        client.restClient.GET(url: url, onSuccess: { (response) in
             guard let methods = JSONDecoder().decodeDict(of: Response.Shop.Methods.self, from: response)
                 else {
                     onError(APIError.getDefaultError())
