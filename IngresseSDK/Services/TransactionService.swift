@@ -69,8 +69,9 @@ public class TransactionService: BaseService {
             .build()
 
         let params = ["insured": insured]
+        let data = try? JSONEncoder().encode(params)
 
-        client.restClient.PUT(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
