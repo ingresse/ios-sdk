@@ -51,6 +51,12 @@ platform :ios do
     # Create release branch
     sh "git checkout -b release/" + version
 
+    # Bump version
+    version_bump_podspec(
+      path: "IngresseSDK.podspec",
+      version_number: version
+    )
+
     # Commit version
     commit_version_bump(
       message: "Increase version number (" + version + ")",
