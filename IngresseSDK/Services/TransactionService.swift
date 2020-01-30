@@ -26,9 +26,7 @@ public class TransactionService: BaseService {
                     return
             }
             onSuccess(paymentResponse)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get transaction details
@@ -48,9 +46,7 @@ public class TransactionService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             let transaction = JSONDecoder().decodeDict(of: TransactionData.self, from: response)!
             onSuccess(transaction)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Update a transaction
@@ -73,9 +69,7 @@ public class TransactionService: BaseService {
 
         client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Cancel transaction
@@ -93,9 +87,7 @@ public class TransactionService: BaseService {
 
         client.restClient.POST(url: url, onSuccess: { (_) in
             onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get payment methods from some transaction
@@ -119,9 +111,7 @@ public class TransactionService: BaseService {
             }
 
             onSuccess(methods)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get status from user tickets
@@ -147,8 +137,6 @@ public class TransactionService: BaseService {
             }
 
             onSuccess(checkinSession)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }
