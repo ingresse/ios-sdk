@@ -40,8 +40,8 @@ class MockClient: RestClientInterface {
     }
 
     func PUT(url: String,
-             parameters: [String : Any],
-             onSuccess: @escaping ([String : Any]) -> Void,
+             parameters: [String: Any],
+             onSuccess: @escaping ([String: Any]) -> Void,
              onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
@@ -50,15 +50,15 @@ class MockClient: RestClientInterface {
     func PUTData(url: String,
                  data: Data?,
                  JSONData: Bool,
-                 onSuccess: @escaping ([String : Any]) -> Void,
+                 onSuccess: @escaping ([String: Any]) -> Void,
                  onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
     func DELETE(url: String,
-                parameters: [String : Any],
-                onSuccess: @escaping ([String : Any]) -> Void,
+                parameters: [String: Any],
+                onSuccess: @escaping ([String: Any]) -> Void,
                 onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
@@ -67,7 +67,7 @@ class MockClient: RestClientInterface {
     func DELETEData(url: String,
                     data: Data?,
                     JSONData: Bool,
-                    onSuccess: @escaping ([String : Any]) -> Void,
+                    onSuccess: @escaping ([String: Any]) -> Void,
                     onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)

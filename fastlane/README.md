@@ -20,6 +20,11 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios tests
 ```
+Run Tests with coverage
+### ios test
+```
+fastlane ios test
+```
 Run Tests
 ### ios increment_major
 ```

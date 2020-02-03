@@ -33,6 +33,7 @@ platform :ios do
 
   desc "Run Tests"
   lane :test do
+    swiftlint
     scan(scheme: "IngresseSDK",
       code_coverage: true,
       derived_data_path: "DerivedData")

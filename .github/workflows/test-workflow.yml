@@ -8,7 +8,6 @@ jobs:
         DEVELOPER_DIR: /Applications/Xcode_11.2.app/Contents/Developer
     steps:
     - uses: actions/checkout@v1
-
     - name: Install SwiftLint
       run: brew install swiftlint
     - name: Fastlane test
