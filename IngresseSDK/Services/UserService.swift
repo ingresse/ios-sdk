@@ -186,7 +186,7 @@ public class UserService: BaseService {
 
         let params = ["accountkitCode": accountkitCode]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -217,7 +217,7 @@ public class UserService: BaseService {
             }
 
             onSuccess(wallet)
-        }, onError:  { (error) in
+        }, onError: { (error) in
             onError(error)
         })
     }
@@ -243,7 +243,7 @@ public class UserService: BaseService {
         let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
-        }, onError:  { (error) in
+        }, onError: { (error) in
             onError(error)
         })
     }
@@ -267,9 +267,9 @@ public class UserService: BaseService {
         let data = try? JSONEncoder().encode(request)
         client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Delete specific card from user wallet
@@ -291,8 +291,8 @@ public class UserService: BaseService {
 
         client.restClient.DELETE(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 }

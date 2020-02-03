@@ -831,11 +831,11 @@
 			};
 			buildConfigurationList = 624525F11EC23217007B6584 /* Build configuration list for PBXProject "IngresseSDK" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 624525ED1EC23217007B6584;
 			productRefGroup = 624525F81EC23217007B6584 /* Products */;

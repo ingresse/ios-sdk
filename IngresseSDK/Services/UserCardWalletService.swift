@@ -28,7 +28,7 @@ public class UserCardWalletService: BaseService {
             }
 
             onSuccess(wallet)
-        }, onError:  { (error) in
+        }, onError: { (error) in
             onError(error)
         })
     }
@@ -84,9 +84,9 @@ public class UserCardWalletService: BaseService {
 
         client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 
     /// Delete specific card from user wallet
@@ -106,8 +106,8 @@ public class UserCardWalletService: BaseService {
         
         client.restClient.DELETE(url: url, parameters: [:], onSuccess: { (_) in
             onSuccess()
-        }) { (error) in
+        }, onError: { (error) in
             onError(error)
-        }
+        })
     }
 }
