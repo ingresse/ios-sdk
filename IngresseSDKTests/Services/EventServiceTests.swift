@@ -679,7 +679,7 @@ extension EventServiceTests {
         request.userToken = "12345-token"
 
         // When
-        service.addUserToRSVP(request: request, onSuccess: { (status) in }, onError: { (error) in
+        service.addUserToRSVP(request: request, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
