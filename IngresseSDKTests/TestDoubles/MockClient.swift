@@ -5,6 +5,7 @@
 import IngresseSDK
 
 class MockClient: RestClientInterface {
+
     // MARK: Configuration
     var error: APIError?
     var response: [String: Any]?
