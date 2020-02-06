@@ -139,4 +139,24 @@ public class TransactionService: BaseService {
             onSuccess(checkinSession)
         }, onError: onError)
     }
+
+    public func applyCouponToPayment(code: String, transactionId: String, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)/coupon")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let params = ["code": code]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+            guard let newResponse = response["data"] as? [String: Any],
+                let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Transaction.self, from: newResponse) else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+            onSuccess(paymentResponse)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
 }
