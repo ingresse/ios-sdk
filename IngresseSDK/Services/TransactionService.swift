@@ -96,7 +96,7 @@ public class TransactionService: BaseService {
     ///     - transactionId: transaction id
     ///     - onSuccess: success callback with payment methods
     ///     - onError: fail callback with APIError
-    public func getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
+    public func  getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
         .setPath("shop/\(transactionId)/payment-methods")
@@ -139,8 +139,8 @@ public class TransactionService: BaseService {
             onSuccess(checkinSession)
         }, onError: onError)
     }
-
-    public func applyCouponToPayment(code: String, transactionId: String, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping ErrorHandler) {
+    
+    public func applyCouponToPayment(transactionId: String, code: String, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping ErrorHandler) {
         let url = URLBuilder(client: client)
             .setPath("shop/\(transactionId)/coupon")
             .addParameter(key: "usertoken", value: userToken)
@@ -154,7 +154,7 @@ public class TransactionService: BaseService {
                     onError(APIError.getDefaultError())
                     return
             }
-            onSuccess(paymentResponse)
+            onSuccess(transactionResponse)
         }, onError: { (error) in
             onError(error)
         })
