@@ -82,7 +82,16 @@ public class SDKErrors: NSObject {
     let errorDict = [
         "default_title": "Ops!",
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
-        "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."]
+        "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.",
+        "CPN-11021": "Cupom inválido para este evento.",
+        "CPN-11005": "Código não enviado, tente novamente.",
+        "CPN-11009": "Este cupom não pode ser aplicado a uma transação sem valor.",
+        "CPN-11020": "Esta transação já possui um cupom aplicado.",
+        "CPN-11022": "Cupom inválido, o desconto não poder ser maior que o valor da transação.",
+        "CPN-11027": "Esse cupom atingiu a quantidade máxima de utilização.",
+        "CPN-11025": "Este cupom ainda não está liberado para utilização.",
+        "CPN-11026": "O período de validade deste cupom terminou."
+    ]
     
     let detailsErrorDict = [
           "GTW-1001": "Bandeira do cartão não aceita",
@@ -145,5 +154,13 @@ public class SDKErrors: NSObject {
         }
 
         return title
+    }
+
+    public func getDetailError(detailCode: String, code: Int) -> String {
+        guard let error = errorDict[detailCode] else {
+            return String(format: errorDict["default_message"]!, arguments: [code])
+        }
+
+        return error
     }
 }
