@@ -65,8 +65,8 @@ public class EntranceService: BaseService {
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        var postParams = [String: [[String:String]]]()
-        var tickets = [[String:String]]()
+        var postParams = [String: [[String: String]]]()
+        var tickets = [[String: String]]()
         for index in 0..<ticketCodes.count {
             var ticket = [String: String]()
             ticket["ticketCode"] = ticketCodes[index]

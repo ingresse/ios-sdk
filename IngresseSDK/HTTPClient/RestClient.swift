@@ -203,7 +203,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: delete body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func PUT(url: String, parameters: [String : Any], onSuccess: @escaping ([String : Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func PUT(url: String, parameters: [String: Any], onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
         let body = parameters.stringFromHttpParameters()
         if let data = body.data(using: .utf8) {
             PUTData(url: url,
@@ -221,7 +221,7 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: delete body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func PUTData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping ([String : Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func PUTData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
         var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
         request.httpMethod = "PUT"
 

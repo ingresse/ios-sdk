@@ -602,16 +602,20 @@ extension EventServiceTests {
         let asyncExpectation = expectation(description: "rsvpResponse")
 
         var json = [String: Any]()
-        json["status"] = 1
+        json["success"] = true
 
         restClient.response = json
         restClient.shouldFail = false
 
         var success = false
 
+        var request = Request.Event.AddToRSVP()
+        request.eventId = "1234"
+        request.userToken = "12345-token"
+
         // When
-        service.rsvpResponse(eventId: "1234", userToken: "12345-token", willGo: true, onSuccess: {
-            success = true
+        service.addUserToRSVP(request: request, onSuccess: { (status) in
+            success = status
             asyncExpectation.fulfill()
         }, onError: { (_) in })
 
@@ -634,8 +638,12 @@ extension EventServiceTests {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Event.AddToRSVP()
+        request.eventId = "1234"
+        request.userToken = "12345-token"
+
         // When
-        service.rsvpResponse(eventId: "1234", userToken: "12345-token", willGo: true, onSuccess: {}, onError: { (error) in
+        service.addUserToRSVP(request: request, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -666,8 +674,12 @@ extension EventServiceTests {
         var success = false
         var apiError: APIError?
 
+        var request = Request.Event.AddToRSVP()
+        request.eventId = "1234"
+        request.userToken = "12345-token"
+
         // When
-        service.rsvpResponse(eventId: "1234", userToken: "12345-token", willGo: true, onSuccess: {}, onError: { (error) in
+        service.addUserToRSVP(request: request, onSuccess: { (_) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()

@@ -10,8 +10,6 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
-update_fastlane
-
 default_platform(:ios)
 
 platform :ios do
@@ -19,7 +17,7 @@ platform :ios do
     setup_circle_ci
   end
 
-  desc "Run Tests"
+  desc "Run Tests with coverage"
   lane :tests do
     scan(scheme: "IngresseSDK",
       code_coverage: true,
@@ -27,9 +25,16 @@ platform :ios do
     slather(build_directory: "DerivedData",
       scheme: "IngresseSDK",
       proj: "IngresseSDK.xcodeproj",
-      circleci: true,
       coveralls: true,
       simple_output: true)
+  end
+
+  desc "Run Tests"
+  lane :test do
+    swiftlint
+    scan(scheme: "IngresseSDK",
+      code_coverage: true,
+      derived_data_path: "DerivedData")
   end
 
   desc "Increment Major Version"
