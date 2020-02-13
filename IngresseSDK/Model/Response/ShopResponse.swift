@@ -49,7 +49,7 @@ extension Response.Shop.Transaction {
         transactionId = container.decodeKey(.transactionId, ofType: String.self)
         status = container.decodeKey(.status, ofType: String.self)
         message = container.decodeKey(.message, ofType: String.self)
-        insurance = container.decodeKey(.insurance, ofType: Insurance.self)
+        insurance = try container.decodeIfPresent(Insurance.self, forKey: .insurance) 
 
         guard let methods = try? container.nestedContainer(keyedBy: PaymentMethodKeys.self, forKey: .availablePaymentMethods)
             else { return }
