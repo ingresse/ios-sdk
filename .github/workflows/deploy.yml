@@ -1,0 +1,25 @@
+name: Deploy release
+on:
+  release:
+    types: [published, edited]
+jobs:
+  check:
+    name: Run Checks
+    runs-on: macOS-latest
+    env:
+        DEVELOPER_DIR: /Applications/Xcode_11.2.app/Contents/Developer
+    steps:
+    - uses: actions/checkout@v1
+    - name: See github trigger
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    # - name: Update fastlane
+    #   run: sudo gem install fastlane
+    # - name: Install SwiftLint
+    #   run: brew install swiftlint
+    # - name: Fastlane test
+    #   run: fastlane test
+    # - name: Publish SDK to Cocoapods
+    #   env:
+    #     RELEASE_TAG: ${{ toJson(github.event.release) }}
