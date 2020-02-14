@@ -36,6 +36,11 @@ Increment Major Version
 fastlane ios create_pod_release
 ```
 Create new pod release
+### ios changelog_from_master
+```
+fastlane ios changelog_from_master
+```
+Get changelog from master
 ### ios push_to_cocoapods
 ```
 fastlane ios push_to_cocoapods

@@ -74,6 +74,16 @@ platform :ios do
     )
   end
 
+  desc "Get changelog from master"
+  lane :changelog_from_master do
+    changelog_from_git_commits(
+      between: ["origin/master", "HEAD"],
+      pretty: "- (%h) %s",
+      date_format: "short",
+      merge_commit_filtering: "exclude_merges"
+    )
+  end
+
   desc "Push sdk to cocoapods"
   lane :push_to_cocoapods do |options|
     version = options[:version]
@@ -89,12 +99,7 @@ platform :ios do
     )
 
     # Get changelog
-    changelog = changelog_from_git_commits(
-      between: ["master", "HEAD"],
-      pretty: "- (%h) %s",
-      date_format: "short",
-      merge_commit_filtering: "exclude_merges"
-    )
+    changelog = changelog_from_master
 
     # Create PR to master
     pull_request = create_pull_request(
