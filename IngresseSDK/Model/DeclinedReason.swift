@@ -9,13 +9,13 @@ public class DeclinedReason: NSObject, Codable {
     @objc public var createdAt: String?
     
     @objc public var checkDeclinedBy: String {
-        switch (declinedBy!) {
-            case "acquirer":
-                return "Adquirente"
-            case "antifraud":
-                return "Antifraude"
-            default:
-                return declinedBy ?? ""
+        switch declinedBy! {
+        case "acquirer":
+            return "Adquirente"
+        case "antifraud":
+            return "Antifraude"
+        default:
+            return declinedBy ?? ""
         }
     }
 

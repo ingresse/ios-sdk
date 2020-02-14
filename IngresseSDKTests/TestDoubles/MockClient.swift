@@ -5,6 +5,7 @@
 import IngresseSDK
 
 class MockClient: RestClientInterface {
+
     // MARK: Configuration
     var error: APIError?
     var response: [String: Any]?
@@ -35,6 +36,40 @@ class MockClient: RestClientInterface {
         url: String,
         onSuccess: @escaping ([String: Any]) -> Void,
         onError: @escaping (APIError) -> Void) {
+        urlCalled = url
+        shouldFail ? onError(error!) : onSuccess(response!)
+    }
+
+    func PUT(url: String,
+             parameters: [String: Any],
+             onSuccess: @escaping ([String: Any]) -> Void,
+             onError: @escaping ErrorHandler) {
+        urlCalled = url
+        shouldFail ? onError(error!) : onSuccess(response!)
+    }
+
+    func PUTData(url: String,
+                 data: Data?,
+                 JSONData: Bool,
+                 onSuccess: @escaping ([String: Any]) -> Void,
+                 onError: @escaping ErrorHandler) {
+        urlCalled = url
+        shouldFail ? onError(error!) : onSuccess(response!)
+    }
+
+    func DELETE(url: String,
+                parameters: [String: Any],
+                onSuccess: @escaping ([String: Any]) -> Void,
+                onError: @escaping ErrorHandler) {
+        urlCalled = url
+        shouldFail ? onError(error!) : onSuccess(response!)
+    }
+
+    func DELETEData(url: String,
+                    data: Data?,
+                    JSONData: Bool,
+                    onSuccess: @escaping ([String: Any]) -> Void,
+                    onError: @escaping ErrorHandler) {
         urlCalled = url
         shouldFail ? onError(error!) : onSuccess(response!)
     }

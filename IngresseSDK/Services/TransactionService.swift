@@ -26,9 +26,7 @@ public class TransactionService: BaseService {
                     return
             }
             onSuccess(paymentResponse)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get transaction details
@@ -48,9 +46,30 @@ public class TransactionService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             let transaction = JSONDecoder().decodeDict(of: TransactionData.self, from: response)!
             onSuccess(transaction)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
+    }
+
+    /// Update a transaction
+    ///
+    /// - Parameters:
+    ///     - transactinId: transaction id
+    ///     - insured: ticket insurance hired or not
+    ///     - userToken: user token
+    ///     - onSuccess: empty success callback
+    ///     - onError: fail callback with APIError
+    public func updateTransaction(_ transactionId: String, insured: Bool, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let params = ["insured": insured]
+        let data = try? JSONEncoder().encode(params)
+
+        client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
+            onSuccess()
+        }, onError: onError)
     }
 
     /// Cancel transaction
@@ -68,9 +87,31 @@ public class TransactionService: BaseService {
 
         client.restClient.POST(url: url, onSuccess: { (_) in
             onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
+    }
+
+    /// Get payment methods from some transaction
+    ///
+    /// - Parameters:
+    ///     - transactionId: transaction id
+    ///     - onSuccess: success callback with payment methods
+    ///     - onError: fail callback with APIError
+    public func getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
+
+        let url = URLBuilder(client: client)
+        .setPath("shop/\(transactionId)/payment-methods")
+        .addParameter(key: "usertoken", value: userToken)
+        .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let methods = JSONDecoder().decodeDict(of: Response.Shop.Methods.self, from: response)
+                else {
+                    onError(APIError.getDefaultError())
+                    return
+            }
+
+            onSuccess(methods)
+        }, onError: onError)
     }
 
     /// Get status from user tickets
@@ -96,8 +137,6 @@ public class TransactionService: BaseService {
             }
 
             onSuccess(checkinSession)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

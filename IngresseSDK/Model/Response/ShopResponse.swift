@@ -9,6 +9,7 @@ extension Response {
             public var status: String = ""
             public var creditCard: PaymentMethod?
             public var message: String = ""
+            public var insurance: Insurance?
         }
 
         public struct Payment: Codable {
@@ -20,6 +21,11 @@ extension Response {
             public var transactionId: String = ""
             public var declinedReason: DeclinedReason?
         }
+
+        public struct Methods: Decodable {
+            public var creditCard: PaymentMethod?
+            public var creditCardToken: PaymentMethod?
+        }
     }
 }
 
@@ -29,6 +35,7 @@ extension Response.Shop.Transaction {
         case status
         case availablePaymentMethods
         case message
+        case insurance
     }
 
     enum PaymentMethodKeys: String, CodingKey {
@@ -42,6 +49,7 @@ extension Response.Shop.Transaction {
         transactionId = container.decodeKey(.transactionId, ofType: String.self)
         status = container.decodeKey(.status, ofType: String.self)
         message = container.decodeKey(.message, ofType: String.self)
+        insurance = try container.decodeIfPresent(Insurance.self, forKey: .insurance) 
 
         guard let methods = try? container.nestedContainer(keyedBy: PaymentMethodKeys.self, forKey: .availablePaymentMethods)
             else { return }
@@ -75,5 +83,20 @@ extension Response.Shop.Payment {
 
     public static func fromJSON(_ json: [String: Any]) -> Response.Shop.Payment? {
         return JSONDecoder().decodeDict(of: Response.Shop.Payment.self, from: json)
+    }
+}
+
+extension Response.Shop.Methods {
+    enum CodingKeys: String, CodingKey {
+        case creditCard = "CartaoCredito"
+        case creditCardToken
+    }
+
+    public init(from decoder: Decoder) throws {
+        guard let container = try? decoder.container(keyedBy: CodingKeys.self)
+            else { return }
+
+        creditCard = container.decodeKey(.creditCard, ofType: PaymentMethod.self)
+        creditCardToken = container.decodeKey(.creditCardToken, ofType: PaymentMethod.self)
     }
 }

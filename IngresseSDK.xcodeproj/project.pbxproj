@@ -15,6 +15,7 @@
 		2F7D2F8B22EFA1AA00DD8E17 /* UserWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */; };
 		2F7D2F8D22EFAC2B00DD8E17 /* WalletInfoPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */; };
 		2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */; };
+		2FC7448923D6291A000C1430 /* Insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC7448823D6291A000C1430 /* Insurance.swift */; };
 		2FEAF87E235A20CF0080D1BA /* PhoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEAF87D235A20CF0080D1BA /* PhoneService.swift */; };
 		2FEAF888235A4DE10080D1BA /* PhoneDDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */; };
 		35263231211883F1003615F1 /* ShopTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35263230211883F1003615F1 /* ShopTicket.swift */; };
@@ -210,6 +211,7 @@
 		2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletInfo.swift; sourceTree = "<group>"; };
 		2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoPaypal.swift; sourceTree = "<group>"; };
 		2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoCreditCard.swift; sourceTree = "<group>"; };
+		2FC7448823D6291A000C1430 /* Insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insurance.swift; sourceTree = "<group>"; };
 		2FEAF87D235A20CF0080D1BA /* PhoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneService.swift; sourceTree = "<group>"; };
 		2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDDI.swift; sourceTree = "<group>"; };
 		35263230211883F1003615F1 /* ShopTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTicket.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */,
 				69AE6D6C2368C58400C8FE22 /* DeclinedReason.swift */,
 				2F74E12823C665AF004176E5 /* Disclaimer.swift */,
+				2FC7448823D6291A000C1430 /* Insurance.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -828,11 +831,11 @@
 			};
 			buildConfigurationList = 624525F11EC23217007B6584 /* Build configuration list for PBXProject "IngresseSDK" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 624525ED1EC23217007B6584;
 			productRefGroup = 624525F81EC23217007B6584 /* Products */;
@@ -929,6 +932,7 @@
 				355C19DA21765219004ABEBB /* TicketDate.swift in Sources */,
 				6231F24F20B744A900206D85 /* ElasticPagination.swift in Sources */,
 				355C19D8217650AD004ABEBB /* Ticket.swift in Sources */,
+				2FC7448923D6291A000C1430 /* Insurance.swift in Sources */,
 				3561965F21FA4C6A00EE6DA3 /* UpdateUserRequests.swift in Sources */,
 				2F7D2F8B22EFA1AA00DD8E17 /* UserWalletInfo.swift in Sources */,
 				6231F24520B743FD00206D85 /* CoverAd.swift in Sources */,
@@ -1221,7 +1225,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.8.2;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1242,7 +1246,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.8.2;
+				MARKETING_VERSION = 1.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
