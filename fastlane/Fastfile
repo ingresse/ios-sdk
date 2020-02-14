@@ -117,6 +117,7 @@ platform :ios do
       message: "Release do SDK iOS no CocoaPods!",
       channel: "#fastlane",
       slack_url: "https://hooks.slack.com/services/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",
+      fail_on_error: false,
       payload: {
         "Versão" => version,
         "Link" => "https://cocoapods.org/pods/IngresseSDK",
