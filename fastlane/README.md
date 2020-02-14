@@ -20,7 +20,7 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios tests
 ```
-Run Tests
+Run Tests with coverage
 ### ios test
 ```
 fastlane ios test
@@ -31,21 +31,26 @@ Run Tests
 fastlane ios increment_major
 ```
 Increment Major Version
-### ios increment_minor
+### ios create_pod_release
 ```
-fastlane ios increment_minor
+fastlane ios create_pod_release
 ```
-Increment Minor Version
-### ios increment_patch
+Create new pod release
+### ios changelog_from_master
 ```
-fastlane ios increment_patch
+fastlane ios changelog_from_master
 ```
-Increment Patch Version
-### ios pod_push_sdk
+Get changelog from master
+### ios push_to_cocoapods
 ```
-fastlane ios pod_push_sdk
+fastlane ios push_to_cocoapods
 ```
-Push IngresseSDK to CocoaPods
+Push sdk to cocoapods
+### ios notify_slack
+```
+fastlane ios notify_slack
+```
+Send message to slack
 
 ----
 
