@@ -62,16 +62,12 @@ public class ResponseParser: NSObject {
                 let responseError = obj["responseError"] as? [String: Any],
                 let code = responseError["code"] as? Int,
                 let message = responseError["message"] as? String,
-                let category = responseError["category"] as? String,
-                let responseDetails = responseError["details"] as? [String: Any],
-                let detailCode = responseDetails["code"] as? String,
-                let detailMessage = responseDetails["message"] as? String
+                let category = responseError["category"] as? String
                 else { throw IngresseException.jsonParserError }
 
             let errorBuilder = APIError.Builder()
                 .setCode(code)
                 .setCategory(category)
-                .setDetails(detailCode, detailMessage)
                 .setError(message)
 
             if let responseDetails = responseError["details"] as? [String: Any],

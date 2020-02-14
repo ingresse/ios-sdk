@@ -96,7 +96,7 @@ public class TransactionService: BaseService {
     ///     - transactionId: transaction id
     ///     - onSuccess: success callback with payment methods
     ///     - onError: fail callback with APIError
-    public func  getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
+    public func getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
 
         let url = URLBuilder(client: client)
         .setPath("shop/\(transactionId)/payment-methods")
