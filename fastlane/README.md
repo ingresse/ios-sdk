@@ -41,11 +41,6 @@ Create new pod release
 fastlane ios changelog_from_master
 ```
 Get changelog from master
-### ios pod_lint
-```
-fastlane ios pod_lint
-```
-Run pod linter
 ### ios push_to_cocoapods
 ```
 fastlane ios push_to_cocoapods

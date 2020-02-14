@@ -84,15 +84,6 @@ platform :ios do
     )
   end
 
-  desc "Run pod linter"
-  lane :pod_lint do
-    # Pod spec lint
-    pod_lib_lint(
-      verbose: false,
-      use_bundle_exec: false
-    )
-  end
-
   desc "Push sdk to cocoapods"
   lane :push_to_cocoapods do
     # Push to cocoapods
