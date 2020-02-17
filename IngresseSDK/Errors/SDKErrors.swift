@@ -82,7 +82,10 @@ public class SDKErrors: NSObject {
     let errorDict = [
         "default_title": "Ops!",
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
-        "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.",
+        "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."
+    ]
+
+    let couponErrorDict = [
         "CPN-11021": "Cupom inválido para este evento.",
         "CPN-11005": "Código não enviado, tente novamente.",
         "CPN-11009": "Este cupom não pode ser aplicado a uma transação sem valor.",
@@ -157,7 +160,7 @@ public class SDKErrors: NSObject {
     }
 
     public func getDetailError(detailCode: String, code: Int) -> String {
-        guard let error = errorDict[detailCode] else {
+        guard let error = couponErrorDict[detailCode] else {
             return String(format: errorDict["default_message"]!, arguments: [code])
         }
 
