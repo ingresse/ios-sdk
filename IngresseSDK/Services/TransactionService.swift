@@ -140,6 +140,7 @@ public class TransactionService: BaseService {
         }, onError: onError)
     }
     
+
     /// Apply coupom in transaction
     ///
     /// - Parameters:
@@ -193,5 +194,30 @@ public class TransactionService: BaseService {
              }
              onSuccess(transaction)
         }, onError: onError)
+    }
+        
+    public func getUserWalletTransactions(onSuccess: @escaping (_ specialEvents: [UserWalletTransaction]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        
+        let url2 = URLBuilder(client: client)
+            .setCustomUrl("l4oafbqq3f.execute-api.us-east-1.amazonaws.com/")
+            .setPath("prod/my-transactions")
+            .addParameter(key: "channel", value: "online")
+            .addParameter(key: "status", value: "approved,authorized,pending,declined,error,manual_review,refund")
+            .addParameter(key: "pageSize", value: "10")
+            .addParameter(key: "page", value: "1")
+            .buildWithoutKeys()
+        
+        client.restClient.GET(url: url2, onSuccess: { (response) in
+            guard
+                let data = response["data"] as? [[String: Any]],
+                let checkinSession = JSONDecoder().decodeArray(of: [UserWalletTransaction].self, from: data) else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            onSuccess(checkinSession)
+        }, onError: { (error) in
+            onError(error)
+        })
     }
 }
