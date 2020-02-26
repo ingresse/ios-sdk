@@ -83,6 +83,23 @@ public class SDKErrors: NSObject {
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
         "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."]
     
+    let detailsErrorDict = [
+          "GTW-1001": "Bandeira do cartão não aceita",
+          "GTW-1002": "Código de verificação incorreto",
+          "GTW-1003": "Pagamento não autorizado",
+          "GTW-1004": "Cartão inválido",
+          "GTW-1005": "Número do cartão inválido",
+          "GTW-1006": "Cartão de crédito expirado",
+          "GTW-1007": "Operadora de Pagamento Indisponível",
+          "GTW-1008": "Parcelamento não autorizado",
+          "GTW-1009": "",
+          "GTW-1010": "Parece que seu cartão expirou",
+          "GTW-1011": "Pagamento não autorizado",
+          "GTW-1012": "Pagamento não autorizado",
+          "GTW-1013": "Número de parcelas não autorizada",
+          "GTW-1014": "",
+          "GTW-1016": ""]
+
     public func getErrorMessage(code: Int) -> String {
         if code == 0 {
             return errorDict["default_no_code"]!
@@ -92,6 +109,14 @@ public class SDKErrors: NSObject {
             return String(format: errorDict["default_message"]!, arguments: [code])
         }
         
+        return error
+    }
+
+    public func getDetailError(detailCode: String, code: Int) -> String {
+        guard let error = detailsErrorDict[detailCode] else {
+            return getErrorMessage(code: code)
+        }
+
         return error
     }
 

@@ -14,6 +14,7 @@ public class APIError: NSObject {
     @objc public var category: String = ""
     @objc public var error: String = ""
     @objc public var response: [String: Any] = [:]
+    @objc public var details = Details()
     
     static public func getDefaultError() -> APIError {
         let error = APIError.Builder()
@@ -77,8 +78,22 @@ public class APIError: NSObject {
             return self
         }
 
+        func setDetails(_ code: String, _ message: String) -> Builder {
+            let details = Details()
+            details.code = code
+            details.message = SDKErrors.shared.getDetailError(detailCode: details.code, code: error.code)
+            error.details = details
+
+            return self
+        }
+
         func build() -> APIError {
             return error
         }
+    }
+
+    public class Details: NSObject {
+        public var code: String = ""
+        public var message: String = ""
     }
 }
