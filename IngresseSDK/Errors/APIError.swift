@@ -83,6 +83,7 @@ public class APIError: NSObject {
             details.code = code
             details.message = SDKErrors.shared.getDetailError(detailCode: details.code, code: error.code)
             error.details = details
+            error.message = details.message
 
             return self
         }
