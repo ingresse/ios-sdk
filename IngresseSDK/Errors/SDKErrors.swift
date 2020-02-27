@@ -92,13 +92,15 @@ public class SDKErrors: NSObject {
           "GTW-1006": "Cartão de crédito expirado",
           "GTW-1007": "Operadora de Pagamento Indisponível",
           "GTW-1008": "Parcelamento não autorizado",
-          "GTW-1009": "",
+          "GTW-1009": "Cartão de Crédito Restrito",
           "GTW-1010": "Parece que seu cartão expirou",
           "GTW-1011": "Pagamento não autorizado",
           "GTW-1012": "Pagamento não autorizado",
           "GTW-1013": "Número de parcelas não autorizada",
-          "GTW-1014": "",
-          "GTW-1016": ""]
+          "GTW-1014": "Declinada pelo antifraude",
+          "GTW-1015": "Pagamento rejeitado pela revisão manual",
+          "GTW-1016": "Compra não autorizada. Sessão próxima do início",
+          "GTW-1017": "Pagamento não autorizado"]
 
     public func getErrorMessage(code: Int) -> String {
         if code == 0 {
