@@ -139,7 +139,6 @@ public class TransactionService: BaseService {
             onSuccess(checkinSession)
         }, onError: onError)
     }
-    
 
     /// Apply coupom in transaction
     ///
@@ -196,26 +195,28 @@ public class TransactionService: BaseService {
         }, onError: onError)
     }
         
-    public func getUserWalletTransactions(onSuccess: @escaping (_ specialEvents: [UserWalletTransaction]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getUserWalletTransactions(request: Request.Transaction.UserTransaction, onSuccess: @escaping (_ transactions: [UserWalletTransaction], _ page: Int, _ lastPage: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url2 = URLBuilder(client: client)
+        let url = URLBuilder(client: client)
             .setCustomUrl("l4oafbqq3f.execute-api.us-east-1.amazonaws.com/")
             .setPath("prod/my-transactions")
-            .addParameter(key: "channel", value: "online")
-            .addParameter(key: "status", value: "approved,authorized,pending,declined,error,manual_review,refund")
-            .addParameter(key: "pageSize", value: "10")
-            .addParameter(key: "page", value: "1")
+            .addParameter(key: "channel", value: request.channel)
+            .addParameter(key: "status", value: request.status)
+            .addParameter(key: "pageSize", value: request.pageSize)
+            .addParameter(key: "page", value: request.page)
             .buildWithoutKeys()
         
-        client.restClient.GET(url: url2, onSuccess: { (response) in
+        client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
-                let checkinSession = JSONDecoder().decodeArray(of: [UserWalletTransaction].self, from: data) else {
+                let checkinSession = JSONDecoder().decodeArray(of: [UserWalletTransaction].self, from: data),
+                let paginationData = response["paginationInfo"] as? [String: Any],
+                let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationData) else {
                 onError(APIError.getDefaultError())
                 return
             }
 
-            onSuccess(checkinSession)
+            onSuccess(checkinSession, pagination.currentPage, pagination.lastPage)
         }, onError: { (error) in
             onError(error)
         })
