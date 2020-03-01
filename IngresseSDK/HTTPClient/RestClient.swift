@@ -22,7 +22,7 @@ public class RestClient: NSObject, RestClientInterface {
             request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
         }
         
-        if url.contains("https://l4oafbqq3f.execute-api.us-east-1.amazonaws.com/prod/my-transactions") {
+        if url.contains("my-transactions.ingresse.com") {
             request.addValue("fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv", forHTTPHeaderField: "x-api-key")
         }
 

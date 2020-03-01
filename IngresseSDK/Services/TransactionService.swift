@@ -198,8 +198,7 @@ public class TransactionService: BaseService {
     public func getUserWalletTransactions(request: Request.Transaction.UserTransaction, onSuccess: @escaping (_ transactions: [UserWalletTransaction], _ page: Int, _ lastPage: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
         let url = URLBuilder(client: client)
-            .setCustomUrl("l4oafbqq3f.execute-api.us-east-1.amazonaws.com/")
-            .setPath("prod/my-transactions")
+            .setHost(.userTransactions)
             .addParameter(key: "channel", value: request.channel)
             .addParameter(key: "status", value: request.status)
             .addParameter(key: "pageSize", value: request.pageSize)
@@ -217,6 +216,22 @@ public class TransactionService: BaseService {
             }
 
             onSuccess(checkinSession, pagination.currentPage, pagination.lastPage)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+    
+    public func refundUserTransactions(transactionId: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        
+        let url = URLBuilder(client: client)
+            .setHost(.userTransactions)
+            .setPath("\(transactionId)/refund")
+            .buildWithoutKeys()
+        
+        client.restClient.POST(url: url, parameters: [:],
+                               customHeader: ["x-api-key": "fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv"],
+                               onSuccess: { (response) in
+                                onSuccess()
         }, onError: { (error) in
             onError(error)
         })
