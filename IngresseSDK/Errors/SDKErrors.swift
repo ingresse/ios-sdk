@@ -31,6 +31,7 @@ public class SDKErrors: NSObject {
         3027: "Por favor, refaça a operação de login e tente novamente.",
         3041: "Lamentamos, mas os ingressos para este setor esgotaram. Selecione outro tipo de ingresso e tente novamente.",
         5010: "Tente realizar a compra em um computador ou entre em contato com nosso suporte.",
+        5012: "A utilização desse cartão não foi autorizada pela adquirente.",
         6001: "A venda deste evento não está ativada. Entre em contato com o organizador do evento.",
         6002: "Todas as sessões para esse evento estão esgotadas. Talvez alguns ingressos estarão disponíveis dependendo dos pagamentos pendentes. Entre em contato com o organizador do evento.",
         6003: "Não há mais ingressos disponíveis para venda. Talvez alguns ingressos estarão disponíveis dependendo dos pagamentos pendentes. Entre em contato com o organizador do evento.",
@@ -102,11 +103,15 @@ public class SDKErrors: NSObject {
           "GTW-1016": "Compra não autorizada. Sessão próxima do início",
           "GTW-1017": "Pagamento não autorizado"]
 
-    public func getErrorMessage(code: Int) -> String {
+    public func getErrorMessage(code: Int, detailCode: String = "") -> String {
         if code == 0 {
             return errorDict["default_no_code"]!
         }
-        
+
+        if(detailCode.contains("GTW")) {
+            return errorDict["default_gtw_message"]!
+        }
+
         guard let error = errors[code] else {
             return String(format: errorDict["default_message"]!, arguments: [code])
         }
@@ -116,7 +121,7 @@ public class SDKErrors: NSObject {
 
     public func getDetailError(detailCode: String, code: Int) -> String {
         guard let error = detailsErrorDict[detailCode] else {
-            return getErrorMessage(code: code)
+            return getErrorMessage(code: code, detailCode: detailCode)
         }
 
         return error
