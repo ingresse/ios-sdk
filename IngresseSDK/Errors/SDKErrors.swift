@@ -108,7 +108,7 @@ public class SDKErrors: NSObject {
             return errorDict["default_no_code"]!
         }
 
-        if(detailCode.contains("GTW")) {
+        if detailCode.contains("GTW") {
             return errorDict["default_gtw_message"]!
         }
 
