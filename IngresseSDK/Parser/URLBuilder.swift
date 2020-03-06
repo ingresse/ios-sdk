@@ -9,6 +9,7 @@ public enum Environment: String {
     case hmlB = "hmlb-"
     case test = "test-"
     case stg = "stg-"
+    case integration = "integration2-"
     case undefined = "undefined-"
 
     public init(envType: String) {
@@ -25,6 +26,8 @@ public enum Environment: String {
             self = .test
         case "stg":
             self = .stg
+        case "integration2-":
+            self = .integration
         default:
             self = .undefined
         }
@@ -104,6 +107,9 @@ public class URLBuilder: NSObject {
     }
 
     public func getHostUrl() -> String {
+        if environment == .integration {
+            return "http://\(environment.rawValue)\(host.rawValue)"
+        }
         if [.hml, .hmlA, .hmlB].contains(environment) && host == .search {
             return "https://\(environment.rawValue)\(Host.searchHml.rawValue)"
         }
