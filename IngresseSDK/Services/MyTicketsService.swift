@@ -30,9 +30,9 @@ public class MyTicketsService: BaseService {
             builder = builder.addParameter(key: "to", value: "yesterday")
         }
 
-        let url = builder.build()
+        let request = try! builder.build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let paginationObj = response["paginationInfo"] as? [String: Any],
@@ -58,7 +58,7 @@ public class MyTicketsService: BaseService {
     ///   - page: page of request
     ///   - delegate: callback interface
     public func getUserTickets(userId: String, eventId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)/tickets")
             .addParameter(key: "eventId", value: eventId)
             .addParameter(key: "usertoken", value: userToken)
@@ -66,7 +66,7 @@ public class MyTicketsService: BaseService {
             .addParameter(key: "pageSize", value: "25")
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let paginationObj = response["paginationInfo"] as? [String: Any],
@@ -90,7 +90,7 @@ public class MyTicketsService: BaseService {
     ///   - eventId: id of requested event
     ///   - userToken: token of logged user
     public func getWalletTicketsOf(request: Request.Wallet.NumberOfTickets, onSuccess: @escaping (_ tickets: Int) -> Void, onError: @escaping (_ error: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(request.userId)/tickets")
             .addParameter(key: "eventId", value: request.eventId)
             .addParameter(key: "usertoken", value: request.userToken)
@@ -98,7 +98,7 @@ public class MyTicketsService: BaseService {
             .addParameter(key: "pageSize", value: "1")
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let paginationObj = response["paginationInfo"] as? [String: Any],
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)

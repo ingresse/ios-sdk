@@ -13,12 +13,12 @@ public class UserCardWalletService: BaseService {
     public func getUserWalletInfos(userToken: String,
                                    onSuccess: @escaping (_ walletInfo: UserWalletInfo) -> Void,
                                    onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("wallet")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["wallet"] as? [String: Any],
                 let wallet = JSONDecoder().decodeDict(of: UserWalletInfo.self, from: data)
@@ -46,13 +46,17 @@ public class UserCardWalletService: BaseService {
     public func insertCard(_ request: Request.UserCardWallet.Insertion,
                            onSuccess: @escaping (_ card: WalletInfoCreditCard) -> Void,
                            onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+
+        let requestURL = try! URLBuilder(client: client)
             .setPath("wallet/creditcard")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
-        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
+        client.restClient.POSTData(request: requestURL,
+                                   data: data,
+                                   JSONData: true,
+                                   onSuccess: { (response) in
             guard let data = JSONDecoder().decodeDict(of: WalletInfoCreditCard.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return
@@ -75,14 +79,18 @@ public class UserCardWalletService: BaseService {
     public func changeDefaultCard(_ request: Request.UserCardWallet.Managment,
                                   onSuccess: @escaping () -> Void,
                                   onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+
+        let requestURL = try! URLBuilder(client: client)
             .setPath("wallet/creditcard/\(request.token)")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
+        client.restClient.PUTData(request: requestURL,
+                                  data: data,
+                                  JSONData: true,
+                                  onSuccess: { (_) in
 
-        client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -99,12 +107,12 @@ public class UserCardWalletService: BaseService {
     public func deleteCard(userToken: String, uuid: String,
                            onSuccess: @escaping () -> Void,
                            onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("wallet/creditcard/\(uuid)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.DELETE(url: url, parameters: [:], onSuccess: { (_) in
+        client.restClient.DELETE(request: request, parameters: [:], onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)

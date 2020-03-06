@@ -27,9 +27,10 @@ public class EntranceService: BaseService {
             builder = builder.addParameter(key: "from", value: "\(from)")
         }
         
-        let url = builder.build()
+        let request = try! builder.build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let paginationData = response["paginationInfo"] as? [String: Any],
@@ -59,7 +60,7 @@ public class EntranceService: BaseService {
     ///   - onSuccess: Success callback with array of [CheckinTickets]
     ///   - onError: Error callback with APIError
     public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ tickets: [CheckinTicket]) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
@@ -77,7 +78,7 @@ public class EntranceService: BaseService {
         }
         postParams["tickets"] = tickets
         
-        client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
+        client.restClient.POST(request: request, parameters: postParams, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let tickets = JSONDecoder().decodeArray(of: [CheckinTicket].self, from: data)
@@ -104,7 +105,7 @@ public class EntranceService: BaseService {
     ///   - onError: fail callback
     public func getValidationInfoOfTicket(code: String, eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ ticket: CheckinTicket) -> Void, onError: @escaping ErrorHandler) {
         
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
@@ -116,7 +117,7 @@ public class EntranceService: BaseService {
         postParams["tickets[0][ticketTimestamp]"] = "\(Int(Date().timeIntervalSince1970)*1000)"
         postParams["tickets[0][sessionId]"] = sessionId
         
-        client.restClient.POST(url: url, parameters: postParams, onSuccess: { (response) in
+        client.restClient.POST(request: request, parameters: postParams, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let ticketData = data.first,
@@ -143,12 +144,12 @@ public class EntranceService: BaseService {
     ///   - onError: fail callback
     public func getTransferHistory(ticketId: String, userToken: String, onSuccess: @escaping (_ history: [TransferHistoryItem]) -> Void, onError: @escaping ErrorHandler) {
         
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("ticket/\(ticketId)/transfer")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let history = JSONDecoder().decodeArray(of: [TransferHistoryItem].self, from: data)

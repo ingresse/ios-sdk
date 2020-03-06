@@ -11,20 +11,9 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - url: request path
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func GET(url: String, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
-        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
-
-        if let header = UserAgent.header {
-            request.addValue(header, forHTTPHeaderField: "User-Agent")
-        }
-        
-        if let auth = UserAgent.authorization {
-            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
-        }
-        
-        if url.contains("my-transactions.ingresse.com") {
-            request.addValue("fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv", forHTTPHeaderField: "x-api-key")
-        }
+    public func GET(request: URLRequest,
+                    onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                    onError: @escaping ErrorHandler) {
 
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
@@ -62,9 +51,14 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: post body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POST(url: String, parameters: [String: Any], customHeader: [String: Any]?, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func POST(request: URLRequest,
+                     parameters: [String: Any],
+                     customHeader: [String: Any]?,
+                     onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                     onError: @escaping ErrorHandler) {
+
         if let data = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
-            POSTData(url: url,
+            POSTData(request: request,
                      data: data,
                      customHeader: customHeader,
                      JSONData: true,
@@ -80,14 +74,17 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - data: post data
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func POSTData(url: String, data: Data?, customHeader: [String: Any]?, JSONData: Bool, onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
-        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
+    public func POSTData(request: URLRequest,
+                         data: Data?,
+                         customHeader: [String: Any]?,
+                         JSONData: Bool,
+                         onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                         onError: @escaping ErrorHandler) {
+
+        var request = request
         request.httpMethod = "POST"
-        
-        if let header = UserAgent.header {
-            request.addValue(header, forHTTPHeaderField: "User-Agent")
-        }
-        
+        request.httpBody = data
+
         if let newHeaders = customHeader {
             newHeaders.keys.forEach { key in
                 guard let stringValue = newHeaders[key] as? String else { return }
@@ -98,12 +95,6 @@ public class RestClient: NSObject, RestClientInterface {
         if JSONData {
             request.addValue("application/json", forHTTPHeaderField: "content-type")
         }
-
-        if let auth = UserAgent.authorization {
-            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
-        }
-
-        request.httpBody = data
         
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
@@ -141,10 +132,14 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: delete body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func DELETE(url: String, parameters: [String: Any], onSuccess: @escaping (_ responseData: [String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func DELETE(request: URLRequest,
+                       parameters: [String: Any],
+                       onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
+                       onError: @escaping ErrorHandler) {
+        
         let body = parameters.stringFromHttpParameters()
         if let data = body.data(using: .utf8) {
-            DELETEData(url: url,
+            DELETEData(request: request,
                        data: data,
                        JSONData: false,
                        onSuccess: onSuccess,
@@ -159,23 +154,19 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - data: delete data
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func DELETEData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
-        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
-        request.httpMethod = "DELETE"
+    public func DELETEData(request: URLRequest,
+                           data: Data?,
+                           JSONData: Bool,
+                           onSuccess: @escaping ([String: Any]) -> Void,
+                           onError: @escaping ErrorHandler) {
 
-        if let header = UserAgent.header {
-            request.addValue(header, forHTTPHeaderField: "User-Agent")
-        }
+        var request = request
+        request.httpMethod = "DELETE"
+        request.httpBody = data
 
         if JSONData {
             request.addValue("application/json", forHTTPHeaderField: "content-type")
         }
-
-        if let auth = UserAgent.authorization {
-            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
-        }
-
-        request.httpBody = data
 
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
@@ -207,10 +198,14 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: delete body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func PUT(url: String, parameters: [String: Any], onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
+    public func PUT(request: URLRequest,
+                    parameters: [String: Any],
+                    onSuccess: @escaping ([String: Any]) -> Void,
+                    onError: @escaping ErrorHandler) {
+
         let body = parameters.stringFromHttpParameters()
         if let data = body.data(using: .utf8) {
-            PUTData(url: url,
+            PUTData(request: request,
                     data: data,
                     JSONData: false,
                     onSuccess: onSuccess,
@@ -225,23 +220,19 @@ public class RestClient: NSObject, RestClientInterface {
     ///   - parameters: delete body parameters
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func PUTData(url: String, data: Data?, JSONData: Bool, onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping ErrorHandler) {
-        var request = URLRequest(url: URL(string: url)!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
-        request.httpMethod = "PUT"
+    public func PUTData(request: URLRequest,
+                        data: Data?,
+                        JSONData: Bool,
+                        onSuccess: @escaping ([String: Any]) -> Void,
+                        onError: @escaping ErrorHandler) {
 
-        if let header = UserAgent.header {
-            request.addValue(header, forHTTPHeaderField: "User-Agent")
-        }
+        var request = request
+        request.httpMethod = "PUT"
+        request.httpBody = data
 
         if JSONData {
             request.addValue("application/json", forHTTPHeaderField: "content-type")
         }
-
-        if let auth = UserAgent.authorization {
-            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
-        }
-
-        request.httpBody = data
 
         session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {

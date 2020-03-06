@@ -13,14 +13,14 @@ public class AuthService: BaseService {
     ///   - onError: Fail callback
     @objc public func companyLogin(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: [CompanyData]) -> Void, onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("company-login")
             .build()
 
         let params = ["email": email,
                       "password": pass]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (response: [String: Any]) in
             guard let logged = response["status"] as? Bool,
                 logged else {
                     let error = APIError.Builder()
@@ -53,14 +53,14 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("login/")
             .build()
 
         let params = ["email": email,
                       "password": pass]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (response: [String: Any]) in
 
             guard let logged = response["status"] as? Bool,
                 logged else {
@@ -102,7 +102,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func loginWithFacebook(email: String, fbToken: String, fbUserId: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("login/facebook")
             .build()
 
@@ -110,7 +110,7 @@ public class AuthService: BaseService {
                       "fbToken": fbToken,
                       "fbUserId": fbUserId]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (response: [String: Any]) in
 
             guard let logged = response["status"] as? Bool,
                 logged else {
@@ -159,13 +159,13 @@ public class AuthService: BaseService {
             "fbUserId", "type", "pictures", "picture"]
         let fieldsValue = fields ?? fieldsArray.joined(separator: ",")
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "fields", value: fieldsValue)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response: [String: Any]) in
+        client.restClient.GET(request: request, onSuccess: { (response: [String: Any]) in
             let userData = JSONDecoder().decodeDict(of: UserData.self, from: response)!
 
             let user = IngresseUser()
@@ -187,13 +187,13 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func recoverPassword(email: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("recover-password")
             .build()
 
         let params = ["email": email]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -208,14 +208,14 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func validateHash(_ token: String, email: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("recover-validate")
             .build()
 
         var params = ["email": email]
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -230,14 +230,14 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func validateIncompleteUserToken(_ token: String, email: String, onSuccess: @escaping (String) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("activate-user-validate")
             .build()
 
         var params = ["email": email]
         params["token"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (response: [String: Any]) in
             guard let status = response["status"] as? String else {
                 onError(APIError.getDefaultError())
                 return
@@ -258,7 +258,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func activateUser(email: String, password: String, token: String, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("activate-user")
             .build()
 
@@ -266,7 +266,7 @@ public class AuthService: BaseService {
         params["password"] = password
         params["token"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: {(response) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: {(response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
@@ -309,7 +309,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func updatePassword(email: String, password: String, token: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("recover-update-password")
             .build()
 
@@ -317,7 +317,7 @@ public class AuthService: BaseService {
         params["password"] = password
         params["hash"] = token
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error: APIError) in
             onError(error)
@@ -334,7 +334,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func changeProfilePassword(currentPassword: String, newPassword: String, token: String, userId: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "usertoken", value: token)
             .build()
@@ -342,7 +342,7 @@ public class AuthService: BaseService {
         var params = ["password": currentPassword]
         params["newPassword"] = newPassword
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response: [String: Any]) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (response: [String: Any]) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
@@ -378,12 +378,12 @@ public class AuthService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func renewAuthToken(userToken: String, onSuccess: @escaping (String) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("/login/renew-token")
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { response in
+        client.restClient.GET(request: request, onSuccess: { response in
             guard let authToken = response["authToken"] as? String else {
                 onError(APIError.getDefaultError())
                 return
@@ -402,13 +402,13 @@ public class AuthService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func createTwoFactorToken(userToken: String, deviceId: String, otpCode: String, onSuccess: @escaping (Response.Auth.TwoFactor) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("two-factor")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
         let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
-        client.restClient.POST(url: url, customHeader: header, onSuccess: { response in
+        client.restClient.POST(request: request, customHeader: header, onSuccess: { response in
             guard let twoFactorResponse = JSONDecoder().decodeDict(of: Response.Auth.TwoFactor.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return

@@ -17,11 +17,11 @@ public class EventService: BaseService {
     ///   - eventId: id of the event
     public func getEventAttributes(eventId: String, onSuccess: @escaping (_ attributes: EventAttributes) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             let attributes = JSONDecoder().decodeDict(of: EventAttributes.self, from: response)!
             onSuccess(attributes)
         }, onError: { (error) in
@@ -29,11 +29,15 @@ public class EventService: BaseService {
         })
     }
     
-    public func getSpecialEvents(onSuccess: @escaping (_ specialEvents: [String: Response.Events.SpecialEvent]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getSpecialEvents(onSuccess: @escaping (_ specialEvents: [String: Response.Events.SpecialEvent]) -> Void,
+                                 onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = "https://35fd0qp7if.execute-api.us-east-1.amazonaws.com/beta"
-        
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        let url = URL(string: "https://35fd0qp7if.execute-api.us-east-1.amazonaws.com/beta")!
+        let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
+
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
+
             let specialEvents = JSONDecoder().decodeDict(of: [String: Response.Events.SpecialEvent].self, from: response)!
             onSuccess(specialEvents)
         }, onError: { (error) in
@@ -58,9 +62,11 @@ public class EventService: BaseService {
             builder = builder.addParameter(key: "link", value: slug)
         }
 
-        let url = builder.build()
+        let request = try! builder.build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
+
             guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else { return }
             onSuccess(event)
         }, onError: { (error) in
@@ -74,12 +80,12 @@ public class EventService: BaseService {
     ///   - eventId: id of the event
     public func getAdvertisement(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
             .addParameter(key: "filter", value: "advertisement")
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let obj = response["advertisement"] as? [String: Any],
                 let mobile = obj["mobile"] as? [String: Any],
@@ -110,16 +116,17 @@ public class EventService: BaseService {
                           page: ElasticPagination,
                           delegate: NewEventSyncDelegate) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
             .addParameter(key: "state", value: place)
             .addParameter(key: "size", value: page.size)
             .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "offset", value: page.currentOffset)
-            .buildWithoutKeys()
+            .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
             guard
                 let total = response["total"] as? Int,
                 let hits = response["hits"] as? [[String: Any]],
@@ -148,12 +155,12 @@ public class EventService: BaseService {
     ///   - delegate: Callback listener
     public func getCategories(onSuccess: @escaping (_ categories: [Category]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setHost(.events)
             .setPath("categories")
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let categories = JSONDecoder().decodeArray(of: [Category].self, from: data)
@@ -177,7 +184,7 @@ public class EventService: BaseService {
         onSuccess: @escaping (_ highlights: [Highlight]) -> Void,
         onError: @escaping (_ errorData: APIError) -> Void) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("featured")
             .addParameter(key: "page", value: "1")
             .addParameter(key: "pageSize", value: "25")
@@ -185,7 +192,7 @@ public class EventService: BaseService {
             .addParameter(key: "state", value: place)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let events = JSONDecoder().decodeArray(of: [Highlight].self, from: data)
@@ -208,11 +215,11 @@ public class EventService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     @objc  public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/session/\(sessionId)/tickets")
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let data = response["data"] as? [[String: Any]],
                 let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
                 else {
@@ -233,14 +240,14 @@ public class EventService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func getEventPassKey(eventId: String, passkeyCode: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/session/0/tickets")
             .addParameter(key: "passkey", value: passkeyCode)
             .build()
 
         var newTickets = [TicketGroup]()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let data = response["data"] as? [[String: Any]],
                 let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
                 else {
@@ -268,12 +275,12 @@ public class EventService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func getEventPassportsPassKey(eventId: String, passkeyCode: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/session/passports/tickets")
             .addParameter(key: "passkey", value: passkeyCode)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let data = response["data"] as? [[String: Any]],
                 let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
                 else {
@@ -289,7 +296,7 @@ public class EventService: BaseService {
     public func getEventsByProducer(request: Request.Event.Producer,
                                     delegate: ProducerEventSyncDelegate) {
         
-        let url = URLBuilder(client: client)
+        let requestURL = try! URLBuilder(client: client)
             .setHost(.events)
             .setPath("search/producer")
             .addParameter(key: "orderBy", value: request.orderBy)
@@ -297,9 +304,10 @@ public class EventService: BaseService {
             .addParameter(key: "to", value: request.to)
             .addParameter(key: "from", value: request.from)
             .addParameter(key: "offset", value: request.offset)
-            .buildWithoutKeys()
+            .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: requestURL,
+                              onSuccess: { (response) in
             guard
                 let total = response["total"] as? Int,
                 let hits = response["hits"] as? [[String: Any]],
@@ -323,11 +331,11 @@ public class EventService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: error callback
     public func getRSVPList(eventId: String, onSuccess: @escaping (_ success: Response.Events.RSVP) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(eventId)/rsvp")
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let rsvpResponse = JSONDecoder().decodeDict(of: Response.Events.RSVP.self, from: response) else {
                     onError(APIError.getDefaultError())
                     return
@@ -345,12 +353,12 @@ public class EventService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: error callback
     public func addUserToRSVP(request: Request.Event.AddToRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(request.eventId)/rsvp")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
-        client.restClient.POST(url: url, parameters: [:], onSuccess: { (response) in
+        client.restClient.POST(request: request, parameters: [:], onSuccess: { (response) in
             guard let success = response["success"] as? Bool else {
                 onError(APIError.getDefaultError())
                 return
@@ -368,12 +376,12 @@ public class EventService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: error callback
     public func removeUserFromRSVP(request: Request.Event.RemoveFromRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("event/\(request.eventId)/rsvp")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
-        client.restClient.DELETE(url: url, parameters: [:], onSuccess: { (response) in
+        client.restClient.DELETE(request: request, parameters: [:], onSuccess: { (response) in
             guard let success = response["success"] as? Bool else {
                 onError(APIError.getDefaultError())
                 return

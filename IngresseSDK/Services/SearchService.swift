@@ -16,14 +16,14 @@ public class SearchService: BaseService {
         
         let str = queryString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("search/transfer/user")
             .addParameter(key: "size", value: "\(limit)")
             .addParameter(key: "term", value: str)
             .addParameter(key: "usertoken", value: userToken)
             .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let users = JSONDecoder().decodeArray(of: [User].self, from: data)
@@ -60,9 +60,10 @@ public class SearchService: BaseService {
             builder = builder.addParameter(key: key, value: value)
         }
 
-        let url = builder.buildWithoutKeys()
+        let request = try! builder.build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
             guard
                 let total = response["total"] as? Int,
                 let hits = response["hits"] as? [[String: Any]],
@@ -86,13 +87,14 @@ public class SearchService: BaseService {
                           onSuccess: @escaping (_ event: [IngresseSDK.NewEvent]) -> Void,
                           onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
             .addParameter(key: "id", value: eventId)
-            .buildWithoutKeys()
+            .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
             guard
                 let hits = response["hits"] as? [[String: Any]],
                 let events = JSONDecoder().decodeArray(of: [NewEvent].self, from: hits)

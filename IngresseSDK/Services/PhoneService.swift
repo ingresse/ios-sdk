@@ -10,11 +10,11 @@ public class PhoneService: BaseService {
     ///     - onSuccess: success callback with DDI list
     ///     - onError: fail callback with APIError
     public func getDDIList(onSuccess: @escaping (_ response: [PhoneDDI]) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("country")
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let ddiList = JSONDecoder().decodeArray(of: [PhoneDDI].self, from: data)

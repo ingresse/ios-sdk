@@ -14,13 +14,13 @@ public class UserService: BaseService {
 
         let userId = usertoken.components(separatedBy: "-").first!
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)/events")
             .addParameter(key: "usertoken", value: usertoken)
             .addParameter(key: "page", value: String(page))
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let data = response["data"] as? [[String: Any]] else {
                 delegate.didFailDownloadEvents(errorData: APIError.getDefaultError())
                 return
@@ -43,7 +43,7 @@ public class UserService: BaseService {
     ///   - onSuccess: success callback with IngresseUser
     ///   - onError: fail callback with APIError
     public func createAccount(request: Request.Auth.SignUp, onSuccess: @escaping (_ user: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let requestURL = try! URLBuilder(client: client)
             .setPath("user")
             .build()
 
@@ -52,7 +52,11 @@ public class UserService: BaseService {
         requestWithCheck.passCheck = requestWithCheck.password
 
         let data = try? JSONEncoder().encode(requestWithCheck)
-        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
+        client.restClient.POSTData(request: requestURL,
+                                   data: data,
+                                   JSONData: true,
+                                   onSuccess: { (response) in
+
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
@@ -103,14 +107,14 @@ public class UserService: BaseService {
                                  onSuccess: @escaping (_ user: UpdatedUser) -> Void,
                                  onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let requestURL = try! URLBuilder(client: client)
             .setPath("user/\(request.userId)")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
 
-        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
+        client.restClient.POSTData(request: requestURL, data: data, JSONData: true, onSuccess: { (response) in
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
@@ -154,7 +158,7 @@ public class UserService: BaseService {
                               onSuccess: @escaping () -> Void,
                               onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "method", value: "update")
             .addParameter(key: "usertoken", value: userToken)
@@ -162,7 +166,7 @@ public class UserService: BaseService {
 
         let params = ["picture": String(format: "data:image/png;base64,%@", imageData)]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -178,7 +182,7 @@ public class UserService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback with APIError
     public func verifyAccount(userId: Int, userToken: String, accountkitCode: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "method", value: "update")
             .addParameter(key: "usertoken", value: userToken)
@@ -186,7 +190,7 @@ public class UserService: BaseService {
 
         let params = ["accountkitCode": accountkitCode]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.POST(request: request, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -202,12 +206,12 @@ public class UserService: BaseService {
     public func getUserWalletInfos(userToken: String,
                                    onSuccess: @escaping (_ walletInfo: UserWalletInfo) -> Void,
                                    onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
         .setPath("wallet")
         .addParameter(key: "usertoken", value: userToken)
         .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["wallet"] as? [String: Any],
                 let wallet = JSONDecoder().decodeDict(of: UserWalletInfo.self, from: data)
@@ -235,13 +239,16 @@ public class UserService: BaseService {
     public func insertCard(_ request: Request.UserCardWallet.Insertion,
                            onSuccess: @escaping () -> Void,
                            onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let requestURL = try! URLBuilder(client: client)
             .setPath("wallet")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
-        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
+        client.restClient.POSTData(request: requestURL,
+                                   data: data,
+                                   JSONData: true,
+                                   onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -259,13 +266,16 @@ public class UserService: BaseService {
     public func changeDefaultCard(_ request: Request.UserCardWallet.Managment,
                                   onSuccess: @escaping () -> Void,
                                   onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let requestURL = try! URLBuilder(client: client)
             .setPath("wallet")
             .addParameter(key: "usertoken", value: request.userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
-        client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
+        client.restClient.PUTData(request: requestURL,
+                                  data: data,
+                                  JSONData: true,
+                                  onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)
@@ -282,14 +292,14 @@ public class UserService: BaseService {
     public func deleteCard(userToken: String, token: String,
                            onSuccess: @escaping () -> Void,
                            onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("wallet")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
         let params = ["token": token]
 
-        client.restClient.DELETE(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.DELETE(request: request, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: { (error) in
             onError(error)

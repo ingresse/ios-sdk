@@ -90,37 +90,24 @@ public class URLBuilder: NSObject {
         return self
     }
     
-    public func build() -> String {
-        var url = buildWithoutKeys()
+    public func build() throws -> URLRequest {
+        var urlString = customUrl.isEmpty ? getHostUrl() : "https://\(customUrl)"
+        urlString += path
+        urlString += "?"
 
-        if !parameters.isEmpty {
-            url += "&"
+        let params = parameters.merging(authorizationAPIParam()) { _, key in key }
+        if !params.isEmpty {
+            urlString += params.stringFromHttpParameters()
         }
 
-        url += generateAuthString(apiKey: apiKey)
-
-        return url
-    }
-
-    public func buildWithoutKeys() -> String {
-        var url = customUrl.isEmpty ? getHostUrl() : "https://\(customUrl)"
-        url += path
-        url += "?"
-
-        if !parameters.isEmpty {
-            url += parameters.stringFromHttpParameters()
+        guard let url = URL(string: urlString) else {
+            throw URLRequestError.requestInvalid
         }
+        let request = URLRequest(url: url,
+                                 cachePolicy: .useProtocolCachePolicy,
+                                 timeoutInterval: 60)
 
-        return url
-    }
-
-    /// Generate stardart ingresse auth string
-    ///
-    /// - Parameters:
-    ///   - apiKey: app's key
-    /// - Returns: Auth string with api key
-    public func generateAuthString(apiKey: String) -> String {
-        return "apikey=\(apiKey)"
+        return requestWithHeaders(request)
     }
 
     public func getHostUrl() -> String {
@@ -129,4 +116,44 @@ public class URLBuilder: NSObject {
         }
         return "https://\(environment.rawValue)\(host.rawValue)"
     }
+}
+
+// MARK: - Private Methods
+extension URLBuilder {
+
+    private func requestWithHeaders(_ request: URLRequest) -> URLRequest {
+
+        var request = request
+        if let header = UserAgent.header {
+
+            request.addValue(header, forHTTPHeaderField: "User-Agent")
+        }
+
+        if let auth = UserAgent.authorization {
+
+            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
+        }
+        return request
+    }
+
+    private func authorizationAPIParam() -> [String: String] {
+
+        switch host {
+        case .api:
+
+            return ["apiKey": apiKey]
+        case .userTransactions:
+
+            return ["x-api-key": "fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv"]
+        default:
+
+            return [:]
+        }
+    }
+}
+
+// MARK: - URLRequestError
+enum URLRequestError: Error {
+
+    case requestInvalid
 }

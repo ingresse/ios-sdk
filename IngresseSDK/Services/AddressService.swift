@@ -10,15 +10,19 @@ public class AddressService: BaseService {
     ///   - zipCode: address zipcode
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getAddressBy(zipCode: String, onSuccess: @escaping (_ response: Address) -> Void, onError: @escaping ErrorHandler) {
+    public func getAddressBy(zipCode: String,
+                             onSuccess: @escaping (_ response: Address) -> Void,
+                             onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setHost(.cep)
             .setEnvironment(.prod)
             .setPath(zipCode)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { (response) in
+
             let attributes = JSONDecoder().decodeDict(of: Address.self, from: response)!
             onSuccess(attributes)
         }, onError: { (error) in
@@ -52,7 +56,7 @@ public class AddressService: BaseService {
                               onSuccess: @escaping () -> Void,
                               onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "method", value: "update")
             .addParameter(key: "usertoken", value: userToken)
@@ -66,7 +70,10 @@ public class AddressService: BaseService {
                       "city": city,
                       "state": state]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (response) in
+        client.restClient.POST(request: request,
+                               parameters: params,
+                               onSuccess: { (response) in
+
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
                 return

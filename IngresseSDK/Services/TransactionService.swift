@@ -12,14 +12,22 @@ public class TransactionService: BaseService {
     ///   - tickets: tickets selected by user
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func createTransaction(request: Request.Shop.Create, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+    public func createTransaction(request: Request.Shop.Create,
+                                  userToken: String,
+                                  onSuccess: @escaping (_ response: Response.Shop.Transaction) -> Void,
+                                  onError: @escaping ErrorHandler) {
+
+        let requestURL = try! URLBuilder(client: client)
             .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
         let data = try? JSONEncoder().encode(request)
-        client.restClient.POSTData(url: url, data: data, JSONData: true, onSuccess: { (response) in
+        client.restClient.POSTData(request: requestURL,
+                                   data: data,
+                                   JSONData: true,
+                                   onSuccess: { (response) in
+
             guard let newResponse = response["data"] as? [String: Any],
                 let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Transaction.self, from: newResponse) else {
                     onError(APIError.getDefaultError())
@@ -38,12 +46,12 @@ public class TransactionService: BaseService {
     ///   - onError: fail callback with APIError
     @objc public func getTransactionDetails(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: TransactionData) -> Void, onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("sale/\(transactionId)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             let transaction = JSONDecoder().decodeDict(of: TransactionData.self, from: response)!
             onSuccess(transaction)
         }, onError: onError)
@@ -59,7 +67,7 @@ public class TransactionService: BaseService {
     ///     - onError: fail callback with APIError
     public func updateTransaction(_ transactionId: String, insured: Bool, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("shop/\(transactionId)")
             .addParameter(key: "usertoken", value: userToken)
             .build()
@@ -67,7 +75,7 @@ public class TransactionService: BaseService {
         let params = ["insured": insured]
         let data = try? JSONEncoder().encode(params)
 
-        client.restClient.PUTData(url: url, data: data, JSONData: true, onSuccess: { (_) in
+        client.restClient.PUTData(request: request, data: data, JSONData: true, onSuccess: { (_) in
             onSuccess()
         }, onError: onError)
     }
@@ -80,12 +88,12 @@ public class TransactionService: BaseService {
     ///   - onError: fail callback with APIError
     public func cancelTransaction(_ transactionId: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("shop/\(transactionId)/cancel")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        client.restClient.POST(url: url, onSuccess: { (_) in
+        client.restClient.POST(request: request, onSuccess: { (_) in
             onSuccess()
         }, onError: onError)
     }
@@ -98,12 +106,12 @@ public class TransactionService: BaseService {
     ///     - onError: fail callback with APIError
     public func getPaymentMethods(_ transactionId: String, userToken: String, onSuccess: @escaping (_ methods: Response.Shop.Methods) -> Void, onError: @escaping ErrorHandler) {
 
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
         .setPath("shop/\(transactionId)/payment-methods")
         .addParameter(key: "usertoken", value: userToken)
         .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let methods = JSONDecoder().decodeDict(of: Response.Shop.Methods.self, from: response)
                 else {
                     onError(APIError.getDefaultError())
@@ -123,12 +131,12 @@ public class TransactionService: BaseService {
     ///   - onError: fail callback
     public func getCheckinStatus(_ ticketCode: String, userToken: String, onSuccess: @escaping (_ checkinSession: [CheckinSession]) -> Void, onError: @escaping ErrorHandler) {
         let ticket: String = ticketCode.stringWithPercentEncoding()!
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setPath("ticket/\(ticket)/status")
             .addParameter(key: "usertoken", value: userToken)
             .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let checkinSession = JSONDecoder().decodeArray(of: [CheckinSession].self, from: data) else {
@@ -197,15 +205,16 @@ public class TransactionService: BaseService {
         
     public func getUserWalletTransactions(request: Request.Transaction.UserTransaction, onSuccess: @escaping (_ transactions: [UserWalletTransaction], _ page: Int, _ lastPage: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = URLBuilder(client: client)
+        let requestURL = try! URLBuilder(client: client)
             .setHost(.userTransactions)
             .addParameter(key: "channel", value: request.channel)
             .addParameter(key: "status", value: request.status)
             .addParameter(key: "pageSize", value: request.pageSize)
             .addParameter(key: "page", value: request.page)
-            .buildWithoutKeys()
+            .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: requestURL,
+                              onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let checkinSession = JSONDecoder().decodeArray(of: [UserWalletTransaction].self, from: data),
@@ -223,13 +232,14 @@ public class TransactionService: BaseService {
     
     public func refundUserTransactions(transactionId: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
             .setHost(.userTransactions)
             .setPath("\(transactionId)/refund")
-            .buildWithoutKeys()
+            .build()
         
-        client.restClient.POST(url: url, parameters: [:],
-                               customHeader: ["x-api-key": "fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv"],
+        client.restClient.POST(request: request,
+                               parameters: [:],
+                               customHeader: [:],
                                onSuccess: { (response) in
                                 onSuccess()
         }, onError: { (error) in

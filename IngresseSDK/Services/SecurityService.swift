@@ -11,12 +11,15 @@ public class SecurityService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: error callback
     public func getPasswordStrength(password: String, onSuccess: @escaping (_ response: Response.Security.PasswordStrength) -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        let request = try! URLBuilder(client: client)
         .setPath("password")
         .build()
 
         let param = ["password": password]
-        client.restClient.POST(url: url, parameters: param, onSuccess: { (response) in
+        client.restClient.POST(request: request,
+                               parameters: param,
+                               onSuccess: { (response) in
+
             guard let passwordStrength = JSONDecoder().decodeDict(of: Response.Security.PasswordStrength.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return
