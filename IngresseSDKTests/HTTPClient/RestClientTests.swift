@@ -35,7 +35,10 @@ class RestClientTests: XCTestCase {
         var result: [String: Any]?
 
         // When
-        client.GET(url: "url", onSuccess: { (response) in
+        let url = URL(string: "https://www.url.com")!
+        client.GET(request: URLRequest(url: url),
+                   onSuccess: { (response) in
+
             success = true
             result = response
             asyncExpectation.fulfill()
@@ -66,7 +69,11 @@ class RestClientTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        client.GET(url: "url", onSuccess: { (_) in }, onError: { (error) in
+        let url = URL(string: "https://www.url.com")!
+        client.GET(request: URLRequest(url: url),
+                   onSuccess: { _ in },
+                   onError: { error in
+
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -108,7 +115,11 @@ class RestClientTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        client.GET(url: "url", onSuccess: { (_) in }, onError: { (error) in
+        let url = URL(string: "https://www.url.com")!
+        client.GET(request: URLRequest(url: url),
+                   onSuccess: { _ in },
+                   onError: { error in
+
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -144,7 +155,11 @@ class RestClientTests: XCTestCase {
         var apiError: APIError?
 
         // When
-        client.GET(url: "url", onSuccess: { (_) in }, onError: { (error) in
+        let url = URL(string: "https://www.url.com")!
+        client.GET(request: URLRequest(url: url),
+                   onSuccess: { _ in },
+                   onError: { error in
+
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -185,7 +200,11 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (response) in
+        let url = URL(string: "https://www.url.com")!
+        client.POST(request: URLRequest(url: url),
+                    parameters: parameters,
+                    onSuccess: { response in
+
             success = true
             result = response
             asyncExpectation.fulfill()
@@ -218,7 +237,12 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }, onError: { (error) in
+        let url = URL(string: "https://www.url.com")!
+        client.POST(request: URLRequest(url: url),
+                    parameters: parameters,
+                    onSuccess: { _ in },
+                    onError: { error in
+
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -262,7 +286,12 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }, onError: { (error) in
+        let url = URL(string: "https://www.url.com")!
+        client.POST(request: URLRequest(url: url),
+                    parameters: parameters,
+                    onSuccess: { _ in },
+                    onError: { error in
+
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -300,7 +329,12 @@ class RestClientTests: XCTestCase {
         let parameters = ["id": 2]
 
         // When
-        client.POST(url: "url", parameters: parameters, onSuccess: { (_) in }, onError: { (error) in
+        let url = URL(string: "https://www.url.com")!
+        client.POST(request: URLRequest(url: url),
+                    parameters: parameters,
+                    onSuccess: { _ in },
+                    onError: { error in
+
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -341,11 +375,16 @@ class RestClientTests: XCTestCase {
         let data = "bodyData".data(using: .utf8)
 
         // When
-        client.POSTData(url: "url", data: data, JSONData: false, onSuccess: { (response) in
+        let url = URL(string: "https://www.url.com")!
+        client.POSTData(request: URLRequest(url: url),
+                        data: data,
+                        JSONData: false,
+                        onSuccess: { response in
+
             success = true
             result = response
             asyncExpectation.fulfill()
-        }, onError: { (_) in })
+        }, onError: { _ in })
 
         // Then
         waitForExpectations(timeout: 5) { (_) in
@@ -384,11 +423,16 @@ class RestClientTests: XCTestCase {
         let data = "bodyData".data(using: .utf8)
 
         // When
-        client.POSTData(url: "url", data: data, JSONData: true, onSuccess: { (response) in
+        let url = URL(string: "https://www.url.com")!
+        client.POSTData(request: URLRequest(url: url),
+                        data: data,
+                        JSONData: true,
+                        onSuccess: { response in
+
             success = true
             result = response
             asyncExpectation.fulfill()
-        }, onError: { (_) in })
+        }, onError: { _ in })
 
         // Then
         waitForExpectations(timeout: 5) { (_) in

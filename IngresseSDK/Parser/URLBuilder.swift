@@ -106,7 +106,6 @@ public class URLBuilder: NSObject {
         let request = URLRequest(url: url,
                                  cachePolicy: .useProtocolCachePolicy,
                                  timeoutInterval: 60)
-
         return requestWithHeaders(request)
     }
 
@@ -133,18 +132,24 @@ extension URLBuilder {
 
             request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
         }
+        authorizationAPIParam().forEach {
+
+            request.addValue($0.value,
+                             forHTTPHeaderField: $0.key)
+        }
         return request
     }
 
     private func authorizationAPIParam() -> [String: String] {
 
         switch host {
-        case .api:
+        case .api,
+             .search:
 
-            return ["apiKey": apiKey]
+            return ["apikey": apiKey]
         case .userTransactions:
 
-            return ["x-api-key": "fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv"]
+            return ["X-Api-Key": "fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv"]
         default:
 
             return [:]
