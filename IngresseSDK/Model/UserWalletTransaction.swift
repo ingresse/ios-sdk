@@ -84,7 +84,7 @@ public struct UserWalletTransaction: Decodable {
     }
     
     public struct Event: Decodable {
-        public var id: Any?
+        public var id: String?
         public var title: String?
 
         enum CodingKeys: String, CodingKey {
@@ -95,13 +95,7 @@ public struct UserWalletTransaction: Decodable {
         public init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             title = try? container.decodeIfPresent(String.self, forKey: .title)
-            do {
-
-                id = try container.decodeIfPresent(Int.self, forKey: .id)
-            } catch {
-
-                id = try? container.decodeIfPresent(String.self, forKey: .id)
-            }
+            id = try? container.decodeIfPresent(String.self, forKey: .id)
         }
     }
     

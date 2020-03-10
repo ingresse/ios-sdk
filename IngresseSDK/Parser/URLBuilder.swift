@@ -86,10 +86,11 @@ public class URLBuilder: NSObject {
     public func build() throws -> URLRequest {
         var urlString = getHostUrl()
         urlString += path
-        urlString += "?"
 
         let params = parameters.merging(authorizationAPIParam()) { _, key in key }
         if !params.isEmpty {
+
+            urlString += "?"
             urlString += params.stringFromHttpParameters()
         }
 
