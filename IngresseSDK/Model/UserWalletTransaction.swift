@@ -2,7 +2,7 @@
 //  Copyright © 2020 Ingresse. All rights reserved.
 //
 
-public class UserWalletTransaction: NSObject, Decodable {
+public struct UserWalletTransaction: Decodable {
     public var transactionId: String?
     public var createdAt: String?
     public var amount: Int?
@@ -21,7 +21,7 @@ public class UserWalletTransaction: NSObject, Decodable {
         case event
     }
 
-    public required init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
         transactionId = try container.decodeIfPresent(String.self, forKey: .transactionId)
         createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
@@ -32,7 +32,7 @@ public class UserWalletTransaction: NSObject, Decodable {
         event = try container.decodeIfPresent(Event.self, forKey: .event)
     }
     
-    public class TransactionTicket: NSObject, Decodable {
+    public struct TransactionTicket: Decodable {
         public var id: Int?
         public var name: String?
         public var quantity: Int?
@@ -43,7 +43,7 @@ public class UserWalletTransaction: NSObject, Decodable {
             case quantity
         }
 
-        public required init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             id = try container.decodeIfPresent(Int.self, forKey: .id)
             name = try container.decodeIfPresent(String.self, forKey: .name)
@@ -51,19 +51,19 @@ public class UserWalletTransaction: NSObject, Decodable {
         }
     }
     
-    public class TransactionStatus: NSObject, Decodable {
+    public struct TransactionStatus: Decodable {
         public var current: CurrentStatus?
 
         enum CodingKeys: String, CodingKey {
             case current
         }
 
-        public required init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             current = try container.decodeIfPresent(CurrentStatus.self, forKey: .current)
         }
         
-        public class CurrentStatus: NSObject, Decodable {
+        public struct CurrentStatus: Decodable {
             public var name: String?
             public var comment: String?
             public var createdAt: String?
@@ -74,7 +74,7 @@ public class UserWalletTransaction: NSObject, Decodable {
                 case createdAt
             }
 
-            public required init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
                 name = try container.decodeIfPresent(String.self, forKey: .name)
                 comment = try container.decodeIfPresent(String.self, forKey: .comment)
@@ -83,7 +83,7 @@ public class UserWalletTransaction: NSObject, Decodable {
         }
     }
     
-    public class Event: NSObject, Decodable {
+    public struct Event: Decodable {
         public var id: Any?
         public var title: String?
 
@@ -92,7 +92,7 @@ public class UserWalletTransaction: NSObject, Decodable {
             case title
         }
 
-        public required init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             title = try? container.decodeIfPresent(String.self, forKey: .title)
             do {
@@ -106,7 +106,7 @@ public class UserWalletTransaction: NSObject, Decodable {
         }
     }
     
-    public class Payment: NSObject, Decodable {
+    public struct Payment: Decodable {
         public var type: String?
         public var free: Bool?
         public var creditCard: CreditCard?
@@ -127,7 +127,7 @@ public class UserWalletTransaction: NSObject, Decodable {
             case name
         }
 
-        public required init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             type = try container.decodeIfPresent(String.self, forKey: .type)
             free = try container.decodeIfPresent(Bool.self, forKey: .free)
@@ -142,7 +142,7 @@ public class UserWalletTransaction: NSObject, Decodable {
             acquirer = acquirerData.decodeKey(.name, ofType: String.self)
         }
         
-        public class DeclinedReason: NSObject, Decodable {
+        public struct DeclinedReason: Decodable {
             public var message: String?
             public var declinedBy: String?
             public var code: String?
@@ -153,7 +153,7 @@ public class UserWalletTransaction: NSObject, Decodable {
                 case code
             }
             
-            public required init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
                 message = try container.decodeIfPresent(String.self, forKey: .message)
                 declinedBy = try container.decodeIfPresent(String.self, forKey: .declinedBy)
@@ -161,7 +161,7 @@ public class UserWalletTransaction: NSObject, Decodable {
             }
         }
         
-        public class CreditCard: NSObject, Decodable {
+        public struct CreditCard: Decodable {
             public var brand: String?
             public var expiration: String?
             public var holder: String?
@@ -180,7 +180,7 @@ public class UserWalletTransaction: NSObject, Decodable {
                 case installments
             }
             
-            public required init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
                 brand = try container.decodeIfPresent(String.self, forKey: .brand)
                 expiration = try container.decodeIfPresent(String.self, forKey: .expiration)
@@ -192,7 +192,7 @@ public class UserWalletTransaction: NSObject, Decodable {
             }
         }
         
-        public class BankBillet: NSObject, Decodable {
+        public struct BankBillet: Decodable {
             public var url: String?
             public var provider: String?
             public var expiration: String?
@@ -205,7 +205,7 @@ public class UserWalletTransaction: NSObject, Decodable {
                 case barCode
             }
             
-            public required init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
                 url = try container.decodeIfPresent(String.self, forKey: .url)
                 provider = try container.decodeIfPresent(String.self, forKey: .provider)

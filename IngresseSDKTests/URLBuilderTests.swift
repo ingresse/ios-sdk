@@ -51,7 +51,7 @@ class URLBuilderTests: XCTestCase {
 
     func testGestHostUrlHmlSearch() {
         // Given
-        let expected = "https://hml-event.ingresse.com/search/company/?apikey=1234"
+        let expected = "https://hml-event.ingresse.com/search/company/?"
 
         // When
         let request = try? builder
