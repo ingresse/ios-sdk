@@ -9,12 +9,18 @@ public class PhoneService: BaseService {
     /// - Parameters:
     ///     - onSuccess: success callback with DDI list
     ///     - onError: fail callback with APIError
-    public func getDDIList(onSuccess: @escaping (_ response: [PhoneDDI]) -> Void, onError: @escaping ErrorHandler) {
-        let request = try! URLBuilder(client: client)
-            .setPath("country")
-            .build()
+    public func getDDIList(onSuccess: @escaping (_ response: [PhoneDDI]) -> Void,
+                           onError: @escaping ErrorHandler) {
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
+        let builder = URLBuilder(client: client)
+            .setPath("country")
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let ddiList = JSONDecoder().decodeArray(of: [PhoneDDI].self, from: data)
@@ -24,8 +30,6 @@ public class PhoneService: BaseService {
             }
 
             onSuccess(ddiList)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

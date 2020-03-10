@@ -98,8 +98,7 @@ public struct UserWalletTransaction: Decodable {
             do {
 
                 id = try container.decodeIfPresent(Int.self, forKey: .id)
-            }
-            catch {
+            } catch {
 
                 id = try? container.decodeIfPresent(String.self, forKey: .id)
             }

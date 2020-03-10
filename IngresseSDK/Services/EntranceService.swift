@@ -15,7 +15,14 @@ public class EntranceService: BaseService {
     ///   - page:       result page
     ///
     ///   - delegate:   callback listener
-    public func getGuestListOfEvent(_ eventId: String, sessionId: String, from: Int = 0, userToken: String, page: Int, pageSize: Int = 1000, delegate: GuestListSyncDelegate) {
+    public func getGuestListOfEvent(_ eventId: String,
+                                    sessionId: String,
+                                    from: Int = 0,
+                                    userToken: String,
+                                    page: Int,
+                                    pageSize: Int = 1000,
+                                    delegate: GuestListSyncDelegate) {
+
         var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "page", value: page)
@@ -27,8 +34,10 @@ public class EntranceService: BaseService {
             builder = builder.addParameter(key: "from", value: "\(from)")
         }
         
-        let request = try! builder.build()
-        
+        guard let request = try? builder.build() else {
+
+            return delegate.didFailSyncGuestList(errorData: APIError.getDefaultError())
+        }
         client.restClient.GET(request: request,
                               onSuccess: { (response) in
             guard
@@ -59,12 +68,24 @@ public class EntranceService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: Success callback with array of [CheckinTickets]
     ///   - onError: Error callback with APIError
-    public func checkinTickets(_ ticketCodes: [String], ticketStatus: [String], ticketTimestamps: [String], eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ tickets: [CheckinTicket]) -> Void, onError: @escaping ErrorHandler) {
-        let request = try! URLBuilder(client: client)
+    public func checkinTickets(_ ticketCodes: [String],
+                               ticketStatus: [String],
+                               ticketTimestamps: [String],
+                               eventId: String,
+                               sessionId: String,
+                               userToken: String,
+                               onSuccess: @escaping (_ tickets: [CheckinTicket]) -> Void,
+                               onError: @escaping ErrorHandler) {
+
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         
         var postParams = [String: [[String: String]]]()
         var tickets = [[String: String]]()
@@ -78,7 +99,9 @@ public class EntranceService: BaseService {
         }
         postParams["tickets"] = tickets
         
-        client.restClient.POST(request: request, parameters: postParams, onSuccess: { (response) in
+        client.restClient.POST(request: request,
+                               parameters: postParams,
+                               onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let tickets = JSONDecoder().decodeArray(of: [CheckinTicket].self, from: data)
@@ -88,9 +111,7 @@ public class EntranceService: BaseService {
             }
 
             onSuccess(tickets)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     /// Get validation info of ticket
@@ -103,13 +124,22 @@ public class EntranceService: BaseService {
     ///   - userToken: token required
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getValidationInfoOfTicket(code: String, eventId: String, sessionId: String, userToken: String, onSuccess: @escaping (_ ticket: CheckinTicket) -> Void, onError: @escaping ErrorHandler) {
+    public func getValidationInfoOfTicket(code: String,
+                                          eventId: String,
+                                          sessionId: String,
+                                          userToken: String,
+                                          onSuccess: @escaping (_ ticket: CheckinTicket) -> Void,
+                                          onError: @escaping ErrorHandler) {
         
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/guestlist")
             .addParameter(key: "method", value: "updatestatus")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         
         var postParams = [String: String]()
         postParams["tickets[0][ticketCode]"] = code
@@ -117,7 +147,9 @@ public class EntranceService: BaseService {
         postParams["tickets[0][ticketTimestamp]"] = "\(Int(Date().timeIntervalSince1970)*1000)"
         postParams["tickets[0][sessionId]"] = sessionId
         
-        client.restClient.POST(request: request, parameters: postParams, onSuccess: { (response) in
+        client.restClient.POST(request: request,
+                               parameters: postParams,
+                               onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let ticketData = data.first,
@@ -128,9 +160,7 @@ public class EntranceService: BaseService {
             }
             
             onSuccess(ticket)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     /// Get transfer history of ticket
@@ -142,14 +172,21 @@ public class EntranceService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getTransferHistory(ticketId: String, userToken: String, onSuccess: @escaping (_ history: [TransferHistoryItem]) -> Void, onError: @escaping ErrorHandler) {
+    public func getTransferHistory(ticketId: String,
+                                   userToken: String,
+                                   onSuccess: @escaping (_ history: [TransferHistoryItem]) -> Void,
+                                   onError: @escaping ErrorHandler) {
         
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("ticket/\(ticketId)/transfer")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
-        
-        client.restClient.GET(request: request, onSuccess: { (response) in
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let history = JSONDecoder().decodeArray(of: [TransferHistoryItem].self, from: data)
@@ -159,8 +196,6 @@ public class EntranceService: BaseService {
             }
 
             onSuccess(history)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

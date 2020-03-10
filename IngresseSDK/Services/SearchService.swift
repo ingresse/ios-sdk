@@ -12,18 +12,27 @@ public class SearchService: BaseService {
     ///   - limit: number of results
     ///   - onSuccess: success callback with User array
     ///   - onError: fail callback with APIError
-    public func getFriends(_ userToken: String, queryString: String, limit: Int = 12, onSuccess: @escaping (_ users: [User]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getFriends(_ userToken: String,
+                           queryString: String,
+                           limit: Int = 12,
+                           onSuccess: @escaping (_ users: [User]) -> Void,
+                           onError: @escaping (_ errorData: APIError) -> Void) {
         
         let str = queryString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("search/transfer/user")
             .addParameter(key: "size", value: "\(limit)")
             .addParameter(key: "term", value: str)
             .addParameter(key: "usertoken", value: userToken)
-            .build()
-        
-        client.restClient.GET(request: request, onSuccess: { (response) in
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
+
             guard
                 let data = response["data"] as? [[String: Any]],
                 let users = JSONDecoder().decodeArray(of: [User].self, from: data)
@@ -33,9 +42,7 @@ public class SearchService: BaseService {
             }
             
             onSuccess(users)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Search events based on term
@@ -60,8 +67,10 @@ public class SearchService: BaseService {
             builder = builder.addParameter(key: key, value: value)
         }
 
-        let request = try! builder.build()
+        guard let request = try? builder.build() else {
 
+            return onError(APIError.getDefaultError())
+        }
         client.restClient.GET(request: request,
                               onSuccess: { (response) in
             guard
@@ -74,9 +83,7 @@ public class SearchService: BaseService {
             }
 
             onSuccess(events, total)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Search events based on id
@@ -87,12 +94,15 @@ public class SearchService: BaseService {
                           onSuccess: @escaping (_ event: [IngresseSDK.NewEvent]) -> Void,
                           onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
             .addParameter(key: "id", value: eventId)
-            .build()
 
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         client.restClient.GET(request: request,
                               onSuccess: { (response) in
             guard
@@ -103,8 +113,6 @@ public class SearchService: BaseService {
                     return
             }
             onSuccess(events)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

@@ -15,16 +15,19 @@ public class PaymentService: BaseService {
                           onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void,
                           onError: @escaping ErrorHandler) {
 
-        let requestURL = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let requestURL = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
 
         let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(request: requestURL,
                                    data: data,
                                    JSONData: true,
-                                   onSuccess: { (response) in
+                                   onSuccess: { response in
 
             guard let newResponse = response["data"] as? [String: Any],
                 let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Payment.self, from: newResponse) else {
@@ -32,9 +35,7 @@ public class PaymentService: BaseService {
                     return
             }
             onSuccess(paymentResponse)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Do payment tickets
@@ -44,17 +45,23 @@ public class PaymentService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func doPayment(request: Request.Shop.Payment, userToken: String, onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void, onError: @escaping ErrorHandler) {
-        let requestURL = try! URLBuilder(client: client)
+    public func doPayment(request: Request.Shop.Payment,
+                          userToken: String,
+                          onSuccess: @escaping (_ response: Response.Shop.Payment) -> Void,
+                          onError: @escaping ErrorHandler) {
+        let builder = URLBuilder(client: client)
             .setPath("shop")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let requestURL = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
 
         let data = try? JSONEncoder().encode(request)
         client.restClient.POSTData(request: requestURL,
                                    data: data,
                                    JSONData: true,
-                                   onSuccess: { (response) in
+                                   onSuccess: { response in
 
             guard let newResponse = response["data"] as? [String: Any],
                 let paymentResponse = JSONDecoder().decodeDict(of: Response.Shop.Payment.self, from: newResponse) else {
@@ -62,8 +69,6 @@ public class PaymentService: BaseService {
                     return
             }
             onSuccess(paymentResponse)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

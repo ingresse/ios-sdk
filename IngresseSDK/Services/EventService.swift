@@ -15,18 +15,22 @@ public class EventService: BaseService {
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getEventAttributes(eventId: String, onSuccess: @escaping (_ attributes: EventAttributes) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getEventAttributes(eventId: String,
+                                   onSuccess: @escaping (_ attributes: EventAttributes) -> Void,
+                                   onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
-            .build()
-        
-        client.restClient.GET(request: request, onSuccess: { (response) in
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             let attributes = JSONDecoder().decodeDict(of: EventAttributes.self, from: response)!
             onSuccess(attributes)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     public func getSpecialEvents(onSuccess: @escaping (_ specialEvents: [String: Response.Events.SpecialEvent]) -> Void,
@@ -40,16 +44,17 @@ public class EventService: BaseService {
 
             let specialEvents = JSONDecoder().decodeDict(of: [String: Response.Events.SpecialEvent].self, from: response)!
             onSuccess(specialEvents)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     /// Get event details
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    @objc public func getEventDetails(eventId: String, slug: String = "", onSuccess: @escaping (_ details: Event) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    @objc public func getEventDetails(eventId: String,
+                                      slug: String = "",
+                                      onSuccess: @escaping (_ details: Event) -> Void,
+                                      onError: @escaping (_ errorData: APIError) -> Void) {
 
         var builder = URLBuilder(client: client)
             .setPath("event/\(eventId)")
@@ -62,30 +67,36 @@ public class EventService: BaseService {
             builder = builder.addParameter(key: "link", value: slug)
         }
 
-        let request = try! builder.build()
+        guard let request = try? builder.build() else {
 
+            return onError(APIError.getDefaultError())
+        }
         client.restClient.GET(request: request,
-                              onSuccess: { (response) in
+                              onSuccess: { response in
 
             guard let event = JSONDecoder().decodeDict(of: Event.self, from: response) else { return }
             onSuccess(event)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get advertisement info for event
     ///
     /// - Parameters:
     ///   - eventId: id of the event
-    public func getAdvertisement(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getAdvertisement(ofEvent eventId: Int,
+                                 onSuccess: @escaping (_ ads: Advertisement) -> Void,
+                                 onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
             .addParameter(key: "filter", value: "advertisement")
-            .build()
-        
-        client.restClient.GET(request: request, onSuccess: { (response) in
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let obj = response["advertisement"] as? [String: Any],
                 let mobile = obj["mobile"] as? [String: Any],
@@ -97,9 +108,7 @@ public class EventService: BaseService {
 
             ads.eventId = eventId
             onSuccess(ads)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get event list from state and category with search term
@@ -116,17 +125,20 @@ public class EventService: BaseService {
                           page: ElasticPagination,
                           delegate: NewEventSyncDelegate) {
 
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
             .addParameter(key: "state", value: place)
             .addParameter(key: "size", value: page.size)
             .addParameter(key: "from", value: "now-6h")
             .addParameter(key: "offset", value: page.currentOffset)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return delegate.didFail(error: APIError.getDefaultError())
+        }
 
         client.restClient.GET(request: request,
-                              onSuccess: { (response) in
+                              onSuccess: { response in
             guard
                 let total = response["total"] as? Int,
                 let hits = response["hits"] as? [[String: Any]],
@@ -140,9 +152,7 @@ public class EventService: BaseService {
             pagination.total = total
 
             delegate.didSyncEvents(events, page: pagination)
-        }, onError: { (error) in
-            delegate.didFail(error: error)
-        })
+        }, onError: delegate.didFail)
     }
 
     /// Get event list from state and category with search term
@@ -153,14 +163,19 @@ public class EventService: BaseService {
     ///   - category: ID of the category
     ///   - searchTerm: Term to filter event list
     ///   - delegate: Callback listener
-    public func getCategories(onSuccess: @escaping (_ categories: [Category]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getCategories(onSuccess: @escaping (_ categories: [Category]) -> Void,
+                              onError: @escaping (_ errorData: APIError) -> Void) {
 
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setHost(.events)
             .setPath("categories")
-            .build()
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let categories = JSONDecoder().decodeArray(of: [Category].self, from: data)
@@ -170,9 +185,7 @@ public class EventService: BaseService {
             }
 
             onSuccess(categories)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get banners of featured events
@@ -184,15 +197,19 @@ public class EventService: BaseService {
         onSuccess: @escaping (_ highlights: [Highlight]) -> Void,
         onError: @escaping (_ errorData: APIError) -> Void) {
 
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("featured")
             .addParameter(key: "page", value: "1")
             .addParameter(key: "pageSize", value: "25")
             .addParameter(key: "method", value: "banner")
             .addParameter(key: "state", value: place)
-            .build()
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let events = JSONDecoder().decodeArray(of: [Highlight].self, from: data)
@@ -202,9 +219,7 @@ public class EventService: BaseService {
             }
 
             onSuccess(events)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get session details
@@ -214,12 +229,20 @@ public class EventService: BaseService {
     ///   - sessionId: id from current session
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    @objc  public func getSessionDetails(eventId: String, sessionId: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let request = try! URLBuilder(client: client)
+    @objc  public func getSessionDetails(eventId: String,
+                                         sessionId: String,
+                                         onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void,
+                                         onError: @escaping (_ errorData: APIError) -> Void) {
+
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/session/\(sessionId)/tickets")
-            .build()
-        
-        client.restClient.GET(request: request, onSuccess: { (response) in
+
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard let data = response["data"] as? [[String: Any]],
                 let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
                 else {
@@ -227,9 +250,7 @@ public class EventService: BaseService {
                     return
             }
             onSuccess(types)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get Event PassKey
@@ -239,15 +260,22 @@ public class EventService: BaseService {
     ///   - passkeyCode: passkey code to show tickets
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getEventPassKey(eventId: String, passkeyCode: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let request = try! URLBuilder(client: client)
+    public func getEventPassKey(eventId: String,
+                                passkeyCode: String,
+                                onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void,
+                                onError: @escaping (_ errorData: APIError) -> Void) {
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/session/0/tickets")
             .addParameter(key: "passkey", value: passkeyCode)
-            .build()
 
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         var newTickets = [TicketGroup]()
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard let data = response["data"] as? [[String: Any]],
                 let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
                 else {
@@ -261,10 +289,8 @@ public class EventService: BaseService {
                                           onSuccess: { (groups) in
                                             newTickets.append(contentsOf: groups)
                                             onSuccess(newTickets) },
-                                          onError: { (error) in onError(error) })
-        }, onError: { (error) in
-            onError(error)
-        })
+                                          onError: onError)
+        }, onError: onError)
     }
 
     /// Get Event Passports PassKey
@@ -274,13 +300,20 @@ public class EventService: BaseService {
     ///   - passkeyCode: passkey code to show passports
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func getEventPassportsPassKey(eventId: String, passkeyCode: String, onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let request = try! URLBuilder(client: client)
+    public func getEventPassportsPassKey(eventId: String,
+                                         passkeyCode: String,
+                                         onSuccess: @escaping (_ ticketGroups: [TicketGroup]) -> Void,
+                                         onError: @escaping (_ errorData: APIError) -> Void) {
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/session/passports/tickets")
             .addParameter(key: "passkey", value: passkeyCode)
-            .build()
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard let data = response["data"] as? [[String: Any]],
                 let types = JSONDecoder().decodeArray(of: [TicketGroup].self, from: data)
                 else {
@@ -288,15 +321,13 @@ public class EventService: BaseService {
                     return
             }
             onSuccess(types)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     public func getEventsByProducer(request: Request.Event.Producer,
                                     delegate: ProducerEventSyncDelegate) {
         
-        let requestURL = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setHost(.events)
             .setPath("search/producer")
             .addParameter(key: "orderBy", value: request.orderBy)
@@ -304,10 +335,13 @@ public class EventService: BaseService {
             .addParameter(key: "to", value: request.to)
             .addParameter(key: "from", value: request.from)
             .addParameter(key: "offset", value: request.offset)
-            .build()
-        
+
+        guard let requestURL = try? builder.build() else {
+
+            return delegate.didFail(error: APIError.getDefaultError())
+        }
         client.restClient.GET(request: requestURL,
-                              onSuccess: { (response) in
+                              onSuccess: { response in
             guard
                 let total = response["total"] as? Int,
                 let hits = response["hits"] as? [[String: Any]],
@@ -317,9 +351,9 @@ public class EventService: BaseService {
                     return
             }
             
-            let newOffset = request.offset+request.size
+            let newOffset = request.offset + request.size
             delegate.didSyncEvents(events, offset: newOffset, total: total)
-        }, onError: { (error) in
+        }, onError: { error in
             delegate.didFail(error: error)
         })
     }
@@ -330,20 +364,23 @@ public class EventService: BaseService {
     ///   - eventId: id of event to get rsvp list
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func getRSVPList(eventId: String, onSuccess: @escaping (_ success: Response.Events.RSVP) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let request = try! URLBuilder(client: client)
+    public func getRSVPList(eventId: String,
+                            onSuccess: @escaping (_ success: Response.Events.RSVP) -> Void,
+                            onError: @escaping (_ errorData: APIError) -> Void) {
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/rsvp")
-            .build()
+        guard let request = try? builder.build() else {
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard let rsvpResponse = JSONDecoder().decodeDict(of: Response.Events.RSVP.self, from: response) else {
                     onError(APIError.getDefaultError())
                     return
             }
             onSuccess(rsvpResponse)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Add user to event rsvp list
@@ -352,21 +389,26 @@ public class EventService: BaseService {
     ///   - request: struct with all needed parameters
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func addUserToRSVP(request: Request.Event.AddToRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let request = try! URLBuilder(client: client)
+    public func addUserToRSVP(request: Request.Event.AddToRSVP,
+                              onSuccess: @escaping (_ success: Bool) -> Void,
+                              onError: @escaping (_ errorData: APIError) -> Void) {
+        let builder = URLBuilder(client: client)
             .setPath("event/\(request.eventId)/rsvp")
             .addParameter(key: "usertoken", value: request.userToken)
-            .build()
+        
+        guard let request = try? builder.build() else {
 
-        client.restClient.POST(request: request, parameters: [:], onSuccess: { (response) in
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.POST(request: request,
+                               parameters: [:],
+                               onSuccess: { response in
             guard let success = response["success"] as? Bool else {
                 onError(APIError.getDefaultError())
                 return
             }
             onSuccess(success)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Remove user from event rsvp list
@@ -375,20 +417,26 @@ public class EventService: BaseService {
     ///   - request: struct with all needed parameters
     ///   - onSuccess: success callback
     ///   - onError: error callback
-    public func removeUserFromRSVP(request: Request.Event.RemoveFromRSVP, onSuccess: @escaping (_ success: Bool) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let request = try! URLBuilder(client: client)
+    public func removeUserFromRSVP(request: Request.Event.RemoveFromRSVP,
+                                   onSuccess: @escaping (_ success: Bool) -> Void,
+                                   onError: @escaping (_ errorData: APIError) -> Void) {
+        let builder = URLBuilder(client: client)
             .setPath("event/\(request.eventId)/rsvp")
             .addParameter(key: "usertoken", value: request.userToken)
-            .build()
 
-        client.restClient.DELETE(request: request, parameters: [:], onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.DELETE(request: request,
+                                 parameters: [:],
+                                 onSuccess: { response in
+
             guard let success = response["success"] as? Bool else {
                 onError(APIError.getDefaultError())
                 return
             }
             onSuccess(success)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

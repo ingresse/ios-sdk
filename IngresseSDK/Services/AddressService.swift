@@ -14,20 +14,21 @@ public class AddressService: BaseService {
                              onSuccess: @escaping (_ response: Address) -> Void,
                              onError: @escaping ErrorHandler) {
 
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setHost(.cep)
             .setEnvironment(.prod)
             .setPath(zipCode)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
 
         client.restClient.GET(request: request,
-                              onSuccess: { (response) in
+                              onSuccess: { response in
 
             let attributes = JSONDecoder().decodeDict(of: Address.self, from: response)!
             onSuccess(attributes)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Update address
@@ -56,11 +57,14 @@ public class AddressService: BaseService {
                               onSuccess: @escaping () -> Void,
                               onError: @escaping ErrorHandler) {
 
-        let request = try! URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("user/\(userId)")
             .addParameter(key: "method", value: "update")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
 
         let params = ["zip": zip,
                       "street": street,
@@ -72,7 +76,7 @@ public class AddressService: BaseService {
 
         client.restClient.POST(request: request,
                                parameters: params,
-                               onSuccess: { (response) in
+                               onSuccess: { response in
 
             guard let status = response["status"] as? Int else {
                 onError(APIError.getDefaultError())
@@ -97,8 +101,6 @@ public class AddressService: BaseService {
             }
 
             onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }
