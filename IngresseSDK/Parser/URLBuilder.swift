@@ -47,8 +47,7 @@ public class URLBuilder: NSObject {
     private var path: String = ""
     private var apiKey: String = ""
     private var parameters: [String: String] = [:]
-    private var customUrl: String = ""
-    
+
     public init(client: IngresseClient) {
         self.environment = client.environment
         self.apiKey = client.apiKey
@@ -78,12 +77,6 @@ public class URLBuilder: NSObject {
         return self
     }
     
-    public func setCustomUrl(_ url: String) -> URLBuilder {
-           self.customUrl = url
-           
-           return self
-    }
-    
     public func addParameter(key: String, value: Any) -> URLBuilder {
         self.parameters[key] = "\(value)"
         
@@ -91,7 +84,7 @@ public class URLBuilder: NSObject {
     }
     
     public func build() throws -> URLRequest {
-        var urlString = customUrl.isEmpty ? getHostUrl() : "https://\(customUrl)"
+        var urlString = getHostUrl()
         urlString += path
         urlString += "?"
 
@@ -143,8 +136,7 @@ extension URLBuilder {
     private func authorizationAPIParam() -> [String: String] {
 
         switch host {
-        case .api,
-             .search:
+        case .api:
 
             return ["apikey": apiKey]
         case .userTransactions:

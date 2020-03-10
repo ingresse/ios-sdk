@@ -95,8 +95,14 @@ public class UserWalletTransaction: NSObject, Decodable {
         public required init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             title = try? container.decodeIfPresent(String.self, forKey: .title)
-            do { id = try container.decodeIfPresent(Int.self, forKey: .id) }
-            catch { id = try? container.decodeIfPresent(String.self, forKey: .id) }
+            do {
+
+                id = try container.decodeIfPresent(Int.self, forKey: .id)
+            }
+            catch {
+
+                id = try? container.decodeIfPresent(String.self, forKey: .id)
+            }
         }
     }
     

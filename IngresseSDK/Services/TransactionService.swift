@@ -230,7 +230,9 @@ public class TransactionService: BaseService {
         })
     }
     
-    public func refundUserTransactions(transactionId: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func refundUserTransactions(transactionId: String,
+                                       onSuccess: @escaping () -> Void,
+                                       onError: @escaping (_ errorData: APIError) -> Void) {
         
         let request = try! URLBuilder(client: client)
             .setHost(.userTransactions)
@@ -240,10 +242,8 @@ public class TransactionService: BaseService {
         client.restClient.POST(request: request,
                                parameters: [:],
                                customHeader: [:],
-                               onSuccess: { (response) in
+                               onSuccess: { _ in
                                 onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }
