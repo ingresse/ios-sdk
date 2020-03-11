@@ -31,6 +31,7 @@ public class SDKErrors: NSObject {
         3027: "Por favor, refaça a operação de login e tente novamente.",
         3041: "Lamentamos, mas os ingressos para este setor esgotaram. Selecione outro tipo de ingresso e tente novamente.",
         5010: "Tente realizar a compra em um computador ou entre em contato com nosso suporte.",
+        5012: "A utilização desse cartão não foi autorizada pela adquirente.",
         6001: "A venda deste evento não está ativada. Entre em contato com o organizador do evento.",
         6002: "Todas as sessões para esse evento estão esgotadas. Talvez alguns ingressos estarão disponíveis dependendo dos pagamentos pendentes. Entre em contato com o organizador do evento.",
         6003: "Não há mais ingressos disponíveis para venda. Talvez alguns ingressos estarão disponíveis dependendo dos pagamentos pendentes. Entre em contato com o organizador do evento.",
@@ -83,15 +84,46 @@ public class SDKErrors: NSObject {
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
         "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."]
     
-    public func getErrorMessage(code: Int) -> String {
+    let detailsErrorDict = [
+          "GTW-1001": "Bandeira do cartão não aceita",
+          "GTW-1002": "Código de verificação incorreto",
+          "GTW-1003": "Pagamento não autorizado",
+          "GTW-1004": "Cartão inválido",
+          "GTW-1005": "Número do cartão inválido",
+          "GTW-1006": "Cartão de crédito expirado",
+          "GTW-1007": "Operadora de Pagamento Indisponível",
+          "GTW-1008": "Parcelamento não autorizado",
+          "GTW-1009": "Cartão de Crédito Restrito",
+          "GTW-1010": "Parece que seu cartão expirou",
+          "GTW-1011": "Pagamento não autorizado",
+          "GTW-1012": "Pagamento não autorizado",
+          "GTW-1013": "Número de parcelas não autorizada",
+          "GTW-1014": "Compra não autorizada",
+          "GTW-1015": "Pagamento rejeitado pela revisão manual",
+          "GTW-1016": "Compra não autorizada. Sessão próxima do início",
+          "GTW-1017": "Pagamento não autorizado"]
+
+    public func getErrorMessage(code: Int, detailCode: String = "") -> String {
         if code == 0 {
             return errorDict["default_no_code"]!
         }
-        
+
+        if detailCode.contains("GTW") {
+            return errorDict["default_gtw_message"]!
+        }
+
         guard let error = errors[code] else {
             return String(format: errorDict["default_message"]!, arguments: [code])
         }
         
+        return error
+    }
+
+    public func getDetailError(detailCode: String, code: Int) -> String {
+        guard let error = detailsErrorDict[detailCode] else {
+            return getErrorMessage(code: code, detailCode: detailCode)
+        }
+
         return error
     }
 
