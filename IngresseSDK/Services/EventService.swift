@@ -74,10 +74,8 @@ public class EventService: BaseService {
     ///   - eventId: id of the event
     public func getEventImageDetail(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
-        var eventIdTest = 31007
-        
         let url = URLBuilder(client: client)
-            .setPath("event/\(eventIdTest)/attributes")
+            .setPath("event/\(eventId)/attributes")
             .addParameter(key: "filter", value: "advertisement")
             .build()
         
