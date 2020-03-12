@@ -67,6 +67,27 @@ public class EventService: BaseService {
             onError(error)
         })
     }
+    
+    /// Get event image detail
+    ///
+    /// - Parameters:
+    ///   - eventId: id of the event
+    public func getEventImageDetail(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+        
+        var eventIdTest = 31007
+        
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventIdTest)/attributes")
+            .addParameter(key: "filter", value: "advertisement")
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let eventImage = JSONDecoder().decodeDict(of: Advertisement.self, from: response) else { return }
+            onSuccess(eventImage)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
 
     /// Get advertisement info for event
     ///
@@ -74,8 +95,10 @@ public class EventService: BaseService {
     ///   - eventId: id of the event
     public func getAdvertisement(ofEvent eventId: Int, onSuccess: @escaping (_ ads: Advertisement) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
         
+        var eventIdTest = 31007
+        
         let url = URLBuilder(client: client)
-            .setPath("event/\(eventId)/attributes")
+            .setPath("event/\(eventIdTest)/attributes")
             .addParameter(key: "filter", value: "advertisement")
             .build()
         
