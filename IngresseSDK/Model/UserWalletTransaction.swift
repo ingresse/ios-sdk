@@ -107,6 +107,7 @@ public struct UserWalletTransaction: Decodable {
     
     public struct Payment: Decodable {
         public var type: String?
+        public var gateway: String?
         public var free: Bool?
         public var creditCard: CreditCard?
         public var bankBillet: BankBillet?
@@ -115,6 +116,7 @@ public struct UserWalletTransaction: Decodable {
 
         enum CodingKeys: String, CodingKey {
             case type
+            case gateway
             case free
             case creditCard
             case declinedReason
@@ -129,6 +131,7 @@ public struct UserWalletTransaction: Decodable {
         public init(from decoder: Decoder) throws {
             guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
             type = try container.decodeIfPresent(String.self, forKey: .type)
+            gateway = try container.decodeIfPresent(String.self, forKey: .gateway)
             free = try container.decodeIfPresent(Bool.self, forKey: .free)
             creditCard = try container.decodeIfPresent(CreditCard.self, forKey: .creditCard)
             bankBillet = try container.decodeIfPresent(BankBillet.self, forKey: .bankBillet)
