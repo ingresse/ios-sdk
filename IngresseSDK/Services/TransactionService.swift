@@ -154,12 +154,10 @@ public class TransactionService: BaseService {
             .build()
 
         let params = ["code": code]
-        
+
         client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
             onSuccess()
-        }, onError: { (error) in
-                onError(error)
-            })
+        }, onError: onError)
     }
 
     /// Update a transaction with coupon
