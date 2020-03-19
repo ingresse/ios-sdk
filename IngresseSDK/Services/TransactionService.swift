@@ -160,6 +160,17 @@ public class TransactionService: BaseService {
         }, onError: onError)
     }
 
+    public func removeCouponToPayment(transactionId: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)/coupon")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        client.restClient.DELETE(url: url,  parameters: [:], onSuccess: { (_) in
+            onSuccess()
+        }, onError: onError)
+    }
+
     /// Update a transaction with coupon
        ///
        /// - Parameters:
