@@ -82,10 +82,12 @@ public class SDKErrors: NSObject {
     let errorDict = [
         "default_title": "Ops!",
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
-        "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."
+        "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.",
+        "default_gtw_message": "Ocorreu um problema com o cartão e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.",
+        "default_cpn_message": "Ocorreu um problema com o cupom e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."
     ]
 
-    let couponErrorDict = [
+    let detailsErrorDict = [
         "CPN-11021": "Cupom inválido para este evento.",
         "CPN-11005": "Código não enviado, tente novamente.",
         "CPN-11009": "Este cupom não pode ser aplicado a uma transação sem valor.",
@@ -93,27 +95,25 @@ public class SDKErrors: NSObject {
         "CPN-11022": "Cupom inválido, o desconto não poder ser maior que o valor da transação.",
         "CPN-11027": "Esse cupom atingiu a quantidade máxima de utilização.",
         "CPN-11025": "Este cupom ainda não está liberado para utilização.",
-        "CPN-11026": "O período de validade deste cupom terminou."
+        "CPN-11026": "O período de validade deste cupom terminou.",
+        "GTW-1001": "Bandeira do cartão não aceita",
+        "GTW-1002": "Código de verificação incorreto",
+        "GTW-1003": "Pagamento não autorizado",
+        "GTW-1004": "Cartão inválido",
+        "GTW-1005": "Número do cartão inválido",
+        "GTW-1006": "Cartão de crédito expirado",
+        "GTW-1007": "Operadora de Pagamento Indisponível",
+        "GTW-1008": "Parcelamento não autorizado",
+        "GTW-1009": "Cartão de Crédito Restrito",
+        "GTW-1010": "Parece que seu cartão expirou",
+        "GTW-1011": "Pagamento não autorizado",
+        "GTW-1012": "Pagamento não autorizado",
+        "GTW-1013": "Número de parcelas não autorizada",
+        "GTW-1014": "Compra não autorizada",
+        "GTW-1015": "Pagamento rejeitado pela revisão manual",
+        "GTW-1016": "Compra não autorizada. Sessão próxima do início",
+        "GTW-1017": "Pagamento não autorizado"
     ]
-    
-    let detailsErrorDict = [
-          "GTW-1001": "Bandeira do cartão não aceita",
-          "GTW-1002": "Código de verificação incorreto",
-          "GTW-1003": "Pagamento não autorizado",
-          "GTW-1004": "Cartão inválido",
-          "GTW-1005": "Número do cartão inválido",
-          "GTW-1006": "Cartão de crédito expirado",
-          "GTW-1007": "Operadora de Pagamento Indisponível",
-          "GTW-1008": "Parcelamento não autorizado",
-          "GTW-1009": "Cartão de Crédito Restrito",
-          "GTW-1010": "Parece que seu cartão expirou",
-          "GTW-1011": "Pagamento não autorizado",
-          "GTW-1012": "Pagamento não autorizado",
-          "GTW-1013": "Número de parcelas não autorizada",
-          "GTW-1014": "Compra não autorizada",
-          "GTW-1015": "Pagamento rejeitado pela revisão manual",
-          "GTW-1016": "Compra não autorizada. Sessão próxima do início",
-          "GTW-1017": "Pagamento não autorizado"]
 
     public func getErrorMessage(code: Int, detailCode: String = "") -> String {
         if code == 0 {
@@ -122,6 +122,10 @@ public class SDKErrors: NSObject {
 
         if detailCode.contains("GTW") {
             return errorDict["default_gtw_message"]!
+        }
+
+        if detailCode.contains("CPN") {
+            return errorDict["default_cpn_message"]!
         }
 
         guard let error = errors[code] else {
@@ -157,13 +161,5 @@ public class SDKErrors: NSObject {
         }
 
         return title
-    }
-
-    public func getDetailError(detailCode: String, code: Int) -> String {
-        guard let error = couponErrorDict[detailCode] else {
-            return String(format: errorDict["default_message"]!, arguments: [code])
-        }
-
-        return error
     }
 }
