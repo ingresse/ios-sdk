@@ -20,5 +20,4 @@ public class Coupon: NSObject, Decodable {
         discountAmount = container.decodeKey(.discountAmount, ofType: Double.self)
         newAmount = container.decodeKey(.newAmount, ofType: Double.self)
     }
-
 }

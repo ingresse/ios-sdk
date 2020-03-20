@@ -83,8 +83,8 @@ public class SDKErrors: NSObject {
         "default_title": "Ops!",
         "default_message": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com e informe o código ao lado. (%ld)",
         "default_no_code": "Ocorreu um problema e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.",
-        "default_gtw_message": "Ocorreu um problema com o cartão e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com.",
-        "default_cpn_message": "Ocorreu um problema com o cupom e não conseguimos seguir em frente. Procure nosso suporte em contato@ingresse.com."
+        "default_gtw_message": "Não foi possível prosseguir com esta operação. Tente utilizar outro cartão como forma de pagamento.",
+        "default_cpn_message": "Cupom inválido. Não foi possível aplicar este cupom a sua compra."
     ]
 
     let detailsErrorDict = [
