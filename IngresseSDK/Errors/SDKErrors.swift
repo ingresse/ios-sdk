@@ -88,7 +88,7 @@ public class SDKErrors: NSObject {
     ]
 
     let detailsErrorDict = [
-        "CPN-11021": "Cupom inválido para este evento.",
+        "CPN-11021": "Cupom inválido. Verifique se digitou corretamente.",
         "CPN-11005": "Código não enviado, tente novamente.",
         "CPN-11009": "Este cupom não pode ser aplicado a uma transação sem valor.",
         "CPN-11020": "Esta transação já possui um cupom aplicado.",
