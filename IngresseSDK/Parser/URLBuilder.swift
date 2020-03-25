@@ -107,9 +107,6 @@ public class URLBuilder: NSObject {
     }
 
     public func getHostUrl() -> String {
-        if environment == .integration {
-            return "http://\(environment.rawValue)\(host.rawValue)"
-        }
         if [.hml, .hmlA, .hmlB].contains(environment) && host == .search {
             return "https://\(environment.rawValue)\(Host.searchHml.rawValue)"
         }
