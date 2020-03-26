@@ -172,26 +172,26 @@ public class TransactionService: BaseService {
     }
 
     /// Update a transaction with coupon
-       ///
-       /// - Parameters:
-       ///     - transactinId: transaction id
-       ///     - userToken: user token
-       ///     - onSuccess: success callback
-       ///     - onError: fail callback with APIError
-       public func updateTransactionWithCoupon(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: TransactionData) -> Void,
-           onError: @escaping ErrorHandler) {
-
-           let url = URLBuilder(client: client)
-               .setPath("shop/\(transactionId)")
-               .addParameter(key: "usertoken", value: userToken)
-               .build()
-
-           client.restClient.GET(url: url, onSuccess: { (response) in
-                guard let transaction = JSONDecoder().decodeDict(of: TransactionData.self, from: response) else {
-                       onError(APIError.getDefaultError())
-                       return
-                }
-                onSuccess(transaction)
-           }, onError: onError)
-       }
+    ///
+    /// - Parameters:
+    ///     - transactinId: transaction id
+    ///     - userToken: user token
+    ///     - onSuccess: success callback
+    ///     - onError: fail callback with APIError
+    public func updateTransactionWithCoupon(_ transactionId: String, userToken:  String, onSuccess: @escaping (_ transaction: TransactionData) -> Void,
+        onError: @escaping ErrorHandler) {
+ 
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+ 
+        client.restClient.GET(url: url, onSuccess: { (response) in
+             guard let transaction = JSONDecoder().decodeDict(of:  TransactionData.self, from: response) else {
+                    onError(APIError.getDefaultError())
+                    return
+             }
+             onSuccess(transaction)
+        }, onError: onError)
+    }
 }
