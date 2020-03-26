@@ -10,6 +10,7 @@ extension Response {
             public var creditCard: PaymentMethod?
             public var message: String = ""
             public var insurance: Insurance?
+            public var coupon: Coupon?
         }
 
         public struct Payment: Codable {
@@ -36,6 +37,7 @@ extension Response.Shop.Transaction {
         case availablePaymentMethods
         case message
         case insurance
+        case coupon
     }
 
     enum PaymentMethodKeys: String, CodingKey {
@@ -49,7 +51,8 @@ extension Response.Shop.Transaction {
         transactionId = container.decodeKey(.transactionId, ofType: String.self)
         status = container.decodeKey(.status, ofType: String.self)
         message = container.decodeKey(.message, ofType: String.self)
-        insurance = try container.decodeIfPresent(Insurance.self, forKey: .insurance) 
+        insurance = try? container.decodeIfPresent(Insurance.self, forKey: .insurance)
+        coupon = try? container.decodeIfPresent(Coupon.self, forKey: .coupon)
 
         guard let methods = try? container.nestedContainer(keyedBy: PaymentMethodKeys.self, forKey: .availablePaymentMethods)
             else { return }

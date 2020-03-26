@@ -49,6 +49,8 @@ public class TransactionData: NSObject, Decodable {
         return status == "declined" || status == "error"
     }
 
+    @objc public var coupon: Coupon?
+
     enum CodingKeys: String, CodingKey {
         case id
         case status
@@ -76,6 +78,7 @@ public class TransactionData: NSObject, Decodable {
         case basket
         case refund
         case payment
+        case coupon
     }
 
     public required init(from decoder: Decoder) throws {
@@ -117,6 +120,8 @@ public class TransactionData: NSObject, Decodable {
         
         payment = try container.decodeIfPresent(PaymentTransaction.self, forKey: .payment)
         declinedReason = payment?.declinedReason
+
+        coupon = try container.decodeIfPresent(Coupon.self, forKey: .coupon)
     }
 
     @objc public static func fromJSON(_ json: [String: Any]) -> TransactionData? {

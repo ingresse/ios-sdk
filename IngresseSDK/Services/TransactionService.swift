@@ -139,4 +139,59 @@ public class TransactionService: BaseService {
             onSuccess(checkinSession)
         }, onError: onError)
     }
+    
+    /// Apply coupom in transaction
+    ///
+    /// - Parameters:
+    ///   - transactionId: transaction id
+    ///   - code: coupom code
+    ///   - onSuccess: success callback
+    ///   - onError: fail callback
+    public func applyCouponToPayment(transactionId: String, code: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)/coupon")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        let params = ["code": code]
+
+        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+            onSuccess()
+        }, onError: onError)
+    }
+
+    public func removeCouponToPayment(transactionId: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)/coupon")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+
+        client.restClient.DELETE(url: url,  parameters: [:], onSuccess: { (_) in
+            onSuccess()
+        }, onError: onError)
+    }
+
+    /// Update a transaction with coupon
+    ///
+    /// - Parameters:
+    ///     - transactinId: transaction id
+    ///     - userToken: user token
+    ///     - onSuccess: success callback
+    ///     - onError: fail callback with APIError
+    public func updateTransactionWithCoupon(_ transactionId: String, userToken:  String, onSuccess: @escaping (_ transaction: TransactionData) -> Void,
+        onError: @escaping ErrorHandler) {
+ 
+        let url = URLBuilder(client: client)
+            .setPath("shop/\(transactionId)")
+            .addParameter(key: "usertoken", value: userToken)
+            .build()
+ 
+        client.restClient.GET(url: url, onSuccess: { (response) in
+             guard let transaction = JSONDecoder().decodeDict(of:  TransactionData.self, from: response) else {
+                    onError(APIError.getDefaultError())
+                    return
+             }
+             onSuccess(transaction)
+        }, onError: onError)
+    }
 }
