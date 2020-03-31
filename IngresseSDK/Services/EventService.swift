@@ -100,17 +100,24 @@ public class EventService: BaseService {
             guard
                 let obj = response["advertisement"] as? [String: Any],
                 let mobile = obj["mobile"] as? [String: Any],
-                let ads = JSONDecoder().decodeDict(of: Advertisement.self, from: mobile),
-                let links = response["start_image"] as? [String: Any],
-                let imageLink = JSONDecoder().decodeDict(of: EventImageSizes.self, from: links),
-                let descriptions = response["start_image_description"] as? [String: Any],
-                let imageDescription = JSONDecoder().decodeDict(of: EventImageDescription.self, from: descriptions)
+                let ads = JSONDecoder().decodeDict(of: Advertisement.self, from: mobile)
                 else {
                     onError(APIError.getDefaultError())
                     return
             }
 
             ads.eventId = eventId
+
+            guard
+                let links = response["start_image"] as? [String: Any],
+                let imageLink = JSONDecoder().decodeDict(of: EventImageSizes.self, from: links),
+                let descriptions = response["start_image_description"] as? [String: Any],
+                let imageDescription = JSONDecoder().decodeDict(of: EventImageDescription.self, from: descriptions)
+                else {
+                    onSuccess(ads)
+                    return
+            }
+
             ads.imageLink = imageLink
             ads.imageDescription = imageDescription
             onSuccess(ads)
