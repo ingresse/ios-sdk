@@ -1,6 +1,7 @@
 //
 //  Copyright © 2020 Ingresse. All rights reserved.
 //
+
 public class EventImageSizes: NSObject, Codable {
     public var small: String = ""
     public var medium: String = ""

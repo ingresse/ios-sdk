@@ -93,9 +93,7 @@ public class EventService: BaseService {
         client.restClient.GET(url: url, onSuccess: { (response) in
             guard let details = JSONDecoder().decodeDict(of: EventImageDetails.self, from: response) else { return }
             onSuccess(details)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 
     /// Get advertisement info for event

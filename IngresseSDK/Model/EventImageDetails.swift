@@ -1,6 +1,7 @@
 //
 //  Copyright © 2020 Ingresse. All rights reserved.
 //
+
 public class EventImageDetails: NSObject, Decodable {
     public var imageSizes: EventImageSizes?
     public var imageDescription: EventImageDescription?
