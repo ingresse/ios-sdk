@@ -79,6 +79,25 @@ public class EventService: BaseService {
         }, onError: onError)
     }
 
+    /// Get event image detail
+    ///
+    /// - Parameters:
+    ///   - eventId: id of the event
+    public func getEventImageDetails(ofEvent eventId: Int, onSuccess: @escaping (_ details: EventImageDetails) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+
+        let url = URLBuilder(client: client)
+            .setPath("event/\(eventId)/attributes")
+            .addParameter(key: "filters", value: "start_image,start_image_description")
+            .build()
+
+        client.restClient.GET(url: url, onSuccess: { (response) in
+            guard let details = JSONDecoder().decodeDict(of: EventImageDetails.self, from: response) else { return }
+            onSuccess(details)
+        }, onError: { (error) in
+            onError(error)
+        })
+    }
+
     /// Get advertisement info for event
     ///
     /// - Parameters:
@@ -89,14 +108,10 @@ public class EventService: BaseService {
         
         let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
-            .addParameter(key: "filter", value: "advertisement")
-
-        guard let request = try? builder.build() else {
-
-            return onError(APIError.getDefaultError())
-        }
-        client.restClient.GET(request: request,
-                              onSuccess: { response in
+            .addParameter(key: "filters", value: "advertisement")
+            .build()
+        
+        client.restClient.GET(url: url, onSuccess: { (response) in
             guard
                 let obj = response["advertisement"] as? [String: Any],
                 let mobile = obj["mobile"] as? [String: Any],
@@ -107,19 +122,6 @@ public class EventService: BaseService {
             }
 
             ads.eventId = eventId
-
-            guard
-                let links = response["start_image"] as? [String: Any],
-                let imageLink = JSONDecoder().decodeDict(of: EventImageSizes.self, from: links),
-                let descriptions = response["start_image_description"] as? [String: Any],
-                let imageDescription = JSONDecoder().decodeDict(of: EventImageDescription.self, from: descriptions)
-                else {
-                    onSuccess(ads)
-                    return
-            }
-
-            ads.imageLink = imageLink
-            ads.imageDescription = imageDescription
             onSuccess(ads)
         }, onError: onError)
     }
