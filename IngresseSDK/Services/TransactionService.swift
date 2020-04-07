@@ -190,7 +190,6 @@ public class TransactionService: BaseService {
         }, onError: onError)
     }
 
-
     /// Apply coupom in transaction
     ///
     /// - Parameters:
@@ -199,25 +198,33 @@ public class TransactionService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func applyCouponToPayment(transactionId: String, code: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        
+        let builder = URLBuilder(client: client)
             .setPath("shop/\(transactionId)/coupon")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        
+        guard let requestURL = try? builder.build() else {
+            return onError(APIError.getDefaultError())
+        }
 
         let params = ["code": code]
 
-        client.restClient.POST(url: url, parameters: params, onSuccess: { (_) in
+        client.restClient.POST(request: requestURL, parameters: params, onSuccess: { (_) in
             onSuccess()
         }, onError: onError)
     }
 
     public func removeCouponToPayment(transactionId: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping ErrorHandler) {
-        let url = URLBuilder(client: client)
+        
+        let builder = URLBuilder(client: client)
             .setPath("shop/\(transactionId)/coupon")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        
+        guard let requestURL = try? builder.build() else {
+            return onError(APIError.getDefaultError())
+        }
 
-        client.restClient.DELETE(url: url,  parameters: [:], onSuccess: { (_) in
+        client.restClient.DELETE(request: requestURL, parameters: [:], onSuccess: { (_) in
             onSuccess()
         }, onError: onError)
     }
@@ -229,16 +236,18 @@ public class TransactionService: BaseService {
     ///     - userToken: user token
     ///     - onSuccess: success callback
     ///     - onError: fail callback with APIError
-    public func updateTransactionWithCoupon(_ transactionId: String, userToken:  String, onSuccess: @escaping (_ transaction: TransactionData) -> Void,
-        onError: @escaping ErrorHandler) {
- 
-        let url = URLBuilder(client: client)
+    public func updateTransactionWithCoupon(_ transactionId: String, userToken: String, onSuccess: @escaping (_ transaction: TransactionData) -> Void, onError: @escaping ErrorHandler) {
+        
+        let builder = URLBuilder(client: client)
             .setPath("shop/\(transactionId)")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        
+        guard let requestURL = try? builder.build() else {
+            return onError(APIError.getDefaultError())
+        }
  
-        client.restClient.GET(url: url, onSuccess: { (response) in
-             guard let transaction = JSONDecoder().decodeDict(of:  TransactionData.self, from: response) else {
+        client.restClient.GET(request: requestURL, onSuccess: { (response) in
+             guard let transaction = JSONDecoder().decodeDict(of: TransactionData.self, from: response) else {
                     onError(APIError.getDefaultError())
                     return
              }
