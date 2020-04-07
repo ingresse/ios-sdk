@@ -70,7 +70,8 @@ class MyTicketsServiceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncItemsPageCalled)
-            guard let url = self.restClient.urlCalled else {
+            guard let request = self.restClient.requestCalled,
+                let url = request.url?.absoluteString else {
                 XCTFail("Invalid URL")
                 return
             }
@@ -99,7 +100,8 @@ class MyTicketsServiceTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 1) { (_) in
             XCTAssert(delegate.didSyncItemsPageCalled)
-            guard let url = self.restClient.urlCalled else {
+            guard let request = self.restClient.requestCalled,
+                let url = request.url?.absoluteString else {
                 XCTFail("Invalid URL")
                 return
             }

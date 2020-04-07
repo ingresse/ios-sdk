@@ -526,7 +526,11 @@ extension EventServiceTests {
         waitForExpectations(timeout: 1) { (_) in
             XCTAssert(success)
             XCTAssertNotNil(result)
-            let url = self.restClient.urlCalled ?? ""
+            guard let request = self.restClient.requestCalled,
+                let url = request.url?.absoluteString else {
+                XCTFail("Invalid Request")
+                return
+            }
             XCTAssert(url.contains("method=identify"))
             XCTAssert(url.contains("link=event-link"))
         }

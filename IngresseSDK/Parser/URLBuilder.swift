@@ -37,6 +37,7 @@ public enum Host: String {
     case cep = "cep.ingresse.com/"
     case search = "event-search.ingresse.com/"
     case searchHml = "event.ingresse.com/search/company/"
+    case userTransactions = "my-transactions.ingresse.com/"
 }
 
 public class URLBuilder: NSObject {
@@ -46,7 +47,7 @@ public class URLBuilder: NSObject {
     private var path: String = ""
     private var apiKey: String = ""
     private var parameters: [String: String] = [:]
-    
+
     public init(client: IngresseClient) {
         self.environment = client.environment
         self.apiKey = client.apiKey
@@ -82,37 +83,24 @@ public class URLBuilder: NSObject {
         return self
     }
     
-    public func build() -> String {
-        var url = buildWithoutKeys()
+    public func build() throws -> URLRequest {
+        var urlString = getHostUrl()
+        urlString += path
 
-        if !parameters.isEmpty {
-            url += "&"
+        let params = parameters.merging(authorizationAPIParam()) { _, key in key }
+        if !params.isEmpty {
+
+            urlString += "?"
+            urlString += params.stringFromHttpParameters()
         }
 
-        url += generateAuthString(apiKey: apiKey)
-
-        return url
-    }
-
-    public func buildWithoutKeys() -> String {
-        var url = getHostUrl()
-        url += path
-        url += "?"
-
-        if !parameters.isEmpty {
-            url += parameters.stringFromHttpParameters()
+        guard let url = URL(string: urlString) else {
+            throw URLRequestError.requestInvalid
         }
-
-        return url
-    }
-
-    /// Generate stardart ingresse auth string
-    ///
-    /// - Parameters:
-    ///   - apiKey: app's key
-    /// - Returns: Auth string with api key
-    public func generateAuthString(apiKey: String) -> String {
-        return "apikey=\(apiKey)"
+        let request = URLRequest(url: url,
+                                 cachePolicy: .useProtocolCachePolicy,
+                                 timeoutInterval: 60)
+        return requestWithHeaders(request)
     }
 
     public func getHostUrl() -> String {
@@ -121,4 +109,49 @@ public class URLBuilder: NSObject {
         }
         return "https://\(environment.rawValue)\(host.rawValue)"
     }
+}
+
+// MARK: - Private Methods
+extension URLBuilder {
+
+    private func requestWithHeaders(_ request: URLRequest) -> URLRequest {
+
+        var request = request
+        if let header = UserAgent.header {
+
+            request.addValue(header, forHTTPHeaderField: "User-Agent")
+        }
+
+        if let auth = UserAgent.authorization {
+
+            request.addValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
+        }
+        authorizationAPIParam().forEach {
+
+            request.addValue($0.value,
+                             forHTTPHeaderField: $0.key)
+        }
+        return request
+    }
+
+    private func authorizationAPIParam() -> [String: String] {
+
+        switch host {
+        case .api:
+
+            return ["apikey": apiKey]
+        case .userTransactions:
+
+            return ["X-Api-Key": "fcEpWMJGBp4oXfA1qEQ6maSepdyrZd2v4yk7q4xv"]
+        default:
+
+            return [:]
+        }
+    }
+}
+
+// MARK: - URLRequestError
+enum URLRequestError: Error {
+
+    case requestInvalid
 }

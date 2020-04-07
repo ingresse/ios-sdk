@@ -3,40 +3,40 @@
 //
 
 @objc public protocol RestClientInterface {
-    func POST(url: String,
+    func POST(request: URLRequest,
               parameters: [String: Any],
               customHeader: [String: Any]?,
               onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
               onError: @escaping ErrorHandler)
 
-    func POSTData(url: String,
+    func POSTData(request: URLRequest,
                   data: Data?,
                   customHeader: [String: Any]?,
                   JSONData: Bool,
                   onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
                   onError: @escaping ErrorHandler)
     
-    func GET(url: String,
+    func GET(request: URLRequest,
              onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
              onError: @escaping ErrorHandler)
 
-    func PUT(url: String,
+    func PUT(request: URLRequest,
              parameters: [String: Any],
              onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
              onError: @escaping ErrorHandler)
 
-    func PUTData(url: String,
+    func PUTData(request: URLRequest,
                  data: Data?,
                  JSONData: Bool,
                  onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
                  onError: @escaping ErrorHandler)
 
-    func DELETE(url: String,
+    func DELETE(request: URLRequest,
                 parameters: [String: Any],
                 onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
                 onError: @escaping ErrorHandler)
 
-    func DELETEData(url: String,
+    func DELETEData(request: URLRequest,
                     data: Data?,
                     JSONData: Bool,
                     onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
@@ -44,20 +44,31 @@
 }
 
 extension RestClientInterface {
-    func POSTData(url: String,
+    func POSTData(request: URLRequest,
                   data: Data?,
                   customHeader: [String: Any]? = nil,
                   JSONData: Bool,
                   onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
                   onError: @escaping ErrorHandler) {
-        POSTData(url: url, data: data, customHeader: customHeader, JSONData: JSONData, onSuccess: onSuccess, onError: onError)
+
+        POSTData(request: request,
+                 data: data,
+                 customHeader: customHeader,
+                 JSONData: JSONData,
+                 onSuccess: onSuccess,
+                 onError: onError)
     }
 
-    func POST(url: String,
+    func POST(request: URLRequest,
               parameters: [String: Any] = [:],
               customHeader: [String: Any]? = nil,
               onSuccess: @escaping (_ responseData: [String: Any]) -> Void,
               onError: @escaping ErrorHandler) {
-        POST(url: url, parameters: parameters, customHeader: customHeader, onSuccess: onSuccess, onError: onError)
+
+        POST(request: request,
+             parameters: parameters,
+             customHeader: customHeader,
+             onSuccess: onSuccess,
+             onError: onError)
     }
 }

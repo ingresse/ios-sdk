@@ -20,12 +20,18 @@ public class ResponseParser: NSObject {
     ///   - completion: callback block
     /// - Throws: IngresseException
     public static func build(_ response: URLResponse?, data: Data?, completion: (_ responseData: [String: Any]) -> Void) throws {
+
         guard data != nil && response != nil,
             let httpResponse = response as? HTTPURLResponse else {
             throw IngresseException.requestError
         }
 
         guard (200...299).contains(httpResponse.statusCode) else {
+
+            if let restError = try? JSONDecoder().decode(RestError.self, from: data!) {
+
+                throw IngresseException.apiError(error: restError.apiError)
+            }
             throw IngresseException.httpError(status: httpResponse.statusCode)
         }
 
@@ -137,5 +143,20 @@ public class ResponseParser: NSObject {
         }
         
         throw IngresseException.jsonParserError
+    }
+}
+
+struct RestError: Decodable {
+
+    let status: String
+    let code: String
+    let message: String
+
+    var apiError: APIError {
+
+        return APIError.Builder()
+            .setHttpStatus(Int(status) ?? 0)
+            .setMessage(message)
+            .build()
     }
 }

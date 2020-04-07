@@ -10,67 +10,66 @@ class MockClient: RestClientInterface {
     var error: APIError?
     var response: [String: Any]?
     var shouldFail: Bool = false
-    var urlCalled: String?
+    var requestCalled: URLRequest?
 
     // MARK: Mocked methods
-    func POST(url: String,
+    func POST(request: URLRequest,
               parameters: [String: Any],
               customHeader: [String: Any]?,
               onSuccess: @escaping ([String: Any]) -> Void,
               onError: @escaping ErrorHandler) {
-        urlCalled = url
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
     
-    func POSTData(url: String,
+    func POSTData(request: URLRequest,
                   data: Data?,
                   customHeader: [String: Any]?,
                   JSONData: Bool,
                   onSuccess: @escaping ([String: Any]) -> Void,
                   onError: @escaping ErrorHandler) {
-        urlCalled = url
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
-    func GET(
-        url: String,
-        onSuccess: @escaping ([String: Any]) -> Void,
-        onError: @escaping (APIError) -> Void) {
-        urlCalled = url
+    func GET(request: URLRequest,
+             onSuccess: @escaping ([String: Any]) -> Void,
+             onError: @escaping (APIError) -> Void) {
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
-    func PUT(url: String,
+    func PUT(request: URLRequest,
              parameters: [String: Any],
              onSuccess: @escaping ([String: Any]) -> Void,
              onError: @escaping ErrorHandler) {
-        urlCalled = url
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
-    func PUTData(url: String,
+    func PUTData(request: URLRequest,
                  data: Data?,
                  JSONData: Bool,
                  onSuccess: @escaping ([String: Any]) -> Void,
                  onError: @escaping ErrorHandler) {
-        urlCalled = url
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
-    func DELETE(url: String,
+    func DELETE(request: URLRequest,
                 parameters: [String: Any],
                 onSuccess: @escaping ([String: Any]) -> Void,
                 onError: @escaping ErrorHandler) {
-        urlCalled = url
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 
-    func DELETEData(url: String,
+    func DELETEData(request: URLRequest,
                     data: Data?,
                     JSONData: Bool,
                     onSuccess: @escaping ([String: Any]) -> Void,
                     onError: @escaping ErrorHandler) {
-        urlCalled = url
+        requestCalled = request
         shouldFail ? onError(error!) : onSuccess(response!)
     }
 }

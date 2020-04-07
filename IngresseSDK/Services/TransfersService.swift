@@ -17,17 +17,25 @@ public class TransfersService: BaseService {
     ///   - limit: number of items on response
     ///   - onSuccess: success callback with User array
     ///   - onError: fail callback with APIError
-    public func getRecentTransfers(userID: String, userToken: String, limit: Int = 12, onSuccess: @escaping (_ users: [Transfer]) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func getRecentTransfers(userID: String,
+                                   userToken: String,
+                                   limit: Int = 12,
+                                   onSuccess: @escaping (_ users: [Transfer]) -> Void,
+                                   onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("user/\(userID)/last-transfers")
             .addParameter(key: "page", value: "1")
             .addParameter(key: "order", value: "desc")
             .addParameter(key: "size", value: "\(limit)")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let array = response["data"] as? [[String: Any]],
                 let users = JSONDecoder().decodeArray(of: [Transfer].self, from: array) else {
@@ -36,9 +44,7 @@ public class TransfersService: BaseService {
             }
 
             onSuccess(users)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     /// Get pending transfers (invites user has not accepted yet)
@@ -47,16 +53,22 @@ public class TransfersService: BaseService {
     ///   - userID: id of logged user
     ///   - userToken: token of logged user (required)
     ///   - delegate: callback interface
-    public func getPendingTransfers(_ userID: String, userToken: String, page: Int, delegate: TicketTransfersDelegate) {
+    public func getPendingTransfers(_ userID: String,
+                                    userToken: String,
+                                    page: Int,
+                                    delegate: TicketTransfersDelegate) {
         
-        let url = URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("user/\(userID)/transfers")
             .addParameter(key: "page", value: "\(page)")
             .addParameter(key: "pageSize", value: "50")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return delegate.didFailDownloadTransfers(errorData: APIError.getDefaultError())
+        }
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let paginationObj = response["paginationInfo"] as? [String: Any],
@@ -68,9 +80,7 @@ public class TransfersService: BaseService {
             }
             
             delegate.didDownloadPendingTransfers(transfers, page: pagination)
-        }, onError: { (error) in
-            delegate.didFailDownloadTransfers(errorData: error)
-        })
+        }, onError: delegate.didFailDownloadTransfers)
     }
     
     /// Update transfer based on given action
@@ -81,17 +91,27 @@ public class TransfersService: BaseService {
     ///   - userToken: token of logged user (required)
     ///   - onSuccess: success callback
     ///   - onError: fail callback with APIError
-    public func updateTransfer(_ action: String, ticketID: String, transferID: String, userToken: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+    public func updateTransfer(_ action: String,
+                               ticketID: String,
+                               transferID: String,
+                               userToken: String,
+                               onSuccess: @escaping () -> Void,
+                               onError: @escaping (_ errorData: APIError) -> Void) {
+
+        let builder = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer/\(transferID)")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         
-        client.restClient.POST(url: url, parameters: ["action": action], onSuccess: { (_) in
+        client.restClient.POST(request: request,
+                               parameters: ["action": action],
+                               onSuccess: { _ in
+
             onSuccess()
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
     
     /// Transfer ticket to some user
@@ -102,23 +122,31 @@ public class TransfersService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback with NewTransfer
     ///   - onError: fail callback with APIError
-    public func transferTicket(_ ticketID: String, toUser userID: String, userToken: String, onSuccess: @escaping (_ transfer: NewTransfer) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
+    public func transferTicket(_ ticketID: String,
+                               toUser userID: String,
+                               userToken: String,
+                               onSuccess: @escaping (_ transfer: NewTransfer) -> Void,
+                               onError: @escaping (_ errorData: APIError) -> Void) {
         
-        let url = URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         
-        client.restClient.POST(url: url, parameters: ["user": userID], onSuccess: { (response) in
+        client.restClient.POST(request: request,
+                               parameters: ["user": userID],
+                               onSuccess: { response in
+
             guard let transfer = JSONDecoder().decodeDict(of: NewTransfer.self, from: response) else {
                 onError(APIError.getDefaultError())
                 return
             }
 
             onSuccess(transfer)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
  
     /// Return ticket to last holder
@@ -128,21 +156,29 @@ public class TransfersService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: success callback with ticketId
     ///   - onError: fail callback with APIError
-    public func returnTicket(_ ticketID: String, userToken: String, onSuccess: @escaping (_ ticketId: Int) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+    public func returnTicket(_ ticketID: String,
+                             userToken: String,
+                             onSuccess: @escaping (_ ticketId: Int) -> Void,
+                             onError: @escaping (_ errorData: APIError) -> Void) {
+
+        let builder = URLBuilder(client: client)
             .setPath("ticket/\(ticketID)/transfer")
             .addParameter(key: "usertoken", value: userToken)
-            .build()
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
         
-        client.restClient.POST(url: url, parameters: ["isReturn": "true"], onSuccess: { (response) in
+        client.restClient.POST(request: request,
+                               parameters: ["isReturn": "true"],
+                               onSuccess: { (response) in
+
             guard let id = response["saleTicketId"] as? Int else {
                 onError(APIError.getDefaultError())
                 return
             }
             
             onSuccess(id)
-        }, onError: { (error) in
-            onError(error)
-        })
+        }, onError: onError)
     }
 }

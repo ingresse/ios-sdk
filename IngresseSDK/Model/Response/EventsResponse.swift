@@ -22,3 +22,11 @@ extension Response {
         }
     }
 }
+
+extension Response {
+    public struct UserWalletTransactions {
+        public struct Transaction: Decodable {
+            public var transactionId: String? = ""
+        }
+    }
+}

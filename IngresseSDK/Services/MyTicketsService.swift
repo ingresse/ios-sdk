@@ -13,7 +13,13 @@ public class MyTicketsService: BaseService {
     ///   - page: page of request
     ///   - pageSize: number of events per page
     ///   - delegate: callback interface
-    public func getUserWallet(userId: String, userToken: String, from: String = "", page: Int, pageSize: Int = 50, delegate: WalletSyncDelegate) {
+    public func getUserWallet(userId: String,
+                              userToken: String,
+                              from: String = "",
+                              page: Int,
+                              pageSize: Int = 50,
+                              delegate: WalletSyncDelegate) {
+
         var builder = URLBuilder(client: client)
             .setPath("user/\(userId)/wallet")
             .addParameter(key: "usertoken", value: userToken)
@@ -30,9 +36,12 @@ public class MyTicketsService: BaseService {
             builder = builder.addParameter(key: "to", value: "yesterday")
         }
 
-        let url = builder.build()
+        guard let request = try? builder.build() else {
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+            return delegate.didFailSyncItems(errorData: APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let paginationObj = response["paginationInfo"] as? [String: Any],
@@ -44,7 +53,7 @@ public class MyTicketsService: BaseService {
             }
 
             delegate.didSyncItemsPage(items, from: from, pagination: pagination)
-        }, onError: { (error) in
+        }, onError: { error in
             delegate.didFailSyncItems(errorData: error)
         })
     }
@@ -57,16 +66,25 @@ public class MyTicketsService: BaseService {
     ///   - eventId: id of requested event
     ///   - page: page of request
     ///   - delegate: callback interface
-    public func getUserTickets(userId: String, eventId: String, userToken: String, page: Int, delegate: TicketSyncDelegate) {
-        let url = URLBuilder(client: client)
+    public func getUserTickets(userId: String,
+                               eventId: String,
+                               userToken: String,
+                               page: Int,
+                               delegate: TicketSyncDelegate) {
+
+        let builder = URLBuilder(client: client)
             .setPath("user/\(userId)/tickets")
             .addParameter(key: "eventId", value: eventId)
             .addParameter(key: "usertoken", value: userToken)
             .addParameter(key: "page", value: String(page))
             .addParameter(key: "pageSize", value: "25")
-            .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+
+            return delegate.didFailSyncTickets(errorData: APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request,
+                              onSuccess: { response in
             guard
                 let data = response["data"] as? [[String: Any]],
                 let paginationObj = response["paginationInfo"] as? [String: Any],
@@ -78,7 +96,7 @@ public class MyTicketsService: BaseService {
             }
             
             delegate.didSyncTicketsPage(eventId: eventId, tickets: tickets, pagination: pagination)
-        }, onError: { (error) in
+        }, onError: { error in
             delegate.didFailSyncTickets(errorData: error)
         })
     }
@@ -89,16 +107,22 @@ public class MyTicketsService: BaseService {
     ///   - userId: id of logged user
     ///   - eventId: id of requested event
     ///   - userToken: token of logged user
-    public func getWalletTicketsOf(request: Request.Wallet.NumberOfTickets, onSuccess: @escaping (_ tickets: Int) -> Void, onError: @escaping (_ error: APIError) -> Void) {
-        let url = URLBuilder(client: client)
+    public func getWalletTicketsOf(request: Request.Wallet.NumberOfTickets,
+                                   onSuccess: @escaping (_ tickets: Int) -> Void,
+                                   onError: @escaping (_ error: APIError) -> Void) {
+
+        let builder = URLBuilder(client: client)
             .setPath("user/\(request.userId)/tickets")
             .addParameter(key: "eventId", value: request.eventId)
             .addParameter(key: "usertoken", value: request.userToken)
             .addParameter(key: "page", value: 1)
             .addParameter(key: "pageSize", value: "1")
-            .build()
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let paginationObj = response["paginationInfo"] as? [String: Any],
                 let pagination = JSONDecoder().decodeDict(of: PaginationInfo.self, from: paginationObj)
