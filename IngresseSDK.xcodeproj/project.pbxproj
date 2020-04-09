@@ -190,9 +190,9 @@
 		A53BEF152246ED8500155109 /* EventsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BEF142246ED8500155109 /* EventsResponse.swift */; };
 		A5982B142228BAF0004DEFC7 /* ProducerEventSyncDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5982B132228BAF0004DEFC7 /* ProducerEventSyncDelegate.swift */; };
 		A5982B162228BBC7004DEFC7 /* EventRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5982B152228BBC7004DEFC7 /* EventRequests.swift */; };
-		CEBABEF5243D2AF000C07518 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBABEF4243D2AF000C07518 /* Coupon.swift */; };
 		CE2D74FB2409CED800A799BA /* TransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2D74FA2409CED800A799BA /* TransactionRequest.swift */; };
 		CE73B102240C76B10099439A /* UserWalletTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73B101240C76B10099439A /* UserWalletTransaction.swift */; };
+		CEBABEF5243D2AF000C07518 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBABEF4243D2AF000C07518 /* Coupon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,9 +392,9 @@
 		A53BEF142246ED8500155109 /* EventsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsResponse.swift; sourceTree = "<group>"; };
 		A5982B132228BAF0004DEFC7 /* ProducerEventSyncDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerEventSyncDelegate.swift; sourceTree = "<group>"; };
 		A5982B152228BBC7004DEFC7 /* EventRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRequests.swift; sourceTree = "<group>"; };
-		CEBABEF4243D2AF000C07518 /* Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 		CE2D74FA2409CED800A799BA /* TransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRequest.swift; sourceTree = "<group>"; };
 		CE73B101240C76B10099439A /* UserWalletTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletTransaction.swift; sourceTree = "<group>"; };
+		CEBABEF4243D2AF000C07518 /* Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1237,7 +1237,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.9.3;
+				MARKETING_VERSION = 1.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1258,7 +1258,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.9.3;
+				MARKETING_VERSION = 1.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
