@@ -28,5 +28,16 @@ extension Request {
 
             public init() {}
         }
+        
+        public struct Search {
+            public var filters: [String: String] = [:]
+            public var orderBy: String = ""
+            public var from: String = ""
+            public var to: String = ""
+            public var offset: Int = 0
+            public var size: Int = 0
+            
+            public init() {}
+        }
     }
 }
