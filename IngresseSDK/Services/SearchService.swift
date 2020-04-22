@@ -61,8 +61,8 @@ public class SearchService: BaseService {
             .addParameter(key: "size", value: request.size)
             .addParameter(key: "from", value: request.from)
             .addParameter(key: "to", value: request.to)
-            .addParameter(key: "orderBy", value: request.orderBy) //"sessions.dateTime"
-            .addParameter(key: "offset", value: request.offset) //"0"
+            .addParameter(key: "orderBy", value: request.orderBy)
+            .addParameter(key: "offset", value: request.offset)
 
         for (key, value) in request.filters {
             builder = builder.addParameter(key: key, value: value)
