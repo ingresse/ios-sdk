@@ -35,8 +35,8 @@ extension Request {
             public let to: String
             public let offset: Int
             public let size: Int
-            public let title: String
-            public let description: String
+            public let title: String?
+            public let description: String?
 
             public init(orderBy: String,
                         from: String,
@@ -51,8 +51,8 @@ extension Request {
                 self.to = to
                 self.offset = offset
                 self.size = size
-                self.title = title
-                self.description = description
+                self.title = title.isEmpty ? nil : title
+                self.description = description.isEmpty ? nil : description
             }
         }
     }

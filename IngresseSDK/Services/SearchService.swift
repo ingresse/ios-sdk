@@ -55,7 +55,7 @@ public class SearchService: BaseService {
                           onSuccess: @escaping (_ event: [IngresseSDK.NewEvent], _ totalResults: Int) -> Void,
                           onError: @escaping (_ error: IngresseSDK.APIError) -> Void) {
 
-        var builder = URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
             .addParameter(key: "size", value: request.size)
@@ -63,20 +63,13 @@ public class SearchService: BaseService {
             .addParameter(key: "to", value: request.to)
             .addParameter(key: "orderBy", value: request.orderBy)
             .addParameter(key: "offset", value: request.offset)
-        
-        
-        if !request.title.isEmpty {
-            builder = builder.addParameter(key: "title", value: request.title)
-        }
-
-        if !request.description.isEmpty {
-            builder = builder.addParameter(key: "description", value: request.description)
-        }
+            .addParameter(key: "title", value: request.title)
+            .addParameter(key: "description", value: request.description)
 
         guard let request = try? builder.build() else {
             return onError(APIError.getDefaultError())
         }
-        
+
         client.restClient.GET(request: request,
                               onSuccess: { (response) in
             guard
