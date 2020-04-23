@@ -4,9 +4,10 @@
 
 public class IngresseService: NSObject {
     
-    var client: IngresseClient!
+    private let client: IngresseClient
     
     public init(client: IngresseClient) {
+
         self.client = client
     }
     
