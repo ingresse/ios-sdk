@@ -63,15 +63,20 @@ public class SearchService: BaseService {
             .addParameter(key: "to", value: request.to)
             .addParameter(key: "orderBy", value: request.orderBy)
             .addParameter(key: "offset", value: request.offset)
+        
+        
+        if !request.title.isEmpty {
+            builder = builder.addParameter(key: "title", value: request.title)
+        }
 
-        for (key, value) in request.filters {
-            builder = builder.addParameter(key: key, value: value)
+        if !request.description.isEmpty {
+            builder = builder.addParameter(key: "description", value: request.description)
         }
 
         guard let request = try? builder.build() else {
-
             return onError(APIError.getDefaultError())
         }
+        
         client.restClient.GET(request: request,
                               onSuccess: { (response) in
             guard
