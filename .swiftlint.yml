@@ -32,5 +32,6 @@ identifier_name:
     warning: 3
   excluded: 
       - id
+      - to
       - apiError(error:)
 reporter: "xcode"

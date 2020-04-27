@@ -11,10 +11,20 @@ struct Network {
 
     private static let session = Alamofire.Session.default
 
-    static func request<U: Decodable>(_ request: URLRequest,
+    static func request<U: Decodable>(_ networkURLRequest: NetworkURLRequest,
                                       completion: @escaping (Swift.Result<U, Error>) -> Void) {
+
+        let urlRequest: URLRequestConvertible
+        do {
+
+            urlRequest = try networkURLRequest.asURLRequest()
+        } catch {
+
+            return completion(.failure(error))
+        }
+
         session
-            .request(request)
+            .request(urlRequest)
             .validate()
             .response { response in
 
