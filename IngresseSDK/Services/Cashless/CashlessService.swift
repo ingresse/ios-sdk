@@ -9,8 +9,8 @@ import Foundation
 
 public class CashlessService: BaseService {
 
-    public func getToken(eventId: String,
-                         completion: @escaping (Result<Bool, Error>) -> Void) {
+    public func getToken(eventId: Int,
+                         completion: @escaping (Result<CashlessDataTokenResponse, Error>) -> Void) {
 
         let urlRequest = CashlessURLRequest.GetToken(eventId: eventId,
                                                      environment: client.environment)

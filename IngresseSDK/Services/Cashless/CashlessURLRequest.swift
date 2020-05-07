@@ -12,10 +12,10 @@ struct CashlessURLRequest {
 
     struct GetToken: NetworkURLRequest {
 
-        private let eventId: String
+        private let eventId: Int
         private let environment: Environment
 
-        init(eventId: String, environment: Environment) {
+        init(eventId: Int, environment: Environment) {
 
             self.eventId = eventId
             self.environment = environment
@@ -33,11 +33,11 @@ struct CashlessURLRequest {
     }
 }
 
-
+// MARK: - Private extensions
 private extension Environment {
 
     var cashlessBaseURL: URL? {
 
-        URL(string: "https://\(Host.cashless)\(self)")
+        URL(string: "https://\(self)-\(Host.cashless.rawValue)")
     }
 }

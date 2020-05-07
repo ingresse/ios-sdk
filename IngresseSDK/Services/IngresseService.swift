@@ -16,6 +16,7 @@ public class IngresseService: NSObject {
 
     public lazy var address = AddressService(client)
 
+    @objc
     public lazy var auth = AuthService(client)
     
     public lazy var user = UserService(client)
@@ -27,7 +28,8 @@ public class IngresseService: NSObject {
     public lazy var entrance = EntranceService(client)
     
     public lazy var myTickets = MyTicketsService(client)
-    
+
+    @objc
     public lazy var transaction = TransactionService(client)
     
     public lazy var transfers = TransfersService(client)
@@ -37,4 +39,6 @@ public class IngresseService: NSObject {
     public lazy var security = SecurityService(client)
 
     public lazy var phone = PhoneService(client)
+
+    public lazy var cashless = CashlessService(client)
 }
