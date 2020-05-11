@@ -7,9 +7,8 @@ public class LiveEventService: BaseService {
 
         let builder = URLBuilder(client: client)
             .setHost(.ingresseLive)
-            .setPath("player")
-            .addParameter(key: "usertoken", value: userToken)
-            .addParameter(key: "eventid", value: liveEventId)
+            .addParameter(key: "userToken", value: userToken)
+            .addParameter(key: "liveId", value: liveEventId)
 
         guard let request = try? builder.build() else {
             return onError(APIError.getDefaultError())
