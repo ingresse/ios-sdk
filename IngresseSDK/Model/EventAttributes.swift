@@ -13,6 +13,8 @@ public class EventAttributes: NSObject, Codable {
     public var passportLabel: String = ""
     public var isExternal: Bool = false
     public var externalLink: String = ""
+    public var isEventLive: Bool = false
+    public var eventLiveId: String = ""
 
     enum CodingKeys: String, CodingKey {
         case acceptedApps = "accepted_apps"
@@ -25,6 +27,8 @@ public class EventAttributes: NSObject, Codable {
         case eventDisclaimer = "event_disclaimer"
         case isExternal = "is_external"
         case externalLink = "external_link"
+        case isEventLive = "live_enabled"
+        case eventLiveId = "live_id"
     }
 
     public required init(from decoder: Decoder) throws {
@@ -39,6 +43,8 @@ public class EventAttributes: NSObject, Codable {
         eventDisclaimer = container.safeDecodeKey(.eventDisclaimer, to: Disclaimer.self)
         isExternal = container.decodeKey(.isExternal, ofType: Bool.self)
         externalLink = container.decodeKey(.externalLink, ofType: String.self)
+        isEventLive = try container.decodeIfPresent(Bool.self, forKey: .isEventLive) ?? false
+        eventLiveId = container.decodeKey(.eventLiveId, ofType: String.self)
     }
 
     public static func fromJSON(_ json: [String: Any]) -> EventAttributes? {

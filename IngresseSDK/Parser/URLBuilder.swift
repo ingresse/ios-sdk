@@ -41,6 +41,7 @@ public enum Host: String {
     case search = "event-search.ingresse.com/"
     case searchHml = "event.ingresse.com/search/company/"
     case userTransactions = "my-transactions.ingresse.com/"
+    case ingresseLive = "live.ingresse.com/"
 }
 
 public class URLBuilder: NSObject {
@@ -146,7 +147,7 @@ extension URLBuilder {
     private func authorizationAPIParam() -> [String: String] {
 
         switch host {
-        case .api:
+        case .api, .ingresseLive:
 
             return ["apikey": apiKey]
         case .userTransactions:
