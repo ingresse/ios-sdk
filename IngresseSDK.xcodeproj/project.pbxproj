@@ -195,6 +195,7 @@
 		CE73B102240C76B10099439A /* UserWalletTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73B101240C76B10099439A /* UserWalletTransaction.swift */; };
 		CEB19DEF2469BB1B0047CF3B /* LiveEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB19DEE2469BB1B0047CF3B /* LiveEventService.swift */; };
 		CEB19DF92469CBD50047CF3B /* WalletEventLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB19DF82469CBD50047CF3B /* WalletEventLive.swift */; };
+		CEB19FE4246A01450047CF3B /* SearchEventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB19FE3246A01450047CF3B /* SearchEventAttributes.swift */; };
 		CEBABEF5243D2AF000C07518 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBABEF4243D2AF000C07518 /* Coupon.swift */; };
 /* End PBXBuildFile section */
 
@@ -400,6 +401,7 @@
 		CE73B101240C76B10099439A /* UserWalletTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletTransaction.swift; sourceTree = "<group>"; };
 		CEB19DEE2469BB1B0047CF3B /* LiveEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEventService.swift; sourceTree = "<group>"; };
 		CEB19DF82469CBD50047CF3B /* WalletEventLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEventLive.swift; sourceTree = "<group>"; };
+		CEB19FE3246A01450047CF3B /* SearchEventAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEventAttributes.swift; sourceTree = "<group>"; };
 		CEBABEF4243D2AF000C07518 /* Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -598,6 +600,7 @@
 				2FC7448823D6291A000C1430 /* Insurance.swift */,
 				CE73B101240C76B10099439A /* UserWalletTransaction.swift */,
 				CEB19DF82469CBD50047CF3B /* WalletEventLive.swift */,
+				CEB19FE3246A01450047CF3B /* SearchEventAttributes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1010,6 +1013,7 @@
 				CE73B102240C76B10099439A /* UserWalletTransaction.swift in Sources */,
 				624526191EC23238007B6584 /* DateHelper.swift in Sources */,
 				6239BA181EC622A500C7BD16 /* GuestListSyncDelegate.swift in Sources */,
+				CEB19FE4246A01450047CF3B /* SearchEventAttributes.swift in Sources */,
 				750A814A20E18C70004881C8 /* CompanyApp.swift in Sources */,
 				62F7D1BA21CBCFE2000F51FE /* WalletRequests.swift in Sources */,
 				6237022D1F72D124006A1335 /* EventService.swift in Sources */,

@@ -16,6 +16,7 @@ public struct NewEvent: Decodable, Equatable {
     public var slug: String = ""
     public var status: Status?
     public var title: String = ""
+    public var attributes: SearchEventAttributes?
     public var updatedAt: String = ""
 
     enum CodingKeys: String, CodingKey {
@@ -35,6 +36,7 @@ public struct NewEvent: Decodable, Equatable {
         case slug
         case status
         case title
+        case attributes
         case updatedAt
     }
 
@@ -70,5 +72,6 @@ public struct NewEvent: Decodable, Equatable {
         place = container.safeDecodeKey(.place, to: Place.self)
         poster = container.safeDecodeKey(.poster, to: Poster.self)
         status = container.safeDecodeKey(.status, to: Status.self)
+        attributes = container.safeDecodeKey(.attributes, to: SearchEventAttributes.self)
     }
 }
