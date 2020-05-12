@@ -5,12 +5,10 @@
 public struct SearchEventAttributes: Codable, Equatable {
     public var liveEnabled: Bool = false
     public var liveId: String = ""
-    public var saleEnabled: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case liveEnabled
         case liveId
-        case saleEnabled
     }
 
     enum AttrCodingKeys: String, CodingKey {
@@ -26,8 +24,5 @@ public struct SearchEventAttributes: Codable, Equatable {
 
         let liveIdContainer = try? attributes.nestedContainer(keyedBy: AttrCodingKeys.self, forKey: .liveId)
         liveId = try liveIdContainer?.decodeIfPresent(String.self, forKey: .value) ?? ""
-
-        let saleEnabledContainer = try? attributes.nestedContainer(keyedBy: AttrCodingKeys.self, forKey: .saleEnabled)
-        saleEnabled = try saleEnabledContainer?.decodeIfPresent(Bool.self, forKey: .value) ?? false
     }
 }
