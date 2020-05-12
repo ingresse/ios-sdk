@@ -58,13 +58,7 @@ public class SearchService: BaseService {
         let builder = URLBuilder(client: client)
             .setHost(.search)
             .setPath("1")
-            .addParameter(key: "size", value: request.size)
-            .addParameter(key: "from", value: request.from)
-            .addParameter(key: "to", value: request.to)
-            .addParameter(key: "orderBy", value: request.orderBy)
-            .addParameter(key: "offset", value: request.offset)
-            .addParameter(key: "title", value: request.title)
-            .addParameter(key: "description", value: request.description)
+            .addEncodableParameter(request)
 
         guard let request = try? builder.build() else {
             return onError(APIError.getDefaultError())

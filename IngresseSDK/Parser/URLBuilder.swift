@@ -86,6 +86,12 @@ public class URLBuilder: NSObject {
         
         return self
     }
+
+    func addEncodableParameter( _ param: Encodable) -> URLBuilder {
+        var builder = self
+        param.encoded?.forEach { builder = builder.addParameter(key: $0, value: $1) }
+        return builder
+    }
     
     public func build() throws -> URLRequest {
         var urlString = getHostUrl()
