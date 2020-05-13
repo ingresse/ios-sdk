@@ -197,6 +197,7 @@
 		CEB19DF92469CBD50047CF3B /* WalletEventLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB19DF82469CBD50047CF3B /* WalletEventLive.swift */; };
 		CEB19FE4246A01450047CF3B /* SearchEventAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB19FE3246A01450047CF3B /* SearchEventAttributes.swift */; };
 		CEBABEF5243D2AF000C07518 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBABEF4243D2AF000C07518 /* Coupon.swift */; };
+		CEEBC6E8246C4E0C00D87A81 /* Encodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBC6E7246C4E0C00D87A81 /* Encodable+Dictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -403,6 +404,7 @@
 		CEB19DF82469CBD50047CF3B /* WalletEventLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEventLive.swift; sourceTree = "<group>"; };
 		CEB19FE3246A01450047CF3B /* SearchEventAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEventAttributes.swift; sourceTree = "<group>"; };
 		CEBABEF4243D2AF000C07518 /* Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
+		CEEBC6E7246C4E0C00D87A81 /* Encodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dictionary.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,7 +476,7 @@
 		624525F91EC23217007B6584 /* IngresseSDK */ = {
 			isa = PBXGroup;
 			children = (
-				CE17F3F6246EDDFE00B0FC59 /* Extensions */,
+				CEEBC6E6246C4DF900D87A81 /* Extensions */,
 				624526111EC2322C007B6584 /* Errors */,
 				624526161EC23238007B6584 /* Helpers */,
 				624526221EC2324F007B6584 /* Model */,
@@ -775,10 +777,10 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
-		CE17F3F6246EDDFE00B0FC59 /* Extensions */ = {
+		CEEBC6E6246C4DF900D87A81 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CE17F3F7246EDE1300B0FC59 /* Encodable+Dictionary.swift */,
+				CEEBC6E7246C4E0C00D87A81 /* Encodable+Dictionary.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1006,6 +1008,7 @@
 				627D85801FD5AD1300C98171 /* PaymentCard.swift in Sources */,
 				A53BEF152246ED8500155109 /* EventsResponse.swift in Sources */,
 				62E6EDE41F1FE23400F0B1E8 /* Venue.swift in Sources */,
+				CEEBC6E8246C4E0C00D87A81 /* Encodable+Dictionary.swift in Sources */,
 				624526281EC2324F007B6584 /* Event.swift in Sources */,
 				62D6423D21AC61C4002E1A39 /* ShopResponse.swift in Sources */,
 				62EDCFE1210BB725001A6C7C /* SessionDate.swift in Sources */,

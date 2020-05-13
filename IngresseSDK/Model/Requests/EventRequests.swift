@@ -55,5 +55,15 @@ extension Request {
                 self.description = description.isEmpty ? nil : description
             }
         }
+
+        public struct LiveEvent: Encodable {
+            public let userToken: String
+            public let ticketCode: String
+
+            public init(userToken: String, ticketCode: String) {
+                self.userToken = userToken
+                self.ticketCode = ticketCode
+            }
+        }
     }
 }

@@ -3,12 +3,11 @@
 //
 
 public class LiveEventService: BaseService {
-    public func getEventLiveURL(userToken: String, liveEventId: String, onSuccess: @escaping (_ url: URLRequest) -> Void, onError: @escaping ErrorHandler) {
+    public func getEventLiveURL(request: Request.Event.LiveEvent, onSuccess: @escaping (_ url: URLRequest) -> Void, onError: @escaping ErrorHandler) {
 
         let builder = URLBuilder(client: client)
             .setHost(.ingresseLive)
-            .addParameter(key: "userToken", value: userToken)
-            .addParameter(key: "liveId", value: liveEventId)
+            .addEncodableParameter(request)
 
         guard let request = try? builder.build() else {
             return onError(APIError.getDefaultError())
