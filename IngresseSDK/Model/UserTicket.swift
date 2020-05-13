@@ -23,6 +23,7 @@ public class UserTicket: NSObject, Codable {
     public var eventId: Int = 0
     public var eventTitle: String = ""
     public var eventVenue: Venue?
+    public var live: WalletEventLive = WalletEventLive()
     
     public var receivedFrom: Transfer?
     public var transferedTo: Transfer?
@@ -47,6 +48,7 @@ public class UserTicket: NSObject, Codable {
         case eventId
         case eventTitle
         case eventVenue
+        case live
         case receivedFrom
         case transferedTo
         case currentHolder
@@ -75,6 +77,7 @@ public class UserTicket: NSObject, Codable {
         eventId = container.decodeKey(.eventId, ofType: Int.self)
         eventTitle = container.decodeKey(.eventTitle, ofType: String.self)
         eventVenue = container.safeDecodeKey(.eventVenue, to: Venue.self)
+        live = try container.decodeIfPresent(WalletEventLive.self, forKey: .live) ?? WalletEventLive()
         receivedFrom = container.safeDecodeKey(.receivedFrom, to: Transfer.self)
         transferedTo = container.safeDecodeKey(.transferedTo, to: Transfer.self)
         currentHolder = container.safeDecodeKey(.currentHolder, to: Transfer.self)
