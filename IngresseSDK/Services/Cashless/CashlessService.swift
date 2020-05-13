@@ -1,8 +1,5 @@
 //
-//  CashlessService.swift
-//  IngresseSDK
-//
-//  Created by Fernando Ferreira on 23/04/20.
+//  Copyright © 2020 ingresse. All rights reserved.
 //
 
 import Foundation

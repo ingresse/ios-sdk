@@ -1,8 +1,5 @@
 //
-//  NetworkURLRequest.swift
-//  Alamofire
-//
-//  Created by Fernando Ferreira on 23/04/20.
+//  Copyright © 2020 ingresse. All rights reserved.
 //
 
 import Alamofire
@@ -22,26 +19,21 @@ extension NetworkURLRequest {
 
         switch method {
         case .get, .delete:
-
             return URLEncoding.default
         default:
-
             return JSONEncoding.default
         }
     }
 
     private var headers: HTTPHeaders {
-
-        return HTTPHeaders(authenticationType.header)
+        HTTPHeaders(authenticationType.header)
     }
 
     func asURLRequest() throws -> URLRequestConvertible {
 
         guard let url = baseURL?.appendingPathComponent(path) else {
-
             throw NetworkRequestError.invalidURL
         }
-
         let urlRequest = try URLRequest(url: url, method: method, headers: headers)
         return try encoding.encode(urlRequest, with: parameters?.encoded)
     }

@@ -1,9 +1,5 @@
 //
-//  CashlessURLRequest.swift
-//  IngresseSDK
-//
-//  Created by Fernando Ferreira on 26/04/20.
-//  Copyright © 2020 Ingresse. All rights reserved.
+//  Copyright © 2020 ingresse. All rights reserved.
 //
 
 import Alamofire
@@ -27,7 +23,6 @@ struct CashlessURLRequest {
         var parameters: Encodable? { nil }
 
         var authenticationType: AuthenticationType {
-
             .bearer(token: UserAgent.authorization)
         }
     }
@@ -37,7 +32,6 @@ struct CashlessURLRequest {
 private extension Environment {
 
     var cashlessBaseURL: URL? {
-
         URL(string: "https://\(self)-\(Host.cashless.rawValue)")
     }
 }
