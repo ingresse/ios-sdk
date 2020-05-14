@@ -7,10 +7,13 @@ public enum Environment: String {
     case hml = "hml-"
     case hmlA = "hmla-"
     case hmlB = "hmlb-"
+    case hmlC = "hmlc-"
     case test = "test-"
     case stg = "stg-"
     case integration = "integration2-"
     case undefined = "undefined-"
+
+    static func hmlEnvs() -> [Environment] { [.hml, .hmlA, .hmlB, .hmlC] }
 
     public init(envType: String) {
         switch envType {
@@ -22,6 +25,8 @@ public enum Environment: String {
             self = .hmlA
         case "hmlb":
             self = .hmlB
+        case "hmlc":
+            self = .hmlC
         case "test":
             self = .test
         case "stg":
@@ -42,6 +47,7 @@ public enum Host: String {
     case searchHml = "event.ingresse.com/search/company/"
     case userTransactions = "my-transactions.ingresse.com/"
     case ingresseLive = "live.ingresse.com/"
+    case ingresseLiveHml = "live-homolog.ingresse.com/"
 }
 
 public class URLBuilder: NSObject {
@@ -114,10 +120,18 @@ public class URLBuilder: NSObject {
     }
 
     public func getHostUrl() -> String {
-        if [.hml, .hmlA, .hmlB].contains(environment) && host == .search {
-            return "https://\(environment.rawValue)\(Host.searchHml.rawValue)"
+        if !Environment.hmlEnvs().contains(environment) {
+            return "https://\(environment.rawValue)\(host.rawValue)"
         }
-        return "https://\(environment.rawValue)\(host.rawValue)"
+        
+        switch host {
+        case .search:
+            return "https://\(environment.rawValue)\(Host.searchHml.rawValue)"
+        case .ingresseLive:
+            return "https://\(Host.ingresseLiveHml.rawValue)"
+        default:
+            return "https://\(environment.rawValue)\(host.rawValue)"
+        }
     }
 }
 
