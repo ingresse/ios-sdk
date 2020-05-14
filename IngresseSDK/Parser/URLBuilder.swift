@@ -41,6 +41,7 @@ public enum Host: String {
     case search = "event-search.ingresse.com/"
     case searchHml = "event.ingresse.com/search/company/"
     case userTransactions = "my-transactions.ingresse.com/"
+    case cashless = "cashless.ingresse.com"
 }
 
 public class URLBuilder: NSObject {

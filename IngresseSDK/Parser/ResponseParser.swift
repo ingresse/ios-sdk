@@ -19,6 +19,7 @@ public class ResponseParser: NSObject {
     ///   - data: byte representation of data
     ///   - completion: callback block
     /// - Throws: IngresseException
+    // swiftlint:disable:next cyclomatic_complexity
     public static func build(_ response: URLResponse?, data: Data?, completion: (_ responseData: [String: Any]) -> Void) throws {
 
         guard data != nil && response != nil,
