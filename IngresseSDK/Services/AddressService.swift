@@ -45,7 +45,7 @@ public class AddressService: BaseService {
     ///   - state: address state
     ///   - onSuccess: success callback
     ///   - onError: fail callback
-    public func updateAddress(userId: String, // swiftlint:disable:this function_parameter_count
+    public func updateAddress(userId: String,
                               userToken: String,
                               zip: String,
                               street: String,

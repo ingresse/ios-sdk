@@ -4,41 +4,75 @@
 
 public class IngresseService: NSObject {
     
-    private let client: IngresseClient
+    var client: IngresseClient!
     
     public init(client: IngresseClient) {
-
         self.client = client
     }
     
     // Lazy vars, only created when needed
-    public lazy var payment = PaymentService(client)
+    public lazy var payment: PaymentService = {
+        [unowned self] in
+        return PaymentService(self.client)
+        }()
 
-    public lazy var address = AddressService(client)
+    public lazy var address: AddressService = {
+        [unowned self] in
+        return AddressService(self.client)
+        }()
 
-    @objc
-    public lazy var auth = AuthService(client)
+    @objc public lazy var auth: AuthService = {
+        [unowned self] in
+        return AuthService(self.client)
+        }()
     
-    public lazy var user = UserService(client)
+    public lazy var user: UserService = {
+        [unowned self] in
+        return UserService(self.client)
+        }()
     
-    public lazy var userCardWallet = UserCardWalletService(client)
+    public lazy var userCardWallet: UserCardWalletService = {
+        [unowned self] in
+        return UserCardWalletService(self.client)
+        }()
 
-    public lazy var event = EventService(client)
+    public lazy var event: EventService = {
+        [unowned self] in
+        return EventService(self.client)
+        }()
 
-    public lazy var entrance = EntranceService(client)
+    public lazy var entrance: EntranceService = {
+        [unowned self] in
+        return EntranceService(self.client)
+        }()
     
-    public lazy var myTickets = MyTicketsService(client)
-
-    @objc
-    public lazy var transaction = TransactionService(client)
+    public lazy var myTickets: MyTicketsService = {
+        [unowned self] in
+        return MyTicketsService(self.client)
+        }()
     
-    public lazy var transfers = TransfersService(client)
+    @objc public lazy var transaction: TransactionService = {
+        [unowned self] in
+        return TransactionService(self.client)
+        }()
+    
+    public lazy var transfers: TransfersService = {
+        [unowned self] in
+        return TransfersService(self.client)
+        }()
 
-    public lazy var search = SearchService(client)
+    public lazy var search: SearchService = {
+        [unowned self] in
+        return SearchService(self.client)
+        }()
 
-    public lazy var security = SecurityService(client)
+    public lazy var security: SecurityService = {
+        [unowned self] in
+        return SecurityService(self.client)
+        }()
 
-    public lazy var phone = PhoneService(client)
-
-    public lazy var cashless = CashlessService(client)
+    public lazy var phone: PhoneService = {
+        [unowned self] in
+        return PhoneService(self.client)
+        }()
 }

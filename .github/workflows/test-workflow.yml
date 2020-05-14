@@ -1,5 +1,5 @@
 name: Regular branch
-on: [pull_request]
+on: [push]
 jobs:
   test:
     name: Test Job
@@ -8,11 +8,9 @@ jobs:
         DEVELOPER_DIR: /Applications/Xcode_11.2.app/Contents/Developer
     steps:
     - uses: actions/checkout@v1
-    - name: Install project dependencies
-      run: bundle install
-    - name: Install Pods
-      run: bundle exec pod install
+    - name: Update fastlane
+      run: sudo gem install fastlane
     - name: Install SwiftLint
       run: brew install swiftlint
     - name: Fastlane test
-      run: bundle exec fastlane test
+      run: fastlane test

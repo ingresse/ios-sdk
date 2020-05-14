@@ -8,7 +8,6 @@ disabled_rules:
 - nesting
 excluded:
 - SwiftLint/Common/3rdPartyLib
-- Pods/
 line_length:
     warning: 150
     error: 300
@@ -32,6 +31,5 @@ identifier_name:
     warning: 3
   excluded: 
       - id
-      - to
       - apiError(error:)
 reporter: "xcode"

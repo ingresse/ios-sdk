@@ -2,7 +2,6 @@
 //  Copyright © 2016 Ingresse. All rights reserved.
 //
 
-// swiftlint:disable line_length
 import UIKit
 
 public class SDKErrors: NSObject {
