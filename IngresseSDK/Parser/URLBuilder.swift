@@ -80,8 +80,7 @@ public class URLBuilder: NSObject {
         return self
     }
     
-    public func addParameter(key: String, value: Any?) -> URLBuilder {
-        guard let value = value else { return self }
+    public func addParameter(key: String, value: Any) -> URLBuilder {
         self.parameters[key] = "\(value)"
         
         return self
