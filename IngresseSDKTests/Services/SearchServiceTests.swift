@@ -124,8 +124,16 @@ class SearchServiceTests: XCTestCase {
         var result: [NewEvent]?
         var totalResults: Int?
 
+        let request = Request.Event.Search(orderBy: "",
+                                           from: "",
+                                           to: "",
+                                           offset: 0,
+                                           size: 25,
+                                           title: "title",
+                                           description: "")
+
         // When
-        service.getEvents(filters: ["title": "title"], onSuccess: { (events, total) in
+        service.getEvents(request: request, onSuccess: { (events, total) in
             success = true
             result = events
             totalResults = total
@@ -154,8 +162,16 @@ class SearchServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        let request = Request.Event.Search(orderBy: "",
+                                           from: "",
+                                           to: "",
+                                           offset: 0,
+                                           size: 25,
+                                           title: "title",
+                                           description: "")
+
         // When
-        service.getEvents(filters: ["title": "title"], onSuccess: { (_, _) in }, onError: { (error) in
+        service.getEvents(request: request, onSuccess: { (_, _) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
@@ -186,8 +202,16 @@ class SearchServiceTests: XCTestCase {
         var success = false
         var apiError: APIError?
 
+        let request = Request.Event.Search(orderBy: "",
+                                           from: "",
+                                           to: "",
+                                           offset: 0,
+                                           size: 25,
+                                           title: "title",
+                                           description: "")
+
         // When
-        service.getEvents(filters: ["title": "title"], onSuccess: { (_, _) in }, onError: { (error) in
+        service.getEvents(request: request, onSuccess: { (_, _) in }, onError: { (error) in
             success = false
             apiError = error
             asyncExpectation.fulfill()
