@@ -75,4 +75,9 @@ public class IngresseService: NSObject {
         [unowned self] in
         return PhoneService(self.client)
         }()
+
+    public lazy var liveEvent: LiveEventService = {
+        [unowned self] in
+        return LiveEventService(self.client)
+        }()
 }
