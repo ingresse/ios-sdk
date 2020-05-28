@@ -40,5 +40,7 @@ public class IngresseService: NSObject {
 
     public lazy var phone = PhoneService(client)
 
+    public lazy var liveEvent = LiveEventService(client)
+
     public lazy var cashless = CashlessService(client)
 }

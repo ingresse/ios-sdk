@@ -28,5 +28,42 @@ extension Request {
 
             public init() {}
         }
+
+        public struct Search: Encodable {
+            public let orderBy: String
+            public let from: String
+            public let to: String
+            public let offset: Int
+            public let size: Int
+            public let title: String?
+            public let description: String?
+
+            public init(orderBy: String,
+                        from: String,
+                        to: String,
+                        offset: Int,
+                        size: Int,
+                        title: String,
+                        description: String) {
+
+                self.orderBy = orderBy
+                self.from = from
+                self.to = to
+                self.offset = offset
+                self.size = size
+                self.title = title.isEmpty ? nil : title
+                self.description = description.isEmpty ? nil : description
+            }
+        }
+
+        public struct LiveEvent: Encodable {
+            public let userToken: String
+            public let ticketCode: String
+
+            public init(userToken: String, ticketCode: String) {
+                self.userToken = userToken
+                self.ticketCode = ticketCode
+            }
+        }
     }
 }
