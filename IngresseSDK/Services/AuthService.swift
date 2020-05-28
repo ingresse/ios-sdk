@@ -175,7 +175,7 @@ public class AuthService: BaseService {
             "id", "name", "lastname", "document", "email",
             "zip", "number", "complement", "city", "state",
             "street", "district", "ddi", "phone", "verified",
-            "fbUserId", "type", "pictures", "picture"]
+            "nacionality", "identity", "fbUserId", "type", "pictures", "picture"]
         let fieldsValue = fields ?? fieldsArray.joined(separator: ",")
 
         let builder = URLBuilder(client: client)

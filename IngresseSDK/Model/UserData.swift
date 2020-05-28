@@ -21,6 +21,8 @@ public class UserData: NSObject, Codable {
     public var type: String = ""
     public var pictures: [String: String] = [:]
     public var picture: String = ""
+    public var identity: Identity?
+    public var nacionality: String = ""
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -41,6 +43,8 @@ public class UserData: NSObject, Codable {
         case type
         case pictures
         case picture
+        case identity
+        case nacionality
     }
 
     public required init(from decoder: Decoder) throws {
@@ -63,5 +67,7 @@ public class UserData: NSObject, Codable {
         type = container.decodeKey(.type, ofType: String.self)
         pictures = container.decodeKey(.pictures, ofType: [String: String].self)
         picture = container.decodeKey(.picture, ofType: String.self)
+        identity = container.safeDecodeKey(.identity, to: Identity.self)
+        nacionality = container.decodeKey(.nacionality, ofType: String.self)
     }
 }
