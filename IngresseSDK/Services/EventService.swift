@@ -85,12 +85,15 @@ public class EventService: BaseService {
     ///   - eventId: id of the event
     public func getEventImageDetails(ofEvent eventId: Int, onSuccess: @escaping (_ details: EventImageDetails) -> Void, onError: @escaping (_ errorData: APIError) -> Void) {
 
-        let url = URLBuilder(client: client)
+        let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
             .addParameter(key: "filters", value: "start_image,start_image_description")
-            .build()
+        
+        guard let request = try? builder.build() else {
+            return onError(APIError.getDefaultError())
+        }
 
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard let details = JSONDecoder().decodeDict(of: EventImageDetails.self, from: response) else { return }
             onSuccess(details)
         }, onError: onError)
@@ -107,9 +110,12 @@ public class EventService: BaseService {
         let builder = URLBuilder(client: client)
             .setPath("event/\(eventId)/attributes")
             .addParameter(key: "filters", value: "advertisement")
-            .build()
         
-        client.restClient.GET(url: url, onSuccess: { (response) in
+        guard let request = try? builder.build() else {
+            return onError(APIError.getDefaultError())
+        }
+        
+        client.restClient.GET(request: request, onSuccess: { (response) in
             guard
                 let obj = response["advertisement"] as? [String: Any],
                 let mobile = obj["mobile"] as? [String: Any],
