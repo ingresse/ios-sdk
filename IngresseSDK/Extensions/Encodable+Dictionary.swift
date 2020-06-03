@@ -1,8 +1,11 @@
 //
-//  Copyright © 2020 Ingresse. All rights reserved.
+//  Copyright © 2020 ingresse. All rights reserved.
 //
 
+import Foundation
+
 extension Encodable {
+
     var encoded: [String: Any]? {
         do {
             let data = try JSONEncoder().encode(self)

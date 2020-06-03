@@ -68,7 +68,7 @@ public class EntranceService: BaseService {
     ///   - userToken: token of logged user
     ///   - onSuccess: Success callback with array of [CheckinTickets]
     ///   - onError: Error callback with APIError
-    public func checkinTickets(_ ticketCodes: [String],
+    public func checkinTickets(_ ticketCodes: [String], // swiftlint:disable:this function_parameter_count
                                ticketStatus: [String],
                                ticketTimestamps: [String],
                                eventId: String,
