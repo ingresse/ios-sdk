@@ -12,8 +12,8 @@ public class EventImageDetails: NSObject, Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
-           guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
-         imageSizes = container.safeDecodeKey(.imageSizes, to: EventImageSizes.self)
-         imageDescription = container.safeDecodeKey(.imageDescription, to: EventImageDescription.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        imageSizes = container.safeDecodeKey(.imageSizes, to: EventImageSizes.self)
+        imageDescription = container.safeDecodeKey(.imageDescription, to: EventImageDescription.self)
     }
 }

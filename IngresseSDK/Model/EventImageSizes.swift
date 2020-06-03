@@ -16,7 +16,7 @@ public class EventImageSizes: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-        guard let container = try? decoder.container(keyedBy: CodingKeys.self) else { return }
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         small = container.decodeKey(.small, ofType: String.self)
         medium = container.decodeKey(.medium, ofType: String.self)
         large = container.decodeKey(.large, ofType: String.self)

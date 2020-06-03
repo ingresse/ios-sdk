@@ -12,8 +12,8 @@ public class EventImageDescription: NSObject, Codable {
     }
 
     public required init(from decoder: Decoder) throws {
-           let container = try decoder.container(keyedBy: CodingKeys.self)
-           text = container.decodeKey(.text, ofType: String.self)
-           link = container.decodeKey(.link, ofType: String.self)
-       }
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        text = container.decodeKey(.text, ofType: String.self)
+        link = container.decodeKey(.link, ofType: String.self)
+    }
 }
