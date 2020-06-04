@@ -93,12 +93,10 @@ public class EventService: BaseService {
             return onError(APIError.getDefaultError())
         }
 
-        client.restClient.GET(request: request, onSuccess: { (response) in
-            guard
-                let details = JSONDecoder().decodeDict(of: EventImageDetails.self, from: response)
-                else {
-                    onError(APIError.getDefaultError())
-                    return
+        client.restClient.GET(request: request, onSuccess: { response in
+            guard let details = JSONDecoder().decodeDict(of: EventImageDetails.self, from: response) else {
+                onError(APIError.getDefaultError())
+                return
             }
             
             onSuccess(details)
