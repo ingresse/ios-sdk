@@ -158,6 +158,63 @@ public class AuthService: BaseService {
         }, onError: onError)
     }
 
+    /// Login with Apple
+    ///
+    /// - Parameters:
+    ///   - userIdentifier: Apple userIdentifier
+    ///   - identityToken: Apple identityToken
+    ///   - authorizationCode: Apple authorizationCode
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func loginWithApple(userIdentifier: String,
+                               identityToken: String,
+                               authorizationCode: String,
+                               onSuccess: @escaping (_ response: IngresseUser) -> Void,
+                               onError: @escaping ErrorHandler) {
+        let builder = URLBuilder(client: client)
+            .setPath("login/apple")
+        guard let request = try? builder.build() else {
+
+            return onError(APIError.getDefaultError())
+        }
+
+        let params = ["userIdentifier": userIdentifier,
+                      "identityToken": identityToken,
+                      "authorizationCode": authorizationCode]
+
+        client.restClient.POST(request: request,
+                               parameters: params,
+                               onSuccess: { response in
+
+            guard let logged = response["status"] as? Bool,
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                    onError(error)
+                    return
+            }
+
+            guard let data = response["data"] as? [String: Any] else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            let user = IngresseUser.login(loginData: data)
+
+            self.getUserData(
+                userId: String(user.userId),
+                userToken: user.token,
+                onSuccess: { userData in
+                    userData.authToken = user.authToken
+                    onSuccess(userData)
+            }, onError: onError)
+
+        }, onError: onError)
+    }
+
     /// Complete user data
     ///
     /// - Parameters:
