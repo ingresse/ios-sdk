@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IngresseSDK"
-  s.version      = "1.10.4"
+  s.version      = "1.11.1"
   s.summary      = "Ingresse's SDK."
 
   # This description is used to generate tags and improve search results.
@@ -126,6 +126,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  s.dependency 'Alamofire', '5.1.0'
 
 end

@@ -5,7 +5,8 @@
 import UIKit
 
 public class BaseService: NSObject {
-    var client: IngresseClient
+
+    let client: IngresseClient
         
     init(_ client: IngresseClient) {
         self.client = client
