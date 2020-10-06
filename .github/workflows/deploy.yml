@@ -16,18 +16,44 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: echo "$GITHUB_CONTEXT"
-    - name: Update fastlane
-      run: sudo gem install fastlane
+
+    # Bundler
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+
+    - name: Install dependencies
+      run: |
+        bundle config path vendor/bundle
+        bundle install --full-index
+
+    # Cocoapods
+    - uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install pods
+      run: bundle exec pod install
+
     - name: Install SwiftLint
       run: brew install swiftlint
+
     - name: Fastlane test
-      run: fastlane test
+      run: bundle exec fastlane test
+
     - name: Publish SDK to Cocoapods
       run: |
         set -eo pipefail
-        pod lib lint --allow-warnings
-        pod trunk push --allow-warnings
+        bundle exec pod lib lint --allow-warnings
+        bundle exec pod trunk push --allow-warnings
       env:
         COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+
     - name: Notify on slack
-      run: fastlane notify_slack
+      run: bundle exec fastlane notify_slack

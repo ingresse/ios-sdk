@@ -9,6 +9,7 @@ disabled_rules:
 excluded:
 - SwiftLint/Common/3rdPartyLib
 - Pods/
+- vendor/
 line_length:
     warning: 150
     error: 300
