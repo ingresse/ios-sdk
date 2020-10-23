@@ -32,6 +32,6 @@ struct CashlessURLRequest {
 private extension Environment {
 
     var cashlessBaseURL: URL? {
-        URL(string: "https://\(self)-\(Host.cashless.rawValue)")
+        URL(string: "https://\(self.rawValue)\(Host.cashless.rawValue)")
     }
 }
