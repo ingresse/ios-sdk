@@ -4,12 +4,11 @@
 
 import Foundation
 
-public struct WalletEventCashless: Codable {
+public struct WalletEventCashless: NSObject, Codable {
 
     public let enabled: Bool
 
     init() {
-
         enabled = false
     }
 }

@@ -16,6 +16,7 @@
 		2F7D2F8D22EFAC2B00DD8E17 /* WalletInfoPaypal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */; };
 		2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */; };
 		2FC7448923D6291A000C1430 /* Insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC7448823D6291A000C1430 /* Insurance.swift */; };
+		2FCD56EE255CAD350085D533 /* WalletEventCashless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCD56ED255CAD350085D533 /* WalletEventCashless.swift */; };
 		2FEAF87E235A20CF0080D1BA /* PhoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEAF87D235A20CF0080D1BA /* PhoneService.swift */; };
 		2FEAF888235A4DE10080D1BA /* PhoneDDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */; };
 		35263231211883F1003615F1 /* ShopTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35263230211883F1003615F1 /* ShopTicket.swift */; };
@@ -228,6 +229,7 @@
 		2F7D2F8C22EFAC2B00DD8E17 /* WalletInfoPaypal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoPaypal.swift; sourceTree = "<group>"; };
 		2F7D2F8E22EFAC8000DD8E17 /* WalletInfoCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoCreditCard.swift; sourceTree = "<group>"; };
 		2FC7448823D6291A000C1430 /* Insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insurance.swift; sourceTree = "<group>"; };
+		2FCD56ED255CAD350085D533 /* WalletEventCashless.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletEventCashless.swift; sourceTree = "<group>"; };
 		2FEAF87D235A20CF0080D1BA /* PhoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneService.swift; sourceTree = "<group>"; };
 		2FEAF887235A4DE00080D1BA /* PhoneDDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDDI.swift; sourceTree = "<group>"; };
 		33FFFCC3F728A1F9331A727A /* Pods_IngresseSDK_IngresseSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IngresseSDK_IngresseSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -606,6 +608,7 @@
 		624526221EC2324F007B6584 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2FCD56ED255CAD350085D533 /* WalletEventCashless.swift */,
 				CEBABEF4243D2AF000C07518 /* Coupon.swift */,
 				2F74E12423C65D24004176E5 /* PaymentTransaction.swift */,
 				694A2D2B23102C050024E2E3 /* WalletInfoHolder.swift */,
@@ -1087,6 +1090,7 @@
 				35263231211883F1003615F1 /* ShopTicket.swift in Sources */,
 				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
 				2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */,
+				2FCD56EE255CAD350085D533 /* WalletEventCashless.swift in Sources */,
 				6231F24720B7442200206D85 /* BackgroundAd.swift in Sources */,
 				624526341EC23255007B6584 /* IngresseService.swift in Sources */,
 				62BFE0711F72AB53007150ED /* SocialAccount.swift in Sources */,
