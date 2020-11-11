@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct WalletEventCashless: NSObject, Codable {
+public struct WalletEventCashless: Codable {
 
     public let enabled: Bool
 
