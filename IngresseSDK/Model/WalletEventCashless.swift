@@ -1,5 +1,5 @@
 //
-//  Created by Fernando Ferreira on 22/10/20.
+//  Copyright © 2020 ingresse. All rights reserved.
 //
 
 import Foundation
