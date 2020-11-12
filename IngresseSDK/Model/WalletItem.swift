@@ -13,6 +13,7 @@ public class WalletItem: NSObject, Codable {
     public var tickets: Int = 0
     public var transfered: Int = 0
     public var live: WalletEventLive = WalletEventLive()
+    public var cashless = WalletEventCashless()
     public var sessions: [Session] = []
     public var customTickets: [CustomTicket] = []
     public var advertisement: Advertisement?
@@ -29,6 +30,7 @@ public class WalletItem: NSObject, Codable {
         case tickets
         case transfered
         case live
+        case cashless
         case sessions
         case customTickets
         case advertisement
@@ -55,6 +57,7 @@ public class WalletItem: NSObject, Codable {
         poster = container.decodeKey(.poster, ofType: String.self)
         transfered = container.decodeKey(.transfered, ofType: Int.self)
         live = try container.decodeIfPresent(WalletEventLive.self, forKey: .live) ?? WalletEventLive()
+        cashless = try container.decodeIfPresent(WalletEventCashless.self, forKey: .cashless) ?? WalletEventCashless()
         eventDescription = container.decodeKey(.eventDescription, ofType: String.self)
         customTickets = container.decodeKey(.customTickets, ofType: [CustomTicket].self)
         venue = try container.decodeIfPresent(Venue.self, forKey: .venue)
