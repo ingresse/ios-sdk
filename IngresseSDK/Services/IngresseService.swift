@@ -45,4 +45,6 @@ public class IngresseService: NSObject {
     public lazy var cashless = CashlessService(client)
     
     public lazy var userWallet = UserWalletService(client)
+
+    public lazy var userWalletTickets = UserWalletTicketService(client)
 }

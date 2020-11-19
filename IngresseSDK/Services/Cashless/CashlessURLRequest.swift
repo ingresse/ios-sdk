@@ -21,8 +21,8 @@ struct CashlessURLRequest {
         var path: String { "token/\(eventId)" }
         var method: HTTPMethod { .get }
         var parameters: Encodable? { nil }
-
-        var authenticationType: AuthenticationType {
+        var headers: [HeaderType]? { nil }
+        var authenticationType: AuthenticationType? {
             .bearer(token: UserAgent.authorization)
         }
     }

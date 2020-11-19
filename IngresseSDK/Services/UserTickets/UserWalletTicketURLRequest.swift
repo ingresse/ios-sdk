@@ -4,20 +4,20 @@
 
 import Alamofire
 
-struct UserWalletURLRequest {
-    
-    struct GetWallet: NetworkURLRequest {
+struct UserWalletTicketURLRequest {
+
+    struct GetTickets: NetworkURLRequest {
 
         private let userId: Int
         private let apiKey: String
-        private let request: WalletRequest
+        private let request: TicketsRequest
         private let environment: Environment
         private let userAgent: String
         private let authToken: String
-        
+
         init(userId: Int,
              apiKey: String,
-             request: WalletRequest,
+             request: TicketsRequest,
              environment: Environment,
              userAgent: String,
              authToken: String) {
@@ -29,11 +29,11 @@ struct UserWalletURLRequest {
             self.userAgent = userAgent
             self.authToken = authToken
         }
-        
-        var baseURL: URL? { environment.walletBaseURL }
-        var path: String { "user/\(userId)/wallet" }
+
+        var baseURL: URL? { environment.ticketBaseURL }
+        var path: String { "user/\(userId)/tickets" }
         var method: HTTPMethod { .get }
-        var authenticationType: AuthenticationType? { nil}
+        var authenticationType: AuthenticationType? { nil }
         var headers: [HeaderType]? {
             [.userAgent(header: userAgent, authorization: authToken)]
         }
@@ -44,7 +44,7 @@ struct UserWalletURLRequest {
 }
 
 private extension Environment {
-    var walletBaseURL: URL? {
+    var ticketBaseURL: URL? {
         URL(string: "https://\(self.rawValue)\(Host.api.rawValue)")
     }
 }

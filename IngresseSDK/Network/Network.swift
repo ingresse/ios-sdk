@@ -44,6 +44,7 @@ struct Network {
     static func apiRequest<U: Decodable>(queue: DispatchQueue,
                                          networkURLRequest: NetworkURLRequest,
                                          completion: @escaping (CustomApiResult<U>) -> Void) {
+        
         let urlRequest: URLRequestConvertible
         do {
             urlRequest = try networkURLRequest.asURLRequest()
@@ -54,7 +55,7 @@ struct Network {
         
         session
             .request(urlRequest)
-            
+            .validate()
             .response(
                 queue: queue,
                 completionHandler: { response in

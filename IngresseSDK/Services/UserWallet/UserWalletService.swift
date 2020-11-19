@@ -18,7 +18,9 @@ public class UserWalletService: BaseService {
         let urlRequest = UserWalletURLRequest.GetWallet(userId: userId,
                                                         apiKey: client.apiKey,
                                                         request: request,
-                                                        environment: client.environment)
+                                                        environment: client.environment,
+                                                        userAgent: client.userAgent,
+                                                        authToken: client.authToken)
         
         Network.apiRequest(queue: queue,
                            networkURLRequest: urlRequest,

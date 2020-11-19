@@ -10,7 +10,8 @@ protocol NetworkURLRequest {
     var path: String { get }
     var method: HTTPMethod { get }
     var parameters: Encodable? { get }
-    var authenticationType: AuthenticationType { get }
+    var authenticationType: AuthenticationType? { get }
+    var headers: [HeaderType]? { get }
 }
 
 extension NetworkURLRequest {
@@ -25,8 +26,21 @@ extension NetworkURLRequest {
         }
     }
 
-    private var headers: HTTPHeaders {
-        HTTPHeaders(authenticationType.header)
+    private var headers: HTTPHeaders? {
+        var mergedDicts: [String: String]?
+
+        if let authType = authenticationType?.header {
+            mergedDicts?.merge(authType) { current, _ in current }
+        }
+
+        headers?
+            .compactMap({ $0.content })
+            .forEach({ content in
+                mergedDicts?.merge(content) { current, _ in current }
+            })
+
+        guard let headers = mergedDicts else { return nil }
+        return HTTPHeaders(headers)
     }
 
     func asURLRequest() throws -> URLRequestConvertible {
