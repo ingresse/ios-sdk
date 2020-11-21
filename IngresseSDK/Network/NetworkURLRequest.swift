@@ -27,20 +27,19 @@ extension NetworkURLRequest {
     }
 
     private var headers: HTTPHeaders? {
-        var mergedDicts: [String: String]?
+        var headerList = headers?.compactMap({ $0.content })
 
         if let authType = authenticationType?.header {
-            mergedDicts?.merge(authType) { current, _ in current }
+            headerList?.append(authType)
         }
 
-        headers?
-            .compactMap({ $0.content })
-            .forEach({ content in
-                mergedDicts?.merge(content) { current, _ in current }
-            })
+        guard let tupleHeader: [(String, String)] = headerList?.flatMap({ $0 }) else {
+            return nil
+        }
 
-        guard let headers = mergedDicts else { return nil }
-        return HTTPHeaders(headers)
+        let mergedDicts = Dictionary(tupleHeader, uniquingKeysWith: +)
+
+        return HTTPHeaders(mergedDicts)
     }
 
     func asURLRequest() throws -> URLRequestConvertible {
