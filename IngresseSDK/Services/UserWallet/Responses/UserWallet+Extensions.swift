@@ -13,10 +13,10 @@ public extension UserWallet {
         public let mobile: Self.Mobile?
         
         public struct Mobile: Decodable {
-            public let background: Self.MobileBackground?
+            public let background: Self.Background?
             public let cover: Self.Cover?
             
-            public struct MobileBackground: Decodable {
+            public struct Background: Decodable {
                 public let image: String?
             }
             

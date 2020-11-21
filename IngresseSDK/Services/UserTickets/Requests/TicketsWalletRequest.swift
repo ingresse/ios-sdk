@@ -5,7 +5,7 @@
 public struct TicketsRequest: Encodable {
 
     public let usertoken: String
-    public let evendId: Int?
+    public let eventId: Int?
     public let page: Int?
     public let pageSize: Int?
 
@@ -15,7 +15,7 @@ public struct TicketsRequest: Encodable {
                 pageSize: Int?) {
 
         self.usertoken = usertoken
-        self.evendId = eventId
+        self.eventId = eventId
         self.page = page
         self.pageSize = pageSize
     }
@@ -25,7 +25,7 @@ public struct TicketsRequest: Encodable {
                 pageSize: Int?) {
 
         self.usertoken = usertoken
-        self.evendId = nil
+        self.eventId = nil
         self.page = page
         self.pageSize = pageSize
     }
