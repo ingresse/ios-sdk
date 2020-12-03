@@ -30,6 +30,7 @@ struct UserWalletTicketURLRequest {
             self.authToken = authToken
         }
 
+        var body: Encodable? { nil }
         var baseURL: URL? { environment.ticketBaseURL }
         var path: String { "user/\(userId)/tickets" }
         var method: HTTPMethod { .get }

@@ -29,7 +29,8 @@ struct UserWalletURLRequest {
             self.userAgent = userAgent
             self.authToken = authToken
         }
-        
+
+        var body: Encodable? { nil }
         var baseURL: URL? { environment.walletBaseURL }
         var path: String { "user/\(userId)/wallet" }
         var method: HTTPMethod { .get }
