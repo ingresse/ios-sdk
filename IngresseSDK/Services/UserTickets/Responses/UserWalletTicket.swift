@@ -8,7 +8,7 @@ public struct UserWalletTicket: Decodable {
     public let ticketTypeId: Int?
     public let itemType: String?
     public let price: Double?
-    public let tax: Int?
+    public let tax: Double?
     public let sessions: Self.Sessions?
     public let title: String?
     public let type: String?
