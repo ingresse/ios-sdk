@@ -12,8 +12,11 @@ struct Network {
 
     // MARK: - Cancel requests
 
-    static func cancelAllRequests() {
-        session.cancelAllRequests()
+    static func cancelAllRequests(_ completionQueue: DispatchQueue,
+                                  _ completion: (() -> Void)? = nil) {
+
+        session.cancelAllRequests(completingOnQueue: completionQueue,
+                                  completion: completion)
     }
 
     // MARK: - Default request

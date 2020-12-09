@@ -12,7 +12,9 @@ public class BaseService: NSObject {
         self.client = client
     }
 
-    public func cancelAllRequests() {
-        Network.cancelAllRequests()
+    public func cancelAllRequests(completionQueue: DispatchQueue,
+                                  completion: (() -> Void)? = nil) {
+        
+        Network.cancelAllRequests(completionQueue, completion)
     }
 }
