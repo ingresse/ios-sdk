@@ -11,4 +11,8 @@ public class BaseService: NSObject {
     init(_ client: IngresseClient) {
         self.client = client
     }
+
+    public func cancelAllRequests() {
+        Network.cancelAllRequests()
+    }
 }

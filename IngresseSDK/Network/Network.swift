@@ -9,7 +9,15 @@ struct Network {
     typealias CustomApiResult<U: Decodable> = ApiResult<U, ResponseError, ResponseError>
     
     private static let session = Alamofire.Session.default
-    
+
+    // MARK: - Cancel requests
+
+    static func cancelAllRequests() {
+        session.cancelAllRequests()
+    }
+
+    // MARK: - Default request
+
     static func request<U: Decodable>(_ networkURLRequest: NetworkURLRequest,
                                       completion: @escaping (Swift.Result<U, Error>) -> Void) {
         
@@ -40,11 +48,13 @@ struct Network {
                 }
             }
     }
-    
+
+    // MARK: - Ingresse api request
+
     static func apiRequest<U: Decodable>(queue: DispatchQueue,
                                          networkURLRequest: NetworkURLRequest,
                                          completion: @escaping (CustomApiResult<U>) -> Void) {
-        
+
         let urlRequest: URLRequestConvertible
         do {
             urlRequest = try networkURLRequest.asURLRequest()
@@ -52,7 +62,7 @@ struct Network {
             let failure = ResponseError(error: error)
             return completion(.failure(failure))
         }
-        
+
         session
             .request(urlRequest)
             .validate()
