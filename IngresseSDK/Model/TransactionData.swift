@@ -19,6 +19,7 @@ public class TransactionData: NSObject, Decodable {
     @objc public var totalPaid: Double = 0
     @objc public var sumUp: Double = 0
     @objc public var paymentTax: Double = 0
+    @objc public var saleChannel: String? = ""
 
     @objc public var interest: Int = 0
     @objc public var taxToCostumer: Int = 0
@@ -65,6 +66,7 @@ public class TransactionData: NSObject, Decodable {
         case totalPaid
         case sumUp = "sum_up"
         case paymentTax
+        case saleChannel
         case interest
         case taxToCostumer
         case installments
@@ -98,6 +100,7 @@ public class TransactionData: NSObject, Decodable {
         totalPaid = container.decodeKey(.totalPaid, ofType: Double.self)
         sumUp = container.decodeKey(.sumUp, ofType: Double.self)
         paymentTax = container.decodeKey(.paymentTax, ofType: Double.self)
+        saleChannel = container.decodeKey(.saleChannel, ofType: String.self)
         interest = container.decodeKey(.interest, ofType: Int.self)
         taxToCostumer = container.decodeKey(.taxToCostumer, ofType: Int.self)
         installments = container.decodeKey(.installments, ofType: Int.self)
