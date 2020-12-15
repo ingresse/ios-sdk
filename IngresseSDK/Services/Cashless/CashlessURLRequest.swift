@@ -17,12 +17,13 @@ struct CashlessURLRequest {
             self.environment = environment
         }
 
+        var body: Encodable? { nil }
         var baseURL: URL? { environment.cashlessBaseURL }
         var path: String { "token/\(eventId)" }
         var method: HTTPMethod { .get }
         var parameters: Encodable? { nil }
-
-        var authenticationType: AuthenticationType {
+        var headers: [HeaderType]? { nil }
+        var authenticationType: AuthenticationType? {
             .bearer(token: UserAgent.authorization)
         }
     }
