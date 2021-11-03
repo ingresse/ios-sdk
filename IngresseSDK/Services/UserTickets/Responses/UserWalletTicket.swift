@@ -24,6 +24,7 @@ public struct UserWalletTicket: Decodable {
     public let transferredTo: Self.Transfer?
     public let currentHolder: Self.Transfer?
     public let live: Self.Live?
+    public let transferable: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -47,5 +48,6 @@ public struct UserWalletTicket: Decodable {
         case transferredTo = "transferedTo"
         case currentHolder
         case live
+        case transferable
     }
 }
