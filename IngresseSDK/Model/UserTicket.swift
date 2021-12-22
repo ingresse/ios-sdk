@@ -25,6 +25,11 @@ public class UserTicket: NSObject, Codable {
     public var eventVenue: Venue?
     public var live: WalletEventLive = WalletEventLive()
     public var transferable: Bool = false
+    public var isResalable: Bool = false
+    public var resalableUrl: String = ""
+    public var isTransferable: Bool = false
+    public var isTransferCancelable: Bool = false
+    public var isReturnable: Bool = false
     
     public var receivedFrom: Transfer?
     public var transferedTo: Transfer?
@@ -51,6 +56,11 @@ public class UserTicket: NSObject, Codable {
         case eventVenue
         case live
         case transferable
+        case isResalable
+        case resalableUrl
+        case isTransferable
+        case isTransferCancelable
+        case isReturnable
         case receivedFrom
         case transferedTo
         case currentHolder
@@ -81,6 +91,11 @@ public class UserTicket: NSObject, Codable {
         eventVenue = container.safeDecodeKey(.eventVenue, to: Venue.self)
         live = try container.decodeIfPresent(WalletEventLive.self, forKey: .live) ?? WalletEventLive()
         transferable = container.decodeKey(.transferable, ofType: Bool.self)
+        isResalable = container.decodeKey(.transferable, ofType: Bool.self)
+        resalableUrl = container.decodeKey(.resalableUrl, ofType: String.self)
+        isTransferable = container.decodeKey(.isTransferable, ofType: Bool.self)
+        isTransferCancelable = container.decodeKey(.isTransferCancelable, ofType: Bool.self)
+        isReturnable = container.decodeKey(.isReturnable, ofType: Bool.self)
         receivedFrom = container.safeDecodeKey(.receivedFrom, to: Transfer.self)
         transferedTo = container.safeDecodeKey(.transferedTo, to: Transfer.self)
         currentHolder = container.safeDecodeKey(.currentHolder, to: Transfer.self)
