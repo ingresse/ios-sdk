@@ -25,6 +25,11 @@ public struct UserWalletTicket: Decodable {
     public let currentHolder: Self.Transfer?
     public let live: Self.Live?
     public let transferable: Bool?
+    public let isResalable: Bool?
+    public let resalableUrl: String?
+    public let isTransferable: Bool?
+    public let isTransferCancelable: Bool?
+    public let isReturnable: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -49,5 +54,10 @@ public struct UserWalletTicket: Decodable {
         case currentHolder
         case live
         case transferable
+        case isResalable
+        case resalableUrl
+        case isTransferable
+        case isTransferCancelable
+        case isReturnable
     }
 }
