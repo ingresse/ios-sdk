@@ -22,7 +22,8 @@ struct Network {
     // MARK: - Default request
 
     static func request<U: Decodable>(_ networkURLRequest: NetworkURLRequest,
-                                      completion: @escaping (Swift.Result<U, Error>) -> Void) {
+                                      _ queue: DispatchQueue = .main,
+                                      completion: @escaping (Result<U, Error>) -> Void) {
         
         let urlRequest: URLRequestConvertible
         do {
@@ -33,7 +34,9 @@ struct Network {
         session
             .request(urlRequest)
             .validate()
-            .response { response in
+            .response(
+                queue: queue,
+                completionHandler: { response in
                 if let error = response.error {
                     return completion(.failure(error))
                 }
@@ -49,7 +52,7 @@ struct Network {
                 } catch {
                     return completion(.failure(error))
                 }
-            }
+            })
     }
 
     // MARK: - Ingresse api request
