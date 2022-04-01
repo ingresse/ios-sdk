@@ -7,7 +7,7 @@ target 'IngresseSDK' do
 
   # Pods for IngresseSDK
 
-  pod 'Alamofire', '5.1.0'
+  pod 'Alamofire', '5.5.0'
 
   target 'IngresseSDKTests' do
     # Pods for testing

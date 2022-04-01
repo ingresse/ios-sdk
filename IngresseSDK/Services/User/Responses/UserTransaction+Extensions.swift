@@ -24,27 +24,22 @@ public extension UserTransactionResponse {
     struct Sale: Decodable {
         public let transactionId: String
         public let amount: Double
-        public let status: Self.Status
+        public let status: String?
         public let payment: Self.Payment
         public let createdAt: String
+        public let channel: String?
         public let canRefund: Bool
 
-        public enum Status: String, Decodable {
-            case approved = "approved"
-            case authorized = "authorized"
-            case declined = "declined"
-            case error = "error"
-            case manualReview = "manual review"
-            case pending = "pending"
-            case refund = "refund"
-        }
-
         public struct Payment: Decodable {
-            public let method: String
-            public let creditCard: Self.CreditCard
+            public let method: String?
+            public let acquirer: String?
+            public let bank: String?
+            public let creditCard: Self.CreditCard?
 
             public struct CreditCard: Decodable {
-                public let lastDigits: String
+                public let brand: String?
+                public let lastDigits: String?
+                public let installments: Int?
             }
         }
     }

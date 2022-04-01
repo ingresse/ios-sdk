@@ -3,7 +3,7 @@
 //
 
 public struct UserTransactionResponse: Decodable {
-    public let event: Self.Event
-    public let sale: Self.Sale
-    public let items: Self.Items
+    public let event: Self.Event?
+    public let sale: Self.Sale?
+    public let items: Self.Items?
 }

@@ -6,14 +6,14 @@ import Alamofire
 
 public struct UserTransactionsRequest: Encodable {
     
-    public let userToken: String
+    public let usertoken: String
     public let status: String?
     public let pageSize: Int?
     public let page: Int?
     
     public init(userToken: String) {
         
-        self.userToken = userToken
+        self.usertoken = userToken
         self.status = nil
         self.pageSize = nil
         self.page = nil
@@ -24,7 +24,7 @@ public struct UserTransactionsRequest: Encodable {
                 pageSize: Int?,
                 page: Int?) {
         
-        self.userToken = userToken
+        self.usertoken = userToken
         self.status = status?.rawValue
         self.pageSize = pageSize
         self.page = page
@@ -35,7 +35,7 @@ public struct UserTransactionsRequest: Encodable {
                 pageSize: Int?,
                 page: Int?) {
         
-        self.userToken = userToken
+        self.usertoken = userToken
         self.status = status?
             .map {$0.rawValue}
             .joined(separator: ",")

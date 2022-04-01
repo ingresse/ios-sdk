@@ -21,6 +21,9 @@
 		2F4F6A5627DEB40600AF5BDF /* ApiUserURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5527DEB40600AF5BDF /* ApiUserURLRequest.swift */; };
 		2F4F6A5A27DEB44900AF5BDF /* UserTransactionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5927DEB44900AF5BDF /* UserTransactionsRequest.swift */; };
 		2F4F6A5C27DEB45C00AF5BDF /* UserTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5B27DEB45C00AF5BDF /* UserTransactionResponse.swift */; };
+		2F6D4C5A27F695CB00ABFA28 /* RefundTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4C5927F695CB00ABFA28 /* RefundTransactionRequest.swift */; };
+		2F6D4C5C27F6978E00ABFA28 /* TransactionRefundedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4C5B27F6978E00ABFA28 /* TransactionRefundedResponse.swift */; };
+		2F6D4C5E27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4C5D27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift */; };
 		2F74E12523C65D24004176E5 /* PaymentTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F74E12423C65D24004176E5 /* PaymentTransaction.swift */; };
 		2F74E12923C665AF004176E5 /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F74E12823C665AF004176E5 /* Disclaimer.swift */; };
 		2F7D2F8B22EFA1AA00DD8E17 /* UserWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */; };
@@ -265,6 +268,9 @@
 		2F4F6A5527DEB40600AF5BDF /* ApiUserURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUserURLRequest.swift; sourceTree = "<group>"; };
 		2F4F6A5927DEB44900AF5BDF /* UserTransactionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransactionsRequest.swift; sourceTree = "<group>"; };
 		2F4F6A5B27DEB45C00AF5BDF /* UserTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransactionResponse.swift; sourceTree = "<group>"; };
+		2F6D4C5927F695CB00ABFA28 /* RefundTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundTransactionRequest.swift; sourceTree = "<group>"; };
+		2F6D4C5B27F6978E00ABFA28 /* TransactionRefundedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRefundedResponse.swift; sourceTree = "<group>"; };
+		2F6D4C5D27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionRefundedResponse+Extension.swift"; sourceTree = "<group>"; };
 		2F74E12423C65D24004176E5 /* PaymentTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTransaction.swift; sourceTree = "<group>"; };
 		2F74E12823C665AF004176E5 /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletInfo.swift; sourceTree = "<group>"; };
@@ -572,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4F6A5927DEB44900AF5BDF /* UserTransactionsRequest.swift */,
+				2F6D4C5927F695CB00ABFA28 /* RefundTransactionRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -581,6 +588,8 @@
 			children = (
 				2F4F6A5B27DEB45C00AF5BDF /* UserTransactionResponse.swift */,
 				2F36116427DED5BB00F75EC3 /* UserTransaction+Extensions.swift */,
+				2F6D4C5B27F6978E00ABFA28 /* TransactionRefundedResponse.swift */,
+				2F6D4C5D27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1346,6 +1355,7 @@
 				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
 				2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */,
 				2FCD56EE255CAD350085D533 /* WalletEventCashless.swift in Sources */,
+				2F6D4C5A27F695CB00ABFA28 /* RefundTransactionRequest.swift in Sources */,
 				6231F24720B7442200206D85 /* BackgroundAd.swift in Sources */,
 				624526341EC23255007B6584 /* IngresseService.swift in Sources */,
 				62BFE0711F72AB53007150ED /* SocialAccount.swift in Sources */,
@@ -1444,6 +1454,7 @@
 				62F7D1BA21CBCFE2000F51FE /* WalletRequests.swift in Sources */,
 				6237022D1F72D124006A1335 /* EventService.swift in Sources */,
 				6245262A1EC2324F007B6584 /* Session.swift in Sources */,
+				2F6D4C5C27F6978E00ABFA28 /* TransactionRefundedResponse.swift in Sources */,
 				355C19D621764F89004ABEBB /* TicketGroup.swift in Sources */,
 				6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */,
 				2FA9C3E1255DD44F00ACBD9D /* UserWalletService.swift in Sources */,
@@ -1480,6 +1491,7 @@
 				598CD3F7245645AE00D16220 /* AuthenticationType.swift in Sources */,
 				62D18ACE1F1673DF00DC2270 /* TransferHistoryItem.swift in Sources */,
 				6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */,
+				2F6D4C5E27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift in Sources */,
 				2F4F6A5C27DEB45C00AF5BDF /* UserTransactionResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

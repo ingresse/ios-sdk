@@ -8,7 +8,7 @@ public class ApiUserService: BaseService {
 
     public typealias CustomApiResult<U: Decodable> = ApiResult<U, ResponseError, ResponseError>
 
-    public typealias UserTransactionsResponse = IngresseData<PagedResponse<UserTransactionResponse>>
+    public typealias UserTransactionsResponse = PagedResponse<UserTransactionResponse>
 
     public func getTransactions(request: UserTransactionsRequest,
                                 queue: DispatchQueue,
@@ -19,6 +19,19 @@ public class ApiUserService: BaseService {
                                                            userAgent: client.userAgent,
                                                            apiKey: client.apiKey,
                                                            authToken: client.authToken)
+
+        Network.apiRequest(queue: queue, networkURLRequest: urlRequest, completion: completion)
+    }
+
+    public func refundTransaction(request: RefundTransactionRequest,
+                                  queue: DispatchQueue,
+                                  completion: @escaping (CustomApiResult<TransactionRefundedResponse>) -> Void) {
+
+        let urlRequest = ApiUserURLRequest.RefundTransaction(request: request,
+                                                             environment: client.environment,
+                                                             userAgent: client.userAgent,
+                                                             apiKey: client.apiKey,
+                                                             authToken: client.authToken)
 
         Network.apiRequest(queue: queue, networkURLRequest: urlRequest, completion: completion)
     }
