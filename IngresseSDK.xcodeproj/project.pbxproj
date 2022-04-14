@@ -10,12 +10,20 @@
 		0E9831B41F217135001211C6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9831B31F217135001211C6 /* UserService.swift */; };
 		2F31EB9422F4A9FF001B6F6E /* UserCardRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */; };
 		2F31EB9622F4AF70001B6F6E /* UserCardWalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */; };
+		2F36116527DED5BB00F75EC3 /* UserTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F36116427DED5BB00F75EC3 /* UserTransaction+Extensions.swift */; };
 		2F401A932565761F001F09EF /* TicketsWalletRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F401A922565761F001F09EF /* TicketsWalletRequest.swift */; };
 		2F401A9925657775001F09EF /* UserWalletTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F401A9825657775001F09EF /* UserWalletTicket.swift */; };
 		2F401AA625657D97001F09EF /* UserWalletTicket+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F401AA525657D97001F09EF /* UserWalletTicket+Extensions.swift */; };
 		2F401AAA25657E33001F09EF /* UserWalletTicketURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F401AA925657E33001F09EF /* UserWalletTicketURLRequest.swift */; };
 		2F401AAF25658D0B001F09EF /* HeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F401AAE25658D0B001F09EF /* HeaderType.swift */; };
 		2F401AB32565E7BC001F09EF /* UserWalletTicketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F401AB22565E7BC001F09EF /* UserWalletTicketService.swift */; };
+		2F4F6A5427DEB3DE00AF5BDF /* ApiUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5327DEB3DE00AF5BDF /* ApiUserService.swift */; };
+		2F4F6A5627DEB40600AF5BDF /* ApiUserURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5527DEB40600AF5BDF /* ApiUserURLRequest.swift */; };
+		2F4F6A5A27DEB44900AF5BDF /* UserTransactionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5927DEB44900AF5BDF /* UserTransactionsRequest.swift */; };
+		2F4F6A5C27DEB45C00AF5BDF /* UserTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F6A5B27DEB45C00AF5BDF /* UserTransactionResponse.swift */; };
+		2F6D4C5A27F695CB00ABFA28 /* RefundTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4C5927F695CB00ABFA28 /* RefundTransactionRequest.swift */; };
+		2F6D4C5C27F6978E00ABFA28 /* TransactionRefundedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4C5B27F6978E00ABFA28 /* TransactionRefundedResponse.swift */; };
+		2F6D4C5E27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4C5D27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift */; };
 		2F74E12523C65D24004176E5 /* PaymentTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F74E12423C65D24004176E5 /* PaymentTransaction.swift */; };
 		2F74E12923C665AF004176E5 /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F74E12823C665AF004176E5 /* Disclaimer.swift */; };
 		2F7D2F8B22EFA1AA00DD8E17 /* UserWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */; };
@@ -249,12 +257,20 @@
 		1C227B624464E57B6D3251DE /* Pods-IngresseSDK-IngresseSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngresseSDK-IngresseSDKTests.release.xcconfig"; path = "Target Support Files/Pods-IngresseSDK-IngresseSDKTests/Pods-IngresseSDK-IngresseSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardRequests.swift; sourceTree = "<group>"; };
 		2F31EB9522F4AF70001B6F6E /* UserCardWalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardWalletService.swift; sourceTree = "<group>"; };
+		2F36116427DED5BB00F75EC3 /* UserTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTransaction+Extensions.swift"; sourceTree = "<group>"; };
 		2F401A922565761F001F09EF /* TicketsWalletRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsWalletRequest.swift; sourceTree = "<group>"; };
 		2F401A9825657775001F09EF /* UserWalletTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletTicket.swift; sourceTree = "<group>"; };
 		2F401AA525657D97001F09EF /* UserWalletTicket+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserWalletTicket+Extensions.swift"; sourceTree = "<group>"; };
 		2F401AA925657E33001F09EF /* UserWalletTicketURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletTicketURLRequest.swift; sourceTree = "<group>"; };
 		2F401AAE25658D0B001F09EF /* HeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderType.swift; sourceTree = "<group>"; };
 		2F401AB22565E7BC001F09EF /* UserWalletTicketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletTicketService.swift; sourceTree = "<group>"; };
+		2F4F6A5327DEB3DE00AF5BDF /* ApiUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUserService.swift; sourceTree = "<group>"; };
+		2F4F6A5527DEB40600AF5BDF /* ApiUserURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUserURLRequest.swift; sourceTree = "<group>"; };
+		2F4F6A5927DEB44900AF5BDF /* UserTransactionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransactionsRequest.swift; sourceTree = "<group>"; };
+		2F4F6A5B27DEB45C00AF5BDF /* UserTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTransactionResponse.swift; sourceTree = "<group>"; };
+		2F6D4C5927F695CB00ABFA28 /* RefundTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundTransactionRequest.swift; sourceTree = "<group>"; };
+		2F6D4C5B27F6978E00ABFA28 /* TransactionRefundedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRefundedResponse.swift; sourceTree = "<group>"; };
+		2F6D4C5D27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionRefundedResponse+Extension.swift"; sourceTree = "<group>"; };
 		2F74E12423C65D24004176E5 /* PaymentTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTransaction.swift; sourceTree = "<group>"; };
 		2F74E12823C665AF004176E5 /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		2F7D2F8A22EFA1AA00DD8E17 /* UserWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWalletInfo.swift; sourceTree = "<group>"; };
@@ -511,6 +527,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2F36116827E0303F00F75EC3 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2F4F6A5527DEB40600AF5BDF /* ApiUserURLRequest.swift */,
+				2F4F6A5327DEB3DE00AF5BDF /* ApiUserService.swift */,
+				2F4F6A5727DEB40F00AF5BDF /* Requests */,
+				2F4F6A5827DEB42800AF5BDF /* Responses */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		2F401A8F256574CA001F09EF /* UserTickets */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +572,26 @@
 				2F401AAE25658D0B001F09EF /* HeaderType.swift */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		2F4F6A5727DEB40F00AF5BDF /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				2F4F6A5927DEB44900AF5BDF /* UserTransactionsRequest.swift */,
+				2F6D4C5927F695CB00ABFA28 /* RefundTransactionRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		2F4F6A5827DEB42800AF5BDF /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				2F4F6A5B27DEB45C00AF5BDF /* UserTransactionResponse.swift */,
+				2F36116427DED5BB00F75EC3 /* UserTransaction+Extensions.swift */,
+				2F6D4C5B27F6978E00ABFA28 /* TransactionRefundedResponse.swift */,
+				2F6D4C5D27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 		2F980234256D5D1200E2F2E3 /* TicketTransfer */ = {
@@ -894,6 +941,7 @@
 		6245262D1EC23255007B6584 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2F36116827E0303F00F75EC3 /* User */,
 				2F980234256D5D1200E2F2E3 /* TicketTransfer */,
 				2F401A8F256574CA001F09EF /* UserTickets */,
 				2FA9C3D6255DC57100ACBD9D /* UserWallet */,
@@ -1238,7 +1286,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    return 1\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		D9AF1D498E5DCC8C8115BFA3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1292,6 +1340,7 @@
 				2F401AA625657D97001F09EF /* UserWalletTicket+Extensions.swift in Sources */,
 				352A26B221A5900B0037E187 /* PaymentTicket.swift in Sources */,
 				A5982B142228BAF0004DEFC7 /* ProducerEventSyncDelegate.swift in Sources */,
+				2F36116527DED5BB00F75EC3 /* UserTransaction+Extensions.swift in Sources */,
 				6245262C1EC2324F007B6584 /* UserTicket.swift in Sources */,
 				6239BA141EC6075A00C7BD16 /* PaginationInfo.swift in Sources */,
 				6239BA0C1EC5EE4D00C7BD16 /* EntranceService.swift in Sources */,
@@ -1306,12 +1355,14 @@
 				6245261A1EC23238007B6584 /* HttpEncoding.swift in Sources */,
 				2F7D2F8F22EFAC8000DD8E17 /* WalletInfoCreditCard.swift in Sources */,
 				2FCD56EE255CAD350085D533 /* WalletEventCashless.swift in Sources */,
+				2F6D4C5A27F695CB00ABFA28 /* RefundTransactionRequest.swift in Sources */,
 				6231F24720B7442200206D85 /* BackgroundAd.swift in Sources */,
 				624526341EC23255007B6584 /* IngresseService.swift in Sources */,
 				62BFE0711F72AB53007150ED /* SocialAccount.swift in Sources */,
 				2F980265256DDD2D00E2F2E3 /* TicketTransfer+Extensions.swift in Sources */,
 				750A814620E186D0004881C8 /* Company.swift in Sources */,
 				624526151EC2322C007B6584 /* SDKErrors.swift in Sources */,
+				2F4F6A5A27DEB44900AF5BDF /* UserTransactionsRequest.swift in Sources */,
 				352632392118B643003615F1 /* PaymentService.swift in Sources */,
 				69AE6D6D2368C58400C8FE22 /* DeclinedReason.swift in Sources */,
 				624526331EC23255007B6584 /* AuthService.swift in Sources */,
@@ -1349,6 +1400,7 @@
 				624526211EC2323E007B6584 /* RestClientInterface.swift in Sources */,
 				2FEAF888235A4DE10080D1BA /* PhoneDDI.swift in Sources */,
 				35376BF0215041270072C21E /* UpdatedUser.swift in Sources */,
+				2F4F6A5627DEB40600AF5BDF /* ApiUserURLRequest.swift in Sources */,
 				2FA9C4EB256352AB00ACBD9D /* ApiResult.swift in Sources */,
 				6294D6EE1F72944F0064EBFA /* User.swift in Sources */,
 				6294D6E81F7279F90064EBFA /* BaseService.swift in Sources */,
@@ -1377,6 +1429,7 @@
 				692A1A4C2280680100D9CDD1 /* SecurityService.swift in Sources */,
 				2F74E12523C65D24004176E5 /* PaymentTransaction.swift in Sources */,
 				6294D6EC1F728DD80064EBFA /* SearchService.swift in Sources */,
+				2F4F6A5427DEB3DE00AF5BDF /* ApiUserService.swift in Sources */,
 				A5982B162228BBC7004DEFC7 /* EventRequests.swift in Sources */,
 				6246D6B41FD708480012FAD9 /* EventDate.swift in Sources */,
 				6245262B1EC2324F007B6584 /* Transfer.swift in Sources */,
@@ -1401,6 +1454,7 @@
 				62F7D1BA21CBCFE2000F51FE /* WalletRequests.swift in Sources */,
 				6237022D1F72D124006A1335 /* EventService.swift in Sources */,
 				6245262A1EC2324F007B6584 /* Session.swift in Sources */,
+				2F6D4C5C27F6978E00ABFA28 /* TransactionRefundedResponse.swift in Sources */,
 				355C19D621764F89004ABEBB /* TicketGroup.swift in Sources */,
 				6274856D1F05704F009AE812 /* TransactionSession.swift in Sources */,
 				2FA9C3E1255DD44F00ACBD9D /* UserWalletService.swift in Sources */,
@@ -1437,6 +1491,8 @@
 				598CD3F7245645AE00D16220 /* AuthenticationType.swift in Sources */,
 				62D18ACE1F1673DF00DC2270 /* TransferHistoryItem.swift in Sources */,
 				6239BA0E1EC5F76B00C7BD16 /* APIError.swift in Sources */,
+				2F6D4C5E27F69A5F00ABFA28 /* TransactionRefundedResponse+Extension.swift in Sources */,
+				2F4F6A5C27DEB45C00AF5BDF /* UserTransactionResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1661,7 +1717,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1685,7 +1741,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ingresse.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
