@@ -49,4 +49,6 @@ public class IngresseService: NSObject {
     public lazy var userWalletTicket = UserWalletTicketService(client)
 
     public lazy var ticketTransfer = TicketTransferService(client)
+
+    public lazy var apiUser = ApiUserService(client)
 }
