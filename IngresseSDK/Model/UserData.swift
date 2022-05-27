@@ -16,6 +16,7 @@ public class UserData: NSObject, Codable {
     public var ddi: String = ""
     public var phone: String = ""
     public var number: String = ""
+    public var birthdate: String = ""
     public var fbUserId: String = ""
     public var verified: Bool = false
     public var type: String = ""
@@ -36,6 +37,7 @@ public class UserData: NSObject, Codable {
         case ddi
         case phone
         case number
+        case birthdate
         case fbUserId
         case verified
         case type
@@ -58,6 +60,7 @@ public class UserData: NSObject, Codable {
         ddi = container.decodeKey(.ddi, ofType: String.self)
         phone = container.decodeKey(.phone, ofType: String.self)
         number = container.decodeKey(.number, ofType: String.self)
+        birthdate = container.decodeKey(.birthdate, ofType: String.self)
         fbUserId = container.decodeKey(.fbUserId, ofType: String.self)
         verified = container.decodeKey(.verified, ofType: Bool.self)
         type = container.decodeKey(.type, ofType: String.self)

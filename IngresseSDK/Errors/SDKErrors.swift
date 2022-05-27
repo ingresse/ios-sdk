@@ -27,6 +27,7 @@ public class SDKErrors: NSObject {
         1145: "O campo TELEFONE é necessário.",
         1144: "A senha deve conter 8 caracteres e ao menos uma letra.",
         1146: "O campo TELEFONE é inválido.",
+        1172: "O campo DATA DE NASCIMENTO é inválido.",
         2006: "Por favor, refaça a operação de login e tente novamente. Caso o erro persista, atualize o aplicativo.",
         2012: "Verifique em seu aparelho se as configurações de data e hora estão em \"ajuste automático\" e tente novamente.",
         3027: "Por favor, refaça a operação de login e tente novamente.",
