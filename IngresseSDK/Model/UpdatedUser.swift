@@ -11,6 +11,7 @@ public class UpdatedUser: NSObject, Decodable {
     public var email: String = ""
     public var cpf: String = ""
     public var name: String = ""
+    public var birthdate: String = ""
 
     enum CodingKeys: String, CodingKey {
         case ddi
@@ -21,6 +22,7 @@ public class UpdatedUser: NSObject, Decodable {
         case email
         case cpf
         case name
+        case birthdate
     }
 
     public override init() {}
@@ -35,5 +37,6 @@ public class UpdatedUser: NSObject, Decodable {
         email = container.decodeKey(.email, ofType: String.self)
         cpf = container.decodeKey(.cpf, ofType: String.self)
         name = container.decodeKey(.name, ofType: String.self)
+        birthdate = container.decodeKey(.birthdate, ofType: String.self)
     }
 }

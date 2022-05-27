@@ -13,6 +13,7 @@ extension Request {
             public var ddi: String?
             public var phone: String?
             public var cpf: String?
+            public var birthdate: String?
             
             public init() {}
             
@@ -23,6 +24,7 @@ extension Request {
                 case ddi
                 case phone
                 case cpf
+                case birthdate
             }
         }
         
