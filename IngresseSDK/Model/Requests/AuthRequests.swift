@@ -9,6 +9,7 @@ extension Request {
             public var ddi: String = ""
             public var phone: String = ""
             public var email: String = ""
+            public var birthdate: String? = ""
             public var document: String = ""
             public var password: String = ""
             public var token: String?
@@ -23,6 +24,7 @@ extension Request {
                 case ddi
                 case phone
                 case email
+                case birthdate
                 case document = "cpf"
                 case password
                 case token
