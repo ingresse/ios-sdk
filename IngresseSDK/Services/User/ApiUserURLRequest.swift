@@ -75,6 +75,42 @@ struct ApiUserURLRequest {
                         authorization: userAgent)]
         }
     }
+    
+    struct DeleteUser: NetworkURLRequest {
+
+        private let request: DeleteUserRequest
+        private let environment: Environment
+        private let userAgent: String
+        private let apiKey: String
+        private let authToken: String
+
+        init(request: DeleteUserRequest,
+             environment: Environment,
+             userAgent: String,
+             apiKey: String,
+             authToken: String) {
+
+            self.request = request
+            self.environment = environment
+            self.userAgent = userAgent
+            self.apiKey = apiKey
+            self.authToken = authToken
+        }
+
+        var baseURL: URL? { environment.baseURL }
+        var path: String { "user/\(request.userId)" }
+        var method: HTTPMethod { .delete }
+        var body: Encodable? { nil }
+        var authenticationType: AuthenticationType? { nil }
+        var parameters: Encodable? {
+            KeyedRequest(request: request.userToken, apikey: apiKey)
+        }
+        var headers: [HeaderType]? {
+            [.applicationJson,
+             .userAgent(header: "User-Agent",
+                        authorization: userAgent)]
+        }
+    }
 }
 
 private extension Environment {

@@ -35,4 +35,17 @@ public class ApiUserService: BaseService {
 
         Network.apiRequest(queue: queue, networkURLRequest: urlRequest, completion: completion)
     }
+    
+    public func deleteUser(request: DeleteUserRequest,
+                           queue: DispatchQueue,
+                           completion: @escaping (CustomApiResult<DeleteUserResponse>) -> Void) {
+
+        let urlRequest = ApiUserURLRequest.DeleteUser(request: request,
+                                                      environment: client.environment,
+                                                      userAgent: client.userAgent,
+                                                      apiKey: client.apiKey,
+                                                      authToken: client.authToken)
+
+        Network.apiRequest(queue: queue, networkURLRequest: urlRequest, completion: completion)
+    }
 }
