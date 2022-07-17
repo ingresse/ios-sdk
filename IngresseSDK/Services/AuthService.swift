@@ -229,10 +229,10 @@ public class AuthService: BaseService {
                             onSuccess: @escaping (_ user: IngresseUser) -> Void,
                             onError: @escaping ErrorHandler) {
         let fieldsArray = [
-            "id", "name", "lastname", "document", "email",
-            "zip", "number", "complement", "city", "state",
-            "street", "district", "ddi", "phone", "verified",
-            "fbUserId", "type", "pictures", "picture", "birthdate"]
+            "id", "name", "lastname", "document", "email", "zip",
+            "number", "complement", "city", "state", "street",
+            "district", "ddi", "phone", "verified","fbUserId", "type",
+            "pictures", "picture", "birthdate", "gender", "nationality"]
         let fieldsValue = fields ?? fieldsArray.joined(separator: ",")
 
         let builder = URLBuilder(client: client)
