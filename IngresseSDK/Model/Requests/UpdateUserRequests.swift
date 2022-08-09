@@ -17,6 +17,7 @@ extension Request {
             public var gender: String?
             public var nationality: String?
             public var birthdate: String?
+            public var type: Int?
             
             public init() {}
             
@@ -31,6 +32,7 @@ extension Request {
                 case gender
                 case nationality
                 case birthdate
+                case type
             }
         }
         
