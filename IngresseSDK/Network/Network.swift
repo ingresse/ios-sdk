@@ -55,6 +55,50 @@ struct Network {
             })
     }
 
+    // MARK: - Empty response request
+
+    static func emptyResponseRequest(_ networkURLRequest: NetworkURLRequest,
+                        _ queue: DispatchQueue = .main,
+                        completion: @escaping (Result<Void, ResponseError>) -> Void) {
+
+        let urlRequest: URLRequestConvertible
+        do {
+            urlRequest = try networkURLRequest.asURLRequest()
+        } catch {
+            let failure = ResponseError(error: error)
+            return completion(.failure(failure))
+        }
+
+        session
+            .request(urlRequest)
+            .validate()
+            .response(
+                queue: queue,
+                completionHandler: { response in
+
+                    if response.response?.statusCode == 204 {
+                        return completion(.success(()))
+                    }
+
+                    if let data =  response.data,
+                       let errorData = try? JSONDecoder().decode(IngresseError.self, from: data),
+                       errorData.responseError != nil {
+                        let error = buildResponseError(errorData)
+
+                        return completion(.failure(error))
+                    }
+
+                    if let responseError = response.error {
+                        let error = ResponseError(error: responseError)
+                        return completion(.failure(error))
+                    }
+
+                    let error = ResponseError(type: .noData)
+                    return completion(.failure(error))
+                }
+            )
+    }
+
     // MARK: - Ingresse api request
 
     static func apiRequest<U: Decodable>(queue: DispatchQueue,

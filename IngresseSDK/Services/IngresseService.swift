@@ -51,4 +51,6 @@ public class IngresseService: NSObject {
     public lazy var ticketTransfer = TicketTransferService(client)
 
     public lazy var apiUser = ApiUserService(client)
+
+    public lazy var users = UsersService(client)
 }
