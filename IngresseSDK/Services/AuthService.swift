@@ -89,15 +89,8 @@ public class AuthService: BaseService {
                 return
             }
 
-            let user = IngresseUser.login(loginData: data)
-
-            self.getUserData(userId: String(user.userId),
-                             userToken: user.token,
-                             onSuccess: { userData in
-
-                    userData.authToken = user.authToken
-                    onSuccess(userData)
-            }, onError: onError)
+            let userData = IngresseUser.login(loginData: data)
+            onSuccess(userData)
         }, onError: onError)
     }
 
@@ -145,15 +138,8 @@ public class AuthService: BaseService {
                 return
             }
 
-            let user = IngresseUser.login(loginData: data)
-
-            self.getUserData(
-                userId: String(user.userId),
-                userToken: user.token,
-                onSuccess: { userData in
-                    userData.authToken = user.authToken
-                    onSuccess(userData)
-            }, onError: onError)
+            let userData = IngresseUser.login(loginData: data)
+            onSuccess(userData)
 
         }, onError: onError)
     }
@@ -202,16 +188,8 @@ public class AuthService: BaseService {
                 return
             }
 
-            let user = IngresseUser.login(loginData: data)
-
-            self.getUserData(
-                userId: String(user.userId),
-                userToken: user.token,
-                onSuccess: { userData in
-                    userData.authToken = user.authToken
-                    onSuccess(userData)
-            }, onError: onError)
-
+            let userData = IngresseUser.login(loginData: data)
+            onSuccess(userData)
         }, onError: onError)
     }
 
