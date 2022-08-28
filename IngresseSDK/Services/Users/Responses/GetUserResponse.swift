@@ -17,7 +17,6 @@ public struct GetUserResponse: Decodable {
     public let modifiedAt: String?
     public let deletedAt: String??
     public let identity: Self.Identity?
-    public let document: Self.Document?
     public let type: Int?
     public let phone: Self.Phone?
     public let address: Self.Address?
@@ -36,12 +35,6 @@ public struct GetUserResponse: Decodable {
             public let mask: String?
             public let regex: String?
         }
-    }
-
-    public struct Document: Decodable {
-
-        public let type: Int?
-        public let number: String?
     }
 
     public struct Phone: Decodable {
