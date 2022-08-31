@@ -5,6 +5,41 @@
 import Alamofire
 
 struct UsersURLRequest {
+    
+    struct CreateUser: NetworkURLRequest {
+
+        private let apiKey: String
+        private let request: CreateUserRequest
+        private let environment: Environment
+        private let userAgent: String
+        private let authToken: String
+
+        init(apiKey: String,
+             request: CreateUserRequest,
+             environment: Environment,
+             userAgent: String,
+             authToken: String) {
+
+            self.apiKey = apiKey
+            self.request = request
+            self.environment = environment
+            self.userAgent = userAgent
+            self.authToken = authToken
+        }
+
+        var baseURL: URL? { environment.usersBaseURL }
+        var path: String { "users" }
+        var method: HTTPMethod { .post }
+        var body: Encodable? { request.body }
+        var authenticationType: AuthenticationType? { nil }
+        var parameters: Encodable? {
+            KeyedRequest(request: request, apikey: apiKey)
+        }
+        var headers: [HeaderType]? {
+            [.userAgent(header: userAgent, authorization: authToken),
+             .applicationJson]
+        }
+    }
 
     struct UpdateUser: NetworkURLRequest {
 
