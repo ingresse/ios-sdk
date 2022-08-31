@@ -16,7 +16,7 @@ public struct CreateUserResponse: Decodable {
         public let identity: Self.Identity?
         public let name: String?
         public let lastName: String?
-        public let ddi: Int?
+        public let ddi: String?
         public let phone: String?
         public let verified: Bool?
         public let type: String?

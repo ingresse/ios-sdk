@@ -8,6 +8,7 @@ public struct CreateUserRequest: Encodable {
     public let body: Self.Body
 
     public init(name: String,
+                lastName: String,
                 email: String,
                 password: String,
                 ddi: String,
@@ -19,6 +20,7 @@ public struct CreateUserRequest: Encodable {
                 aditionalFields: String?) {
         
         self.body = Body(name: name,
+                         lastName: lastName,
                          email: email,
                          password: password,
                          ddi: ddi,
@@ -33,6 +35,7 @@ public struct CreateUserRequest: Encodable {
     public struct Body: Encodable {
 
         public let name: String
+        public let lastName: String
         public let email: String
         public let password: String
         public let ddi: String
@@ -44,6 +47,7 @@ public struct CreateUserRequest: Encodable {
         public let aditionalFields: String?
 
         public init(name: String,
+                    lastName: String,
                     email: String,
                     password: String,
                     ddi: String,
@@ -54,6 +58,7 @@ public struct CreateUserRequest: Encodable {
                     gender: Self.UserGender,
                     aditionalFields: String?) {
             self.name = name
+            self.lastName = lastName
             self.email = email
             self.password = password
             self.ddi = ddi
@@ -66,6 +71,7 @@ public struct CreateUserRequest: Encodable {
         }
         
         public init(name: String,
+                    lastName: String,
                     email: String,
                     password: String,
                     ddi: String,
@@ -77,6 +83,7 @@ public struct CreateUserRequest: Encodable {
                     aditionalFields: String?) {
 
             self.name = name
+            self.lastName = lastName
             self.email = email
             self.password = password
             self.ddi = ddi
