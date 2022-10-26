@@ -29,7 +29,7 @@ struct UsersURLRequest {
 
         var baseURL: URL? { environment.usersBaseURL }
         var path: String { "users" }
-        var method: HTTPMethod { .post }
+        var method: HTTPMethod { .customPost }
         var body: Encodable? { request.body }
         var authenticationType: AuthenticationType? { nil }
         var parameters: Encodable? {

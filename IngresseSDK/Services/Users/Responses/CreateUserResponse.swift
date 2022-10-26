@@ -27,6 +27,7 @@ public struct CreateUserResponse: Decodable {
         public let token: String?
         public let userId: Int?
         public let authToken: String?
+        public let nationality: String?
         
         public struct Identity: Decodable {
 
