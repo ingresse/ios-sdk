@@ -34,4 +34,17 @@ public class UsersService: BaseService {
 
         Network.emptyResponseRequest(urlRequest, completion: completion)
     }
+    
+    public func createUser(request: CreateUserRequest,
+                           queue: DispatchQueue,
+                           completion: @escaping (CustomApiResult<CreateUserResponse>) -> Void) {
+
+        let urlRequest = UsersURLRequest.CreateUser(apiKey: client.apiKey,
+                                                   request: request,
+                                                   environment: client.environment,
+                                                   userAgent: client.userAgent,
+                                                   authToken: client.authToken)
+
+        Network.apiRequest(queue: queue, networkURLRequest: urlRequest, completion: completion)
+    }
 }
