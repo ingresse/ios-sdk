@@ -29,14 +29,14 @@ struct UsersURLRequest {
 
         var baseURL: URL? { environment.usersBaseURL }
         var path: String { "users" }
-        var method: HTTPMethod { .post }
+        var method: HTTPMethod { .customPost }
         var body: Encodable? { request.body }
         var authenticationType: AuthenticationType? { nil }
         var parameters: Encodable? {
-            KeyedRequest(request: request, apikey: apiKey)
+            KeyedRequest<String>.KeyRequest(apikey: apiKey)
         }
         var headers: [HeaderType]? {
-            [.userAgent(header: userAgent, authorization: authToken),
+            [.userAgent(header: "User-Agent", authorization: userAgent),
              .applicationJson]
         }
     }
@@ -74,7 +74,7 @@ struct UsersURLRequest {
             KeyedRequest(request: request.parameters, apikey: apiKey)
         }
         var headers: [HeaderType]? {
-            [.userAgent(header: userAgent, authorization: authToken),
+            [.userAgent(header: "User-Agent", authorization: userAgent),
              .applicationJson]
         }
     }

@@ -13,6 +13,7 @@ public struct UpdateUserRequest: Encodable {
                 name: String?,
                 email: String?,
                 ddi: String?,
+                phone: String?,
                 identity: Self.Body.Identity?,
                 nationality: Self.Body.UserNationality?,
                 birthdate: String?,
@@ -28,6 +29,7 @@ public struct UpdateUserRequest: Encodable {
         self.body = Body(name: name,
                          email: email,
                          ddi: ddi,
+                         phone: phone,
                          identity: identity,
                          nationality: nationality?.value,
                          birthdate: birthdate,
@@ -54,6 +56,7 @@ public struct UpdateUserRequest: Encodable {
         public let name: String?
         public let email: String?
         public let ddi: String?
+        public let phone: String?
         public let identity: Self.Identity?
         public let nationality: String?
         public let birthdate: String?
@@ -67,6 +70,7 @@ public struct UpdateUserRequest: Encodable {
         public init(name: String?,
                     email: String?,
                     ddi: String?,
+                    phone: String?,
                     identity: Self.Identity?,
                     nationality: Self.UserNationality?,
                     birthdate: String?,
@@ -77,10 +81,10 @@ public struct UpdateUserRequest: Encodable {
                     picture: String?,
                     address: Self.Address?) {
 
-
             self.name = name
             self.email = email
             self.ddi = ddi
+            self.phone = phone
             self.identity = identity
             self.nationality = nationality?.value
             self.birthdate = birthdate
@@ -95,6 +99,7 @@ public struct UpdateUserRequest: Encodable {
         public init(name: String?,
                     email: String?,
                     ddi: String?,
+                    phone: String?,
                     identity: Self.Identity?,
                     nationality: String?,
                     birthdate: String?,
@@ -108,6 +113,7 @@ public struct UpdateUserRequest: Encodable {
             self.name = name
             self.email = email
             self.ddi = ddi
+            self.phone = phone
             self.identity = identity
             self.nationality = nationality
             self.birthdate = birthdate

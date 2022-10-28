@@ -17,7 +17,8 @@ public struct CreateUserRequest: Encodable {
                 nationality: Self.Body.UserNationality,
                 birthdate: String,
                 gender: Self.Body.UserGender,
-                aditionalFields: String?) {
+                aditionalFields: String?,
+                news: Bool?) {
         
         self.body = Body(name: name,
                          lastName: lastName,
@@ -29,7 +30,8 @@ public struct CreateUserRequest: Encodable {
                          nationality: nationality.value,
                          birthdate: birthdate,
                          gender: gender.value,
-                         aditionalFields: aditionalFields)
+                         aditionalFields: aditionalFields,
+                         news: news)
     }
 
     public struct Body: Encodable {
@@ -45,6 +47,7 @@ public struct CreateUserRequest: Encodable {
         public let birthdate: String
         public let gender: String
         public let aditionalFields: String?
+        public let news: Bool?
 
         public init(name: String,
                     lastName: String,
@@ -56,7 +59,8 @@ public struct CreateUserRequest: Encodable {
                     nationality: Self.UserNationality,
                     birthdate: String,
                     gender: Self.UserGender,
-                    aditionalFields: String?) {
+                    aditionalFields: String?,
+                    news: Bool?) {
             self.name = name
             self.lastName = lastName
             self.email = email
@@ -68,6 +72,7 @@ public struct CreateUserRequest: Encodable {
             self.birthdate = birthdate
             self.gender = gender.value
             self.aditionalFields = aditionalFields
+            self.news = news
         }
         
         public init(name: String,
@@ -80,7 +85,8 @@ public struct CreateUserRequest: Encodable {
                     nationality: String,
                     birthdate: String,
                     gender: String,
-                    aditionalFields: String?) {
+                    aditionalFields: String?,
+                    news: Bool?) {
 
             self.name = name
             self.lastName = lastName
@@ -93,6 +99,7 @@ public struct CreateUserRequest: Encodable {
             self.birthdate = birthdate
             self.gender = gender
             self.aditionalFields = aditionalFields
+            self.news = news
         }
 
         public struct Identity: Encodable {
