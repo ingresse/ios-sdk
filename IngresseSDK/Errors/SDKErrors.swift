@@ -28,6 +28,8 @@ public class SDKErrors: NSObject {
         1144: "A senha deve conter 8 caracteres e ao menos uma letra.",
         1146: "O campo TELEFONE é inválido.",
         1172: "O campo DATA DE NASCIMENTO é inválido.",
+        1173: "O campo GÊNERO não é válido.",
+        1212: "O campo NACIONALIDADE não é válido",
         2006: "Por favor, refaça a operação de login e tente novamente. Caso o erro persista, atualize o aplicativo.",
         2012: "Verifique em seu aparelho se as configurações de data e hora estão em \"ajuste automático\" e tente novamente.",
         3027: "Por favor, refaça a operação de login e tente novamente.",
@@ -48,6 +50,7 @@ public class SDKErrors: NSObject {
         6012: "Por favor, visite o site da Ingresse (ingresse.com) para comprar ingressos para esse evento.",
         6013: "Lamentamos, mas os ingressos para este setor esgotaram. Selecione outro tipo de ingresso e tente novamente.",
         6014: "Você excedeu o limite de ingressos disponíveis por conta. Para mais informações, verifique a descrição do evento.",
+        6020: "O documento informado já está sendo utilizado por outro usuário.",
         6031: "É necessário que você escolha o destino de cada um dos ingressos.",
         6034: "Ticket não está pendente. Verifique se a transferência foi cancelada.",
         6038: "Este ingresso já foi transferido. Atualize a sua carteira e verá para quem foi enviado o ingresso.",
@@ -62,7 +65,8 @@ public class SDKErrors: NSObject {
         6063: "Esse email já está em uso.",
         6065: "O token fornecido está expirado. Procure nosso suporte em contato@ingresse.com e informe o ocorrido.",
         6073: "Você só pode adicionar 3 cartões na sua conta. Se quer adicionar outro cartão é necessário excluir qualquer um dos outros que já estão cadastrados.",
-        6074: "Cartão já cadastrado. Verifique seus cartões salvos."]
+        6074: "Cartão já cadastrado. Verifique seus cartões salvos.",
+        6086: "O campo DOCUMENTO não é válido."]
 
     let titles = [
         -1: "Login incorreto",
