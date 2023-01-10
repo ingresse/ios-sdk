@@ -22,7 +22,7 @@ extension NetworkURLRequest {
         switch method {
         case .get, .delete:
             return URLEncoding.default
-        case .customPost:
+        case .customPost, .put:
             return URLEncoding.queryString
         default:
             return JSONEncoding.default
@@ -53,7 +53,7 @@ extension NetworkURLRequest {
 
         var urlRequest = try URLRequest(url: url, method: method, headers: headers)
 
-        if method == .customPost {
+        if method == .customPost || method == .put {
             let data = try serialize(body)
             urlRequest.httpBody = data
         }
