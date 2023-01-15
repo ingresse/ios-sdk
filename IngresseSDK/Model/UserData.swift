@@ -16,6 +16,9 @@ public class UserData: NSObject, Codable {
     public var ddi: String = ""
     public var phone: String = ""
     public var number: String = ""
+    public var document: String = ""
+    public var gender: String = ""
+    public var nationality: String = ""
     public var birthdate: String = ""
     public var fbUserId: String = ""
     public var verified: Bool = false
@@ -27,7 +30,7 @@ public class UserData: NSObject, Codable {
         case name
         case lastname
         case email
-        case cpf = "document"
+        case cpf
         case state
         case city
         case district
@@ -37,6 +40,9 @@ public class UserData: NSObject, Codable {
         case ddi
         case phone
         case number
+        case document
+        case gender
+        case nationality
         case birthdate
         case fbUserId
         case verified
@@ -61,6 +67,9 @@ public class UserData: NSObject, Codable {
         phone = container.decodeKey(.phone, ofType: String.self)
         number = container.decodeKey(.number, ofType: String.self)
         birthdate = container.decodeKey(.birthdate, ofType: String.self)
+        document = container.decodeKey(.document, ofType: String.self)
+        gender = container.decodeKey(.gender, ofType: String.self)
+        nationality = container.decodeKey(.nationality, ofType: String.self)
         fbUserId = container.decodeKey(.fbUserId, ofType: String.self)
         verified = container.decodeKey(.verified, ofType: Bool.self)
         type = container.decodeKey(.type, ofType: String.self)

@@ -5,5 +5,5 @@
 import Foundation
 
 public struct IngresseData<R: Decodable>: Decodable {
-    let responseData: R?
+    public let responseData: R?
 }
