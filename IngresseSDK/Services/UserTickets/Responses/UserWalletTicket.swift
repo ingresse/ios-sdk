@@ -30,6 +30,7 @@ public struct UserWalletTicket: Decodable {
     public let isTransferable: Bool?
     public let isTransferCancelable: Bool?
     public let isReturnable: Bool?
+    public let secret: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -59,5 +60,6 @@ public struct UserWalletTicket: Decodable {
         case isTransferable
         case isTransferCancelable
         case isReturnable
+        case secret
     }
 }
