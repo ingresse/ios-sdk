@@ -509,14 +509,21 @@ public class AuthService: BaseService {
     ///   - onSuccess: success callback
     ///   - onError: fail callback
     public func createTwoFactorToken(userToken: String,
+                                     challenge: String?,
                                      deviceId: String,
                                      otpCode: String,
                                      onSuccess: @escaping (Response.Auth.TwoFactor) -> Void,
                                      onError: @escaping ErrorHandler) {
 
-        let builder = URLBuilder(client: client)
+        var builder = URLBuilder(client: client)
             .setPath("two-factor")
             .addParameter(key: "usertoken", value: userToken)
+        
+        var params: [String: Any] = [:]
+        if let challenge = challenge {
+            builder = builder.addParameter(key: "challenge", value: challenge)
+            params["challenge"] = challenge
+        }
 
         guard let request = try? builder.build() else {
 
@@ -525,6 +532,7 @@ public class AuthService: BaseService {
 
         let header = ["X-INGRESSE-OTP": otpCode, "X-INGRESSE-DEVICE": deviceId]
         client.restClient.POST(request: request,
+                               parameters: params,
                                customHeader: header,
                                onSuccess: { response in
 
