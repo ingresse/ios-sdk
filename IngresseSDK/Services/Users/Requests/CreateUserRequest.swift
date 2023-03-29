@@ -13,8 +13,8 @@ public struct CreateUserRequest: Encodable {
                 password: String,
                 ddi: String,
                 phone: String,
-                identity: Self.Body.Identity,
-                nationality: Self.Body.UserNationality,
+                identity: Self.Body.Identity?,
+                nationality: Self.Body.UserNationality?,
                 birthdate: String,
                 gender: Self.Body.UserGender,
                 aditionalFields: String?,
@@ -27,7 +27,7 @@ public struct CreateUserRequest: Encodable {
                          ddi: ddi,
                          phone: phone,
                          identity: identity,
-                         nationality: nationality.value,
+                         nationality: nationality?.value,
                          birthdate: birthdate,
                          gender: gender.value,
                          aditionalFields: aditionalFields,
@@ -42,8 +42,8 @@ public struct CreateUserRequest: Encodable {
         public let password: String
         public let ddi: String
         public let phone: String
-        public let identity: Self.Identity
-        public let nationality: String
+        public let identity: Self.Identity?
+        public let nationality: String?
         public let birthdate: String
         public let gender: String
         public let aditionalFields: String?
@@ -55,8 +55,8 @@ public struct CreateUserRequest: Encodable {
                     password: String,
                     ddi: String,
                     phone: String,
-                    identity: Self.Identity,
-                    nationality: Self.UserNationality,
+                    identity: Self.Identity?,
+                    nationality: Self.UserNationality?,
                     birthdate: String,
                     gender: Self.UserGender,
                     aditionalFields: String?,
@@ -68,7 +68,7 @@ public struct CreateUserRequest: Encodable {
             self.ddi = ddi
             self.phone = phone
             self.identity = identity
-            self.nationality = nationality.value
+            self.nationality = nationality?.value
             self.birthdate = birthdate
             self.gender = gender.value
             self.aditionalFields = aditionalFields
@@ -81,8 +81,8 @@ public struct CreateUserRequest: Encodable {
                     password: String,
                     ddi: String,
                     phone: String,
-                    identity: Self.Identity,
-                    nationality: String,
+                    identity: Self.Identity?,
+                    nationality: String?,
                     birthdate: String,
                     gender: String,
                     aditionalFields: String?,
