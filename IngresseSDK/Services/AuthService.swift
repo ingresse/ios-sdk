@@ -193,6 +193,49 @@ public class AuthService: BaseService {
         }, onError: onError)
     }
 
+    /// Login with Facebank
+    ///
+    /// - Parameters:
+    ///   - code: The code returner by Facebank's flow
+    ///   - onSuccess: Success callback
+    ///   - onError: Fail callback
+    public func loginWithFacebank(code: String,
+                               onSuccess: @escaping (_ response: IngresseUser) -> Void,
+                               onError: @escaping ErrorHandler) {
+
+        let builder = URLBuilder(client: client).setPath("login/facebank")
+        guard let request = try? builder.build() else {
+            return onError(APIError.getDefaultError())
+        }
+
+        let params = ["code": code,
+                      "redirectUri": "ingresse://facebank"]
+
+        client.restClient.POST(request: request,
+                               parameters: params,
+                               onSuccess: { response in
+
+            guard let logged = response["status"] as? Bool,
+                logged else {
+                    let error = APIError.Builder()
+                        .setCode(-1)
+                        .setError(response["message"] as! String)
+                        .build()
+
+                    onError(error)
+                    return
+            }
+
+            guard let data = response["data"] as? [String: Any] else {
+                onError(APIError.getDefaultError())
+                return
+            }
+
+            let userData = IngresseUser.login(loginData: data)
+            onSuccess(userData)
+        }, onError: onError)
+    }
+
     /// Complete user data
     ///
     /// - Parameters:
