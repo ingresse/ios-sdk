@@ -49,6 +49,7 @@ public enum Host: String {
     case ingresseLive = "live.ingresse.com/"
     case ingresseLiveHml = "live-homolog.ingresse.com/"
     case cashless = "cashless.ingresse.com"
+    case backstageReports = "backstage-reports.ingresse.com"
 }
 
 public class URLBuilder: NSObject {
