@@ -221,7 +221,6 @@
 		62F7D1BA21CBCFE2000F51FE /* WalletRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */; };
 		62F7D1BC21CBD53B000F51FE /* AuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */; };
 		690D4AB92A14241300A9931C /* BackstageReportsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690D4AB82A14241300A9931C /* BackstageReportsService.swift */; };
-		690D4ABB2A14251F00A9931C /* BackstageReportRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690D4ABA2A14251F00A9931C /* BackstageReportRequests.swift */; };
 		690D4ABF2A14260C00A9931C /* BackstageReportsUrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690D4ABE2A14260C00A9931C /* BackstageReportsUrlRequest.swift */; };
 		690D4AC92A15002400A9931C /* EntranceReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690D4AC82A15002400A9931C /* EntranceReport.swift */; };
 		690D4ACB2A15004600A9931C /* EntranceReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690D4ACA2A15004600A9931C /* EntranceReportRequest.swift */; };
@@ -486,7 +485,6 @@
 		62F7D1B921CBCFE2000F51FE /* WalletRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRequests.swift; sourceTree = "<group>"; };
 		62F7D1BB21CBD53B000F51FE /* AuthRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequests.swift; sourceTree = "<group>"; };
 		690D4AB82A14241300A9931C /* BackstageReportsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackstageReportsService.swift; sourceTree = "<group>"; };
-		690D4ABA2A14251F00A9931C /* BackstageReportRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackstageReportRequests.swift; sourceTree = "<group>"; };
 		690D4ABE2A14260C00A9931C /* BackstageReportsUrlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackstageReportsUrlRequest.swift; sourceTree = "<group>"; };
 		690D4AC82A15002400A9931C /* EntranceReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceReport.swift; sourceTree = "<group>"; };
 		690D4ACA2A15004600A9931C /* EntranceReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceReportRequest.swift; sourceTree = "<group>"; };
@@ -782,7 +780,6 @@
 				A5982B152228BBC7004DEFC7 /* EventRequests.swift */,
 				2F31EB9322F4A9FF001B6F6E /* UserCardRequests.swift */,
 				CE2D74FA2409CED800A799BA /* TransactionRequest.swift */,
-				690D4ABA2A14251F00A9931C /* BackstageReportRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1567,7 +1564,6 @@
 				6246D6B61FD7086E0012FAD9 /* Planner.swift in Sources */,
 				2FA9C405255F3E5B00ACBD9D /* PagedResponse.swift in Sources */,
 				2F401A9925657775001F09EF /* UserWalletTicket.swift in Sources */,
-				690D4ABB2A14251F00A9931C /* BackstageReportRequests.swift in Sources */,
 				352A167E2110B1F300814AF9 /* Address.swift in Sources */,
 				627485651F054ACF009AE812 /* Refund.swift in Sources */,
 				2F02489D28A2BB7500337A2D /* UpdateUserRequest.swift in Sources */,
