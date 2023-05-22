@@ -146,6 +146,11 @@ struct Network {
                                                                     from: data)
                         
                         guard let data = ingresseData.responseData else {
+                            let customResponse = try? JSONDecoder().decode(U.self, from: data)
+                            if (customResponse != nil) {
+                                return completion(.success(customResponse!))
+                            }
+                            
                             let error = ResponseError(type: .noData)
                             return completion(.failure(error))
                         }

@@ -53,4 +53,6 @@ public class IngresseService: NSObject {
     public lazy var apiUser = ApiUserService(client)
 
     public lazy var users = UsersService(client)
+    
+    public lazy var backstageReports = BackstageReportsService(client)
 }
