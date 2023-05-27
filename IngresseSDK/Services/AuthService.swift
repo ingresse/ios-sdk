@@ -58,7 +58,13 @@ public class AuthService: BaseService {
     ///   - pass: password
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
-    public func loginWithEmail(_ email: String, andPassword pass: String, onSuccess: @escaping (_ response: IngresseUser) -> Void, onError: @escaping ErrorHandler) {
+    public func loginWithEmail(
+        _ email: String,
+        andPassword pass: String,
+        andDevice device: UserDevice,
+        onSuccess: @escaping (_ response: IngresseUser) -> Void,
+        onError: @escaping ErrorHandler
+    ) {
         let builder = URLBuilder(client: client)
             .setPath("login/")
         guard let request = try? builder.build() else {
@@ -68,9 +74,17 @@ public class AuthService: BaseService {
 
         let params = ["email": email,
                       "password": pass]
+        
+        var header: [String: Any] = [:]
+        
+        if let data = try? JSONEncoder().encode(device) {
+            let jsonString = String(decoding: data, as: UTF8.self)
+            header["X-INGRESSE-DEVICE"] = jsonString
+        }
 
         client.restClient.POST(request: request,
                                parameters: params,
+                               customHeader: header,
                                onSuccess: { response in
 
             guard let logged = response["status"] as? Bool,
