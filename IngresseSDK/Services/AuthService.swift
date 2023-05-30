@@ -76,7 +76,6 @@ public class AuthService: BaseService {
                       "password": pass]
         
         var header: [String: Any] = [:]
-        
         if let data = try? JSONEncoder().encode(device) {
             let jsonString = String(decoding: data, as: UTF8.self)
             header["X-INGRESSE-DEVICE"] = jsonString
@@ -119,6 +118,7 @@ public class AuthService: BaseService {
     public func loginWithFacebook(email: String,
                                   fbToken: String,
                                   fbUserId: String,
+                                  andDevice device: UserDevice,
                                   onSuccess: @escaping (_ response: IngresseUser) -> Void,
                                   onError: @escaping ErrorHandler) {
         let builder = URLBuilder(client: client)
@@ -131,9 +131,16 @@ public class AuthService: BaseService {
         let params = ["email": email,
                       "fbToken": fbToken,
                       "fbUserId": fbUserId]
+        
+        var header: [String: Any] = [:]
+        if let data = try? JSONEncoder().encode(device) {
+            let jsonString = String(decoding: data, as: UTF8.self)
+            header["X-INGRESSE-DEVICE"] = jsonString
+        }
 
         client.restClient.POST(request: request,
                                parameters: params,
+                               customHeader: header,
                                onSuccess: { response in
 
             guard let logged = response["status"] as? Bool,
@@ -169,21 +176,29 @@ public class AuthService: BaseService {
     public func loginWithApple(userIdentifier: String,
                                identityToken: String,
                                authorizationCode: String,
+                               andDevice device: UserDevice,
                                onSuccess: @escaping (_ response: IngresseUser) -> Void,
                                onError: @escaping ErrorHandler) {
         let builder = URLBuilder(client: client)
             .setPath("login/apple")
+        
         guard let request = try? builder.build() else {
-
             return onError(APIError.getDefaultError())
         }
 
         let params = ["userIdentifier": userIdentifier,
                       "identityToken": identityToken,
                       "authorizationCode": authorizationCode]
+        
+        var header: [String: Any] = [:]
+        if let data = try? JSONEncoder().encode(device) {
+            let jsonString = String(decoding: data, as: UTF8.self)
+            header["X-INGRESSE-DEVICE"] = jsonString
+        }
 
         client.restClient.POST(request: request,
                                parameters: params,
+                               customHeader: header,
                                onSuccess: { response in
 
             guard let logged = response["status"] as? Bool,
@@ -214,19 +229,28 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func loginWithFacebank(code: String,
+                                  andDevice device: UserDevice,
                                onSuccess: @escaping (_ response: IngresseUser) -> Void,
                                onError: @escaping ErrorHandler) {
 
         let builder = URLBuilder(client: client).setPath("login/facebank")
+        
         guard let request = try? builder.build() else {
             return onError(APIError.getDefaultError())
         }
 
         let params = ["code": code,
                       "redirectUri": "ingresse://facebank"]
+        
+        var header: [String: Any] = [:]
+        if let data = try? JSONEncoder().encode(device) {
+            let jsonString = String(decoding: data, as: UTF8.self)
+            header["X-INGRESSE-DEVICE"] = jsonString
+        }
 
         client.restClient.POST(request: request,
                                parameters: params,
+                               customHeader: header,
                                onSuccess: { response in
 
             guard let logged = response["status"] as? Bool,
