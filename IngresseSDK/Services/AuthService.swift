@@ -76,9 +76,8 @@ public class AuthService: BaseService {
                       "password": pass]
         
         var header: [String: Any] = [:]
-        if let data = try? JSONEncoder().encode(device) {
-            let jsonString = String(decoding: data, as: UTF8.self)
-            header["X-INGRESSE-DEVICE"] = jsonString
+        if let jsonDevice = device.toJsonString() {
+            header["X-INGRESSE-DEVICE"] = jsonDevice
         }
 
         client.restClient.POST(request: request,
@@ -133,9 +132,8 @@ public class AuthService: BaseService {
                       "fbUserId": fbUserId]
         
         var header: [String: Any] = [:]
-        if let data = try? JSONEncoder().encode(device) {
-            let jsonString = String(decoding: data, as: UTF8.self)
-            header["X-INGRESSE-DEVICE"] = jsonString
+        if let jsonDevice = device.toJsonString() {
+            header["X-INGRESSE-DEVICE"] = jsonDevice
         }
 
         client.restClient.POST(request: request,
@@ -191,9 +189,8 @@ public class AuthService: BaseService {
                       "authorizationCode": authorizationCode]
         
         var header: [String: Any] = [:]
-        if let data = try? JSONEncoder().encode(device) {
-            let jsonString = String(decoding: data, as: UTF8.self)
-            header["X-INGRESSE-DEVICE"] = jsonString
+        if let jsonDevice = device.toJsonString() {
+            header["X-INGRESSE-DEVICE"] = jsonDevice
         }
 
         client.restClient.POST(request: request,
@@ -243,9 +240,8 @@ public class AuthService: BaseService {
                       "redirectUri": "ingresse://facebank"]
         
         var header: [String: Any] = [:]
-        if let data = try? JSONEncoder().encode(device) {
-            let jsonString = String(decoding: data, as: UTF8.self)
-            header["X-INGRESSE-DEVICE"] = jsonString
+        if let jsonDevice = device.toJsonString() {
+            header["X-INGRESSE-DEVICE"] = jsonDevice
         }
 
         client.restClient.POST(request: request,
