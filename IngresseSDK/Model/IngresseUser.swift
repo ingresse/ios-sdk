@@ -7,6 +7,7 @@ public class IngresseUser: NSObject, Codable {
     public var token: String = ""
     public var authToken: String = ""
     public var data: UserData!
+    public var device: UserDevice? = nil
     
     public static var user: IngresseUser?
     

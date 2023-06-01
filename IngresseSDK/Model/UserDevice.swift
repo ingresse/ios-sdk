@@ -2,28 +2,35 @@
 //  UserDevice.swift
 //  IngresseSDK
 //
-//  Created by Phillipi Unger Lino on 27/05/23.
+//  Created by Phillipi Unger Lino on 01/06/23.
 //  Copyright © 2023 Ingresse. All rights reserved.
 //
 
-public struct UserDevice: Encodable {
-    public let id: String
-    public let name: String
-    public let type: String
+public class UserDevice: Codable {
+    public let uuid: String?
+    public let id: String?
+    public let name: String?
+    public let createdAt: String?
+    public let active: Bool?
+    public let validated: Bool?
 
-    public init(
-        id: String,
-        name: String,
-        type: String
-    ) {
-        self.id = id
-        self.name = name
-        self.type = type
+    enum CodingKeys: String, CodingKey {
+        case uuid
+        case id
+        case name
+        case createdAt = "created_at"
+        case active
+        case validated
     }
-    
-    func toJsonString() -> String? {
-        guard let data = try? JSONEncoder().encode(self) else { return nil }
-        let jsonString = String(decoding: data, as: UTF8.self)
-        return jsonString
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        uuid = try? container.decodeIfPresent(String.self, forKey: .uuid) ?? ""
+        id = try? container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        name = try? container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        createdAt = try? container.decodeIfPresent(String.self, forKey: .createdAt) ?? ""
+        active = try? container.decodeIfPresent(Bool.self, forKey: .active) ?? false
+        validated = try? container.decodeIfPresent(Bool.self, forKey: .validated) ?? false
     }
 }
+

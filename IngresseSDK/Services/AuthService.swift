@@ -61,7 +61,7 @@ public class AuthService: BaseService {
     public func loginWithEmail(
         _ email: String,
         andPassword pass: String,
-        andDevice device: UserDevice,
+        andDevice device: LoginUserDevice,
         onSuccess: @escaping (_ response: IngresseUser) -> Void,
         onError: @escaping ErrorHandler
     ) {
@@ -117,7 +117,7 @@ public class AuthService: BaseService {
     public func loginWithFacebook(email: String,
                                   fbToken: String,
                                   fbUserId: String,
-                                  andDevice device: UserDevice,
+                                  andDevice device: LoginUserDevice,
                                   onSuccess: @escaping (_ response: IngresseUser) -> Void,
                                   onError: @escaping ErrorHandler) {
         let builder = URLBuilder(client: client)
@@ -174,7 +174,7 @@ public class AuthService: BaseService {
     public func loginWithApple(userIdentifier: String,
                                identityToken: String,
                                authorizationCode: String,
-                               andDevice device: UserDevice,
+                               andDevice device: LoginUserDevice,
                                onSuccess: @escaping (_ response: IngresseUser) -> Void,
                                onError: @escaping ErrorHandler) {
         let builder = URLBuilder(client: client)
@@ -226,7 +226,7 @@ public class AuthService: BaseService {
     ///   - onSuccess: Success callback
     ///   - onError: Fail callback
     public func loginWithFacebank(code: String,
-                                  andDevice device: UserDevice,
+                                  andDevice device: LoginUserDevice,
                                onSuccess: @escaping (_ response: IngresseUser) -> Void,
                                onError: @escaping ErrorHandler) {
 
