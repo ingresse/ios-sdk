@@ -10,6 +10,12 @@ public struct LoginUserDevice: Encodable {
     public let id: String
     public let name: String
     public let type: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case type = "device_type"
+    }
 
     public init(
         id: String,
