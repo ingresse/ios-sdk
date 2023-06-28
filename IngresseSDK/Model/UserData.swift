@@ -25,6 +25,7 @@ public class UserData: NSObject, Codable {
     public var type: String = ""
     public var pictures: [String: String] = [:]
     public var picture: String = ""
+    public var device: UserDevice? = nil
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -49,6 +50,7 @@ public class UserData: NSObject, Codable {
         case type
         case pictures
         case picture
+        case device
     }
 
     public required init(from decoder: Decoder) throws {
@@ -75,5 +77,6 @@ public class UserData: NSObject, Codable {
         type = container.decodeKey(.type, ofType: String.self)
         pictures = container.decodeKey(.pictures, ofType: [String: String].self)
         picture = container.decodeKey(.picture, ofType: String.self)
+        device = try? container.decodeIfPresent(UserDevice.self, forKey: .device)
     }
 }
