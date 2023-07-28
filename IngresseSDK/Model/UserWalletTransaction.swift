@@ -10,7 +10,7 @@ public struct UserWalletTransaction: Decodable {
     public var payment: Payment?
     public var tickets: [TransactionTicket]?
     public var event: Event?
-
+    public var amountDiscount: Double?
     enum CodingKeys: String, CodingKey {
         case transactionId
         case createdAt
@@ -19,6 +19,7 @@ public struct UserWalletTransaction: Decodable {
         case payment
         case tickets
         case event
+        case amountDiscount
     }
 
     public init(from decoder: Decoder) throws {
@@ -30,6 +31,7 @@ public struct UserWalletTransaction: Decodable {
         payment = try container.decodeIfPresent(Payment.self, forKey: .payment)
         tickets = try container.decodeIfPresent([TransactionTicket].self, forKey: .tickets)
         event = try container.decodeIfPresent(Event.self, forKey: .event)
+        amountDiscount = try container.decodeIfPresent(Double.self, forKey: .amountDiscount)
     }
     
     public struct TransactionTicket: Decodable {

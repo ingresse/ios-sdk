@@ -29,7 +29,8 @@ public extension UserTransactionResponse {
         public let createdAt: String
         public let channel: String?
         public let canRefund: Bool
-
+        public let amountDiscount: Double?
+        
         public struct Payment: Decodable {
             public let method: String?
             public let acquirer: String?
