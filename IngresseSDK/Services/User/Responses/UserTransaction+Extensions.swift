@@ -5,30 +5,30 @@
 public extension UserTransactionResponse {
 
     struct Event: Decodable {
-        public let id: Int
-        public let title: String
-        public let datetime: String
+        public let id: Int?
+        public let title: String?
+        public let datetime: String?
     }
 
     struct Items: Decodable {
-        public let data: [Self.ItemsData]
-        public let quantity: Int
+        public let data: [Self.ItemsData]?
+        public let quantity: Int?
 
         public struct ItemsData: Decodable {
-            public let id: Int
-            public let price: Double
-            public let tax: Double
+            public let id: Int?
+            public let price: Double?
+            public let tax: Double?
         }
     }
 
     struct Sale: Decodable {
-        public let transactionId: String
-        public let amount: Double
+        public let transactionId: String?
+        public let amount: Double?
         public let status: String?
-        public let payment: Self.Payment
-        public let createdAt: String
+        public let payment: Self.Payment?
+        public let createdAt: String?
         public let channel: String?
-        public let canRefund: Bool
+        public let canRefund: Bool?
         public let amountDiscount: Double?
         
         public struct Payment: Decodable {
