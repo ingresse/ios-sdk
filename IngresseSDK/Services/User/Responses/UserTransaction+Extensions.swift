@@ -30,6 +30,7 @@ public extension UserTransactionResponse {
         public let channel: String?
         public let canRefund: Bool?
         public let amountDiscount: Double?
+        public let hasCoupon: Bool?
         
         public struct Payment: Decodable {
             public let method: String?
