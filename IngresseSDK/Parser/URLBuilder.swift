@@ -10,10 +10,11 @@ public enum Environment: String {
     case hmlC = "hmlc-"
     case test = "test-"
     case stg = "stg-"
+    case uatDeploy = "uat-deploy-"
     case integration = "integration2-"
     case undefined = "undefined-"
 
-    static func hmlEnvs() -> [Environment] { [.hml, .hmlA, .hmlB, .hmlC] }
+    static func hmlEnvs() -> [Environment] { [.hml, .hmlA, .hmlB, .hmlC, .uatDeploy] }
 
     public init(envType: String) {
         switch envType {
@@ -31,6 +32,8 @@ public enum Environment: String {
             self = .test
         case "stg":
             self = .stg
+        case "deploy":
+            self = .uatDeploy
         case "integration2-":
             self = .integration
         default:
