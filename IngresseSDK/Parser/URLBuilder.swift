@@ -11,10 +11,16 @@ public enum Environment: String {
     case test = "test-"
     case stg = "stg-"
     case uatDeploy = "uat-deploy-"
+    case uatFutebol = "uat-futebol-"
+    case uatRetencao = "uat-retencao-"
+    case uatExpansao = "uat-expansao-"
+    case uatNeo = "uat-neo-"
+    case uatZnglr = "uat-znglr-"
+    case uatI18N = "uat-i18n-"
     case integration = "integration2-"
     case undefined = "undefined-"
 
-    static func hmlEnvs() -> [Environment] { [.hml, .hmlA, .hmlB, .hmlC, .uatDeploy] }
+    static func hmlEnvs() -> [Environment] { [.hml, .hmlA, .hmlB, .hmlC, .uatDeploy, .uatFutebol, .uatRetencao, .uatExpansao, .uatNeo, .uatZnglr, .uatI18N] }
 
     public init(envType: String) {
         switch envType {
@@ -32,8 +38,20 @@ public enum Environment: String {
             self = .test
         case "stg":
             self = .stg
-        case "deploy":
+        case "uatdeploy":
             self = .uatDeploy
+        case "uatfutebol":
+            self = .uatFutebol
+        case "uatretencao":
+            self = .uatRetencao
+        case "uatexpansao":
+            self = .uatExpansao
+        case "uatneo":
+            self = .uatNeo
+        case "uatznglr":
+            self = .uatZnglr
+        case "uati18n":
+            self = .uatI18N
         case "integration2-":
             self = .integration
         default:
