@@ -5,10 +5,10 @@ on:
 jobs:
   check:
     name: Deploy
-    runs-on: macOS-latest
+    runs-on: macos-13
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      DEVELOPER_DIR: /Applications/Xcode_11.2.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_15.0.1.app/Contents/Developer
       RELEASE_TAG: ${{ toJson(github.event.release.tag_name) }}
     steps:
     - uses: actions/checkout@v1
@@ -27,6 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        bundle update
         bundle config path vendor/bundle
         bundle install --full-index
 
